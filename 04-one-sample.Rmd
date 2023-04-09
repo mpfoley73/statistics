@@ -1,0 +1,824 @@
+# One-Sample
+
+```{r include=FALSE}
+library(tidyverse)
+library(broom)
+library(gtsummary)
+library(flextable)
+```
+
+Use *one-sample* tests to either *describe* a single variable's frequency or central tendency, or to *compare* the frequency or central tendency to a hypothesized distribution or value.
+
+If the data generating process produces continuous outcomes (interval or ratio), and the outcomes are symmetrically distributed, the sample mean, $\bar{x}$, is a random variable centered at the population mean, $\mu$. You can then use a theoretical distribution (normal or student t) to estimate a 95% confidence interval (CI) around $\mu$, or compare $\bar{x}$ to an hypothesized population mean, $\mu_0$. If you (somehow) know the population variance, or the Central Limit Theorem (CLT) conditions hold, you can assume the random variable is normally distributed and use the *z*-test, otherwise assume the random variable has student *t* distribution and use the *t*-test.^[The *t*-test returns nearly the same result as the *z*-test when the CLT holds, so in practice no one bothers with the *z*-test except as an aid to teach the *t*-test.] If the data generating process produces continuous outcomes that are *not* symmetrically distributed, use a non-parametric test like the Wilcoxon median test.
+
+If the data generating process produces discrete outcomes (counts), the sample count, $x$, is a random variable from a Poisson, binomial, normal, or multinomial distribution, or a random variable from a theoretical outcome. Whatever the source of the expected values, you use either the *chi-squared goodness-of-fit* test or *G* test to test whether the observed values fit the expected values from the distribution. In the special case of binary outcomes with small (*n* < 1,000), you can use Fisher's exact test instead. The discrete variable tests are discussed in [PSU STATS 504](https://online.stat.psu.edu/stat504).
+
+* For counts over a fixed time or space, treat the count as a random variable from a Poisson distribution with expected value $\lambda$ and variance $\lambda$.
+
+* For counts within a fixed total that are then classified into two levels (usually yes/no), then treat the count as a random variable from a binomial distribution with expected value $n\pi$ and variance $n\pi(1-\pi)$.
+
+* For binomial distributions where $n\ge30$ and the frequency counts of both levels is $\ge$ 5, treat the *proportion* as a random variable from the normal distribution with expected valued $\pi$ and variance $\frac{\pi(1-\pi)}{n}$.
+
+* For counts within a fixed total that are then classified into three or more levels, treat the count as a random variable from the multinomial distribution with expected value $n\pi_j$ and variance $n\pi_j(1-\pi_j)$.
+
+## One-Sample Mean z Test
+
+The *z* test is also called the normal approximation *z* test.  It only applies when the sampling distribution of the population mean is normally distributed with known variance, and there are no significant outliers. The sampling distribution is normally distributed when the underlying population is normally distributed, or when the sample size is large $(n >= 30)$, as follows from the central limit theorem. The *t* test returns similar results, plus it is valid when the variance is unknown, and that is pretty much always. For that reason, you probably will never use this test.
+
+Under the normal approximation method, the measured mean $\bar{x}$ approximates the population mean $\mu$, and the sampling distribution has a normal distribution centered at $\mu$ with standard error $se_\mu = \frac{\sigma}{\sqrt{n}}$ where $\sigma$ is the standard deviation of the underlying population. Define a $(1 - \alpha)\%$ confidence interval as $\bar{x} \pm z_{(1 - \alpha) {/} 2} se_\mu$, or test $H_0: \mu = \mu_0$ with test statistic $Z = \frac{\bar{x} - \mu_0}{se_\mu}$.  
+
+#### Example {-}
+
+```{r include=FALSE}
+n <- nrow(mtcars)
+x_bar <- mean(mtcars$mpg)
+s <- sd(mtcars$mpg)
+mu_0 <- 18.0
+sigma <- 6
+```
+
+The `mtcars` data set is a sample of *n* = `r n` cars. The mean fuel economy is $\bar{x} \pm s$ = `r x_bar %>% format(digits = 1, nsmall=1)` $\pm$ `r s %>% format(digits = 1, nsmall=1)` mpg. The prior measured overall fuel economy for vehicles was $\mu_0 \pm \sigma$ = `r mu_0 %>% format(digits = 1, nsmall=1)` $\pm$ `r sigma %>% format(digits = 1, nsmall=1)` mpg. Has fuel economy improved?
+
+The sample size is $\ge$ 30, so the sampling distribution of the population mean is normally distributed. The population variance is known, so use the *z* test.  
+
+```{r include=FALSE}
+se <- sigma / sqrt(n)
+Z <- (x_bar - mu_0) / se
+p <- pnorm(q = Z, lower.tail = FALSE)
+```
+
+$H_0: \mu = 16.0$, and $H_a: \mu > 16.0$ - a right-tail test. The test statistic is $Z = \frac{\bar{x} - \mu_0}{se_\mu}=$ `r Z %>% format(digits = 1, nsmall = 2)` where $se_{\mu_0} = \frac{\mu_0}{\sqrt{n}} =$ `r se %>% format(digits = 1, nsmall = 2)`. $P(z > Z) =$ `r p %>% format(digits = 1, nsmall = 4)`, so reject $H_0$ at the $\alpha =$ 0.05 level of significance.
+
+```{r echo=FALSE, warning=FALSE, fig.height=3.5, fig.width=6.5}
+lrr = -Inf  # right-tailed test
+urr = mu_0 + qnorm(p = .05, lower.tail = FALSE) * se
+data.frame(mu = seq(10, 25, by = .1)) %>%
+  mutate(Z = (mu - mu_0) / se,
+         prob = dnorm(Z),
+         rr = ifelse(mu < lrr | mu > urr, prob, NA_real_)) %>%
+  ggplot() +
+  geom_line(aes(x = mu, y = prob)) +
+  geom_area(aes(x = mu, y = rr), fill = "firebrick", alpha = 0.6) +
+  geom_vline(aes(xintercept = mu_0), size = 1) +
+  geom_vline(aes(xintercept = x_bar), color = "goldenrod", size = 1, linetype = 2) +
+  theme_minimal() +
+  theme(legend.position="none",
+        axis.text.y = element_blank()) +
+  labs(title = bquote("Right-Tail z Test"),
+       x = "mu",
+       y = "Probability")
+```
+
+```{r include=FALSE}
+z_crit <- qnorm(p = 1-.05/2, lower.tail = TRUE)
+epsilon <- z_crit * se
+ci_low <- x_bar - epsilon
+ci_high <- x_bar + epsilon
+```
+
+The 95% confidence interval for $\mu$ is $\bar{x} \pm z_{(1 - \alpha){/}2} se_\mu$ where $z_{(1 - \alpha){/}2} =$ `r z_crit %>% round(2)`. $\mu =$ `r x_bar %>% format(digits = 1, nsmall = 2)` $\pm$ `r epsilon %>% format(digits = 1, nsmall = 2)` (95% CI `r ci_low %>% format(digits = 1, nsmall = 2)` to `r ci_high %>% format(digits = 1, nsmall = 2)`).
+
+```{r echo=FALSE, warning=FALSE, fig.height=3.5, fig.width=6.5}
+data.frame(mu = seq(15, 25, by = .1)) %>%
+  mutate(Z = (mu - x_bar) / se,
+         prob = dnorm(x = Z), 
+         ci = if_else(mu >= ci_low & mu <= ci_high, prob, NA_real_)) %>%
+  ggplot() +
+  geom_line(aes(x = mu, y = prob), color = "goldenrod") +
+  geom_area(aes(x = mu, y = ci), fill = "goldenrod", alpha = 0.3) +
+  geom_vline(aes(xintercept = x_bar), color = "goldenrod", size = 1, linetype = 2) +
+  theme_minimal() +
+  theme(legend.position="none",
+        axis.text.y = element_blank()) +
+  labs(title = "95% CI",x = "mu",y = "Probability") 
+```
+
+## One-Sample Mean t Test
+
+The one-sample *t* test applies when the sampling distribution of the population mean is normally distributed and there are no significant outliers. Unlike the *z* test, the population variance can be unknown. The sampling distribution is normally distributed when the underlying population is normally distributed, or when the sample size is large $(n >= 30)$, as follows from the central limit theorem. 
+
+Under the *t* test method, the measured mean, $\bar{x}$, approximates the population mean, $\mu$. The sample standard deviation, $s$, estimates the unknown population standard deviation, $\sigma$. The resulting sampling distribution has a *t* distribution centered at $\mu$ with standard error $se_\bar{x} = \frac{s}{\sqrt{n}}$. Define a $(1 - \alpha)\%$ confidence interval as $\bar{x} \pm t_{(1 - \alpha){/}2} se_\bar{x}$ and/or test $H_0: \mu = \mu_0$ with test statistic $T = \frac{\bar{x} - \mu_0}{se_\bar{x}}$.
+
+#### Example{-}
+
+```{r include=FALSE}
+dep <- foreign::read.spss("./input/one-sample-t-test.sav", to.data.frame = TRUE)
+
+n <- nrow(dep)
+mu_0 <- 4.0
+x_bar <- mean(dep$dep_score)
+s <- sd(dep$dep_score)
+```
+
+A researcher recruits a random sample of *n* = `r n` people to participate in a study about depression intervention. The researcher measures the participants' depression level prior to the study. The mean depression score (`r format(x_bar, digits = 2, nsmall = 2)` $\pm$ `r format(s, digits = 2, nsmall = 2)`) was lower than the population 'normal' depression score of `r format(mu_0, digits = 2, nsmall = 1)`. The null hypothesis is that the sample is representative of the overall population. Should you reject $H_0$?
+
+```{r}
+dep %>% gtsummary::tbl_summary(statistic = list(all_continuous() ~ "{mean} ({sd})"))
+```
+
+#### Conditions {-}
+
+The one-sample *t* test applies when the variable is continuous and the observations are independent. Additionally, there are two conditions related to the data distribution. If either condition fails, try the suggested work-arounds or use the non-parametric [Wilcoxon 1-Sample Median Test for Numeric Var] instead.
+
+1. **Outliers**. There should be no significant outliers. Outliers exert a large influence on the mean and standard deviation. Test with a box plot. If there are outliers, you might be able to drop them or transform the data.
+2. **Normality**.  Values should be *nearly* normally distributed ("nearly" because the *t*-test is robust to the normality assumption). This condition is especially important with small sample sizes. Test with Q-Q plots or the Shapiro-Wilk test for normality. If the data is very non-normal, you might be able to transform the data.
+
+##### Outliers {-}
+
+Assess outliers with a box plot. Box plot whiskers extend up to 1.5\*IQR from the upper and lower hinges and outliers (beyond the whiskers) are are plotted individually. The boxplot shows no outliers.
+
+```{r echo=FALSE, fig.height=2.5}
+dep %>%
+  ggplot(aes(x = "dep_score", y = dep_score)) +
+  geom_boxplot(fill = "snow3", color = "snow4", alpha = 0.6, width = 0.5, 
+               outlier.color = "goldenrod", outlier.size = 2) +
+  theme_minimal() +
+  labs(title = "Boxplot of Depression Score",
+       y = "Score", x = NULL)
+```
+
+If the outliers might are data entry errors or measurement errors, fix them or discard them. If the outliers are genuine, you have a couple options before reverting to Wilcoxon.
+
+* Transform the variable. Don't do this unless the variable is also non-normal. Transformation also has the downside of making interpretation more difficult.
+* Leave it in if it doesn't affect the conclusion (compared to taking it out).
+
+##### Normality {-}
+
+Assume the population is normally distributed if *n* $\ge$ 30. Otherwise, asses a Q-Q plot, skewness and kurtosis values, or a histogram. If you still don't feel confident about normality, run a [Shapiro-Wilk Test].
+
+The data set has *n* = 40 observations, so you can assume normality. Here is a QQ plot anyway. The QQ plot indicates normality.
+
+```{r fig.height=2.5}
+dep %>%
+  ggplot(aes(sample = dep_score)) +
+  stat_qq() +
+  stat_qq_line(col = "goldenrod") +
+  theme_minimal() +
+  labs(title = "Normal Q-Q Plot")
+```
+
+Here is the Shapiro-Wilk normality test. It fails to reject the null hypothesis of a normally distributed population.
+
+```{r}
+shapiro.test(dep$dep_score)
+```
+
+If the data is not normally distributed, you still have a couple options before reverting to Wilcoxon.
+
+* Transform the dependent variable.
+* Carry on regardless - the one-sample *t*-test is fairly robust to deviations from normality.
+
+#### Results {-}
+
+Conduct the *t*-test. To get a 95% CI around the *difference* (instead of around the estimate), run the test using the difference, $\mu_0 - \bar{x}$, and leave `mu` at its default of 0.
+
+```{r}
+(dep_95ci <- t.test(x = mu_0 - dep$dep_score, alternative = "two.sided", conf.level = .95))
+```
+
+The difference is statistically different from 0 at the *p* = .05 level. The effect size, called Cohen's *d*, is defined as $d = |M_D| / s$, where $|M_D| = \bar{x} - \mu_0$, and $s$ is the sample standard deviation. $d <.2$ is considered trivial, $.2 \le d < .5$ small, and $.5 \le d < .8$ large.
+
+```{r}
+(d <- rstatix::cohens_d(dep, dep_score ~ 1, mu = 4) %>% pull(effsize) %>% abs())
+```
+
+Cohen's *d* is `r d %>% format(digits = 2, nsmall = 2)`, a small effect. 
+
+Make a habit of constructing a plot, just to make sure your head is on straight.
+
+```{r echo=FALSE, warning=FALSE, fig.height=3.5, fig.width=6.5}
+se <- s / sqrt(n)
+lrr = mu_0 + qt(p = .05, df = n - 1, lower.tail = TRUE) * se
+urr = mu_0 + qt(p = .05, df = n - 1, lower.tail = FALSE) * se
+data.frame(mu = seq(3.5, 4.5, by = .01)) %>%
+  mutate(t = (mu - mu_0) / se,
+         prob = dt(x = t, df = n - 1),
+         lrr = if_else(mu < lrr, prob, NA_real_),
+         urr = if_else(mu > urr, prob, NA_real_)) %>%
+  ggplot() +
+  geom_line(aes(x = mu, y = prob)) +
+  geom_area(aes(x = mu, y = lrr), fill = "firebrick", alpha = 0.6) +
+  geom_area(aes(x = mu, y = urr), fill = "firebrick", alpha = 0.6) +
+  geom_vline(aes(xintercept = mu_0), size = 1) +
+  geom_vline(aes(xintercept = x_bar), color = "goldenrod", size = 1, linetype = 2) +
+  theme_minimal() +
+  theme(legend.position="none",
+        axis.text.y = element_blank()) +
+  labs(title = bquote("Two-Tailed t Test"),
+       x = "mu",
+       y = "Probability")
+```
+
+Now you are ready to report the results.
+
+> A one-sample *t*-test was run to determine whether depression score in recruited subjects was different from normal, as defined as a depression score of 4.0. Depression scores were normally distributed, as assessed by Shapiro-Wilk's test (*p* > .05) and there were no outliers in the data, as assessed by inspection of a boxplot. Data are mean $\pm$ standard deviation, unless otherwise stated. Mean depression score (`r format(x_bar, digits = 2, nsmall = 2)` $\pm$ `r format(s, digits = 2, nsmall = 2)`) was lower than the population "normal" depression score of `r format(mu_0, digits = 2, nsmall = 2)`, a statistically significant difference of `r format(dep_95ci$estimate, digits = 2, nsmall = 2)` (95% CI, `r format(dep_95ci$conf.int[1], digits = 1, nsmall = 2)` to `r format(dep_95ci$conf.int[2], digits = 1, nsmall = 2)`), t(`r dep_95ci$parameter`) = `r format(dep_95ci$statistic, digits = 1, nsmall = 2)`, *p* = `r format(dep_95ci$p.value, digits = 1, nsmall = 3)`, *d* = `r d %>% format(digits = 2, nsmall = 2)`.
+
+#### Appendix: Deciding Sample Size {-}
+
+Determine the sample size required for a maximum error $\epsilon$ in the estimate by solving the confidence interval equation, $\bar{x} \pm t_{(1 - \alpha){/}2} \frac{s}{\sqrt{n}}$ for $n=\frac{{t_{\alpha/2,n-1}^2se^2}}{{\epsilon^2}}$ . Unfortunately, $t_{\alpha/2,n-1}^2$ is dependent on $n$, so replace it with $z_{\alpha/2}^2$. What about $s^2$?  Estimate it from the literature, a pilot study, or using the empirical rule that 95% of the range falls within two standard deviations, $s=range / 4$.
+
+For example, if the maximum tolerable error is* $\epsilon$ = 3, and $s$ is approximately 10, what sample size produces an $\alpha$ =0.05 confidence level?
+
+```{r}
+ceiling(qnorm(.975)^2 * 10^2 / 3^2)
+```
+
+## One-Sample Median Wilcoxon Test
+
+The Wilcoxon one-sample median test (aka Wilcoxon signed rank test) is a non-parametric alternative to the *t*-test for cases when the the sampling distribution of the population mean is *not* normally distributed, but is at least symmetric.
+
+Under the Wilcoxon test, the measured median, $\eta_x$, approximates the population median, $\eta$. The method calculates the difference between each value and the hypothesized median, $\eta_0$, ranks the difference magnitudes, then sums the ranks for the negative and the positive differences, $W+$ and $W-$. The test compares the smaller of the two sums to a table of critical values.
+
+```{r include=FALSE}
+wait <- c(3.8, 4.3, 3.5, 4.5, 7.2, 4.1)
+
+eta <- median(wait)
+eta_0 <- 4.0
+```
+
+Here is a case study. A store claims their checkout wait times are $\le$ 4 minutes. You challenge the claim by sampling 6 checkout experiences. The mean wait time was `r mean(wait) %>% scales::comma(accuracy = 0.1)`, but the data may violate normality.
+
+```{r fig.height=2.5}
+data.frame(wait = wait) %>%
+  ggplot(aes(sample = wait)) +
+  stat_qq() +
+  stat_qq_line(col = "goldenrod") +
+  theme_minimal() +
+  labs(title = "Normal Q-Q Plot")
+```
+
+Shapiro-Wilk rejects the null hypothesis of a normally distributed population.
+
+```{r}
+shapiro.test(wait)
+```
+
+Use the Wilcoxon test instead.
+
+```{r}
+(wt <- wilcox.test(wait, mu = 4, alternative = "greater"))
+```
+
+> A Wilcoxon Signed-Ranks Test indicated that wait times were *not* statistically significantly higher than the 4-minute claim, *z* = `r wt$statistic`, *p* = `r scales::comma(wt$p.value, accuracy = 0.001)`. 
+
+## Chi-Squared Goodness-of-Fit Test
+
+Use the chi-squared goodness-of-fit test to test whether the observed frequency counts, $O_j$, of the $J$ levels of a categorical variable differ from the expected frequency counts, $E_j$. $H_0$ is $O_j = E_j$. You can use this test for dichotomous, nominal, or ordinal variables. There are only two conditions to use this test:
+
+* the observations are independent, meaning either random assignment or random sampling without replacement from <10% of the population, and 
+* the *expected* frequency in each group is >=5.
+
+The Pearson goodness-of-fit test statistic is
+
+$$X^2 = \sum \frac{(O_j - E_j)^2}{E_j}$$
+
+where $O_j = p_j n$ and $E_j = \pi_j n$. The sampling distribution of $X^2$ approaches the $\chi_{J-1}^2$ as the sample size $n \rightarrow \infty$. The assumption that $X^2$ is distributed $\sim \chi^2$ is not quite correct, so you will see researchers subtract .5 from the differences to increase the p-value, the so-called [Yates Continuity Correction](https://en.wikipedia.org/wiki/Yates%27s_correction_for_continuity).
+
+$$X^2 = \sum \frac{(O_j - E_j - 0.5)^2}{E_j}$$
+
+$X^2 \rightarrow 0$ as the saturated model (the observed data represent the fit of the saturated model, the most complex model possible with the data) proportions approach the expected proportions, $p_j \rightarrow \pi_j$. The chi-squared test calculates the probability of the occurrence of $X^2$ at least as extreme given that it is a chi-squared random variable with degrees of freedom equal to the number of levels of the variable minus one, $J-1$. 
+
+#### Example with Theoretical Values {-}
+
+A researcher crosses tall cut-leaf tomatoes with dwarf potato-leaf tomatoes, then classifies the *n* = 1,611 offspring's phenotype. The four phenotypes should occur with relative frequencies 9:3:3:1. The observed frequencies constitute a one-way table.
+
+If you only care about one level (or if the variable is binary) of if, conduct a one-proportion *Z*-test or an exact binomial test. Otherwise, conduct an exact multinomial test (recommended when *n* <= 1,000), Pearson's chi-squared goodness-of-fit test, or a *G*-test.
+
+```{r echo=FALSE, fig.height=2.5, fig.width=6.5}
+pheno_type <- c("tall cut-leaf", "tall potato-leaf", "dwarf cut-leaf", "dwarf potato-leaf")
+pheno_obs <- c(956, 258, 293, 104)
+pheno_pi <- c(9, 3, 3, 1) / (9 + 3 + 3 + 1)
+pheno_exp <- sum(pheno_obs) * pheno_pi
+names(pheno_obs) <- pheno_type
+names(pheno_exp) <- pheno_type
+
+data.frame(type = pheno_type,
+           Observed = pheno_obs,
+           Expected = pheno_exp) %>%
+  pivot_longer(cols = c(Observed, Expected)) %>%
+  ggplot(aes(x = fct_inorder(type), y = value, color = fct_rev(name), fill = fct_rev(name))) +
+  geom_col(alpha = 0.6, width = 0.5, position = position_dodge2(padding = 0.1)) +
+  scale_color_grey(start = 0.6, end = 0.8) +
+  scale_fill_grey(start = 0.6, end = 0.8) +
+  theme_minimal() +
+  labs(title = "Phenotype Counts",
+       subtitle = "Expected ratio of 9:3:3:1",
+       x = NULL, y = NULL, color = NULL, fill = NULL)
+```
+
+#### Conditions {-}
+
+This is a randomized experiment. The minimum expected frequency was `r floor(min(pheno_exp))`, so the chi-squared test of independence is valid.
+
+Had the data violated the $\ge$ 5 condition, you could run an exact test (like the binomial, or in this case, the multinomial), or lump some factor levels together.
+
+#### Results {-}
+
+You can calculate $X^2$ by hand, and find the probability of a test statistic at least as extreme using the $\chi^2$ distribution with 4-1 = 3 degrees of freedom.
+
+```{r collapse=TRUE}
+(pheno_x2 <- sum((pheno_obs - pheno_exp)^2 / pheno_exp))
+(pheno_p <- pchisq(q = pheno_x2, df = length(pheno_type) - 1, lower.tail = FALSE))
+```
+
+That is what `chisq.test()` does. The function applies the Yates continuity correction by default, so I had to specify `correct = FALSE` to exclude it. In this case, setting it to `TRUE` has almost no effect because the sample size is large. 
+
+```{r}
+(pheno_chisq_test <- chisq.test(pheno_obs, p = pheno_pi, correct = FALSE))
+```
+
+As always, plot the distribution.
+
+```{r warning=FALSE, message=FALSE, fig.height=3, fig.width=5, echo=FALSE, fig.align="center"}
+data.frame(chi2 = seq(from = 0, to = 20, by = .1)) %>%
+  mutate(density = dchisq(chi2, df = length(pheno_type) - 1)) %>%
+  mutate(q95 = if_else(chi2 > qchisq(p = .95, df = length(pheno_type) - 1), density, NA_real_)) %>%
+  ggplot() +
+  geom_area(aes(x = chi2, y = q95), fill = "firebrick", alpha = 0.6) +
+  geom_line(aes(x = chi2, y = density)) +
+  geom_vline(aes(xintercept = pheno_x2), color = "goldenrod", size = 1, linetype = 2) +
+  labs(title = "Chi-Square Goodness-of-Fit Test",
+       subtitle = expression(paste(X^2, " = 9.55 (p = .023)")),
+       x = expression(chi^2), y = "Density") +
+  theme_minimal() +
+  theme(legend.position="none")
+```
+
+At this point you can report,
+
+> Of the `r sum(pheno_obs) %>% scales::comma()` offspring produced from the cross-fertiliation, `r pheno_obs["tall cut-leaf"]` were *tall cut-leaf*, `r pheno_obs["tall potato-leaf"]` were *tall potato-leaf*, `r pheno_obs["dwarf cut-leaf"]` where *dwarf cut-leaf*, and `r pheno_obs["dwarf potato-leaf"]` were *dwarf potato-leaf*. A chi-square goodness-of-fit test was conducted to determine whether the offspring had the same proportion of phenotypes as the theoretical distribution. The minimum expected frequency was `r min(pheno_exp) %>% scales::comma()`. The chi-square goodness-of-fit test indicated that the number of tall cut-leaf, tall potato-leaf, dwarf cut-leaf, and dwarf potato-leaf offspring was statistically significantly different from the proportions expected in the theoretical distribution ($X^2$(`r length(pheno_type) - 1`) = `r scales::comma(pheno_chisq_test$statistic, accuracy = 0.001)`, *p* = `r scales::comma(pheno_chisq_test$p.value, accuracy = 0.001)`).
+
+If you reject $H_0$, inspect the residuals to learn which differences contribute most to the rejection. Notice how $X^2$ is a sum of squared standardized cell differences, or "Pearson residuals", 
+
+$$r_i = \frac{o_j - e_j}{\sqrt{e_j}}$$ 
+
+Cells with the largest $|r|$ contribute the most to the total $X^2$. 
+
+```{r}
+pheno_chisq_test$residuals^2 / pheno_chisq_test$statistic
+```
+
+The two "tall" cells contributed over 95% of the $X^2$ test statistic, with the tall potato-leaf accounting for 67%. This aligns with what you'd expect from the bar plot.
+
+#### Example with Theoretical Distribution {-}
+
+You need to reduce the degrees of freedom (df) in the chi-squared goodness-of-fit test by 1 if you test whether the data conform to a particular distribution instead of a set of theoretical values. 
+
+```{r}
+j <- c(0:5)
+o <- c(19, 26, 29, 13, 10, 3)
+childr_n <- as.character(0:5)
+```
+
+Suppose you sample *n* = `r sum(o)` families and count the number of children. The count of children is a Poisson random variable, $J$, with maximum likelihood estimate $\hat{\lambda} = \sum{j_i O_i} / \sum{O_i}$. Test whether the observed values can be described as samples from a Poisson random variable. The probabilities for each possible count are 
+
+$$f(j; \lambda) = \frac{e^{-\hat{\lambda}} \hat{\lambda}^j}{j!}.$$
+
+```{r echo=FALSE, fig.height=2.5, fig.width=6.5}
+lambda <- sum(j * o) / sum(o)
+f <- exp(-lambda) * lambda^j / factorial(j)
+e <- f * sum(o)
+
+data.frame(children = childr_n, Observed = o, Expected = e) %>%
+  pivot_longer(cols = c(Observed, Expected)) %>%
+  ggplot(aes(x = fct_inorder(children), y = value, color = fct_rev(name), fill = fct_rev(name))) +
+  geom_col(alpha = 0.6, width = 0.5, position = position_dodge2(padding = 0.1)) +
+  scale_color_grey(start = 0.6, end = 0.8) +
+  scale_fill_grey(start = 0.6, end = 0.8) +
+  theme_minimal() +
+  labs(title = "Children in Family Counts",
+       subtitle = "Expected Poisson distribution",
+       x = NULL, y = NULL, color = NULL, fill = NULL)
+```
+
+#### Conditions {-}
+
+This is random sampling. The minimum expected frequency was `r floor(min(e))`, so the data violates the $\ge$ 5 rule. Lump the last two categories into "4-5".
+
+```{r echo=FALSE, fig.height=2.5, fig.width=6.5}
+j <- c(0:4)
+o <- c(19, 26, 29, 13, 10 + 3)
+childr_n <- c(as.character(0:3), "4-5")
+lambda <- sum(j * o) / sum(o)
+f <- exp(-lambda) * lambda^j / factorial(j)
+e <- f * sum(o)
+
+data.frame(children = childr_n, Observed = o, Expected = e) %>%
+  pivot_longer(cols = c(Observed, Expected)) %>%
+  ggplot(aes(x = fct_inorder(children), y = value, color = fct_rev(name), fill = fct_rev(name))) +
+  geom_col(alpha = 0.6, width = 0.5, position = position_dodge2(padding = 0.1)) +
+  scale_color_grey(start = 0.6, end = 0.8) +
+  scale_fill_grey(start = 0.6, end = 0.8) +
+  theme_minimal() +
+  labs(title = "Children in Family Counts",
+       subtitle = "Expected Poisson distribution",
+       x = NULL, y = NULL, color = NULL, fill = NULL)
+```
+
+The minimum expected frequency was `r floor(min(e))`, so now the chi-squared test of independence is valid.
+
+#### Results {-}
+
+Compare the expected values to the observed values with the chi-squared goodness of fit test, but in this case $df = 5 - 1 - 1$ because the estimated parameter $\lambda$ reduces df by 1. You cannot set df in `chisq.test()`, so perform the test manually.
+
+```{r collapse=TRUE}
+(X2 <- sum((o - e)^2 / e))
+(p.value <- pchisq(q = X2, df = length(j) - 1 - 1, lower.tail = FALSE))
+```
+
+```{r warning=FALSE, message=FALSE, fig.height=3, fig.width=5, echo=FALSE, fig.align="center"}
+data.frame(chi2 = seq(from = 0, to = 20, by = .1)) %>%
+  mutate(density = dchisq(chi2, df = length(j) - 1 - 1)) %>%
+  mutate(
+    q025 = if_else(chi2 < qchisq(p = .025, df = length(j) - 1 - 1), density, NA_real_),
+    q975 = if_else(chi2 > qchisq(p = .975, df = length(j) - 1 - 1), density, NA_real_)) %>%
+  ggplot() +
+  geom_area(aes(x = chi2, y = q025), fill = "firebrick", alpha = 0.6) +
+  geom_area(aes(x = chi2, y = q975), fill = "firebrick", alpha = 0.6) +
+  geom_line(aes(x = chi2, y = density)) +
+  geom_vline(aes(xintercept = X2), color = "goldenrod", size = 1, linetype = 2) +
+  labs(title = "Chi-Square Goodness-of-Fit Test",
+       subtitle = expression(paste(X^2, " = 7.09 (p = .931)")),
+       x = expression(chi^2), y = "Density") +
+  theme_minimal() +
+  theme(legend.position="none")
+```
+
+At this point you can report,
+
+> Of the `r sum(o) %>% scales::comma()` families sampled, `r o[1]` had no children, `r o[2]` had one child, `r o[3]` had two children, `r o[4]` had three children, and `r o[5]` had 4 or 5 children. A chi-square goodness-of-fit test was conducted to determine whether the observed family sizes follow a Poisson distribution. The minimum expected frequency was `r min(o) %>% scales::comma()`. The chi-square goodness-of-fit test indicated that the number of children was not statistically significantly different from the proportions expected in the Poisson distribution ($X^2$(`r length(o) - 1 - 1`) = `r scales::comma(X2, accuracy = 0.001)`, *p* = `r scales::comma(p.value, accuracy = 0.001)`).
+
+## G-Test
+
+The G-test is a likelihood-ratio statistical significance test increasingly used instead of chi-squared tests. The test statistic is defined 
+
+$$G^2 = 2 \sum O_j \log \left[ \frac{O_j}{E_j} \right]$$
+
+where the 2 multiplier asymptotically aligns with the chi-squared test formula. *G* is distributed $\sim \chi^2$, with the same number of degrees of freedom as in the corresponding chi-squared test. In fact, the chi-squared test statistic is a second order Taylor expansion of the natural logarithm around 1. 
+
+Returning to the phenotype case study in the chi-squared goodness-of-fit test section, you can calculate the $G^2$ test statistic and probability by hand.
+
+```{r collapse=TRUE}
+(pheno_g2 <- 2 * sum(pheno_obs * log(pheno_obs / pheno_exp)))
+(pchisq(q = pheno_g2, df = length(pheno_type) - 1, lower.tail = FALSE))
+```
+
+This is pretty close to the $X^2$ = `r pheno_chisq_test$statistic %>% scales::comma(accuracy = 0.001)`, *p* = `r pheno_chisq_test$p.value %>% scales::comma(accuracy = 0.001)` using the chi-squared goodness-of-fit test. The `DescTools::GTest()` function to conducts a G-test. 
+
+```{r}
+DescTools::GTest(pheno_obs, p = pheno_pi)
+```
+
+According to the function documentation, the G-test is not usually used for 2x2 tables.
+
+
+```{r eval=FALSE}
+EMT::multinomial.test(o, f, useChisq = TRUE)
+```
+
+```{r}
+chisq.test(o, e)
+```
+
+
+## One-Sample Poisson Test
+
+If $X$ is the number of successes in $n$ (many) trials when the probability of success $\lambda / n$ is small, then $X$ is a random variable with a Poisson distribution, and the probability of observing $X = x$ successes is 
+
+$$f(x;\lambda) = \frac{e^{-\lambda} \lambda^x}{x!} \hspace{1cm} x \in (0, 1, ...), \hspace{2mm} \lambda > 0$$
+
+with $E(X)=\lambda$ and $Var(X) = \lambda$ where $\lambda$ is estimated by the sample $\hat{\lambda}$,
+
+$$\hat{\lambda} = \sum_{i=1}^N x_i / n.$$
+
+Poisson sampling is used to model counts of events that occur randomly over a fixed period of time. You can use the Poisson distribution to perform an exact test on a Poisson random variable.
+
+#### Example {-}
+
+```{r include=FALSE}
+dat_pois <- data.frame(
+  goals = c(0, 1, 2, 3, 4, 5, 6, 7, 8),
+  freq = c(23, 37, 20, 11, 2, 1, 0, 0, 1)
+)
+```
+
+You are analyzing goal totals from a sample consisting of the `r sum(dat_pois$freq)` matches in the first round of the 2002 World Cup. The average match produced a mean/sd of `r weighted.mean(x = dat_pois$goals, w = dat_pois$freq) %>% scales::comma(accuracy = .01)` $\pm$ `r radiant.data::weighted.sd(x = dat_pois$goals, w = dat_pois$freq) %>% scales::comma(accuracy = .01)` goals, lower than the 1.5 historical average. Should you reject the null hypothesis that the sample is representative of typical values?
+
+#### Conditions {-}
+
+* The events must be independent of each other. In this case, the goal-count in one match has no effect on goal-counts in other matches.
+* The expected value of each event must be the same (homogeneity). In this case, the expected goal-count of each match is the same regardless of which teams are playing. This assumption is often dubious, causing the distribution variance to be larger than the mean, a conditional called *over-dispersion*.
+
+```{r include=FALSE}
+o <- dat_pois$freq
+j <- dat_pois$goals
+lambda <- weighted.mean(j, o)
+f <- exp(-lambda) * lambda^j / factorial(j)
+e <- f * sum(o)
+```
+
+You might also check whether the data is consistent with a Poisson model. This is random sampling, but the data violates the $\ge$ 5 rule because the minimum expected frequency was `r floor(min(e))`. To comply with the minimum frequency rule, lump the last six categories into "3-8".
+
+```{r, echo=FALSE, fig.height=2.5, fig.width=6.5}
+o <- c(o[0:3], sum(o[4:9]))
+e <- c(e[0:3], sum(e[4:9]))
+j <- c(j[0:3], paste(j[4], j[9], sep = "-"))
+
+data.frame(goals = j, Observed = o, Expected = e) %>%
+  pivot_longer(cols = c(Observed, Expected)) %>%
+  ggplot(aes(x = fct_inorder(as.character(goals)), y = value, color = fct_rev(name), fill = fct_rev(name))) +
+  geom_col(alpha = 0.6, width = 0.5, position = position_dodge2(padding = 0.1)) +
+  scale_color_grey(start = 0.6, end = 0.8) +
+  scale_fill_grey(start = 0.6, end = 0.8) +
+  theme_minimal() +
+  theme(axis.title = element_text(size = 9)) +
+  labs(title = "Counts of 2002 World Cup Round 1 Match Goals",
+       subtitle = "Expected Poisson distribution",
+       x = "Goals in Match", y = "Count of Matches", color = NULL, fill = NULL)
+```
+
+The minimum expected frequency was `r floor(min(e))`, so now the chi-squared test of independence is valid. Compare the expected values to the observed values with the chi-squared goodness of fit test, but in this case $df = 4 - 1 - 1$ because the estimated parameter $\lambda$ reduces the df by 1. You cannot set df in `chisq.test()`, so perform the test manually.
+
+```{r collapse=TRUE}
+(X2 <- sum((o - e)^2 / e))
+(p.value <- pchisq(q = X2, df = length(j) - 1 - 1, lower.tail = FALSE))
+```
+
+```{r warning=FALSE, message=FALSE, fig.height=2.5, fig.width=5, echo=FALSE, fig.align="center"}
+data.frame(chi2 = seq(from = 0, to = 10, by = .1)) %>%
+  mutate(density = dchisq(chi2, df = length(j) - 1 - 1)) %>%
+  mutate(
+    q025 = if_else(chi2 < qchisq(p = .025, df = length(j) - 1 - 1), density, NA_real_),
+    q975 = if_else(chi2 > qchisq(p = .975, df = length(j) - 1 - 1), density, NA_real_)) %>%
+  ggplot() +
+  geom_area(aes(x = chi2, y = q025), fill = "firebrick", alpha = 0.6) +
+  geom_area(aes(x = chi2, y = q975), fill = "firebrick", alpha = 0.6) +
+  geom_line(aes(x = chi2, y = density)) +
+  geom_vline(aes(xintercept = X2), color = "goldenrod", size = 1, linetype = 2) +
+  labs(title = "Chi-Square Goodness-of-Fit Test",
+       subtitle = expression(paste(X^2, "(2) = 0.86, (p = .650)")),
+       x = expression(chi^2), y = "Density") +
+  theme_minimal() +
+  theme(legend.position="none")
+```
+
+> Of the `r sum(o) %>% scales::comma()` World Cup matches, `r o[1]` had no goals, `r o[2]` had one goal, `r o[3]` had two goals, and `r o[4]` had 3-8 goals. A chi-square goodness-of-fit test was conducted to determine whether the observed goal counts follow a Poisson distribution. The minimum expected frequency was `r min(o) %>% scales::comma()`. The chi-square goodness-of-fit test indicated that the number of goals scored was not statistically significantly different from the frequencies expected from a Poisson distribution ($X^2$(`r length(o) - 1 - 1`) = `r scales::comma(X2, accuracy = 0.001)`, *p* = `r scales::comma(p.value, accuracy = 0.001)`).
+
+#### Results {-}
+
+The conditions for the exact Poisson test were met, so go ahead and run the test.
+
+```{r}
+(pois_val <- poisson.test(
+  x = sum(dat_pois$goals * dat_pois$freq), 
+  T = sum(dat_pois$freq), 
+  r = 1.5)
+)
+```
+
+Construct a plot showing the 95% CI around the hypothesized value. For a Poisson distribution, I built the distribution around the expected value, $n\lambda$, not the rate, $\lambda$.
+
+```{r echo=FALSE, warning=FALSE, fig.height=3.5, fig.width=6.5}
+lrr = qpois(.025, 1.5 * sum(dat_pois$freq), lower.tail = TRUE)
+urr = qpois(.025, 1.5 * sum(dat_pois$freq), lower.tail = FALSE)
+data.frame(tot_goals = seq(50, 200, by = 1)) %>%
+  mutate(prob = dpois(x = tot_goals, lambda = 1.5 * sum(dat_pois$freq)),
+         lrr = if_else(tot_goals < lrr, prob, NA_real_),
+         urr = if_else(tot_goals > urr, prob, NA_real_)) %>%
+  ggplot() +
+  geom_line(aes(x = tot_goals, y = prob)) +
+  geom_area(aes(x = tot_goals, y = lrr), fill = "firebrick", alpha = 0.6) +
+  geom_area(aes(x = tot_goals, y = urr), fill = "firebrick", alpha = 0.6) +
+  geom_vline(aes(xintercept = 1.5 * sum(dat_pois$freq)), size = 1) +
+  geom_vline(aes(xintercept = pois_val$estimate * sum(dat_pois$freq)),
+             color = "goldenrod", size = 1, linetype = 2) +
+  theme_minimal() +
+  theme(legend.position="none",
+        axis.text.y = element_blank()) +
+  labs(title = bquote("Two-Tailed Poisson Test"),
+       x = expression(paste("n", lambda)),
+       y = "Probability")
+```
+
+I think you could report these results like this.
+
+> A one-sample exact Poisson test was run to determine whether the number of goals scored in the first round of the 2002 World Cup was different from past World Cups, 1.5. A chi-square goodness-of-fit test indicated that the number of goals was not statistically significantly different from the counts expected in the Poisson distribution ($X^2$(`r length(o) - 1 - 1`) = `r scales::comma(X2, accuracy = 0.001)`, *p* = `r scales::comma(p.value, accuracy = 0.001)`). Data are mean $\pm$ standard deviation, unless otherwise stated. Mean goals scored (`r format(lambda, digits = 2, nsmall = 2)` $\pm$ `r radiant.data::weighted.sd(x = dat_pois$goals, w = dat_pois$freq) %>% scales::comma(accuracy = .01)`) was lower than the historical mean of `r format(1.5, digits = 2, nsmall = 2)`, but was not statistically significantly different (95% CI, `r format(pois_val$conf.int[1], digits = 1, nsmall = 2)` to `r format(pois_val$conf.int[2], digits = 1, nsmall = 2)`), *p* = `r format(pois_val$p.value, digits = 1, nsmall = 3)`.
+
+## Exact Binomial Test
+
+The Clopper-Pearson exact binomial test is precise, but theoretically complicated in that it inverts two single-tailed binomial tests (*No theory here - I'll just rely on the software*). Use the exact binomial test if you have a small sample size or an extreme success/failure probability that invalidates the chi-square and *G* tests. The exact binomial also applies when you have a one-tail test. The exact binomial test has two conditions: 
+
+* independence, and 
+* at least $n\pi \ge 5$ successes *or* $n(1−\pi)\ge 5$ failures. 
+
+You can use this test for multinomial variables too, but the test only compares a single level's proportion to a hypothesized value.
+
+#### Example {-}
+
+A pharmaceutical company claims its drug reduces fever in >60% of cases. In a random sample of *n* = 40 cases the drug reduces fever in 20 cases. Do you reject the claim?
+
+You are testing $P(x \le 20)$ in *n* = 40 trials when *p* = 60%, a one-tail test. The sample is a random assignment experiment with 20>5 successes and 20>5 failures, so it meets the conditions for the exact binomial test.
+
+```{r}
+binom.test(20, 40, p = 0.6, alternative = "greater")
+```
+
+The exact binomial test uses the "method of small *p*-values", in which the probability of observing a proportion $p$ as far or further from $\pi_0$ is the sum of all $P(X=p_i)$ where $p_i <= p$.
+
+```{r}
+map_dbl(dbinom(0:20, 40, 0.6), ~if_else(. <= 0.5, ., 0)) %>% sum()
+```
+
+That is what `pbinom()` does.
+
+```{r}
+pbinom(q = 20, size = 40, p = 0.6, lower.tail = TRUE)
+```
+
+A 95% confidence interval means 95% of confidence intervals constructed from a random sample of the population will contain the true population proportion. There are several methods to calculate a binomial confidence interval^[[Wikipedia](https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval).] `binom.test()` uses the Clopper-Pearson interval. This method calculates lower ($P_L$) and upper ($P_U$) limits that satisfy 
+
+$$
+\begin{eqnarray}
+\sum_{x=n_1}^n \binom{n}{x} p_L^x(1 - p_L)^{n-x} &=& \alpha/2\\
+\sum_{x=0}^{n_1} \binom{n}{x} p_U^x(1 - p_U)^{n-x} &=& \alpha/2
+\end{eqnarray}
+$$
+
+where $n_i$ is the measured successes in $n$ trials. For a one-tail test, the confidence interval is calculated with the right side equaling 0 and $/alpha$ instead of $\alpha/2$. A right-tailed 95% confidence interval means 95% of confidence intervals will contain a lower limit that is less than the true population proportion. If you wanted to construct a confidence interval around the population proportion, use a two-sided test.
+
+```{r}
+binom.test(20, 40, p = 0.6, alternative = "two.sided")
+```
+
+
+If you just wanted to know whether 20 successes in 40 trials is compatible with a population proportion of 60%, then you could use the chi-squared goodness-of-fit test.
+
+```{r}
+chisq.test(x = c(20, 20), p = c(0.6, 0.4), correct = FALSE)
+```
+
+## One-Sample Proportion z Test
+
+The *z*-test uses the sample proportion of group $j$, $p_j$, as an estimate of the population proportion $\pi_j$ to evaluate an hypothesized population proportion $\pi_{0j}$ and/or construct a $(1−\alpha)\%$ confidence interval around $p_j$ to estimate $\pi_j$ within a margin of error $\epsilon$.
+
+The *z*-test is intuitive to learn, but it only applies when the central limit theorem conditions hold:
+
+* the sample is independently drawn, meaning random assignment (experiments), or random sampling without replacement from <10% of the population (observational studies),
+* there are at least 5 successes and 5 failures,
+* the sample size is >=30, and
+* the expected probability of success is not extreme, between 0.2 and 0.8.
+
+If these conditions hold, the sampling distribution of $\pi$ is normally distributed around $p$ with standard error $se_p = \frac{s_p}{\sqrt{n}} = \frac{\sqrt{p(1−p)}}{\sqrt{n}}$. The measured values $p$ and $s_p$ approximate the population values $\pi$ and $\sigma_\pi$. You can define a $(1 − \alpha)\%$ confidence interval as $p \pm z_{\alpha / 2}se_p$. Test the hypothesis of $\pi = \pi_0$ with test statistic $z = \frac{p − \pi_0}{se_{\pi_0}}$ where $se_{\pi_0} = \frac{s_{\pi_0}}{\sqrt{n}} = \frac{\sqrt{{\pi_0}(1−{\pi_0})}}{\sqrt{n}}$.
+
+#### Example {-}
+
+A machine is supposed to randomly churn out prizes in 60% of boxes. In a random sample of *n* = 40 boxes there are prizes in 20 boxes. Is the machine flawed?
+
+```{r}
+prop.test(20, 40, 0.6, "two.sided", correct = FALSE)
+```
+
+The first thing you'll notice is that `prop.test()` performs a chi-squared goodness-of-fit test, not a one-proportion *Z*-test!
+
+```{r}
+chisq.test(c(20, 40-20), p = c(.6, .4), correct = FALSE)
+```
+
+It turns out $P(\chi^2 > X^2)$ equals $2 \cdot P(Z > z).$ Here is the manual calculation of the chi-squared test statistic $X^2$ and resulting *p*-value on 1 dof.
+
+```{r}
+pi_0 <- .6
+p <- 20 / 40
+
+observed <- c(p, 1-p) * 40
+expected <- c(pi_0, 1-pi_0) * 40
+
+X2 <- sum((observed - expected)^2 / expected)
+pchisq(X2, 1, lower.tail = FALSE)
+```
+
+And here is the manual calculation of the *Z*-test statistic $z$ and resulting *p*-value.
+```{r}
+se <- sqrt(pi_0*(1-pi_0)) / sqrt(40)
+z <- (p - pi_0) / se
+pnorm(z, lower.tail = TRUE) * 2
+```
+
+The 95% CI presented by `prop.test()` is also not the $p \pm z_{\alpha / 2}se_p$ Wald interval; it is the *Wilson* interval!
+
+```{r}
+DescTools::BinomCI(20, 40, method = "wilson")
+```
+
+There are a lot of methods (*see* `?DescTools::BinomCI`), and *Wilson* is the one Agresti-Coull recommends. If you want *Wald*, use `DescTools::BinomCI()` with `method = "wald"`.
+
+```{r}
+DescTools::BinomCI(20, 40, method = "wald")
+```
+
+This matches the manual calculation below.
+
+```{r}
+z_crit = qnorm(1 - .05/2)
+se <- sqrt(p*(1-p)) / sqrt(40)
+
+(CI <- c(p - z_crit*se, p + z_crit*se))
+```
+
+`prop.test()` (and `chissq.test()`) reported a *p*-value of `r prop.test(20, 40, 0.6, "two.sided", correct = FALSE)["p.value"] %>% unlist()`, so you cannot reject the null hypothesis that $\pi = 0.6$. It's good practice to plot this out to make sure your head is on straight.
+
+```{r warning=FALSE, message=FALSE, fig.height=3, fig.width=5, echo=FALSE, fig.align="center"}
+p_value = prop.test(20, 40, 0.6, "two.sided", correct = FALSE)["p.value"] %>% unlist()
+se_pi_0 <- sqrt(pi_0 * (1 - pi_0) / 40)
+p_value <- pnorm(z, lower.tail = FALSE) * 2
+data.frame(pi = seq(from = 0.2, to = 0.8, by = .001)) %>%
+  mutate(density = dnorm(pi, pi_0, se_pi_0),
+         q25 = ifelse(pi < qnorm(p = .025, pi_0, se_pi_0), density, as.numeric(NA)),
+         q95 = ifelse(pi > qnorm(p = .975, pi_0, se_pi_0), density, as.numeric(NA))) %>%
+  ggplot() +
+  geom_area(aes(x = pi, y = q25), fill = "#EF7C8E") +
+  geom_area(aes(x = pi, y = q95), fill = "#EF7C8E") +
+  geom_line(aes(x = pi, y = density)) +
+  geom_vline(aes(xintercept = p), color = "#0C6980", size = 1.0) +
+  geom_vline(aes(xintercept = pi_0), color = "#000000", size = 0.5, linetype = 2) +
+  labs(title = "One-Proportion Z-Test",
+       subtitle = expression(paste(pi[0], " = 0.6, p = 0.5, p-value = 0.197")),
+       x = expression(pi), y = "Density") +
+  theme_minimal() +
+  theme(legend.position="none")
+```
+
+Incidentally, if you have a margin of error requirement, you can back into the required sample size to achieve it. Just solve the margin of error equation $\epsilon  = z_{\alpha/2}^2 = \sqrt{\frac{\pi_0(1-\pi_0)}{n}}$ for $n = \frac{z_{\alpha/2}^2 \pi_0(1-\pi_0)}{\epsilon^2}.$
+
+## 1 sample t Test for Categorical Var
+
+This test applies when you do not know the population variance.
+
+## Wilcoxon 1-Sample Median Test for Categorical Var
+
+This test applies when the variable is not normally distributed.
+
+## Multivariate Statistics
+
+The t-tests and analysis of variance tests have multivariate analogs. Multivariate statistics apply when multiple variables are simultaneously analyzed. Hotellings's *T*^2 extends the independent samples *t*-test and MANOVA extends ANOVA to cases where there are two or more dependent variables (e.g., do math, science, and reading scores depend on students' anxiety level?). 
+
+The mean of variable $j$ is the average of row vector $X_j$, $\bar{x}_j = \frac{1}{n} \sum_{i = 1}^n X_{ij}$. $\bar{x}_j$ estimates the population mean, $\mu_j = E(X_j)$. The collection of means is a column vector, $\bar{\mathbf{x}}$ estimating $\boldsymbol{\mu}$.
+
+The variance of variable $j$ is the average squared difference from the mean for row vector $X_j$, $s_j^2 = \frac{1}{n-1} \sum_{i=1}^n (X_{ij} - \bar{x}_j)^2$. It estimates the population variance, $\sigma_j^2 = E(X_j - \mu_j)^2$. The collection of variances is a column vector, $\mathbf{s}^2$ estimating $\boldsymbol{\sigma}^2$. 
+
+The covariance of variables $j$ and $k$ is the average product of differences from their respective means, $s_{jk} = \frac{1}{n-1} \sum_{i=1}^n (X_{ij} - \bar{x}_j) (X_{ik} - \bar{x}_k)$. It estimates the population covariance, $\sigma_{jk} = E\{ (X_{ij} - \mu_j) (X_{ik} - \mu_k)\}$. The generalization across the entire matrix is the _variance-covariance matrix_, $\textbf{S}$ which estimates $\boldsymbol{\Sigma}$.
+
+$\bar{\mathbf{x}}$ is a function of random data, so it is also a random vector with a _sampling distribution_ mean and variance-covariance matrix. The variance of the sample mean is $V(\bar{\mathbf{x}}) = \frac{\textbf{S}}{n}$. It estimates the variance of the population mean,  $V(\bar{\mathbf{x}}) = \frac{\boldsymbol{\Sigma}}{n}$. If the samples are taken from a normal distribution or the sample size is large, the sampling distribution is approximately normal, $\bar{\textbf{x}} \sim N \left(\boldsymbol{\mu}, \frac{\boldsymbol{\Sigma}}{n} \right)$.
+
+The joint estimate of confidence intervals (CIs) around a multivariate set of population means is complicated by how the individual variables are treated.
+
+- **One at a time intervals**. The $1 - \alpha$ CI is $\bar{x}_j \pm t_{n-1}(\alpha / 2) \frac{s_j}{\sqrt{n}}$.
+
+- **Bonferroni method**. A family of confidence intervals has a family-wide error rate of at least one CI not capturing its population mean equal to the sum of the individual error rates. The Bonferroni method divides $\alpha$ by the $p$ variables in the family, so the $1 - \alpha$ CI is $\bar{x}_j \pm t_{n-1}(\alpha / 2p) \frac{s_j}{\sqrt{n}}$.
+
+- **Simultaneous confidence region**. This method considers the family of all possible linear combinations of the population means. The $1 - \alpha$ CI is $\bar{x}_j \pm \sqrt{\frac{p(n-1)}{n-p} F_{p, n-p}(\alpha)} \frac{s_j}{\sqrt{n}}$.
+
+**Quick Example**. 
+
+```{r collapse=TRUE}
+# Suppose you have p = 3 variables with mean and sd as follows.
+p <- 3
+n <- c(25, 25, 25)
+M <- c(.84390, 1.79268, .70440)
+SD <- c(.11402, .28347, .10756)
+SE <- SD / sqrt(n)
+
+# One at a time margins of error
+(prob <- 1 - .05/2)
+(mult <- qt(prob, n-1))
+(ME <- mult * SE)
+
+# Bonferonni
+(prob <- 1 - .05/(2*p))
+(mult <- qt(prob, n-1))
+(ME <- mult * SE)
+
+# Simultaneous
+(mult <- sqrt((p * (n-1) / (n-p)) * qf(.95, p, n-p)))
+(ME <- mult * SE)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

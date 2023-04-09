@@ -1,0 +1,30 @@
+h1:association Association
+h2:pearson Pearson’s Correlation
+h2:spearman Spearman’s Rho
+h2:kendall Kendal’s Tau
+h2:case-study-pearson-spearman-kendall Case Study: Pearson, Spearman, Kendall
+h4:conditions Conditions
+h5:linearity-monotonicity Linearity / Monotonicity
+fig:ccscatter The left scatter plot is `dat1`. It meets Pearson
+fig:ooscatter `dat2` meets the mononicity assumption for Spearman
+h5:no-outliers No Outliers
+h5:bivariate-normality Bivariate Normality
+h4:test Test
+h5:pearsons-correlation Pearson’s Correlation
+h5:spearmans-rho Spearman’s Rho
+h5:kendalls-tau Kendall’s Tau
+h2:chisq-independence Chi-Square Test of Independence
+h2:fisher-exact Fisher’s Exact Test
+h2:case-study-chi-square-fisher Case Study: Chi-Square, Fisher
+h4:conditions-1 Conditions
+h4:test-1 Test
+h5:chi-square Chi-Square
+h5:fisher Fisher
+h5:post-test-phi-cramers-v Post-Test: Phi, Cramer’s V
+h5:reporting Reporting
+h2:kruskals-lambda Kruskal’s Lambda
+h2:relative-risk Relative Risk
+h2:odds-ratio Odds Ratio
+h2:partial-correlation Partial Correlation
+h3:partial-correlation-1 Partial Correlation
+
