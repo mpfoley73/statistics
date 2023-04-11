@@ -23,7 +23,7 @@
 <meta name="author" content="Michael Foley" />
 
 
-<meta name="date" content="2023-04-09" />
+<meta name="date" content="2023-04-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,8 +52,6 @@
 <link href="assets/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="assets/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="assets/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="assets/kePrint-0.0.1/kePrint.js"></script>
-<link href="assets/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <link href="assets/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
 <script src="assets/tabwid-1.1.3/tabwid.js"></script>
 
@@ -228,7 +226,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="chisq-independence" class="section level2 hasAnchor" number="6.5">
 <h2><span class="header-section-number">6.5</span> Chi-Square Test of Independence<a href="chisq-independence.html#chisq-independence" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The <strong>chi-square test of independence</strong> tests whether two categorical variables are associated, or are instead <em>independent</em><a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a>. It tests whether the observed joint frequency counts <span class="math inline">\(O_{ij}\)</span> differ from expected frequency counts <span class="math inline">\(E_{ij}\)</span> under the <em>independence model</em> (the model of independent explanatory variables, <span class="math inline">\(\pi_{ij} = \pi_{i+} \pi_{+j}\)</span>. The null hypothesis is <span class="math inline">\(O_{ij} = E_{ij}\)</span>. The test assumes the two variables are independent<a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a> and that all cell counts are at least 5.</p>
+<p>The <strong>chi-square test of independence</strong> tests whether two categorical variables are associated, or are instead <em>independent</em><a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>. It tests whether the observed joint frequency counts <span class="math inline">\(O_{ij}\)</span> differ from expected frequency counts <span class="math inline">\(E_{ij}\)</span> under the <em>independence model</em> (the model of independent explanatory variables, <span class="math inline">\(\pi_{ij} = \pi_{i+} \pi_{+j}\)</span>. The null hypothesis is <span class="math inline">\(O_{ij} = E_{ij}\)</span>. The test assumes the two variables are independent<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> and that all cell counts are at least 5.</p>
 <p>Choose from two test statistics, Pearson <span class="math inline">\(X^2\)</span> (and the continuity adjusted <span class="math inline">\(X^2\)</span>), and deviance <em>G</em>. As <span class="math inline">\(n \rightarrow \infty\)</span> their sampling distributions approach <span class="math inline">\(\chi^2(df)\)</span> with degrees of freedom (df) equal to the saturated model df <span class="math inline">\(I \times J - 1\)</span> minus the independence model df <span class="math inline">\((I - 1) + (J - 1)\)</span>, which you can algebraically solve for <span class="math inline">\(df = (I - 1)(J - 1)\)</span>.</p>
 <p>The Pearson goodness-of-fit statistic is</p>
 <p><span class="math display">\[X^2 = \sum \frac{(O_{ij} - E_{ij})^2}{E_{ij}}\]</span></p>
@@ -238,9 +236,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div class="footnotes">
 <hr />
-<ol start="13">
-<li id="fn13"><p>The test is sometimes call the chi-square test for <em>association</em>.<a href="chisq-independence.html#fnref13" class="footnote-back">↩︎</a></p></li>
-<li id="fn14"><p>Independence is usually true by assumption and/or construction. It can be violated by, for example, a sample that includes spouses where one spouse’s status (e.g., preference for a vacation destination) may be related to the other spouse’s status.<a href="chisq-independence.html#fnref14" class="footnote-back">↩︎</a></p></li>
+<ol start="2">
+<li id="fn2"><p>The test is sometimes call the chi-square test for <em>association</em>.<a href="chisq-independence.html#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>Independence is usually true by assumption and/or construction. It can be violated by, for example, a sample that includes spouses where one spouse’s status (e.g., preference for a vacation destination) may be related to the other spouse’s status.<a href="chisq-independence.html#fnref3" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

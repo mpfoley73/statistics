@@ -23,7 +23,7 @@
 <meta name="author" content="Michael Foley" />
 
 
-<meta name="date" content="2023-04-09" />
+<meta name="date" content="2023-04-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,8 +52,6 @@
 <link href="assets/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="assets/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="assets/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="assets/kePrint-0.0.1/kePrint.js"></script>
-<link href="assets/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <link href="assets/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
 <script src="assets/tabwid-1.1.3/tabwid.js"></script>
 
@@ -229,38 +227,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="case-study-chi-square-fisher" class="section level2 hasAnchor" number="6.7">
 <h2><span class="header-section-number">6.7</span> Case Study: Chi-Square, Fisher<a href="case-study-chi-square-fisher.html#case-study-chi-square-fisher" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A researcher investigates whether males and females enrolled in an Exercise Science degree course differ in the type of exercise then engage, competitive or non-competitive. They survey 25 males and 25 females.</p>
-<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="case-study-chi-square-fisher.html#cb240-1" aria-hidden="true" tabindex="-1"></a>cs<span class="sc">$</span>or2x2 <span class="sc">%&gt;%</span> </span>
-<span id="cb240-2"><a href="case-study-chi-square-fisher.html#cb240-2" aria-hidden="true" tabindex="-1"></a>  gtsummary<span class="sc">::</span><span class="fu">tbl_cross</span>(</span>
-<span id="cb240-3"><a href="case-study-chi-square-fisher.html#cb240-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">percent =</span> <span class="st">&quot;row&quot;</span>,</span>
-<span id="cb240-4"><a href="case-study-chi-square-fisher.html#cb240-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="fu">list</span>(comp <span class="sc">~</span> <span class="st">&quot;Competitive&quot;</span>)</span>
-<span id="cb240-5"><a href="case-study-chi-square-fisher.html#cb240-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb240-6"><a href="case-study-chi-square-fisher.html#cb240-6" aria-hidden="true" tabindex="-1"></a>  gtsummary<span class="sc">::</span><span class="fu">add_p</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="case-study-chi-square-fisher.html#cb24-1" aria-hidden="true" tabindex="-1"></a>cs<span class="sc">$</span>or2x2 <span class="sc">%&gt;%</span> </span>
+<span id="cb24-2"><a href="case-study-chi-square-fisher.html#cb24-2" aria-hidden="true" tabindex="-1"></a>  gtsummary<span class="sc">::</span><span class="fu">tbl_cross</span>(</span>
+<span id="cb24-3"><a href="case-study-chi-square-fisher.html#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">percent =</span> <span class="st">&quot;row&quot;</span>,</span>
+<span id="cb24-4"><a href="case-study-chi-square-fisher.html#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="fu">list</span>(comp <span class="sc">~</span> <span class="st">&quot;Competitive&quot;</span>)</span>
+<span id="cb24-5"><a href="case-study-chi-square-fisher.html#cb24-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb24-6"><a href="case-study-chi-square-fisher.html#cb24-6" aria-hidden="true" tabindex="-1"></a>  gtsummary<span class="sc">::</span><span class="fu">add_p</span>()</span></code></pre></div>
 <pre><code>## Warning: There was 1 warning in `mutate()`.
-## ℹ In argument: `gender = (structure(function (..., .x = ..1,
-##   .y = ..2, . = ..1) ...`.
+## ℹ In argument: `gender = (structure(function (..., .x = ..1, .y = ..2, . = ..1)
+##   ...`.
 ## Caused by warning:
 ## ! `fct_explicit_na()` was deprecated in forcats 1.0.0.
 ## ℹ Please use `fct_na_value_to_level()` instead.
 ## ℹ The deprecated feature was likely used in the dplyr package.
-##   Please report the issue at
-##   &lt;https://github.com/tidyverse/dplyr/issues&gt;.</code></pre>
-<div id="gbazacjkxv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#gbazacjkxv table {
+##   Please report the issue at &lt;https://github.com/tidyverse/dplyr/issues&gt;.</code></pre>
+<div id="qriyhkjvdp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#qriyhkjvdp table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#gbazacjkxv thead, #gbazacjkxv tbody, #gbazacjkxv tfoot, #gbazacjkxv tr, #gbazacjkxv td, #gbazacjkxv th {
+#qriyhkjvdp thead, #qriyhkjvdp tbody, #qriyhkjvdp tfoot, #qriyhkjvdp tr, #qriyhkjvdp td, #qriyhkjvdp th {
   border-style: none;
 }
 
-#gbazacjkxv p {
+#qriyhkjvdp p {
   margin: 0;
   padding: 0;
 }
 
-#gbazacjkxv .gt_table {
+#qriyhkjvdp .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -286,12 +283,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-left-color: #D3D3D3;
 }
 
-#gbazacjkxv .gt_caption {
+#qriyhkjvdp .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#gbazacjkxv .gt_title {
+#qriyhkjvdp .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -303,7 +300,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-width: 0;
 }
 
-#gbazacjkxv .gt_subtitle {
+#qriyhkjvdp .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -315,7 +312,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-width: 0;
 }
 
-#gbazacjkxv .gt_heading {
+#qriyhkjvdp .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -327,13 +324,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#gbazacjkxv .gt_bottom_border {
+#qriyhkjvdp .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#gbazacjkxv .gt_col_headings {
+#qriyhkjvdp .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -348,7 +345,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#gbazacjkxv .gt_col_heading {
+#qriyhkjvdp .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -368,7 +365,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#gbazacjkxv .gt_column_spanner_outer {
+#qriyhkjvdp .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -380,15 +377,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 4px;
 }
 
-#gbazacjkxv .gt_column_spanner_outer:first-child {
+#qriyhkjvdp .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#gbazacjkxv .gt_column_spanner_outer:last-child {
+#qriyhkjvdp .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#gbazacjkxv .gt_column_spanner {
+#qriyhkjvdp .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -400,11 +397,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   width: 100%;
 }
 
-#gbazacjkxv .gt_spanner_row {
+#qriyhkjvdp .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#gbazacjkxv .gt_group_heading {
+#qriyhkjvdp .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -430,7 +427,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   text-align: left;
 }
 
-#gbazacjkxv .gt_empty_group_heading {
+#qriyhkjvdp .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -445,15 +442,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: middle;
 }
 
-#gbazacjkxv .gt_from_md > :first-child {
+#qriyhkjvdp .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#gbazacjkxv .gt_from_md > :last-child {
+#qriyhkjvdp .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#gbazacjkxv .gt_row {
+#qriyhkjvdp .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -472,7 +469,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#gbazacjkxv .gt_stub {
+#qriyhkjvdp .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -485,7 +482,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#gbazacjkxv .gt_stub_row_group {
+#qriyhkjvdp .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -499,15 +496,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: top;
 }
 
-#gbazacjkxv .gt_row_group_first td {
+#qriyhkjvdp .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#gbazacjkxv .gt_row_group_first th {
+#qriyhkjvdp .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#gbazacjkxv .gt_summary_row {
+#qriyhkjvdp .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -517,16 +514,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#gbazacjkxv .gt_first_summary_row {
+#qriyhkjvdp .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#gbazacjkxv .gt_first_summary_row.thick {
+#qriyhkjvdp .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#gbazacjkxv .gt_last_summary_row {
+#qriyhkjvdp .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -536,7 +533,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#gbazacjkxv .gt_grand_summary_row {
+#qriyhkjvdp .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -546,7 +543,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#gbazacjkxv .gt_first_grand_summary_row {
+#qriyhkjvdp .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -556,7 +553,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-color: #D3D3D3;
 }
 
-#gbazacjkxv .gt_last_grand_summary_row_top {
+#qriyhkjvdp .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -566,11 +563,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#gbazacjkxv .gt_striped {
+#qriyhkjvdp .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#gbazacjkxv .gt_table_body {
+#qriyhkjvdp .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -579,7 +576,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#gbazacjkxv .gt_footnotes {
+#qriyhkjvdp .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -593,7 +590,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#gbazacjkxv .gt_footnote {
+#qriyhkjvdp .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -602,7 +599,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#gbazacjkxv .gt_sourcenotes {
+#qriyhkjvdp .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -616,7 +613,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#gbazacjkxv .gt_sourcenote {
+#qriyhkjvdp .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -624,63 +621,63 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#gbazacjkxv .gt_left {
+#qriyhkjvdp .gt_left {
   text-align: left;
 }
 
-#gbazacjkxv .gt_center {
+#qriyhkjvdp .gt_center {
   text-align: center;
 }
 
-#gbazacjkxv .gt_right {
+#qriyhkjvdp .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#gbazacjkxv .gt_font_normal {
+#qriyhkjvdp .gt_font_normal {
   font-weight: normal;
 }
 
-#gbazacjkxv .gt_font_bold {
+#qriyhkjvdp .gt_font_bold {
   font-weight: bold;
 }
 
-#gbazacjkxv .gt_font_italic {
+#qriyhkjvdp .gt_font_italic {
   font-style: italic;
 }
 
-#gbazacjkxv .gt_super {
+#qriyhkjvdp .gt_super {
   font-size: 65%;
 }
 
-#gbazacjkxv .gt_footnote_marks {
+#qriyhkjvdp .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#gbazacjkxv .gt_asterisk {
+#qriyhkjvdp .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#gbazacjkxv .gt_indent_1 {
+#qriyhkjvdp .gt_indent_1 {
   text-indent: 5px;
 }
 
-#gbazacjkxv .gt_indent_2 {
+#qriyhkjvdp .gt_indent_2 {
   text-indent: 10px;
 }
 
-#gbazacjkxv .gt_indent_3 {
+#qriyhkjvdp .gt_indent_3 {
   text-indent: 15px;
 }
 
-#gbazacjkxv .gt_indent_4 {
+#qriyhkjvdp .gt_indent_4 {
   text-indent: 20px;
 }
 
-#gbazacjkxv .gt_indent_5 {
+#qriyhkjvdp .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -740,53 +737,53 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="chi-square-1" class="section level5 unnumbered hasAnchor">
 <h5>Chi-Square<a href="case-study-chi-square-fisher.html#chi-square-1" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>To see what’s going on, here is chi-square test done by hand. The expected values are the joint probabilities from the independence model (e.g., <span class="math inline">\(E(\mathrm{male}, {\mathrm{yes}}) = \pi_{\mathrm{male}} \times \pi_{\mathrm{yes}} \times n\)</span>).</p>
-<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="case-study-chi-square-fisher.html#cb242-1" aria-hidden="true" tabindex="-1"></a>exer_table <span class="ot">&lt;-</span> cs<span class="sc">$</span>or2x2 <span class="sc">%&gt;%</span> <span class="fu">table</span>()</span>
-<span id="cb242-2"><a href="case-study-chi-square-fisher.html#cb242-2" aria-hidden="true" tabindex="-1"></a>expected <span class="ot">&lt;-</span> <span class="fu">marginSums</span>(exer_table, <span class="dv">1</span>) <span class="sc">%*%</span> <span class="fu">t</span>(<span class="fu">marginSums</span>(exer_table, <span class="dv">2</span>)) <span class="sc">/</span> <span class="fu">sum</span>(exer_table)</span>
-<span id="cb242-3"><a href="case-study-chi-square-fisher.html#cb242-3" aria-hidden="true" tabindex="-1"></a>(X2 <span class="ot">&lt;-</span> <span class="fu">sum</span>((exer_table <span class="sc">-</span> expected)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> expected))</span>
-<span id="cb242-4"><a href="case-study-chi-square-fisher.html#cb242-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 5.194805</span></span>
-<span id="cb242-5"><a href="case-study-chi-square-fisher.html#cb242-5" aria-hidden="true" tabindex="-1"></a>(df <span class="ot">&lt;-</span> (<span class="dv">2</span> <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> (<span class="dv">2</span> <span class="sc">-</span> <span class="dv">1</span>))</span>
-<span id="cb242-6"><a href="case-study-chi-square-fisher.html#cb242-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1</span></span>
-<span id="cb242-7"><a href="case-study-chi-square-fisher.html#cb242-7" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(X2, df, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb242-8"><a href="case-study-chi-square-fisher.html#cb242-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.02265449</span></span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="case-study-chi-square-fisher.html#cb26-1" aria-hidden="true" tabindex="-1"></a>exer_table <span class="ot">&lt;-</span> cs<span class="sc">$</span>or2x2 <span class="sc">%&gt;%</span> <span class="fu">table</span>()</span>
+<span id="cb26-2"><a href="case-study-chi-square-fisher.html#cb26-2" aria-hidden="true" tabindex="-1"></a>expected <span class="ot">&lt;-</span> <span class="fu">marginSums</span>(exer_table, <span class="dv">1</span>) <span class="sc">%*%</span> <span class="fu">t</span>(<span class="fu">marginSums</span>(exer_table, <span class="dv">2</span>)) <span class="sc">/</span> <span class="fu">sum</span>(exer_table)</span>
+<span id="cb26-3"><a href="case-study-chi-square-fisher.html#cb26-3" aria-hidden="true" tabindex="-1"></a>(X2 <span class="ot">&lt;-</span> <span class="fu">sum</span>((exer_table <span class="sc">-</span> expected)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> expected))</span>
+<span id="cb26-4"><a href="case-study-chi-square-fisher.html#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 5.194805</span></span>
+<span id="cb26-5"><a href="case-study-chi-square-fisher.html#cb26-5" aria-hidden="true" tabindex="-1"></a>(df <span class="ot">&lt;-</span> (<span class="dv">2</span> <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> (<span class="dv">2</span> <span class="sc">-</span> <span class="dv">1</span>))</span>
+<span id="cb26-6"><a href="case-study-chi-square-fisher.html#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1</span></span>
+<span id="cb26-7"><a href="case-study-chi-square-fisher.html#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(X2, df, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb26-8"><a href="case-study-chi-square-fisher.html#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.02265449</span></span></code></pre></div>
 <p>And the <em>G</em> test.</p>
-<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="case-study-chi-square-fisher.html#cb243-1" aria-hidden="true" tabindex="-1"></a>(G <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">sum</span>(exer_table <span class="sc">*</span> <span class="fu">log</span>(exer_table <span class="sc">/</span> expected)))</span>
-<span id="cb243-2"><a href="case-study-chi-square-fisher.html#cb243-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 5.294731</span></span>
-<span id="cb243-3"><a href="case-study-chi-square-fisher.html#cb243-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(G, df, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb243-4"><a href="case-study-chi-square-fisher.html#cb243-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.02139004</span></span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="case-study-chi-square-fisher.html#cb27-1" aria-hidden="true" tabindex="-1"></a>(G <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">sum</span>(exer_table <span class="sc">*</span> <span class="fu">log</span>(exer_table <span class="sc">/</span> expected)))</span>
+<span id="cb27-2"><a href="case-study-chi-square-fisher.html#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 5.294731</span></span>
+<span id="cb27-3"><a href="case-study-chi-square-fisher.html#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(G, df, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb27-4"><a href="case-study-chi-square-fisher.html#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.02139004</span></span></code></pre></div>
 <p>The <code>chisq.test()</code> function applies the Yates continuity correction by default to correct for situations with small cell counts. The Yates continuity correction subtracts 0.5 from the <span class="math inline">\(O_{ij} - E_{ij}\)</span> differences. Set <code>correct = FALSE</code> to suppress Yates. The Yates continuity correction only applies to 2 x 2 tables.</p>
-<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="case-study-chi-square-fisher.html#cb244-1" aria-hidden="true" tabindex="-1"></a>(cs<span class="sc">$</span>or2x2_chisq.test <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(exer_table, <span class="at">correct =</span> <span class="cn">FALSE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="case-study-chi-square-fisher.html#cb28-1" aria-hidden="true" tabindex="-1"></a>(cs<span class="sc">$</span>or2x2_chisq.test <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(exer_table, <span class="at">correct =</span> <span class="cn">FALSE</span>))</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s Chi-squared test
 ## 
 ## data:  exer_table
 ## X-squared = 5.1948, df = 1, p-value = 0.02265</code></pre>
 <p>Calculate the <em>G</em> test with <code>DescTools::GTest()</code>.</p>
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="case-study-chi-square-fisher.html#cb246-1" aria-hidden="true" tabindex="-1"></a>(cs<span class="sc">$</span>or2x2_g.test <span class="ot">&lt;-</span> DescTools<span class="sc">::</span><span class="fu">GTest</span>(exer_table, <span class="at">correct =</span> <span class="st">&quot;none&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="case-study-chi-square-fisher.html#cb30-1" aria-hidden="true" tabindex="-1"></a>(cs<span class="sc">$</span>or2x2_g.test <span class="ot">&lt;-</span> DescTools<span class="sc">::</span><span class="fu">GTest</span>(exer_table, <span class="at">correct =</span> <span class="st">&quot;none&quot;</span>))</span></code></pre></div>
 <pre><code>## 
 ##  Log likelihood ratio (G-test) test of independence without correction
 ## 
 ## data:  exer_table
 ## G = 5.2947, X-squared df = 1, p-value = 0.02139</code></pre>
 <p>As a side note, if the cell size &gt;5 condition is violated, you can use Monte Carlo simulation.</p>
-<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="case-study-chi-square-fisher.html#cb248-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(exer_table, <span class="at">correct =</span> <span class="cn">FALSE</span>, <span class="at">simulate.p.value =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="case-study-chi-square-fisher.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(exer_table, <span class="at">correct =</span> <span class="cn">FALSE</span>, <span class="at">simulate.p.value =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s Chi-squared test with simulated p-value (based on 2000
 ##  replicates)
 ## 
 ## data:  exer_table
-## X-squared = 5.1948, df = NA, p-value = 0.05097</code></pre>
+## X-squared = 5.1948, df = NA, p-value = 0.04348</code></pre>
 </div>
 <div id="fisher-1" class="section level5 unnumbered hasAnchor">
 <h5>Fisher<a href="case-study-chi-square-fisher.html#fisher-1" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>The documentation for <code>fisher.test()</code> explains that the <em>p</em>-value is based on the the first element of the contingency table “<em>with non-centrality parameter given by the odds ratio.</em>” I don’t understand the odds ratio business and cannot figure out how it is calculated. It says in the documentation for the <code>estimate</code> value that “<em>Note that the conditional Maximum Likelihood Estimate (MLE) rather than the unconditional MLE (the sample odds ratio) is used.</em>”, so that may hold the answer.</p>
 <p>At least the <em>p</em>-value I can calculate by hand.</p>
-<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="case-study-chi-square-fisher.html#cb250-1" aria-hidden="true" tabindex="-1"></a><span class="fu">phyper</span>(<span class="at">q =</span> exer_table[<span class="dv">1</span>, <span class="dv">1</span>] <span class="sc">-</span> <span class="dv">1</span>,  <span class="co"># k minus 1</span></span>
-<span id="cb250-2"><a href="case-study-chi-square-fisher.html#cb250-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">m =</span> <span class="fu">sum</span>(exer_table[<span class="dv">1</span>, ]),  <span class="co"># K</span></span>
-<span id="cb250-3"><a href="case-study-chi-square-fisher.html#cb250-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">n =</span> <span class="fu">sum</span>(exer_table[<span class="dv">2</span>, ]),  <span class="co"># N - K</span></span>
-<span id="cb250-4"><a href="case-study-chi-square-fisher.html#cb250-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">k =</span> <span class="fu">sum</span>(exer_table[, <span class="dv">1</span>]),  <span class="co"># n</span></span>
-<span id="cb250-5"><a href="case-study-chi-square-fisher.html#cb250-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">lower.tail =</span> <span class="cn">FALSE</span>) <span class="sc">*</span> <span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="case-study-chi-square-fisher.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">phyper</span>(<span class="at">q =</span> exer_table[<span class="dv">1</span>, <span class="dv">1</span>] <span class="sc">-</span> <span class="dv">1</span>,  <span class="co"># k minus 1</span></span>
+<span id="cb34-2"><a href="case-study-chi-square-fisher.html#cb34-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">m =</span> <span class="fu">sum</span>(exer_table[<span class="dv">1</span>, ]),  <span class="co"># K</span></span>
+<span id="cb34-3"><a href="case-study-chi-square-fisher.html#cb34-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">n =</span> <span class="fu">sum</span>(exer_table[<span class="dv">2</span>, ]),  <span class="co"># N - K</span></span>
+<span id="cb34-4"><a href="case-study-chi-square-fisher.html#cb34-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">k =</span> <span class="fu">sum</span>(exer_table[, <span class="dv">1</span>]),  <span class="co"># n</span></span>
+<span id="cb34-5"><a href="case-study-chi-square-fisher.html#cb34-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">lower.tail =</span> <span class="cn">FALSE</span>) <span class="sc">*</span> <span class="dv">2</span></span></code></pre></div>
 <pre><code>## [1] 0.04500454</code></pre>
-<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="case-study-chi-square-fisher.html#cb252-1" aria-hidden="true" tabindex="-1"></a>(cs<span class="sc">$</span>or2x2_fisher.test <span class="ot">&lt;-</span> <span class="fu">fisher.test</span>(exer_table))</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="case-study-chi-square-fisher.html#cb36-1" aria-hidden="true" tabindex="-1"></a>(cs<span class="sc">$</span>or2x2_fisher.test <span class="ot">&lt;-</span> <span class="fu">fisher.test</span>(exer_table))</span></code></pre></div>
 <pre><code>## 
 ##  Fisher&#39;s Exact Test for Count Data
 ## 
@@ -802,33 +799,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="post-test-phi-cramers-v" class="section level5 unnumbered hasAnchor">
 <h5>Post-Test: Phi, Cramer’s V<a href="case-study-chi-square-fisher.html#post-test-phi-cramers-v" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>The problem with the chi-square test for association is that it does not measure the <em>strength</em> of any association. Two measures of associate are often calculated after the chi-squared or Fisher tests.</p>
-<p>Cramer’s V is derived from the chi-square statistic. It restricts the statistic to a range of 0 to 1. <a href="#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a> Values under .1 are considered poor evidence of association; &gt;.2 are “moderately strong” evidence.</p>
+<p>Cramer’s V is derived from the chi-square statistic. It restricts the statistic to a range of 0 to 1. <a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a> Values under .1 are considered poor evidence of association; &gt;.2 are “moderately strong” evidence.</p>
 <p><span class="math display">\[V = \sqrt{\frac{\chi^2 / n}{\mathrm{min}(I, J) - 1}}\]</span></p>
-<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="case-study-chi-square-fisher.html#cb254-1" aria-hidden="true" tabindex="-1"></a><span class="co"># by hand</span></span>
-<span id="cb254-2"><a href="case-study-chi-square-fisher.html#cb254-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(cs<span class="sc">$</span>or2x2_chisq.test<span class="sc">$</span>statistic <span class="sc">/</span> <span class="fu">sum</span>(exer_table) <span class="sc">/</span> (<span class="fu">min</span>(<span class="dv">2</span>, <span class="dv">2</span>) <span class="sc">-</span> <span class="dv">1</span>))</span>
-<span id="cb254-3"><a href="case-study-chi-square-fisher.html#cb254-3" aria-hidden="true" tabindex="-1"></a><span class="do">## X-squared </span></span>
-<span id="cb254-4"><a href="case-study-chi-square-fisher.html#cb254-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 0.3223292</span></span>
-<span id="cb254-5"><a href="case-study-chi-square-fisher.html#cb254-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb254-6"><a href="case-study-chi-square-fisher.html#cb254-6" aria-hidden="true" tabindex="-1"></a><span class="co"># from package</span></span>
-<span id="cb254-7"><a href="case-study-chi-square-fisher.html#cb254-7" aria-hidden="true" tabindex="-1"></a>(cs<span class="sc">$</span>or2x2_v <span class="ot">&lt;-</span> rcompanion<span class="sc">::</span><span class="fu">cramerV</span>(exer_table))</span>
-<span id="cb254-8"><a href="case-study-chi-square-fisher.html#cb254-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Cramer V </span></span>
-<span id="cb254-9"><a href="case-study-chi-square-fisher.html#cb254-9" aria-hidden="true" tabindex="-1"></a><span class="do">##   0.3223</span></span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="case-study-chi-square-fisher.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># by hand</span></span>
+<span id="cb38-2"><a href="case-study-chi-square-fisher.html#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(cs<span class="sc">$</span>or2x2_chisq.test<span class="sc">$</span>statistic <span class="sc">/</span> <span class="fu">sum</span>(exer_table) <span class="sc">/</span> (<span class="fu">min</span>(<span class="dv">2</span>, <span class="dv">2</span>) <span class="sc">-</span> <span class="dv">1</span>))</span>
+<span id="cb38-3"><a href="case-study-chi-square-fisher.html#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="do">## X-squared </span></span>
+<span id="cb38-4"><a href="case-study-chi-square-fisher.html#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 0.3223292</span></span>
+<span id="cb38-5"><a href="case-study-chi-square-fisher.html#cb38-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-6"><a href="case-study-chi-square-fisher.html#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="co"># from package</span></span>
+<span id="cb38-7"><a href="case-study-chi-square-fisher.html#cb38-7" aria-hidden="true" tabindex="-1"></a>(cs<span class="sc">$</span>or2x2_v <span class="ot">&lt;-</span> rcompanion<span class="sc">::</span><span class="fu">cramerV</span>(exer_table))</span>
+<span id="cb38-8"><a href="case-study-chi-square-fisher.html#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Cramer V </span></span>
+<span id="cb38-9"><a href="case-study-chi-square-fisher.html#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="do">##   0.3223</span></span></code></pre></div>
 <p>The Phi Coefficient is defined</p>
 <p><span class="math display">\[\Phi = \sqrt{\frac{AD-BC}{(A+B)(C+D)(A+C)(B+D)}}\]</span></p>
 <p>where A, B, C, and D are the four values of the 2 x 2 contingency table.</p>
-<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="case-study-chi-square-fisher.html#cb255-1" aria-hidden="true" tabindex="-1"></a><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;C&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;D&quot;</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="case-study-chi-square-fisher.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;C&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;D&quot;</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,] &quot;A&quot;  &quot;B&quot; 
 ## [2,] &quot;C&quot;  &quot;D&quot;</code></pre>
 <p>Similar to a Pearson Correlation Coefficient, a Phi Coefficient takes on values between -1 and 1.</p>
-<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="case-study-chi-square-fisher.html#cb257-1" aria-hidden="true" tabindex="-1"></a><span class="co"># by hand</span></span>
-<span id="cb257-2"><a href="case-study-chi-square-fisher.html#cb257-2" aria-hidden="true" tabindex="-1"></a><span class="fu">det</span>(<span class="fu">matrix</span>(exer_table, <span class="at">nrow =</span> <span class="dv">2</span>)) <span class="sc">/</span> </span>
-<span id="cb257-3"><a href="case-study-chi-square-fisher.html#cb257-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sqrt</span>(<span class="fu">prod</span>(<span class="fu">c</span>(<span class="fu">marginSums</span>(exer_table, <span class="dv">1</span>), <span class="fu">marginSums</span>(exer_table, <span class="dv">2</span>))))</span>
-<span id="cb257-4"><a href="case-study-chi-square-fisher.html#cb257-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.3223292</span></span>
-<span id="cb257-5"><a href="case-study-chi-square-fisher.html#cb257-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb257-6"><a href="case-study-chi-square-fisher.html#cb257-6" aria-hidden="true" tabindex="-1"></a><span class="co"># from package</span></span>
-<span id="cb257-7"><a href="case-study-chi-square-fisher.html#cb257-7" aria-hidden="true" tabindex="-1"></a>(cs<span class="sc">$</span>or2x2_phi <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">phi</span>(exer_table))</span>
-<span id="cb257-8"><a href="case-study-chi-square-fisher.html#cb257-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.32</span></span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="case-study-chi-square-fisher.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># by hand</span></span>
+<span id="cb41-2"><a href="case-study-chi-square-fisher.html#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">det</span>(<span class="fu">matrix</span>(exer_table, <span class="at">nrow =</span> <span class="dv">2</span>)) <span class="sc">/</span> </span>
+<span id="cb41-3"><a href="case-study-chi-square-fisher.html#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sqrt</span>(<span class="fu">prod</span>(<span class="fu">c</span>(<span class="fu">marginSums</span>(exer_table, <span class="dv">1</span>), <span class="fu">marginSums</span>(exer_table, <span class="dv">2</span>))))</span>
+<span id="cb41-4"><a href="case-study-chi-square-fisher.html#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.3223292</span></span>
+<span id="cb41-5"><a href="case-study-chi-square-fisher.html#cb41-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-6"><a href="case-study-chi-square-fisher.html#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="co"># from package</span></span>
+<span id="cb41-7"><a href="case-study-chi-square-fisher.html#cb41-7" aria-hidden="true" tabindex="-1"></a>(cs<span class="sc">$</span>or2x2_phi <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">phi</span>(exer_table))</span>
+<span id="cb41-8"><a href="case-study-chi-square-fisher.html#cb41-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.32</span></span></code></pre></div>
 </div>
 <div id="reporting" class="section level5 unnumbered hasAnchor">
 <h5>Reporting<a href="case-study-chi-square-fisher.html#reporting" class="anchor-section" aria-label="Anchor link to header"></a></h5>
@@ -843,8 +840,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div class="footnotes">
 <hr />
-<ol start="18">
-<li id="fn18"><p><a href="https://methods.sagepub.com/base/download/DatasetStudentGuide/cramers-v-lfsp-2015-r">This tutorial</a> says both variables should have more than two levels, but doesn’t explain why.<a href="case-study-chi-square-fisher.html#fnref18" class="footnote-back">↩︎</a></p></li>
+<ol start="7">
+<li id="fn7"><p><a href="https://methods.sagepub.com/base/download/DatasetStudentGuide/cramers-v-lfsp-2015-r">This tutorial</a> says both variables should have more than two levels, but doesn’t explain why.<a href="case-study-chi-square-fisher.html#fnref7" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

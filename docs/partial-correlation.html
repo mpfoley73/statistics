@@ -23,7 +23,7 @@
 <meta name="author" content="Michael Foley" />
 
 
-<meta name="date" content="2023-04-09" />
+<meta name="date" content="2023-04-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,8 +52,6 @@
 <link href="assets/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="assets/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="assets/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="assets/kePrint-0.0.1/kePrint.js"></script>
-<link href="assets/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <link href="assets/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
 <script src="assets/tabwid-1.1.3/tabwid.js"></script>
 
@@ -228,22 +226,40 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="partial-correlation" class="section level2 hasAnchor" number="6.11">
 <h2><span class="header-section-number">6.11</span> Partial Correlation<a href="partial-correlation.html#partial-correlation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The <em>partial correlation</em> of <span class="math inline">\(\textbf{Y}_j\)</span> and <span class="math inline">\(\textbf{Y}_k\)</span> is their correlation <em>conditioned on sampling from a sub-population of</em> <span class="math inline">\(X\)</span>. Express the sub-population as <span class="math inline">\(\textbf{Z} = \begin{pmatrix}\textbf{X}_1 \\ \textbf{X}_2 \end{pmatrix}\)</span>. The mean vector can similarly be partitioned into <span class="math inline">\(\boldsymbol{\bar{x}} = \begin{pmatrix}\boldsymbol{\bar{x}}_1 \\ \boldsymbol{\bar{x}}_2 \end{pmatrix}\)</span>. The variance-covariance matrix can also be partitioned, but now there is also the covariances between <span class="math inline">\(\textbf{X}_1\)</span> and <span class="math inline">\(\textbf{X}_1\)</span>, so the partition is a matrix of variance-covariance matrices, <span class="math inline">\(\boldsymbol{S} = \begin{pmatrix} \boldsymbol{S}_{11} &amp; \boldsymbol{S}_{12} \\ \boldsymbol{S}_{21} &amp; \boldsymbol{S}_{22} \end{pmatrix}\)</span>! So <span class="math inline">\(\boldsymbol{S}_{11}\)</span> and <span class="math inline">\(\boldsymbol{S}_{22}\)</span> are the variance-covariance matrices of <span class="math inline">\(\textbf{X}_1\)</span> and <span class="math inline">\(\textbf{X}_2\)</span>, and <span class="math inline">\(\boldsymbol{S}_{12}\)</span> and <span class="math inline">\(\boldsymbol{S}_{21}\)</span> are the (identical) variance-covariance matrices between the variables in <span class="math inline">\(\textbf{X}_1\)</span> and the variables in <span class="math inline">\(\textbf{X}_2\)</span>.</p>
-<p>What does this get you? You can now express the <em>conditional distribution</em> of <span class="math inline">\(\textbf{X}_1\)</span> given <span class="math inline">\(\textbf{X}_2 = \textbf{x}_2\)</span>.</p>
-<p><span class="math display" id="eq:s06-cond-mean">\[
+<p>The <em>partial correlation</em> of <span class="math inline">\(\textbf{Y}_j\)</span> and <span class="math inline">\(\textbf{Y}_k\)</span> is their correlation <em>conditioned on sampling from a sub-population of</em> <span class="math inline">\(X\)</span>. Express the sub-population as <span class="math inline">\(\textbf{Z} = \begin{pmatrix}\textbf{X}_1 \\ \textbf{X}_2 \end{pmatrix}\)</span> with partitioned mean vector <span class="math inline">\(\boldsymbol{\bar{x}} = \begin{pmatrix}\boldsymbol{\bar{x}}_1 \\ \boldsymbol{\bar{x}}_2 \end{pmatrix}\)</span>. The variance-covariance matrix is complicated by the covariances between <span class="math inline">\(\textbf{X}_1\)</span> and <span class="math inline">\(\textbf{X}_1\)</span>, so the partition is a <em>matrix of matrices</em>, <span class="math inline">\(\boldsymbol{S} = \begin{pmatrix} \boldsymbol{S}_{11} &amp; \boldsymbol{S}_{12} \\ \boldsymbol{S}_{21} &amp; \boldsymbol{S}_{22} \end{pmatrix}\)</span>. <span class="math inline">\(\boldsymbol{S}_{11}\)</span> and <span class="math inline">\(\boldsymbol{S}_{22}\)</span> are the variance-covariance matrices of <span class="math inline">\(\textbf{X}_1\)</span> and <span class="math inline">\(\textbf{X}_2\)</span>, and <span class="math inline">\(\boldsymbol{S}_{12}\)</span> and <span class="math inline">\(\boldsymbol{S}_{21}\)</span> are the (identical) variance-covariance matrices between the variables in <span class="math inline">\(\textbf{X}_1\)</span> and the variables in <span class="math inline">\(\textbf{X}_2\)</span>.</p>
+<p>Partitioning means you can express the mean, (<span class="math inline">\(\textbf{M}\)</span>, and variance-covariance matrix, <span class="math inline">\(\textbf{CV}\)</span> of <span class="math inline">\(Y\)</span> <em>conditioned</em> on <span class="math inline">\(\textbf{X} = \textbf{x}_2\)</span>.</p>
+<p><span class="math display">\[
 \begin{equation}
-\bar{y}_{\textbf{Y.x}} = \boldsymbol{\bar{x}}_1 + \boldsymbol{S}_{12} \boldsymbol{S}_{22}^{-1} (\textbf{x} - \boldsymbol{\bar{x}}_2)
+\textbf{M} = \boldsymbol{\bar{x}}_1 + \boldsymbol{S}_{12} \boldsymbol{S}_{22}^{-1} (\textbf{x}_2 - \boldsymbol{\bar{x}}_2)
 \end{equation}
-\tag{6.1}
 \]</span></p>
 <p><span class="math display" id="eq:s06-cond-cov">\[
 \begin{equation}
-S_{\textbf{Y.x}} = \boldsymbol{S}_{11} - \boldsymbol{S}_{12} \boldsymbol{S}_{22}^{-1} \boldsymbol{S}_{21}
+\textbf{CV} = \boldsymbol{S}_{11} - \boldsymbol{S}_{12} \boldsymbol{S}_{22}^{-1} \boldsymbol{S}_{21}
+\end{equation}
+\tag{6.1}
+\]</span></p>
+<p>To see what this means, consider the bi-variate case. Suppose height and weight are distributed <span class="math inline">\(\mu = \begin{pmatrix} 175 \\ 71 \end{pmatrix}\)</span> with variance-covariance matrix <span class="math inline">\(\boldsymbol{\Sigma} = \begin{pmatrix} 550 &amp; 40 \\ 40 &amp; 8 \end{pmatrix}\)</span>. The mean of height, <span class="math inline">\(Y\)</span> given weight <span class="math inline">\(\textbf{X} = \textbf{x}_2\)</span> is <span class="math inline">\(\textbf{M}_{\textbf{Y.x}} = 175 + \frac{40}{8} (x_2 - 71)\)</span>. The variance is <span class="math inline">\(\textbf{v}_{\textbf{Y.x}} = 550 = \frac{40^2}{8}\)</span> (a constant).</p>
+<p>The conditional mean of <span class="math inline">\(\textbf{Y}\)</span> given <span class="math inline">\(\textbf{X} = \textbf{x}\)</span> is <span class="math inline">\(\mu_{\textbf{Y.x}} = E(\textbf{Y|X=x})\)</span>. If the distribution is multivariate normal, then the conditional mean equals its overall mean plus an adjustment based how <span class="math inline">\(\textbf{Y}\)</span> varies with <span class="math inline">\(\textbf{X}\)</span> as a fraction of the variation of <span class="math inline">\(\textbf{X}\)</span> multiplied by the distance of <span class="math inline">\(\textbf{X}\)</span> from its mean.</p>
+<p><span class="math display" id="eq:s06-conditional-mean">\[
+\begin{equation}
+\mu_{\textbf{Y.x}} = E(\textbf{Y|X=x}) = \mu_\textbf{Y} + \boldsymbol{\Sigma}_\textbf{YX} \boldsymbol{\Sigma}_\textbf{X}^{-1} (\textbf{x} - \boldsymbol{\mu}_\textbf{X})
 \end{equation}
 \tag{6.2}
 \]</span></p>
-<p>To see what this means, start with a simple bi-variate case.</p>
-<p>Divide the covariance of two variables by the product of their standard deviations to get the <em>correlation</em>, <span class="math inline">\(r_{jk} = \frac{s_{jk}}{s_j s_k}\)</span>. The sample correlation estimates the population correlation, <span class="math inline">\(\rho_{jk} = \frac{\sigma_{jk}}{\sigma_j \sigma_k}\)</span>. Test the null hypothesis that <span class="math inline">\(H_0: \rho_{jk} = 0\)</span> with a <em>t</em>-test where</p>
+<p>Note how if <span class="math inline">\(\textbf{x} = \boldsymbol{\mu}_\textbf{X}\)</span> the conditional mean equals the overall mean. If the <span class="math inline">\(\textbf{X}\)</span>’s are generally positively correlated with the <span class="math inline">\(\textbf{Y}\)</span>’s, then <span class="math inline">\(\textbf{x} &gt; \boldsymbol{\mu}_\textbf{X}\)</span> results in a positive adjustment, and vice-versa.</p>
+<p><a href="https://online.stat.psu.edu/stat505/lesson/6/6.1" class="uri">https://online.stat.psu.edu/stat505/lesson/6/6.1</a></p>
+<p>The conditional variance is <span class="math inline">\(\sigma_{\textbf{Y.x}}^2 =E\{ (\textbf{Y} - \boldsymbol{\mu}_{\textbf{Y.x}})^2 | \textbf{X = x} \}\)</span>. The conditional covariance between <span class="math inline">\(Y_i\)</span> and <span class="math inline">\(Y_j\)</span> is <span class="math inline">\(\sigma_{i,j.\textbf{x}} =E\{ (Y_i - \mu_{Y_i.x})(Y_j - \mu_{Y_j.x}) | \textbf{X = x} \}\)</span>. The variances and covariances can be collected into a variance-covariance matrix.</p>
+<p><span class="math display">\[
+\boldsymbol{\Sigma}_{\textbf{Y}.\textbf{x}} = \begin{pmatrix}
+\sigma_{Y_{1}.\textbf{X}} &amp; \sigma_{12.\textbf{X}} &amp; \cdots &amp; \sigma_{1p.\textbf{X}} \\
+\sigma_{21.\textbf{X}} &amp; \sigma_{Y_{2}.\textbf{X}} &amp; \cdots &amp; \sigma_{2p.\textbf{X}} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+\sigma_{p1.\textbf{X}} &amp; \sigma_{p2.\textbf{X}} &amp; \cdots &amp; \sigma_{Y_{p}.\textbf{X}}
+\end{pmatrix}
+\]</span></p>
+<p>Divide the covariance of two variables by the product of their standard deviations to get the <em>unconditional correlation</em>, <span class="math inline">\(r_{jk} = \frac{s_{jk}}{s_j s_k}\)</span>. <span class="math inline">\(r_{jk}\)</span> estimates the population correlation, <span class="math inline">\(\rho_{jk} = \frac{\sigma_{jk}}{\sigma_j \sigma_k}\)</span>. The <em>partial correlation</em> is <span class="math inline">\(\rho_{jk.\textbf{X}} = \frac{\sigma_{jk.\textbf{X}}}{\sigma_{Y_j.\textbf{X}} \sigma_{Y_k.\textbf{X}}}\)</span></p>
+<p>Test the null hypothesis that <span class="math inline">\(H_0: \rho_{jk} = 0\)</span> with a <em>t</em>-test where</p>
 <p><span class="math display">\[
 t = r_{jk}\sqrt{\frac{n-2}{1-r_{jk}^2}}
 \]</span></p>
@@ -253,39 +269,37 @@ z_{jk} = \frac{1}{2} \log \frac{1 + r_{jk}}{1 - r_{jk}}
 \]</span></p>
 <p><span class="math inline">\(z_{jk}\)</span> is distributed normally with variance <span class="math inline">\(\frac{1}{n - 3}\)</span>.</p>
 <p><strong>Quick Example</strong>.</p>
-<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="partial-correlation.html#cb261-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 37x5 data set from [PSU STAT 505](https://online.stat.psu.edu/stat505/lesson/4/4.7).</span></span>
-<span id="cb261-2"><a href="partial-correlation.html#cb261-2" aria-hidden="true" tabindex="-1"></a>wechsler <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_fwf</span>(</span>
-<span id="cb261-3"><a href="partial-correlation.html#cb261-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">file =</span> <span class="st">&quot;./input/wechsler.txt&quot;</span>, </span>
-<span id="cb261-4"><a href="partial-correlation.html#cb261-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_positions =</span> readr<span class="sc">::</span><span class="fu">fwf_widths</span>(</span>
-<span id="cb261-5"><a href="partial-correlation.html#cb261-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>),</span>
-<span id="cb261-6"><a href="partial-correlation.html#cb261-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">col_names =</span> <span class="fu">c</span>(<span class="st">&quot;ID&quot;</span>, <span class="st">&quot;Information&quot;</span>, <span class="st">&quot;Similarities&quot;</span>, <span class="st">&quot;Arithmetic&quot;</span>, <span class="st">&quot;PictureCompletion&quot;</span>)</span>
-<span id="cb261-7"><a href="partial-correlation.html#cb261-7" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb261-8"><a href="partial-correlation.html#cb261-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">show_col_types =</span> <span class="cn">FALSE</span></span>
-<span id="cb261-9"><a href="partial-correlation.html#cb261-9" aria-hidden="true" tabindex="-1"></a>) </span>
-<span id="cb261-10"><a href="partial-correlation.html#cb261-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb261-11"><a href="partial-correlation.html#cb261-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Correlation between Information and Similarities</span></span>
-<span id="cb261-12"><a href="partial-correlation.html#cb261-12" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(wechsler<span class="sc">$</span>Information, wechsler<span class="sc">$</span>Similarities)</span>
-<span id="cb261-13"><a href="partial-correlation.html#cb261-13" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.7715297</span></span>
-<span id="cb261-14"><a href="partial-correlation.html#cb261-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb261-15"><a href="partial-correlation.html#cb261-15" aria-hidden="true" tabindex="-1"></a><span class="co"># t.test with 95% CI.</span></span>
-<span id="cb261-16"><a href="partial-correlation.html#cb261-16" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(wechsler<span class="sc">$</span>Information, wechsler<span class="sc">$</span>Similarities)</span>
-<span id="cb261-17"><a href="partial-correlation.html#cb261-17" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb261-18"><a href="partial-correlation.html#cb261-18" aria-hidden="true" tabindex="-1"></a><span class="do">##  Pearson&#39;s product-moment correlation</span></span>
-<span id="cb261-19"><a href="partial-correlation.html#cb261-19" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb261-20"><a href="partial-correlation.html#cb261-20" aria-hidden="true" tabindex="-1"></a><span class="do">## data:  wechsler$Information and wechsler$Similarities</span></span>
-<span id="cb261-21"><a href="partial-correlation.html#cb261-21" aria-hidden="true" tabindex="-1"></a><span class="do">## t = 7.1746, df = 35, p-value = 2.277e-08</span></span>
-<span id="cb261-22"><a href="partial-correlation.html#cb261-22" aria-hidden="true" tabindex="-1"></a><span class="do">## alternative hypothesis: true correlation is not equal to 0</span></span>
-<span id="cb261-23"><a href="partial-correlation.html#cb261-23" aria-hidden="true" tabindex="-1"></a><span class="do">## 95 percent confidence interval:</span></span>
-<span id="cb261-24"><a href="partial-correlation.html#cb261-24" aria-hidden="true" tabindex="-1"></a><span class="do">##  0.5966733 0.8764458</span></span>
-<span id="cb261-25"><a href="partial-correlation.html#cb261-25" aria-hidden="true" tabindex="-1"></a><span class="do">## sample estimates:</span></span>
-<span id="cb261-26"><a href="partial-correlation.html#cb261-26" aria-hidden="true" tabindex="-1"></a><span class="do">##       cor </span></span>
-<span id="cb261-27"><a href="partial-correlation.html#cb261-27" aria-hidden="true" tabindex="-1"></a><span class="do">## 0.7715297</span></span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="partial-correlation.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 37x5 data set from [PSU STAT 505](https://online.stat.psu.edu/stat505/lesson/4/4.7).</span></span>
+<span id="cb45-2"><a href="partial-correlation.html#cb45-2" aria-hidden="true" tabindex="-1"></a>wechsler <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_fwf</span>(</span>
+<span id="cb45-3"><a href="partial-correlation.html#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">file =</span> <span class="st">&quot;./input/wechsler.txt&quot;</span>, </span>
+<span id="cb45-4"><a href="partial-correlation.html#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_positions =</span> readr<span class="sc">::</span><span class="fu">fwf_widths</span>(</span>
+<span id="cb45-5"><a href="partial-correlation.html#cb45-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>),</span>
+<span id="cb45-6"><a href="partial-correlation.html#cb45-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">col_names =</span> <span class="fu">c</span>(<span class="st">&quot;ID&quot;</span>, <span class="st">&quot;Information&quot;</span>, <span class="st">&quot;Similarities&quot;</span>, <span class="st">&quot;Arithmetic&quot;</span>, <span class="st">&quot;PictureCompletion&quot;</span>)</span>
+<span id="cb45-7"><a href="partial-correlation.html#cb45-7" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb45-8"><a href="partial-correlation.html#cb45-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">show_col_types =</span> <span class="cn">FALSE</span></span>
+<span id="cb45-9"><a href="partial-correlation.html#cb45-9" aria-hidden="true" tabindex="-1"></a>) </span>
+<span id="cb45-10"><a href="partial-correlation.html#cb45-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-11"><a href="partial-correlation.html#cb45-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Correlation between Information and Similarities</span></span>
+<span id="cb45-12"><a href="partial-correlation.html#cb45-12" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(wechsler<span class="sc">$</span>Information, wechsler<span class="sc">$</span>Similarities)</span>
+<span id="cb45-13"><a href="partial-correlation.html#cb45-13" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.7715297</span></span>
+<span id="cb45-14"><a href="partial-correlation.html#cb45-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-15"><a href="partial-correlation.html#cb45-15" aria-hidden="true" tabindex="-1"></a><span class="co"># t.test with 95% CI.</span></span>
+<span id="cb45-16"><a href="partial-correlation.html#cb45-16" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(wechsler<span class="sc">$</span>Information, wechsler<span class="sc">$</span>Similarities)</span>
+<span id="cb45-17"><a href="partial-correlation.html#cb45-17" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb45-18"><a href="partial-correlation.html#cb45-18" aria-hidden="true" tabindex="-1"></a><span class="do">##  Pearson&#39;s product-moment correlation</span></span>
+<span id="cb45-19"><a href="partial-correlation.html#cb45-19" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb45-20"><a href="partial-correlation.html#cb45-20" aria-hidden="true" tabindex="-1"></a><span class="do">## data:  wechsler$Information and wechsler$Similarities</span></span>
+<span id="cb45-21"><a href="partial-correlation.html#cb45-21" aria-hidden="true" tabindex="-1"></a><span class="do">## t = 7.1746, df = 35, p-value = 2.277e-08</span></span>
+<span id="cb45-22"><a href="partial-correlation.html#cb45-22" aria-hidden="true" tabindex="-1"></a><span class="do">## alternative hypothesis: true correlation is not equal to 0</span></span>
+<span id="cb45-23"><a href="partial-correlation.html#cb45-23" aria-hidden="true" tabindex="-1"></a><span class="do">## 95 percent confidence interval:</span></span>
+<span id="cb45-24"><a href="partial-correlation.html#cb45-24" aria-hidden="true" tabindex="-1"></a><span class="do">##  0.5966733 0.8764458</span></span>
+<span id="cb45-25"><a href="partial-correlation.html#cb45-25" aria-hidden="true" tabindex="-1"></a><span class="do">## sample estimates:</span></span>
+<span id="cb45-26"><a href="partial-correlation.html#cb45-26" aria-hidden="true" tabindex="-1"></a><span class="do">##       cor </span></span>
+<span id="cb45-27"><a href="partial-correlation.html#cb45-27" aria-hidden="true" tabindex="-1"></a><span class="do">## 0.7715297</span></span></code></pre></div>
 <p>The sum of the diagonal of any square matrix is called the <em>trace</em>. The trace of the covariance matrix is a single number that expresses the total dispersion of the data set.</p>
 <p><span class="math display">\[\mathrm{Trace}(S) = \sum_p S_{pp}\]</span></p>
 <p>The trace has the shortcoming of not taking the variable correlations into account. A data set can have a large trace, but really high correlations. Instead, the <em>generalized variance</em> expresses total variation with the <em>determinant</em>.</p>
 <p><span class="math display">\[|S| = \sum_{j = 1}^p (-1)^{j+1} b_{1j} |B_{1j}|\]</span></p>
-<div id="partial-correlation-1" class="section level3 hasAnchor" number="6.11.1">
-<h3><span class="header-section-number">6.11.1</span> Partial Correlation<a href="partial-correlation.html#partial-correlation-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Build your intuition with the bivariate case. If variables <span class="math inline">\(Y\)</span> and <span class="math inline">\(X\)</span> have a multivariate normal distribution, the conditional distribution of <span class="math inline">\(Y|X = x\)</span> is normal with mean <span class="math inline">\(\mu_Y + \frac{\sigma_{YX}}{\sigma_{XX}}(x - \mu_X)\)</span> and variance <span class="math inline">\(\sigma_{YY} - \frac{\sigma_{YX}^2}{\sigma_{XX}}\)</span>. For example, suppose <span class="math inline">\(Y\)</span> = height (in) and <span class="math inline">\(X\)</span> = weight (lbs) are distributed <span class="math inline">\(\mu = \begin{pmatrix}175 \\ 71 \end{pmatrix}\)</span> with variance-covariance matrix <span class="math inline">\(\boldsymbol{\Sigma} = \begin{pmatrix} 550 &amp; 40 \\ 40 &amp; 8 \end{pmatrix}\)</span>. Conditioning on <span class="math inline">\(X = x\)</span>, <span class="math inline">\(\mu_{Y.x} = 175 + \frac{40}{8}(x - 71)\)</span> and <span class="math inline">\(\sigma_{Y.x} = 550 - \frac{40^2}{8}\)</span>.</p>
 <p>Extend this to the multivariate case. Let <span class="math inline">\(\textbf{Y}\)</span> be a set of outcomes (e.g., blood pressure and cholesterol) and <span class="math inline">\(\textbf{X}\)</span> be a set of conditioning variables (e.g., age, height, and weight). The multivariate conditional mean, <span class="math inline">\(\mu_{\textbf{Y}.\textbf{x}}\)</span>, is</p>
 <p><span class="math display" id="eq:multivariate-conditional-mean">\[
@@ -302,20 +316,7 @@ E(\textbf{Y} | \textbf{X} = \textbf{x}) = \mu_{\textbf{Y}} + \boldsymbol{\Sigma}
 \end{equation}
 \]</span></p>
 <p>the mean of a set of outcomes, <span class="math inline">\(\textbf{Y}\)</span> (e.g., blood pressure and cholesterol) conditioned on a set of attributes, <span class="math inline">\(\textbf{X}\)</span> (e.g., age, height, and weight). Denote it as . Denote the conditional variance as <span class="math inline">\(\sigma_{\textbf{Y}.x}^2 = \text{var}(\textbf{Y}|\textbf{X}=\textbf{x})\)</span>. It is equal to conditional squared difference from the mean, <span class="math inline">\(E\{(\textbf{Y} - \boldsymbol{\mu}_{\textbf{Y}.\textbf{x}})^2|\textbf{X} = \textbf{x}\}\)</span>. Any two variables, <span class="math inline">\(Y_i\)</span> and <span class="math inline">\(Y_j\)</span> have a conditional covariance <span class="math inline">\(\sigma_{i,j.\textbf{x}} = \text{cov}(Y_i,Y_j|\textbf{X} = \textbf{x})\)</span>. It is equal to <span class="math inline">\(E\{ (Y_i - \mu_{Y_{i.x}}) (Y_j - \mu_{Y_{j.x}}) | \textbf{X} = \textbf{x}\}\)</span>. The set of all covariances is a matrix.</p>
-<p><span class="math display">\[
-\boldsymbol{\Sigma}_{\textbf{Y}.\textbf{x}} = \begin{pmatrix}
-\sigma_{Y_{1}.\textbf{X}} &amp; \sigma_{12.\textbf{X}} &amp; \cdots &amp; \sigma_{1p.\textbf{X}} \\
-\sigma_{21.\textbf{X}} &amp; \sigma_{Y_{2}.\textbf{X}} &amp; \cdots &amp; \sigma_{2p.\textbf{X}} \\
-\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
-\sigma_{p1.\textbf{X}} &amp; \sigma_{p2.\textbf{X}} &amp; \cdots &amp; \sigma_{Y_{p}.\textbf{X}}
-\end{pmatrix}
-\]</span></p>
-<p>Then the partial correlation between <span class="math inline">\(Y_i\)</span> and <span class="math inline">\(Y_k\)</span> given <span class="math inline">\(\textbf{X} = \textbf{x}\)</span> is</p>
-<p><span class="math display">\[
-\rho_{jk.\textbf{X}} = \frac{\sigma_{jk.\textbf{X}}}{\sigma_{Y_{j}.\textbf{X}} \sigma_{Y_{k}.\textbf{X}}}
-\]</span></p>
 
-</div>
 </div>
 <!-- </div> -->
             </section>

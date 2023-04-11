@@ -23,7 +23,7 @@
 <meta name="author" content="Michael Foley" />
 
 
-<meta name="date" content="2023-04-09" />
+<meta name="date" content="2023-04-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,8 +52,6 @@
 <link href="assets/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="assets/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="assets/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="assets/kePrint-0.0.1/kePrint.js"></script>
-<link href="assets/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <link href="assets/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
 <script src="assets/tabwid-1.1.3/tabwid.js"></script>
 
@@ -230,14 +228,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">6.10</span> Odds Ratio<a href="odds-ratio.html#odds-ratio" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Calculate relative risks for <em>dichotomous</em> nominal, independent variables when one variable is independent, the other dependent. Relative risks are valid for <em>prospective</em> and <em>retrospective cohort designs</em>, <em>randomized controlled trials (RCTs)</em>, and some types of <em>cross-sectional studies</em>, but not with case-control studies.</p>
 <p>Calculate odds ratios as an alternative to relative risk. It makes the same assumptions. Unlike relative risk, it is valid for <em>all</em> study designs.</p>
-<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="odds-ratio.html#cb258-1" aria-hidden="true" tabindex="-1"></a>cs<span class="sc">$</span>or2</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="odds-ratio.html#cb42-1" aria-hidden="true" tabindex="-1"></a>cs<span class="sc">$</span>or2</span></code></pre></div>
 <pre><code>## NULL</code></pre>
-<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="odds-ratio.html#cb260-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Smoking vs Lung Cancer</span></span>
-<span id="cb260-2"><a href="odds-ratio.html#cb260-2" aria-hidden="true" tabindex="-1"></a><span class="co"># https://statistics.laerd.com/premium/spss/rr2x2/relative-risk-2x2-in-spss.php</span></span>
-<span id="cb260-3"><a href="odds-ratio.html#cb260-3" aria-hidden="true" tabindex="-1"></a>cs<span class="sc">$</span>rr2x2 <span class="ot">&lt;-</span> <span class="fu">read.spss</span>(</span>
-<span id="cb260-4"><a href="odds-ratio.html#cb260-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;./input/relative-risk-2x2-individual-scores.sav&quot;</span>, </span>
-<span id="cb260-5"><a href="odds-ratio.html#cb260-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">to.data.frame =</span> <span class="cn">TRUE</span></span>
-<span id="cb260-6"><a href="odds-ratio.html#cb260-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="odds-ratio.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Smoking vs Lung Cancer</span></span>
+<span id="cb44-2"><a href="odds-ratio.html#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="co"># https://statistics.laerd.com/premium/spss/rr2x2/relative-risk-2x2-in-spss.php</span></span>
+<span id="cb44-3"><a href="odds-ratio.html#cb44-3" aria-hidden="true" tabindex="-1"></a>cs<span class="sc">$</span>rr2x2 <span class="ot">&lt;-</span> <span class="fu">read.spss</span>(</span>
+<span id="cb44-4"><a href="odds-ratio.html#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;./input/relative-risk-2x2-individual-scores.sav&quot;</span>, </span>
+<span id="cb44-5"><a href="odds-ratio.html#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">to.data.frame =</span> <span class="cn">TRUE</span></span>
+<span id="cb44-6"><a href="odds-ratio.html#cb44-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 </div>
             </section>
 

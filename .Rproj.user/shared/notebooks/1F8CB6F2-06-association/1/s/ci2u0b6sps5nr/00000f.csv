@@ -1,0 +1,10 @@
+"0","cs$or2"
+"1","NULL
+"
+"0","# Smoking vs Lung Cancer"
+"0","# https://statistics.laerd.com/premium/spss/rr2x2/relative-risk-2x2-in-spss.php"
+"0","cs$rr2x2 <- read.spss("
+"0","  ""./input/relative-risk-2x2-individual-scores.sav"", "
+"0","  to.data.frame = TRUE"
+"0",")"
+"0",""
