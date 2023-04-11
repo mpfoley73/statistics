@@ -68,3 +68,4 @@ matrix-algebra
 central-tendancy-dispersion-and-association
 linear-transformations
 multivariate-normal-distribution
+eq:s06-conditional-mean
