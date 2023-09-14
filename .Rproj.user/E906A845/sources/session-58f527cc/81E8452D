@@ -3,7 +3,7 @@
     "path": "~/GitHub/statistics/06-association.Rmd",
     "project_path": "06-association.Rmd",
     "type": "r_markdown",
-    "hash": "3745122484",
+    "hash": "0",
     "contents": "",
     "dirty": false,
     "created": 1681114588748.0,
@@ -14,7 +14,8 @@
         "Source": "Source",
         "docOutlineVisible": "1",
         "cursorPosition": "476,0",
-        "scrollLine": "472"
+        "scrollLine": "0",
+        "working_dir": "default"
     },
     "folds": "",
     "lastKnownWriteTime": 1681203255,

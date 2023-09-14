@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 3 Bayesian Statistics | Statistical Inference</title>
+  <title>3.7 Gamma Poisson | Statistical Inference</title>
   <meta name="description" content="Notes cobbled together from books, online classes, etc. to be used as quick reference for common work projects." />
   <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 3 Bayesian Statistics | Statistical Inference" />
+  <meta property="og:title" content="3.7 Gamma Poisson | Statistical Inference" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Notes cobbled together from books, online classes, etc. to be used as quick reference for common work projects." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 3 Bayesian Statistics | Statistical Inference" />
+  <meta name="twitter:title" content="3.7 Gamma Poisson | Statistical Inference" />
   
   <meta name="twitter:description" content="Notes cobbled together from books, online classes, etc. to be used as quick reference for common work projects." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="maximum-likelihood-estimation.html"/>
-<link rel="next" href="bayes-theorem.html"/>
+<link rel="prev" href="a-gentler-introduction.html"/>
+<link rel="next" href="one-sample.html"/>
 <script src="assets/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="assets/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -226,19 +226,101 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="bayesian-statistics" class="section level1 hasAnchor" number="3">
-<h1><span class="header-section-number">Chapter 3</span> Bayesian Statistics<a href="bayesian-statistics.html#bayesian-statistics" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Bayesian inference estimates the probability, <span class="math inline">\(\theta\)</span>, that an hypothesis is true. It differs from classical (aka, frequentist) inference in its insistence that <em>all</em> uncertainties be described by probabilities. Bayesian inference updates the prior probability distribution in light of new information.</p>
-<p>Bayesian inference differs from classical inference in three respects. Both methods assume a data generating mechanism expressed as a likelihood. However, classical inference assumes the nature of the mechanism is infinitely repeatable while Bayesian inference treats each event as unique. classical estimates a single population parameter (usually the mean), while Bayesian inference estimates a parameter <em>distribution</em>. Finally, the machinery of classical inference is maximizing likelihood and for Bayesian inference it is updating the prior distribution.</p>
-<p>Bayesian inference builds on Bayes’ Theorem, so let’s start there.</p>
+<div id="gamma-poisson" class="section level2 hasAnchor" number="3.7">
+<h2><span class="header-section-number">3.7</span> Gamma Poisson<a href="gamma-poisson.html#gamma-poisson" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Given counts of sandwich sales by weekday, what are the average daily sales?</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="gamma-poisson.html#cb58-1" tabindex="-1"></a>D <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">65</span>, <span class="dv">72</span>, <span class="dv">63</span>, <span class="dv">70</span>)</span></code></pre></div>
+<p>Count data have a Poisson distribution, <span class="math inline">\(D_i|\lambda \sim Pois(\lambda)\)</span>, with PMF <span class="math inline">\(f(D_i | \lambda) = e^{-\lambda}\frac{\lambda^{D_i}}{D_i!}\)</span>. Using Bayes’ Theorem, we answer this question by estimating the posterior distribution of <span class="math inline">\(\lambda\)</span> given evidence <span class="math inline">\(\textbf{D}\)</span>, <span class="math inline">\(f(\lambda |\textbf{D})\)</span> is equal to the joint likelihood of <span class="math inline">\(\lambda\)</span> and <span class="math inline">\(\textbf{D}\)</span> divided by the likelihood of <span class="math inline">\(\textbf{D}\)</span>.</p>
+<p><span class="math display">\[
+f(\lambda |\textbf{D}) = \frac{f(\mathbf{D}|\lambda) f(\lambda)}{\int_\Lambda f(\mathbf{D}|\lambda) f(\lambda) d\lambda}
+\]</span></p>
+<p><span class="math inline">\(f(\textbf{D}|\lambda)\)</span> is the sum-product of the Poisson distribution PMF.</p>
+<p><span class="math display">\[
+\begin{align}
+f(\textbf{D}|\lambda) = f(D_i,\ldots, D_n | \lambda) &amp;= \prod_i f(D_i | \lambda) \\
+&amp;= \prod_i e^{-\lambda}\frac{\lambda^{D_i}}{D_i!}
+\end{align}
+\]</span></p>
+<p>What about the prior, <span class="math inline">\(f(\lambda)\)</span>? We use the <a href="https://mpfoley73.github.io/probability/random-variables-and-distributions.html#gamma">gamma distribution</a>, <span class="math inline">\(\lambda|a,b = \mathrm{Gamma}(a,b)\)</span> to model positive values.</p>
+<p><span class="math display">\[
+f(\lambda) = f(\lambda | a,b) = \frac{b^a \lambda^{a-1} e^{-b\lambda}}{\Gamma(a)}
+\]</span></p>
+<p>where <span class="math inline">\(\Gamma\)</span> is the gamma function<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>. Substituting into Bayes’ Theorem and simplifying, you have this nightmare:</p>
+<p><span class="math display">\[
+f(\lambda |\textbf{D}) = \frac{\lambda^{a + \sum_i D_i-1}e^{-(b+n)\lambda}}{\int_0^\infty \lambda^{a + \sum_i D_i-1}e^{-(b+n)\lambda} d\lambda}
+\]</span></p>
+<p>However, there is good news. The integration in the denominator removes the dependence on <span class="math inline">\(\lambda\)</span>, so <span class="math inline">\(f(\lambda |\textbf{D}, a, b)\)</span> is proportional to the numerator up to a constant.</p>
+<p><span class="math display">\[
+f(\lambda |\textbf{D}) \propto f(\textbf{D} | \lambda) f(\lambda)
+\]</span></p>
+<p>Since <span class="math inline">\(f(\lambda |\textbf{D})\)</span> is a PMF, you integrates (sums) to 1 and you can always figure out the constant later. What makes this good news is that this has the form of the PDF of the gamma distribution.</p>
+<p><span class="math display" id="eq:gamma-posterior">\[
+\begin{equation}
+\lambda | \textbf{D}, a, b \sim \mathrm{Gamma}(a + \sum_i D_i, b + n)
+\tag{3.1}
+\end{equation}
+\]</span></p>
+<p>Equation <a href="gamma-poisson.html#eq:gamma-posterior">(3.1)</a> is the posterior distribution of <span class="math inline">\(\lambda\)</span>. We combined a gamma prior with the Poisson likelihood of evidence, <span class="math inline">\(D\)</span>, to produce a gamma posterior. We call priors that produce posteriors of the same form, <em>conjugate priors</em> for the Poisson likelihood. Conjugate priors are popular because of their computational convenience.</p>
+<p>Let’s put this into action with the sandwich sales data. We need values to plug into Equation <a href="gamma-poisson.html#eq:gamma-posterior">(3.1)</a>. For the gamma distribution, <span class="math inline">\(E(X) = a / b\)</span> and <span class="math inline">\(\mathrm{Var}(X) = a / b^2\)</span>. You might guess from intuition that mean daily sandwich sales are 70 +/- 5. Interpreting +/- 5 as a 95% CI and using the rule of thumb that a 95% CI is 2 SD, <span class="math inline">\(\mathrm{Var} = (2.5)^2 = 6.25\)</span>. Solve for <span class="math inline">\(a = 784\)</span> and <span class="math inline">\(b = 11.2\)</span>. We also have <span class="math inline">\(\sum D = 320\)</span> and <span class="math inline">\(n = 5\)</span>.</p>
+<p><span class="math display">\[
+\lambda | \textbf{D}, a, b \sim \mathrm{Gamma}(784 + 320, 11.2 + 5) \sim \mathrm{Gamma}(1104, 16.2)
+\]</span></p>
+<p>The posterior <span class="math inline">\(E(D) = a / b = 1104 / 16.2 = 68.1\)</span> and <span class="math inline">\(\mathrm{Var}(D) = a / b^2 = 1104 / 16.2^2 = 4.2\)</span>. Use the gamma distribution function to get the posterior 95% CI (<em>credible</em> interval).</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="gamma-poisson.html#cb59-1" tabindex="-1"></a><span class="co"># The prior distribution</span></span>
+<span id="cb59-2"><a href="gamma-poisson.html#cb59-2" tabindex="-1"></a><span class="fu">qgamma</span>(<span class="at">p =</span> <span class="fu">c</span>(.<span class="dv">025</span>, .<span class="dv">5</span>, .<span class="dv">975</span>), <span class="dv">784</span>, <span class="fl">11.2</span>)</span>
+<span id="cb59-3"><a href="gamma-poisson.html#cb59-3" tabindex="-1"></a><span class="do">## [1] 65.18520 69.97024 74.98392</span></span>
+<span id="cb59-4"><a href="gamma-poisson.html#cb59-4" tabindex="-1"></a></span>
+<span id="cb59-5"><a href="gamma-poisson.html#cb59-5" tabindex="-1"></a><span class="co"># The posterior distribution</span></span>
+<span id="cb59-6"><a href="gamma-poisson.html#cb59-6" tabindex="-1"></a><span class="fu">qgamma</span>(<span class="at">p =</span> <span class="fu">c</span>(.<span class="dv">025</span>, .<span class="dv">5</span>, .<span class="dv">975</span>), <span class="dv">784</span> <span class="sc">+</span> <span class="dv">320</span>, <span class="fl">11.2</span> <span class="sc">+</span> <span class="dv">5</span>)</span>
+<span id="cb59-7"><a href="gamma-poisson.html#cb59-7" tabindex="-1"></a><span class="do">## [1] 64.18701 68.12757 72.22621</span></span></code></pre></div>
+<p>Whereas the prior expected mean daily sandwich sales was 70 (95% CI: 65, 75), the posterior is 68 (95% CI: 64, 72). Compare this to classical statistics: <span class="math inline">\(E(D) = \bar{d} = 64\)</span>, <span class="math inline">\(SE = \sqrt{\bar{d} / n} = 3.6\)</span>:</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="gamma-poisson.html#cb60-1" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="at">p =</span> <span class="fu">c</span>(.<span class="dv">025</span>, .<span class="dv">5</span>, .<span class="dv">975</span>), <span class="dv">64</span>, <span class="fl">3.6</span>)</span>
+<span id="cb60-2"><a href="gamma-poisson.html#cb60-2" tabindex="-1"></a><span class="do">## [1] 56.94413 64.00000 71.05587</span></span></code></pre></div>
+<p>You might think that the reasonable Bayesian outcome was predicated on good <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> priors, but no. Suppose <span class="math inline">\(a = .01\)</span> and <span class="math inline">\(b = .01\)</span>. The posterior is still reasonable.</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="gamma-poisson.html#cb61-1" tabindex="-1"></a><span class="fu">qgamma</span>(<span class="at">p =</span> <span class="fu">c</span>(.<span class="dv">025</span>, .<span class="dv">5</span>, .<span class="dv">975</span>), .<span class="dv">01</span> <span class="sc">+</span> <span class="dv">320</span>, .<span class="dv">01</span> <span class="sc">+</span> <span class="dv">5</span>)</span>
+<span id="cb61-2"><a href="gamma-poisson.html#cb61-2" tabindex="-1"></a><span class="do">## [1] 57.06689 63.80773 71.05964</span></span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="gamma-poisson.html#cb62-1" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb62-2"><a href="gamma-poisson.html#cb62-2" tabindex="-1"></a>  <span class="at">lambda =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">80</span>, .<span class="dv">1</span>),</span>
+<span id="cb62-3"><a href="gamma-poisson.html#cb62-3" tabindex="-1"></a>  <span class="st">`</span><span class="at">Gamma(.01, .01)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">dgamma</span>(lambda, .<span class="dv">01</span>, .<span class="dv">01</span>),</span>
+<span id="cb62-4"><a href="gamma-poisson.html#cb62-4" tabindex="-1"></a>  <span class="st">`</span><span class="at">Gamma(.01 + 320, .01 + 5)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">dgamma</span>(lambda, .<span class="dv">01</span> <span class="sc">+</span> <span class="dv">320</span>, .<span class="dv">01</span> <span class="sc">+</span> <span class="dv">5</span>),</span>
+<span id="cb62-5"><a href="gamma-poisson.html#cb62-5" tabindex="-1"></a>  <span class="st">`</span><span class="at">Gamma(784, 11.2)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">dgamma</span>(lambda, <span class="dv">784</span>, <span class="fl">11.2</span>),</span>
+<span id="cb62-6"><a href="gamma-poisson.html#cb62-6" tabindex="-1"></a>  <span class="st">`</span><span class="at">Gamma(784 + 320, 11.2 + 5)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">dgamma</span>(lambda, <span class="dv">784</span> <span class="sc">+</span> <span class="dv">320</span>, <span class="fl">11.2</span> <span class="sc">+</span> <span class="dv">5</span>)</span>
+<span id="cb62-7"><a href="gamma-poisson.html#cb62-7" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb62-8"><a href="gamma-poisson.html#cb62-8" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>lambda) <span class="sc">%&gt;%</span></span>
+<span id="cb62-9"><a href="gamma-poisson.html#cb62-9" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">name =</span> <span class="fu">fct_inorder</span>(name)) <span class="sc">%&gt;%</span></span>
+<span id="cb62-10"><a href="gamma-poisson.html#cb62-10" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prior =</span> <span class="fu">if_else</span>(<span class="fu">str_detect</span>(name, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">+&quot;</span>), <span class="st">&quot;posterior&quot;</span>, <span class="st">&quot;prior&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb62-11"><a href="gamma-poisson.html#cb62-11" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lambda, <span class="at">y =</span> value, <span class="at">color =</span> name, <span class="at">linetype =</span> prior)) <span class="sc">+</span></span>
+<span id="cb62-12"><a href="gamma-poisson.html#cb62-12" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb62-13"><a href="gamma-poisson.html#cb62-13" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;seagreen&quot;</span>, <span class="dv">2</span>), <span class="fu">rep</span>(<span class="st">&quot;firebrick&quot;</span>, <span class="dv">2</span>))) <span class="sc">+</span></span>
+<span id="cb62-14"><a href="gamma-poisson.html#cb62-14" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="cn">NULL</span>, <span class="at">linetype =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">&quot;density&quot;</span>)</span></code></pre></div>
+<p><img src="statistics_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+<p>You can see how the Bayesian estimate converges on the classical <span class="math inline">\(\bar{d}\)</span> with increasing sample size.</p>
+<p><span class="math display">\[
+E(\lambda|\textbf{D}, a, b) = \frac{a + \sum_i D_i}{b + n} = \frac{a + n \bar{d}}{b + n}
+\]</span></p>
+<p>Taking the limit, <span class="math inline">\(\lim_{n \rightarrow \infty} E(\lambda|\textbf{D}, a, b) = \bar{d}\)</span>.</p>
+<p>The <em>central</em> credible interval is the standard Bayesian credible interval. But when the posterior distribution is not perfectly symmetric, the shortest credible interval capturing x% of the distribution might different endpoints. Our example has a pretty symmetric distribution, but lets calculate the <em>highest density region (HDR)</em>.</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="gamma-poisson.html#cb63-1" tabindex="-1"></a>pp <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">0.01</span>, .<span class="dv">99</span>, <span class="at">by =</span> .<span class="dv">0001</span>)</span>
+<span id="cb63-2"><a href="gamma-poisson.html#cb63-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(pp, <span class="sc">~</span><span class="fu">qgamma</span>(., <span class="dv">784</span> <span class="sc">+</span> <span class="dv">320</span>, <span class="fl">11.2</span> <span class="sc">+</span> <span class="dv">5</span>))</span>
+<span id="cb63-3"><a href="gamma-poisson.html#cb63-3" tabindex="-1"></a>hdrcde<span class="sc">::</span><span class="fu">hdr</span>(x, <span class="at">prob =</span> <span class="dv">95</span>)<span class="sc">$</span>hdr</span></code></pre></div>
+<pre><code>##         [,1]     [,2]
+## 95% 64.40786 71.86589</code></pre>
+
+</div>
+<!-- </div> -->
+<div class="footnotes">
+<hr />
+<ol start="3">
+<li id="fn3"><p>The gamma function is a generic function, just like sin, cos, etc., and is a kind of generalized factorial.<a href="gamma-poisson.html#fnref3" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="maximum-likelihood-estimation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="bayes-theorem.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="a-gentler-introduction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="one-sample.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="assets/gitbook-2.6.7/js/app.min.js"></script>

@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 3 Bayesian Statistics | Statistical Inference</title>
+  <title>3.1 Bayes’ Theorem | Statistical Inference</title>
   <meta name="description" content="Notes cobbled together from books, online classes, etc. to be used as quick reference for common work projects." />
   <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 3 Bayesian Statistics | Statistical Inference" />
+  <meta property="og:title" content="3.1 Bayes’ Theorem | Statistical Inference" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Notes cobbled together from books, online classes, etc. to be used as quick reference for common work projects." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 3 Bayesian Statistics | Statistical Inference" />
+  <meta name="twitter:title" content="3.1 Bayes’ Theorem | Statistical Inference" />
   
   <meta name="twitter:description" content="Notes cobbled together from books, online classes, etc. to be used as quick reference for common work projects." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="maximum-likelihood-estimation.html"/>
-<link rel="next" href="bayes-theorem.html"/>
+<link rel="prev" href="bayesian-statistics.html"/>
+<link rel="next" href="bayesian-inference.html"/>
 <script src="assets/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="assets/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -226,19 +226,59 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="bayesian-statistics" class="section level1 hasAnchor" number="3">
-<h1><span class="header-section-number">Chapter 3</span> Bayesian Statistics<a href="bayesian-statistics.html#bayesian-statistics" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Bayesian inference estimates the probability, <span class="math inline">\(\theta\)</span>, that an hypothesis is true. It differs from classical (aka, frequentist) inference in its insistence that <em>all</em> uncertainties be described by probabilities. Bayesian inference updates the prior probability distribution in light of new information.</p>
-<p>Bayesian inference differs from classical inference in three respects. Both methods assume a data generating mechanism expressed as a likelihood. However, classical inference assumes the nature of the mechanism is infinitely repeatable while Bayesian inference treats each event as unique. classical estimates a single population parameter (usually the mean), while Bayesian inference estimates a parameter <em>distribution</em>. Finally, the machinery of classical inference is maximizing likelihood and for Bayesian inference it is updating the prior distribution.</p>
-<p>Bayesian inference builds on Bayes’ Theorem, so let’s start there.</p>
+<div id="bayes-theorem" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Bayes’ Theorem<a href="bayes-theorem.html#bayes-theorem" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Bayes’ Theorem, is the inverse conditional probability, the probability of the condition given the observed outcome. It reorganizes the relationship between joint probability and conditional probability, <span class="math inline">\(P(\theta D) = P(\theta|D)P(D) = P(D|\theta)P(\theta)\)</span>, into</p>
+<p><span class="math display">\[P(\theta|D) = \frac{P(D|\theta)P(\theta)}{P(D)}.\]</span></p>
+<p>In common English, the probability that <span class="math inline">\(\theta\)</span> is after observing <span class="math inline">\(D\)</span> is equal to the probability of observing <span class="math inline">\(D\)</span> when <span class="math inline">\(\theta\)</span> is true divided by the probability of observing <span class="math inline">\(D\)</span> under <em>any</em> circumstance.</p>
+<ul>
+<li><p><span class="math inline">\(P(\theta)\)</span> is the strength of your belief in <span class="math inline">\(\theta\)</span> <em>prior</em> to considering the data <span class="math inline">\(D\)</span>.</p></li>
+<li><p><span class="math inline">\(P(D|\theta)\)</span> is the <em>likelihood</em> of observing <span class="math inline">\(D\)</span> from a generative model with parameter <span class="math inline">\(\theta\)</span>. Note that the likelihood is a probability density, and is not quite the same as probability. For a continuous variable, likelihoods can sum to greater than 1. E.g., <code>dbinom(seq(1, 100, 1), 100, .5)</code> sums to 1, but <code>dnorm(seq(0,50,.001), 10, 10)</code> sums to 841.</p></li>
+<li><p><span class="math inline">\(P(D)\)</span> is the likelihood of observing <span class="math inline">\(D\)</span> from <em>any</em> prior. It is the <em>marginal distribution</em>, or <em>prior predictive distribution</em> of <span class="math inline">\(D\)</span>. The likelihood divided by the marginal distribution is the proportional adjustment made to the prior in light of the data.</p></li>
+<li><p><span class="math inline">\(P(\theta|D)\)</span> is the strength of your belief in <span class="math inline">\(\theta\)</span> <em>posterior</em> to considering <span class="math inline">\(D\)</span>.</p></li>
+</ul>
+<p>Bayes’ Theorem is useful for evaluating medical tests. A test’s <em>sensitivity</em> is its probability of yielding a positive result <span class="math inline">\(D\)</span> when condition <span class="math inline">\(\theta\)</span> exists. <span class="math inline">\(P(D|\theta)\)</span> is a test sensitivity, <span class="math inline">\(\mathrm{sens}\)</span>. <span class="math inline">\(P(\theta)\)</span> is the probability of <span class="math inline">\(\theta\)</span> prior to the test (e.g., the general rate in society), <span class="math inline">\(\mathrm{prior}\)</span>. The numerator of Bayes’ Theorem, the joint probability <span class="math inline">\(P(D \theta) = P(D|\theta)P(\theta)\)</span>, is <span class="math inline">\(\mathrm{sens\times prior}\)</span>. A test’s <em>specificity</em> is the probability of observing negative test result <span class="math inline">\(\hat{D}\)</span> when the condition does not exist, <span class="math inline">\(\hat{\theta}\)</span>. The specificity is the compliment of a <em>false positive</em> test result, <span class="math inline">\(P(\hat{D} | \hat{\theta}) = 1 - P(D | \hat{\theta})\)</span>. The denominator of Bayes’ Theorem is the overall probability of a positive test result, <span class="math inline">\(P(D) = P(D|\theta)P(\theta) + P(D|\hat\theta)P(\hat\theta)\)</span> or in terms of sensitivity and specificity, <span class="math inline">\(P(D) = \mathrm{(sens \times prior) + (1 - spec)(1 - prior)}\)</span>.</p>
+<p><strong>Example.</strong> Suppose E. Coli is typically present in 4.5% of samples, and an E. Coli screen has a sensitivity of 0.95 and a specificity of 0.99. Given a positive test result, what is the probability that E. Coli is actually present?</p>
+<p><span class="math display">\[P(\theta|D) = \frac{.95\cdot .045}{.95\cdot .045 + (1 - .99)(1 - .045)} = \frac{.04275}{.04275 + .00955} = \frac{.04275}{.05230} = 81.7\%.\]</span></p>
+<p>The elements of Bayes’ Theorem come directly from the contingency table. The first row is the positive test result. The probability of E. Coli is the joint probability of E. coli and a positive test divided by the probability of a positive test</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>E. Coli</th>
+<th>Safe</th>
+<th>Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>+ Test</td>
+<td>.95 * .045 = 0.04275</td>
+<td>.01 * .955 = 0.00955</td>
+<td>0.05230</td>
+</tr>
+<tr class="even">
+<td>- Test</td>
+<td>.05 * .045 = 0.00225</td>
+<td>.99 * .955 = 0.94545</td>
+<td>0.94770</td>
+</tr>
+<tr class="odd">
+<td>Total</td>
+<td>0.04500</td>
+<td>0.95500</td>
+<td>1.00000</td>
+</tr>
+</tbody>
+</table>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="maximum-likelihood-estimation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="bayes-theorem.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="bayesian-statistics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="bayesian-inference.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="assets/gitbook-2.6.7/js/app.min.js"></script>

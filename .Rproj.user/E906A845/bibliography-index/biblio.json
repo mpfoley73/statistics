@@ -101,9 +101,62 @@
                     ]
                 ]
             },
-            "note": "R package version 0.33",
+            "note": "R package version 0.35",
             "title": "Bookdown: Authoring books and technical documents with r markdown",
             "title-short": "Bookdown",
+            "type": "book"
+        },
+        {
+            "URL": "https://CRAN.R-project.org/package=ggplot2",
+            "author": [
+                {
+                    "family": "Wickham",
+                    "given": "Hadley"
+                },
+                {
+                    "family": "Chang",
+                    "given": "Winston"
+                },
+                {
+                    "family": "Henry",
+                    "given": "Lionel"
+                },
+                {
+                    "family": "Pedersen",
+                    "given": "Thomas Lin"
+                },
+                {
+                    "family": "Takahashi",
+                    "given": "Kohske"
+                },
+                {
+                    "family": "Wilke",
+                    "given": "Claus"
+                },
+                {
+                    "family": "Woo",
+                    "given": "Kara"
+                },
+                {
+                    "family": "Yutani",
+                    "given": "Hiroaki"
+                },
+                {
+                    "family": "Dunnington",
+                    "given": "Dewey"
+                }
+            ],
+            "id": "R-ggplot2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2023
+                    ]
+                ]
+            },
+            "note": "R package version 3.4.3",
+            "title": "ggplot2: Create elegant data visualisations using the grammar of graphics",
+            "title-short": "ggplot2",
             "type": "book"
         },
         {
@@ -122,7 +175,7 @@
                     ]
                 ]
             },
-            "note": "R package version 1.42",
+            "note": "R package version 1.43",
             "title": "Knitr: A general-purpose package for dynamic report generation in r",
             "title-short": "Knitr",
             "type": "book"
@@ -183,12 +236,13 @@
                     ]
                 ]
             },
-            "note": "R package version 2.21",
+            "note": "R package version 2.24",
             "title": "Rmarkdown: Dynamic documents for r",
             "title-short": "Rmarkdown",
             "type": "book"
         },
         {
+            "ISBN": "978-1138700109",
             "URL": "https://bookdown.org/yihui/bookdown",
             "author": [
                 {
@@ -204,11 +258,32 @@
                     ]
                 ]
             },
-            "note": "ISBN 978-1138700109",
             "publisher": "Chapman; Hall/CRC",
             "publisher-place": "Boca Raton, Florida",
             "title": "Bookdown: Authoring books and technical documents with R markdown",
             "title-short": "Bookdown",
+            "type": "book"
+        },
+        {
+            "ISBN": "978-3-319-24277-4",
+            "URL": "https://ggplot2.tidyverse.org",
+            "author": [
+                {
+                    "family": "Wickham",
+                    "given": "Hadley"
+                }
+            ],
+            "id": "ggplot22016",
+            "issued": {
+                "date-parts": [
+                    [
+                        2016
+                    ]
+                ]
+            },
+            "publisher": "Springer-Verlag New York",
+            "title": "ggplot2: Elegant graphics for data analysis",
+            "title-short": "ggplot2",
             "type": "book"
         },
         {

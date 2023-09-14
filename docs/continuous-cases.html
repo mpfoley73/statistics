@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>3.4 Continuous Cases | Statistical Inference</title>
   <meta name="description" content="Notes cobbled together from books, online classes, etc. to be used as quick reference for common work projects." />
-  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
   <meta property="og:title" content="3.4 Continuous Cases | Statistical Inference" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Michael Foley" />
 
 
-<meta name="date" content="2023-04-09" />
+<meta name="date" content="2023-09-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,10 +52,6 @@
 <link href="assets/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="assets/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="assets/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="assets/kePrint-0.0.1/kePrint.js"></script>
-<link href="assets/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<link href="assets/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
-<script src="assets/tabwid-1.1.3/tabwid.js"></script>
 
 
 <style type="text/css">
@@ -123,6 +119,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -149,13 +149,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3" data-path="bayesian-statistics.html"><a href="bayesian-statistics.html"><i class="fa fa-check"></i><b>3</b> Bayesian Statistics</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="bayes-law.html"><a href="bayes-law.html"><i class="fa fa-check"></i><b>3.1</b> Bayes’ Law</a></li>
+<li class="chapter" data-level="3.1" data-path="bayes-theorem.html"><a href="bayes-theorem.html"><i class="fa fa-check"></i><b>3.1</b> Bayes’ Theorem</a></li>
 <li class="chapter" data-level="3.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html"><i class="fa fa-check"></i><b>3.2</b> Bayesian Inference</a></li>
 <li class="chapter" data-level="3.3" data-path="discrete-cases.html"><a href="discrete-cases.html"><i class="fa fa-check"></i><b>3.3</b> Discrete Cases</a></li>
 <li class="chapter" data-level="3.4" data-path="continuous-cases.html"><a href="continuous-cases.html"><i class="fa fa-check"></i><b>3.4</b> Continuous Cases</a></li>
 <li class="chapter" data-level="3.5" data-path="bayes-factors.html"><a href="bayes-factors.html"><i class="fa fa-check"></i><b>3.5</b> Bayes Factors</a></li>
 <li class="chapter" data-level="3.6" data-path="a-gentler-introduction.html"><a href="a-gentler-introduction.html"><i class="fa fa-check"></i><b>3.6</b> A Gentler Introduction</a></li>
-<li class="chapter" data-level="3.7" data-path="coursera-notes-inference.html"><a href="coursera-notes-inference.html"><i class="fa fa-check"></i><b>3.7</b> Coursera Notes Inference</a></li>
+<li class="chapter" data-level="3.7" data-path="gamma-poisson.html"><a href="gamma-poisson.html"><i class="fa fa-check"></i><b>3.7</b> Gamma Poisson</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="one-sample.html"><a href="one-sample.html"><i class="fa fa-check"></i><b>4</b> One-Sample</a>
 <ul>
@@ -228,7 +228,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="continuous-cases" class="section level2 hasAnchor" number="3.4">
 <h2><span class="header-section-number">3.4</span> Continuous Cases<a href="continuous-cases.html#continuous-cases" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Continuing the example of inferring the parameter <span class="math inline">\(p\)</span> used in the Bernoulli process, what if we considered <em>all</em> values between 0 and 1?<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
+<p>Continuing the example of inferring the parameter <span class="math inline">\(p\)</span> used in the Bernoulli process, what if we considered <em>all</em> values between 0 and 1?<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
 <p>When prior beliefs are best described in continuous distributions, express them using the beta, gamma, or normal distribution so that the posterior distributions are conjugates of the prior distributions with new parameter values. Otherwise, the marginal distribution is difficult to calculate. In this case, use the beta distribution, described by shape parameters, <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>.</p>
 <p><span class="math display">\[P(\theta|D,\alpha,\beta) = \frac{f_\theta(D) P(\theta|\alpha,\beta)}{\int_0^1 f_\theta(D)P(\theta|\alpha, \beta)d\theta}\]</span></p>
 <p>As with the discrete case, the numerator is the likelihood of observing <span class="math inline">\(D\)</span> if <span class="math inline">\(\theta\)</span> is true multiplied by the prior probability, but now the prior is a Beta(<span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>) distribution. The denominator, sometimes called the <em>evidence</em>, is the marginal probability of <span class="math inline">\(D\)</span>.</p>
@@ -242,66 +242,66 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Putting this all together, the posterior distribution is</p>
 <p><span class="math display">\[P(\theta|D, \alpha, \beta) = \frac{1}{\mathrm{B}(\alpha + a, \beta + b)} \theta^{\alpha-1+a}(1-\theta)^{\beta-1+b}\]</span></p>
 <p>The posterior equals the prior with shape parameters incremented by the observed counts, <span class="math inline">\(a\)</span> and <span class="math inline">\(b.\)</span></p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="continuous-cases.html#cb30-1" aria-hidden="true" tabindex="-1"></a>plot_bayes <span class="ot">&lt;-</span> <span class="cf">function</span>(alpha, beta, a, b) {</span>
-<span id="cb30-2"><a href="continuous-cases.html#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-3"><a href="continuous-cases.html#cb30-3" aria-hidden="true" tabindex="-1"></a>  prior_ev <span class="ot">&lt;-</span> (alpha <span class="sc">/</span> (alpha <span class="sc">+</span> beta)) <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">2</span>)</span>
-<span id="cb30-4"><a href="continuous-cases.html#cb30-4" aria-hidden="true" tabindex="-1"></a>  posterior_ev <span class="ot">&lt;-</span> ((alpha <span class="sc">+</span> a) <span class="sc">/</span> (alpha <span class="sc">+</span> beta <span class="sc">+</span> a <span class="sc">+</span> b)) <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">2</span>)</span>
-<span id="cb30-5"><a href="continuous-cases.html#cb30-5" aria-hidden="true" tabindex="-1"></a>  dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">theta =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> .<span class="dv">01</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb30-6"><a href="continuous-cases.html#cb30-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">prior =</span> (<span class="dv">1</span> <span class="sc">/</span> <span class="fu">beta</span>(alpha, beta)) <span class="sc">*</span> theta<span class="sc">^</span>(alpha<span class="dv">-1</span>) <span class="sc">*</span> (<span class="dv">1</span><span class="sc">-</span>theta)<span class="sc">^</span>(beta<span class="dv">-1</span>),</span>
-<span id="cb30-7"><a href="continuous-cases.html#cb30-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">prior_ci =</span> theta <span class="sc">&gt;</span> <span class="fu">qbeta</span>(.<span class="dv">025</span>, alpha, beta) <span class="sc">&amp;</span> </span>
-<span id="cb30-8"><a href="continuous-cases.html#cb30-8" aria-hidden="true" tabindex="-1"></a>                      theta <span class="sc">&lt;</span> <span class="fu">qbeta</span>(.<span class="dv">975</span>, alpha, beta),</span>
-<span id="cb30-9"><a href="continuous-cases.html#cb30-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">likelihood =</span> theta<span class="sc">^</span>a <span class="sc">*</span> (<span class="dv">1</span><span class="sc">-</span>theta)<span class="sc">^</span>b,</span>
-<span id="cb30-10"><a href="continuous-cases.html#cb30-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">posterior =</span> (<span class="dv">1</span> <span class="sc">/</span> <span class="fu">beta</span>(alpha <span class="sc">+</span> a, beta <span class="sc">+</span> b)) <span class="sc">*</span> theta<span class="sc">^</span>(alpha<span class="dv">-1</span><span class="sc">+</span>a) <span class="sc">*</span> (<span class="dv">1</span><span class="sc">-</span>theta)<span class="sc">^</span>(beta<span class="dv">-1</span><span class="sc">+</span>b),</span>
-<span id="cb30-11"><a href="continuous-cases.html#cb30-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">posterior_ci =</span> theta <span class="sc">&gt;</span> <span class="fu">qbeta</span>(.<span class="dv">025</span>, alpha <span class="sc">+</span> a, beta <span class="sc">+</span> b) <span class="sc">&amp;</span> </span>
-<span id="cb30-12"><a href="continuous-cases.html#cb30-12" aria-hidden="true" tabindex="-1"></a>                      theta <span class="sc">&lt;</span> <span class="fu">qbeta</span>(.<span class="dv">975</span>, alpha <span class="sc">+</span> a, beta <span class="sc">+</span> b))</span>
-<span id="cb30-13"><a href="continuous-cases.html#cb30-13" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb30-14"><a href="continuous-cases.html#cb30-14" aria-hidden="true" tabindex="-1"></a>  p_prior <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span></span>
-<span id="cb30-15"><a href="continuous-cases.html#cb30-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> theta, <span class="at">y =</span> prior)) <span class="sc">+</span> </span>
-<span id="cb30-16"><a href="continuous-cases.html#cb30-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>) <span class="sc">+</span></span>
-<span id="cb30-17"><a href="continuous-cases.html#cb30-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_area</span>(<span class="fu">aes</span>(<span class="at">alpha =</span> prior_ci), <span class="at">fill =</span> <span class="st">&quot;steelblue&quot;</span>) <span class="sc">+</span></span>
-<span id="cb30-18"><a href="continuous-cases.html#cb30-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> prior_ev, <span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>) <span class="sc">+</span></span>
-<span id="cb30-19"><a href="continuous-cases.html#cb30-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_alpha_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(.<span class="dv">1</span>, .<span class="dv">5</span>)) <span class="sc">+</span></span>
-<span id="cb30-20"><a href="continuous-cases.html#cb30-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb30-21"><a href="continuous-cases.html#cb30-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
-<span id="cb30-22"><a href="continuous-cases.html#cb30-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>)</span>
-<span id="cb30-23"><a href="continuous-cases.html#cb30-23" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb30-24"><a href="continuous-cases.html#cb30-24" aria-hidden="true" tabindex="-1"></a>  p_likelihood <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span></span>
-<span id="cb30-25"><a href="continuous-cases.html#cb30-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> theta, <span class="at">y =</span> likelihood)) <span class="sc">+</span> </span>
-<span id="cb30-26"><a href="continuous-cases.html#cb30-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>) <span class="sc">+</span></span>
-<span id="cb30-27"><a href="continuous-cases.html#cb30-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb30-28"><a href="continuous-cases.html#cb30-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
-<span id="cb30-29"><a href="continuous-cases.html#cb30-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>)</span>
-<span id="cb30-30"><a href="continuous-cases.html#cb30-30" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb30-31"><a href="continuous-cases.html#cb30-31" aria-hidden="true" tabindex="-1"></a>  p_posterior <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span></span>
-<span id="cb30-32"><a href="continuous-cases.html#cb30-32" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> theta, <span class="at">y =</span> posterior)) <span class="sc">+</span> </span>
-<span id="cb30-33"><a href="continuous-cases.html#cb30-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>) <span class="sc">+</span></span>
-<span id="cb30-34"><a href="continuous-cases.html#cb30-34" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_area</span>(<span class="fu">aes</span>(<span class="at">alpha =</span> posterior_ci), <span class="at">fill =</span> <span class="st">&quot;steelblue&quot;</span>) <span class="sc">+</span></span>
-<span id="cb30-35"><a href="continuous-cases.html#cb30-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> posterior_ev, <span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>) <span class="sc">+</span></span>
-<span id="cb30-36"><a href="continuous-cases.html#cb30-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_alpha_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(.<span class="dv">1</span>, .<span class="dv">5</span>))  <span class="sc">+</span></span>
-<span id="cb30-37"><a href="continuous-cases.html#cb30-37" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb30-38"><a href="continuous-cases.html#cb30-38" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
-<span id="cb30-39"><a href="continuous-cases.html#cb30-39" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">expression</span>(theta))</span>
-<span id="cb30-40"><a href="continuous-cases.html#cb30-40" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb30-41"><a href="continuous-cases.html#cb30-41" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> p_prior <span class="sc">/</span> p_likelihood <span class="sc">/</span> p_posterior <span class="sc">+</span></span>
-<span id="cb30-42"><a href="continuous-cases.html#cb30-42" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot_annotation</span>(</span>
-<span id="cb30-43"><a href="continuous-cases.html#cb30-43" aria-hidden="true" tabindex="-1"></a>      <span class="at">title =</span> <span class="fu">glue</span>(<span class="st">&quot;Beta({alpha}, {beta}) prior with observed evidence a = {a} &quot;</span>,</span>
-<span id="cb30-44"><a href="continuous-cases.html#cb30-44" aria-hidden="true" tabindex="-1"></a>                   <span class="st">&quot;and b = {b}&quot;</span>),</span>
-<span id="cb30-45"><a href="continuous-cases.html#cb30-45" aria-hidden="true" tabindex="-1"></a>      <span class="at">subtitle =</span> <span class="st">&quot;with shaded 95% credible interval.&quot;</span>,</span>
-<span id="cb30-46"><a href="continuous-cases.html#cb30-46" aria-hidden="true" tabindex="-1"></a>      <span class="at">caption =</span> <span class="fu">glue</span>(<span class="st">&quot;Prior expected value = {prior_ev}; Posterior expected &quot;</span>,</span>
-<span id="cb30-47"><a href="continuous-cases.html#cb30-47" aria-hidden="true" tabindex="-1"></a>                     <span class="st">&quot;value = {posterior_ev}&quot;</span>))</span>
-<span id="cb30-48"><a href="continuous-cases.html#cb30-48" aria-hidden="true" tabindex="-1"></a>  out</span>
-<span id="cb30-49"><a href="continuous-cases.html#cb30-49" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="continuous-cases.html#cb11-1" tabindex="-1"></a>plot_bayes <span class="ot">&lt;-</span> <span class="cf">function</span>(alpha, beta, a, b) {</span>
+<span id="cb11-2"><a href="continuous-cases.html#cb11-2" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="continuous-cases.html#cb11-3" tabindex="-1"></a>  prior_ev <span class="ot">&lt;-</span> (alpha <span class="sc">/</span> (alpha <span class="sc">+</span> beta)) <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">2</span>)</span>
+<span id="cb11-4"><a href="continuous-cases.html#cb11-4" tabindex="-1"></a>  posterior_ev <span class="ot">&lt;-</span> ((alpha <span class="sc">+</span> a) <span class="sc">/</span> (alpha <span class="sc">+</span> beta <span class="sc">+</span> a <span class="sc">+</span> b)) <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">2</span>)</span>
+<span id="cb11-5"><a href="continuous-cases.html#cb11-5" tabindex="-1"></a>  dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">theta =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> .<span class="dv">01</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb11-6"><a href="continuous-cases.html#cb11-6" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">prior =</span> (<span class="dv">1</span> <span class="sc">/</span> <span class="fu">beta</span>(alpha, beta)) <span class="sc">*</span> theta<span class="sc">^</span>(alpha<span class="dv">-1</span>) <span class="sc">*</span> (<span class="dv">1</span><span class="sc">-</span>theta)<span class="sc">^</span>(beta<span class="dv">-1</span>),</span>
+<span id="cb11-7"><a href="continuous-cases.html#cb11-7" tabindex="-1"></a>           <span class="at">prior_ci =</span> theta <span class="sc">&gt;</span> <span class="fu">qbeta</span>(.<span class="dv">025</span>, alpha, beta) <span class="sc">&amp;</span> </span>
+<span id="cb11-8"><a href="continuous-cases.html#cb11-8" tabindex="-1"></a>                      theta <span class="sc">&lt;</span> <span class="fu">qbeta</span>(.<span class="dv">975</span>, alpha, beta),</span>
+<span id="cb11-9"><a href="continuous-cases.html#cb11-9" tabindex="-1"></a>           <span class="at">likelihood =</span> theta<span class="sc">^</span>a <span class="sc">*</span> (<span class="dv">1</span><span class="sc">-</span>theta)<span class="sc">^</span>b,</span>
+<span id="cb11-10"><a href="continuous-cases.html#cb11-10" tabindex="-1"></a>           <span class="at">posterior =</span> (<span class="dv">1</span> <span class="sc">/</span> <span class="fu">beta</span>(alpha <span class="sc">+</span> a, beta <span class="sc">+</span> b)) <span class="sc">*</span> theta<span class="sc">^</span>(alpha<span class="dv">-1</span><span class="sc">+</span>a) <span class="sc">*</span> (<span class="dv">1</span><span class="sc">-</span>theta)<span class="sc">^</span>(beta<span class="dv">-1</span><span class="sc">+</span>b),</span>
+<span id="cb11-11"><a href="continuous-cases.html#cb11-11" tabindex="-1"></a>           <span class="at">posterior_ci =</span> theta <span class="sc">&gt;</span> <span class="fu">qbeta</span>(.<span class="dv">025</span>, alpha <span class="sc">+</span> a, beta <span class="sc">+</span> b) <span class="sc">&amp;</span> </span>
+<span id="cb11-12"><a href="continuous-cases.html#cb11-12" tabindex="-1"></a>                      theta <span class="sc">&lt;</span> <span class="fu">qbeta</span>(.<span class="dv">975</span>, alpha <span class="sc">+</span> a, beta <span class="sc">+</span> b))</span>
+<span id="cb11-13"><a href="continuous-cases.html#cb11-13" tabindex="-1"></a>  </span>
+<span id="cb11-14"><a href="continuous-cases.html#cb11-14" tabindex="-1"></a>  p_prior <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span></span>
+<span id="cb11-15"><a href="continuous-cases.html#cb11-15" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> theta, <span class="at">y =</span> prior)) <span class="sc">+</span> </span>
+<span id="cb11-16"><a href="continuous-cases.html#cb11-16" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb11-17"><a href="continuous-cases.html#cb11-17" tabindex="-1"></a>    <span class="fu">geom_area</span>(<span class="fu">aes</span>(<span class="at">alpha =</span> prior_ci), <span class="at">fill =</span> <span class="st">&quot;steelblue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb11-18"><a href="continuous-cases.html#cb11-18" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> prior_ev, <span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb11-19"><a href="continuous-cases.html#cb11-19" tabindex="-1"></a>    <span class="fu">scale_alpha_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(.<span class="dv">1</span>, .<span class="dv">5</span>)) <span class="sc">+</span></span>
+<span id="cb11-20"><a href="continuous-cases.html#cb11-20" tabindex="-1"></a>    <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb11-21"><a href="continuous-cases.html#cb11-21" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb11-22"><a href="continuous-cases.html#cb11-22" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>)</span>
+<span id="cb11-23"><a href="continuous-cases.html#cb11-23" tabindex="-1"></a>  </span>
+<span id="cb11-24"><a href="continuous-cases.html#cb11-24" tabindex="-1"></a>  p_likelihood <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span></span>
+<span id="cb11-25"><a href="continuous-cases.html#cb11-25" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> theta, <span class="at">y =</span> likelihood)) <span class="sc">+</span> </span>
+<span id="cb11-26"><a href="continuous-cases.html#cb11-26" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb11-27"><a href="continuous-cases.html#cb11-27" tabindex="-1"></a>    <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb11-28"><a href="continuous-cases.html#cb11-28" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb11-29"><a href="continuous-cases.html#cb11-29" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>)</span>
+<span id="cb11-30"><a href="continuous-cases.html#cb11-30" tabindex="-1"></a>  </span>
+<span id="cb11-31"><a href="continuous-cases.html#cb11-31" tabindex="-1"></a>  p_posterior <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span></span>
+<span id="cb11-32"><a href="continuous-cases.html#cb11-32" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> theta, <span class="at">y =</span> posterior)) <span class="sc">+</span> </span>
+<span id="cb11-33"><a href="continuous-cases.html#cb11-33" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb11-34"><a href="continuous-cases.html#cb11-34" tabindex="-1"></a>    <span class="fu">geom_area</span>(<span class="fu">aes</span>(<span class="at">alpha =</span> posterior_ci), <span class="at">fill =</span> <span class="st">&quot;steelblue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb11-35"><a href="continuous-cases.html#cb11-35" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> posterior_ev, <span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb11-36"><a href="continuous-cases.html#cb11-36" tabindex="-1"></a>    <span class="fu">scale_alpha_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(.<span class="dv">1</span>, .<span class="dv">5</span>))  <span class="sc">+</span></span>
+<span id="cb11-37"><a href="continuous-cases.html#cb11-37" tabindex="-1"></a>    <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb11-38"><a href="continuous-cases.html#cb11-38" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb11-39"><a href="continuous-cases.html#cb11-39" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">expression</span>(theta))</span>
+<span id="cb11-40"><a href="continuous-cases.html#cb11-40" tabindex="-1"></a>  </span>
+<span id="cb11-41"><a href="continuous-cases.html#cb11-41" tabindex="-1"></a>  out <span class="ot">&lt;-</span> p_prior <span class="sc">/</span> p_likelihood <span class="sc">/</span> p_posterior <span class="sc">+</span></span>
+<span id="cb11-42"><a href="continuous-cases.html#cb11-42" tabindex="-1"></a>    <span class="fu">plot_annotation</span>(</span>
+<span id="cb11-43"><a href="continuous-cases.html#cb11-43" tabindex="-1"></a>      <span class="at">title =</span> <span class="fu">glue</span>(<span class="st">&quot;Beta({alpha}, {beta}) prior with observed evidence a = {a} &quot;</span>,</span>
+<span id="cb11-44"><a href="continuous-cases.html#cb11-44" tabindex="-1"></a>                   <span class="st">&quot;and b = {b}&quot;</span>),</span>
+<span id="cb11-45"><a href="continuous-cases.html#cb11-45" tabindex="-1"></a>      <span class="at">subtitle =</span> <span class="st">&quot;with shaded 95% credible interval.&quot;</span>,</span>
+<span id="cb11-46"><a href="continuous-cases.html#cb11-46" tabindex="-1"></a>      <span class="at">caption =</span> <span class="fu">glue</span>(<span class="st">&quot;Prior expected value = {prior_ev}; Posterior expected &quot;</span>,</span>
+<span id="cb11-47"><a href="continuous-cases.html#cb11-47" tabindex="-1"></a>                     <span class="st">&quot;value = {posterior_ev}&quot;</span>))</span>
+<span id="cb11-48"><a href="continuous-cases.html#cb11-48" tabindex="-1"></a>  out</span>
+<span id="cb11-49"><a href="continuous-cases.html#cb11-49" tabindex="-1"></a>}</span></code></pre></div>
 <p>Suppose you claim complete ignorance and take a uniform Beta(1, 1) prior. Recall that you observed a = 7 ones and b = 3 zeros. The posterior expected value is still pretty close!</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="continuous-cases.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_bayes</span>(<span class="at">alpha =</span> <span class="dv">10</span>, <span class="at">beta =</span> <span class="dv">10</span>, <span class="at">a =</span> <span class="dv">7</span>, <span class="at">b =</span> <span class="dv">3</span>)</span></code></pre></div>
-<p><img src="statistics_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="continuous-cases.html#cb12-1" tabindex="-1"></a><span class="fu">plot_bayes</span>(<span class="at">alpha =</span> <span class="dv">10</span>, <span class="at">beta =</span> <span class="dv">10</span>, <span class="at">a =</span> <span class="dv">7</span>, <span class="at">b =</span> <span class="dv">3</span>)</span></code></pre></div>
+<p><img src="statistics_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <p>Suppose you had prior reason to believe <em>p</em> = 0.7. You would model that as <span class="math inline">\(\alpha\)</span> = 7, <span class="math inline">\(\beta\)</span> = 3. The prior probability distribution would be <span class="math inline">\(P(\theta|\alpha = 7,\beta = 3) = \frac{1}{\mathrm{B}(7, 3)}\theta^{7-1}(1-\theta)^{3-1}\)</span>. Then after observing a = 7 ones and b = 3 zeros, the posterior probability distribution would be <span class="math inline">\(P(\theta|\alpha = 7+7,\beta = 3+3) = \frac{1}{\mathrm{B}(7+7, 3+3)}\theta^{7+7-1}(1-\theta)^{3+3-1}\)</span>.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="continuous-cases.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_bayes</span>(<span class="at">alpha =</span> <span class="dv">7</span>, <span class="at">beta =</span> <span class="dv">3</span>, <span class="at">a =</span> <span class="dv">7</span>, <span class="at">b =</span> <span class="dv">3</span>)</span></code></pre></div>
-<p><img src="statistics_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="continuous-cases.html#cb13-1" tabindex="-1"></a><span class="fu">plot_bayes</span>(<span class="at">alpha =</span> <span class="dv">7</span>, <span class="at">beta =</span> <span class="dv">3</span>, <span class="at">a =</span> <span class="dv">7</span>, <span class="at">b =</span> <span class="dv">3</span>)</span></code></pre></div>
+<p><img src="statistics_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="3">
-<li id="fn3"><p><a href="http://chrisstrelioff.ws/sandbox/2014/12/11/inferring_probabilities_with_a_beta_prior_a_third_example_of_bayesian_calculations.html">Chris’s Sandbox again</a>.<a href="continuous-cases.html#fnref3" class="footnote-back">↩︎</a></p></li>
+<ol start="2">
+<li id="fn2"><p><a href="http://chrisstrelioff.ws/sandbox/2014/12/11/inferring_probabilities_with_a_beta_prior_a_third_example_of_bayesian_calculations.html">Chris’s Sandbox again</a>.<a href="continuous-cases.html#fnref2" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>3.3 Discrete Cases | Statistical Inference</title>
   <meta name="description" content="Notes cobbled together from books, online classes, etc. to be used as quick reference for common work projects." />
-  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
   <meta property="og:title" content="3.3 Discrete Cases | Statistical Inference" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Michael Foley" />
 
 
-<meta name="date" content="2023-04-09" />
+<meta name="date" content="2023-09-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,10 +52,6 @@
 <link href="assets/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="assets/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="assets/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="assets/kePrint-0.0.1/kePrint.js"></script>
-<link href="assets/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<link href="assets/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
-<script src="assets/tabwid-1.1.3/tabwid.js"></script>
 
 
 <style type="text/css">
@@ -123,6 +119,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -149,13 +149,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3" data-path="bayesian-statistics.html"><a href="bayesian-statistics.html"><i class="fa fa-check"></i><b>3</b> Bayesian Statistics</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="bayes-law.html"><a href="bayes-law.html"><i class="fa fa-check"></i><b>3.1</b> Bayes’ Law</a></li>
+<li class="chapter" data-level="3.1" data-path="bayes-theorem.html"><a href="bayes-theorem.html"><i class="fa fa-check"></i><b>3.1</b> Bayes’ Theorem</a></li>
 <li class="chapter" data-level="3.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html"><i class="fa fa-check"></i><b>3.2</b> Bayesian Inference</a></li>
 <li class="chapter" data-level="3.3" data-path="discrete-cases.html"><a href="discrete-cases.html"><i class="fa fa-check"></i><b>3.3</b> Discrete Cases</a></li>
 <li class="chapter" data-level="3.4" data-path="continuous-cases.html"><a href="continuous-cases.html"><i class="fa fa-check"></i><b>3.4</b> Continuous Cases</a></li>
 <li class="chapter" data-level="3.5" data-path="bayes-factors.html"><a href="bayes-factors.html"><i class="fa fa-check"></i><b>3.5</b> Bayes Factors</a></li>
 <li class="chapter" data-level="3.6" data-path="a-gentler-introduction.html"><a href="a-gentler-introduction.html"><i class="fa fa-check"></i><b>3.6</b> A Gentler Introduction</a></li>
-<li class="chapter" data-level="3.7" data-path="coursera-notes-inference.html"><a href="coursera-notes-inference.html"><i class="fa fa-check"></i><b>3.7</b> Coursera Notes Inference</a></li>
+<li class="chapter" data-level="3.7" data-path="gamma-poisson.html"><a href="gamma-poisson.html"><i class="fa fa-check"></i><b>3.7</b> Gamma Poisson</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="one-sample.html"><a href="one-sample.html"><i class="fa fa-check"></i><b>4</b> One-Sample</a>
 <ul>
@@ -228,52 +228,57 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="discrete-cases" class="section level2 hasAnchor" number="3.3">
 <h2><span class="header-section-number">3.3</span> Discrete Cases<a href="discrete-cases.html#discrete-cases" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Suppose you have a string of numbers <span class="math inline">\([1,1,1,1,0,0,1,1,1,0]\)</span> (7 ones and 3 zeros) produced by a Bernoulli random number generator. What parameter <span class="math inline">\(p\)</span> was used in the Bernoulli function?<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="discrete-cases.html#cb21-1" aria-hidden="true" tabindex="-1"></a>D <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span></code></pre></div>
+<p>Suppose you have a string of numbers <span class="math inline">\([1,1,1,1,0,0,1,1,1,0]\)</span> (7 ones and 3 zeros) produced by a Bernoulli random number generator. What parameter <span class="math inline">\(p\)</span> was used in the Bernoulli function?<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="discrete-cases.html#cb1-1" tabindex="-1"></a>D <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span></code></pre></div>
 <p>Your best guess is <span class="math inline">\(p = 0.7\)</span>, but how confident are you? Posit eleven competing priors, <span class="math inline">\(\theta = [.0, .1, \ldots, 1]\)</span> with equal prior probabilities, <span class="math inline">\(P(\theta) = [1/11, \ldots]\)</span>.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="discrete-cases.html#cb22-1" aria-hidden="true" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.1</span>)</span>
-<span id="cb22-2"><a href="discrete-cases.html#cb22-2" aria-hidden="true" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">11</span>, <span class="dv">11</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="discrete-cases.html#cb2-1" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.1</span>)</span>
+<span id="cb2-2"><a href="discrete-cases.html#cb2-2" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">11</span>, <span class="dv">11</span>)</span></code></pre></div>
 <p>Using a Bernoulli generative model, the likelihood of observing 7 ones and 3 zeros are <span class="math inline">\(P(D|\theta) = \theta^7 + (1-\theta)^3.\)</span></p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="discrete-cases.html#cb23-1" aria-hidden="true" tabindex="-1"></a>likelihood <span class="ot">&lt;-</span> theta<span class="sc">^</span><span class="dv">7</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> theta)<span class="sc">^</span><span class="dv">3</span></span>
-<span id="cb23-2"><a href="discrete-cases.html#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="discrete-cases.html#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(theta, likelihood) <span class="sc">%&gt;%</span> </span>
-<span id="cb23-4"><a href="discrete-cases.html#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb23-5"><a href="discrete-cases.html#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> theta, <span class="at">xend =</span> theta, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">yend =</span> likelihood), </span>
-<span id="cb23-6"><a href="discrete-cases.html#cb23-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">linetype =</span> <span class="dv">2</span>, <span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>) <span class="sc">+</span></span>
-<span id="cb23-7"><a href="discrete-cases.html#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> theta, <span class="at">y =</span> likelihood), <span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb23-8"><a href="discrete-cases.html#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> theta) <span class="sc">+</span></span>
-<span id="cb23-9"><a href="discrete-cases.html#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb23-10"><a href="discrete-cases.html#cb23-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
-<span id="cb23-11"><a href="discrete-cases.html#cb23-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;Maximum likelihood of observing D is at &quot;</span>, theta, <span class="st">&quot; = 0.7.&quot;</span>)),</span>
-<span id="cb23-12"><a href="discrete-cases.html#cb23-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="fu">expression</span>(theta), <span class="at">y =</span> <span class="fu">expression</span>(f[theta](D)))</span></code></pre></div>
-<p><img src="statistics_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="discrete-cases.html#cb3-1" tabindex="-1"></a>likelihood <span class="ot">&lt;-</span> theta<span class="sc">^</span><span class="dv">7</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> theta)<span class="sc">^</span><span class="dv">3</span></span>
+<span id="cb3-2"><a href="discrete-cases.html#cb3-2" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="discrete-cases.html#cb3-3" tabindex="-1"></a><span class="fu">data.frame</span>(theta, likelihood) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-4"><a href="discrete-cases.html#cb3-4" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb3-5"><a href="discrete-cases.html#cb3-5" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> theta, <span class="at">xend =</span> theta, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">yend =</span> likelihood), </span>
+<span id="cb3-6"><a href="discrete-cases.html#cb3-6" tabindex="-1"></a>               <span class="at">linetype =</span> <span class="dv">2</span>, <span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb3-7"><a href="discrete-cases.html#cb3-7" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> theta, <span class="at">y =</span> likelihood), <span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb3-8"><a href="discrete-cases.html#cb3-8" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> theta) <span class="sc">+</span></span>
+<span id="cb3-9"><a href="discrete-cases.html#cb3-9" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb3-10"><a href="discrete-cases.html#cb3-10" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb3-11"><a href="discrete-cases.html#cb3-11" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;Maximum likelihood of observing D is at &quot;</span>, theta, <span class="st">&quot; = 0.7.&quot;</span>)),</span>
+<span id="cb3-12"><a href="discrete-cases.html#cb3-12" tabindex="-1"></a>       <span class="at">x =</span> <span class="fu">expression</span>(theta), <span class="at">y =</span> <span class="fu">expression</span>(f[theta](D)))</span></code></pre></div>
+<p><img src="statistics_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>The posterior probability is the likelihood divided by the marginal probability of observing <span class="math inline">\(D\)</span> multiplied by the prior, <span class="math inline">\(P(\theta|D) = \frac{P(D|\theta)}{P(D)}\cdot P(\theta).\)</span> In this case, the marginal probability is straight-forward to calculate: it is the sum-product of the priors and their associated likelihoods.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="discrete-cases.html#cb24-1" aria-hidden="true" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> likelihood <span class="sc">/</span> <span class="fu">sum</span>(likelihood <span class="sc">*</span> prior) <span class="sc">*</span> prior</span></code></pre></div>
-<p><img src="statistics_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="discrete-cases.html#cb4-1" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> likelihood <span class="sc">/</span> <span class="fu">sum</span>(likelihood <span class="sc">*</span> prior) <span class="sc">*</span> prior</span></code></pre></div>
+<pre><code>## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+## ℹ Please use `linewidth` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.</code></pre>
+<p><img src="statistics_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <p>What would the posterior look like if we started with an educated guess on <span class="math inline">\(P(\theta)\)</span> that more heavily weights <span class="math inline">\(\theta = 0.7\)</span>?</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="discrete-cases.html#cb25-1" aria-hidden="true" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">c</span>(.<span class="dv">05</span>, .<span class="dv">05</span>, .<span class="dv">05</span>, .<span class="dv">05</span>, .<span class="dv">05</span>, .<span class="dv">10</span>, .<span class="dv">15</span>, .<span class="dv">20</span>, .<span class="dv">15</span>, .<span class="dv">10</span>, .<span class="dv">05</span>)</span>
-<span id="cb25-2"><a href="discrete-cases.html#cb25-2" aria-hidden="true" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> likelihood <span class="sc">/</span> <span class="fu">sum</span>(likelihood <span class="sc">*</span> prior) <span class="sc">*</span> prior</span></code></pre></div>
-<p><img src="statistics_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="discrete-cases.html#cb6-1" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">c</span>(.<span class="dv">05</span>, .<span class="dv">05</span>, .<span class="dv">05</span>, .<span class="dv">05</span>, .<span class="dv">05</span>, .<span class="dv">10</span>, .<span class="dv">15</span>, .<span class="dv">20</span>, .<span class="dv">15</span>, .<span class="dv">10</span>, .<span class="dv">05</span>)</span>
+<span id="cb6-2"><a href="discrete-cases.html#cb6-2" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> likelihood <span class="sc">/</span> <span class="fu">sum</span>(likelihood <span class="sc">*</span> prior) <span class="sc">*</span> prior</span></code></pre></div>
+<p><img src="statistics_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <p>What if we now employ a larger data set? To see, generate a sample of 100 Bernoulli(.7) observations.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="discrete-cases.html#cb26-1" aria-hidden="true" tabindex="-1"></a>D100 <span class="ot">&lt;-</span> <span class="fu">rbernoulli</span>(<span class="dv">100</span>, <span class="at">p =</span> <span class="fl">0.7</span>) <span class="sc">%&gt;%</span> <span class="fu">as.numeric</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="discrete-cases.html#cb7-1" tabindex="-1"></a>D100 <span class="ot">&lt;-</span> <span class="fu">rbernoulli</span>(<span class="dv">100</span>, <span class="at">p =</span> <span class="fl">0.7</span>) <span class="sc">%&gt;%</span> <span class="fu">as.numeric</span>()</span></code></pre></div>
 <pre><code>## Warning: `rbernoulli()` was deprecated in purrr 1.0.0.
 ## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_lifecycle_warnings()` to see where this
-## warning was generated.</code></pre>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="discrete-cases.html#cb28-1" aria-hidden="true" tabindex="-1"></a>likelihood <span class="ot">&lt;-</span> theta<span class="sc">^</span><span class="fu">sum</span>(D100) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> theta)<span class="sc">^</span>(<span class="fu">length</span>(D100)<span class="sc">-</span><span class="fu">sum</span>(D100))</span>
-<span id="cb28-2"><a href="discrete-cases.html#cb28-2" aria-hidden="true" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> likelihood <span class="sc">/</span> <span class="fu">sum</span>(likelihood <span class="sc">*</span> prior) <span class="sc">*</span> prior</span></code></pre></div>
-<p><img src="statistics_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="discrete-cases.html#cb9-1" tabindex="-1"></a>likelihood <span class="ot">&lt;-</span> theta<span class="sc">^</span><span class="fu">sum</span>(D100) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> theta)<span class="sc">^</span>(<span class="fu">length</span>(D100)<span class="sc">-</span><span class="fu">sum</span>(D100))</span>
+<span id="cb9-2"><a href="discrete-cases.html#cb9-2" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> likelihood <span class="sc">/</span> <span class="fu">sum</span>(likelihood <span class="sc">*</span> prior) <span class="sc">*</span> prior</span></code></pre></div>
+<p><img src="statistics_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <p>What would it look like if it also had more competing hypotheses, <span class="math inline">\(\theta \in (0, .01, .02, \ldots, 1)\)</span>.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="discrete-cases.html#cb29-1" aria-hidden="true" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> .<span class="dv">01</span>)</span>
-<span id="cb29-2"><a href="discrete-cases.html#cb29-2" aria-hidden="true" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">100</span>, <span class="dv">101</span>)</span>
-<span id="cb29-3"><a href="discrete-cases.html#cb29-3" aria-hidden="true" tabindex="-1"></a>likelihood <span class="ot">&lt;-</span> theta<span class="sc">^</span><span class="fu">sum</span>(D100) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> theta)<span class="sc">^</span>(<span class="fu">length</span>(D100)<span class="sc">-</span><span class="fu">sum</span>(D100))</span>
-<span id="cb29-4"><a href="discrete-cases.html#cb29-4" aria-hidden="true" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> likelihood <span class="sc">/</span> <span class="fu">sum</span>(likelihood <span class="sc">*</span> prior) <span class="sc">*</span> prior</span></code></pre></div>
-<p><img src="statistics_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="discrete-cases.html#cb10-1" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> .<span class="dv">01</span>)</span>
+<span id="cb10-2"><a href="discrete-cases.html#cb10-2" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">100</span>, <span class="dv">101</span>)</span>
+<span id="cb10-3"><a href="discrete-cases.html#cb10-3" tabindex="-1"></a>likelihood <span class="ot">&lt;-</span> theta<span class="sc">^</span><span class="fu">sum</span>(D100) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> theta)<span class="sc">^</span>(<span class="fu">length</span>(D100)<span class="sc">-</span><span class="fu">sum</span>(D100))</span>
+<span id="cb10-4"><a href="discrete-cases.html#cb10-4" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> likelihood <span class="sc">/</span> <span class="fu">sum</span>(likelihood <span class="sc">*</span> prior) <span class="sc">*</span> prior</span></code></pre></div>
+<p><img src="statistics_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="2">
-<li id="fn2"><p>Example borrowed from <a href="http://chrisstrelioff.ws/sandbox/2014/12/11/inferring_probabilities_with_a_beta_prior_a_third_example_of_bayesian_calculations.html">chris’ sandbox</a><a href="discrete-cases.html#fnref2" class="footnote-back">↩︎</a></p></li>
+<ol start="1">
+<li id="fn1"><p>Example borrowed from <a href="http://chrisstrelioff.ws/sandbox/2014/12/11/inferring_probabilities_with_a_beta_prior_a_third_example_of_bayesian_calculations.html">chris’ sandbox</a><a href="discrete-cases.html#fnref1" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
