@@ -1,0 +1,2 @@
+"0","df_sim <- data.frame(click_prob = runif(1000, 0.0, 0.3))"
+"0","df_sim$click_n <- rbinom(1000, 100, df_sim$click_prob)"

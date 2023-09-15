@@ -4,6 +4,7 @@
 library(tidyverse)
 library(patchwork)
 library(glue)
+library(scales)
 ```
 
 Bayesian inference estimates the probability, $\theta$, that an hypothesis is true. It differs from classical (aka, frequentist) inference in its insistence that *all* uncertainties be described by probabilities. Bayesian inference updates the prior probability distribution in light of new information.
@@ -693,4 +694,90 @@ pp <- seq(0.01, .99, by = .0001)
 x <- map_dbl(pp, ~qgamma(., 784 + 320, 11.2 + 5))
 hdrcde::hdr(x, prob = 95)$hdr
 ```
+
+The posterior predictive distribution of $\tilde{d}$ is
+
+$$
+f(\tilde{d} | x) = \int f(\tilde{d}|\lambda) f(\lambda | \textbf{D}) d\lambda
+$$
+
+Our sandwich example has a well defined functional solution: the expected value from $\mathrm{Gamma}(1104, 16.2)$, which is $1104/16.2 = 68$. Had we not known this, we could have simulated posterior values (Monte Carlo simulation) and taken the mean and variance. The procedure is to take a random sample of, say, 1,000 $\lambda$ values from the gamma posterior distribution, then for each $\lambda$ draw a single random $\tilde{d}$ from the Poisson distribution. 
+
+```{r collapse=TRUE}
+a <- 1104 # 1020
+b <- 16.2 # 15
+
+set.seed(1234)
+
+lambda_r <- rgamma(1000, a, b)
+
+d_tilde <- rpois(1000, lambda_r)
+
+# predicted value
+mean(d_tilde)
+
+# 95% prediction interval
+quantile(d_tilde, c(.025, .975))
+
+# probability of exceeding 80
+mean(d_tilde > 80)
+
+# 99th percentile
+quantile(d_tilde, .99)
+```
+
+So on any given day, the predicted value of sandwich sales is `r round(mean(d_tilde), 1)` with 95% prediction interval `r quantile(d_tilde, c(.025, .975)) %>% comma(.1) %>% paste(collapse = ", ")`. The probability of exceeding 80 sandwiches, $P(\tilde{d} > 80 | \textbf{D})$, is simply `mean(d_tilde > 80)` = `r mean(d_tilde > 80) %>% percent(.1)`. And 99% of the time, sandwich sales will be less than `quantile(d_tilde, .99)` = `r quantile(d_tilde, .99)`.
+
+You can also predict individual weekdays. Suppose you take a $\mathrm{Gamma}(700, 10)$ distribution as your prior.
+
+```{r}
+day_tbl <- tibble(
+  dow = fct_inorder(c("Mon", "Tue", "Wed", "Thu", "Fri")),
+  d = c(50, 65, 72, 63, 70)
+) %>%
+  mutate(
+    post_a = 700 + d,
+    post_b = 10 + 1,
+    post_mean = post_a / post_b,
+    post_lci = qgamma(.025, post_a, post_b),
+    post_uci = qgamma(.975, post_a, post_b)
+  )
+
+day_tbl
+```
+
+What is the probability that Mon sales are less than Tue?
+
+```{r}
+set.seed(123)
+lambda_r_mon <- rgamma(1000, 750, 11)
+lambda_r_tue <- rgamma(1000, 765, 11)
+mean(lambda_r_mon < lambda_r_tue)
+```
+
+The posterior probability that average sales on Mon are less than Tue is only `r percent(mean(lambda_r_mon < lambda_r_tue), 1)`.
+
+You can also estimate which day of the week has the highest sandwich sales.
+
+```{r}
+set.seed(12345)
+
+lambda_r <- tibble(
+  r_mon = rgamma(1000, 750, 11),
+  r_tue = rgamma(1000, 765, 11),
+  r_wed = rgamma(1000, 772, 11),
+  r_thu = rgamma(1000, 763, 11),
+  r_fri = rgamma(1000, 770, 11),
+  r_dow = pmap(list(r_mon, r_tue, r_wed, r_thu, r_fri), 
+                   function(m, t, w, r, f) c(m, t, w, r, f)),
+  max_dow_idx = map_dbl(r_dow, ~which.max(.)),
+  max_dow = map_chr(max_dow_idx, ~c("Mon", "Tue", "Wed", "Thu", "Fri")[.])
+)
+  
+mean(lambda_r$max_dow == "Wed")
+```
+
+## Normal
+
+In Bayesian statistics, the normal distribution is parameterized with the precision, the inverse variance, $\tau = 1 / \sigma^2$: $X = N(\mu, \tau)$
 

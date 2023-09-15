@@ -1,0 +1,8 @@
+"0","mdl_grid_2 <- mdl_grid %>%"
+"0","  mutate("
+"0","    mu_prior = map_dbl(mu, ~dnorm(., mean = 18, sd = 5)),"
+"0","    sigma_prior = map_dbl(sigma, ~dunif(., 0, 10)),"
+"0","    prior = mu_prior * sigma_prior, # combined prior,"
+"0","    likelihood = map2_dbl(mu, sigma, ~dnorm(temp, .x, .y) %>% prod()),"
+"0","    posterior = likelihood * prior / sum(likelihood * prior)"
+"0","  )"

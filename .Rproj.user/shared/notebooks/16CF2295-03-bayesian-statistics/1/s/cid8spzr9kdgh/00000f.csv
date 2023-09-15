@@ -1,0 +1,4 @@
+"0","D100 <- rbernoulli(100, p = 0.7) %>% as.numeric()"
+"2","Warning: `rbernoulli()` was deprecated in purrr 1.0.0."
+"0","likelihood <- theta^sum(D100) * (1 - theta)^(length(D100)-sum(D100))"
+"0","posterior <- likelihood / sum(likelihood * prior) * prior"

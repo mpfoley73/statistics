@@ -1,0 +1,7 @@
+"0","mdl_grid_2 %>%"
+"0","  ggplot(aes(x = mu, y = sigma, fill = posterior)) +"
+"0","  geom_tile() +"
+"0","  scale_fill_gradient(low = ""white"", high = ""steelblue"", guide = ""colorbar"") +"
+"0","  theme_minimal() +"
+"0","  labs(title = ""Joint probability of mu and sigma."","
+"0","       x = expression(mu), y = expression(sigma))"
