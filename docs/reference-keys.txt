@@ -58,3 +58,5 @@ matrix-algebra
 central-tendancy-dispersion-and-association
 linear-transformations
 multivariate-normal-distribution
+normal
+eq:mu-posterior

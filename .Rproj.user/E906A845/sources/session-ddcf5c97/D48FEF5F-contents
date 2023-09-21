@@ -776,13 +776,13 @@ lambda_r %>% janitor::tabyl(max_dow)
 
 Suppose you have a sample, $\textbf{y}$, from a normally distribution population of unknown mean and precision, $\mu$ and $\tau$: $y_i|\mu, \tau \sim N(\mu, \tau)$.^[In Bayesian statistics, the normal distribution is parameterized with the inverse of variance, called the *precision*, $\tau = 1 / \sigma^2$.] Assume a normal prior for $\mu \sim N(\mu_0, \tau_0)$, and a gamma prior for $\tau \sim \text{Gamma}(a, b)$ since it takes only positive values. The PDF for $y_i$ is $f(y_i | \mu, \tau) = \frac{\tau^{.5}}{\sqrt{2\pi}} \exp\left(-\frac{\tau}{2} (y_i - \mu)^2 \right)$. We'll derive posterior distributions for $\mu$ and $\tau$ separately. 
 
-Using Bayes' Theorem, the posterior distribution of $\mu|y$ is the joint likelihood of $\mu$ and $y$ divided by the likelihood of $y$, 
+Using Bayes' Theorem, the posterior distribution of $\mu|y$ is the joint likelihood of $y$ and $\mu$ divided by the likelihood of $y$, 
 
 $$
 f(\mu|y) = \frac{f(y|\mu)f(\mu)}{\int_\mu f(y|\mu)f(\mu)d\mu}
 $$
 
-The joint likelihood, $f(\mu\y)$, is the sum-product of the normal distribution PDF. We can take $\tau$ as given initially.
+The joint likelihood, $f(\mu|y)$, is the sum-product of the normal distribution PDF. We can take $\tau$ as given initially.
 
 $$
 \begin{align}

@@ -1,2 +1,0 @@
-"0","mdl_grid <- expand_grid(mu = seq(8, 30, by = 0.5),"
-"0","                        sigma = seq(.1, 10, by = 0.1))"

@@ -1,2 +1,0 @@
-"0","prior <- c(.05, .05, .05, .05, .05, .10, .15, .20, .15, .10, .05)"
-"0","posterior <- likelihood / sum(likelihood * prior) * prior"

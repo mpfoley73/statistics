@@ -1,2 +1,0 @@
-"0","df_bayes_13 <- df_bayes %>% filter(click_n == 13) %>%"
-"0","  mutate(posterior = probability / sum(probability))"

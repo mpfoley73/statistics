@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3.5 Bayes Factors | Statistical Inference</title>
+  <title>3.8 Normal | Statistical Inference</title>
   <meta name="description" content="Notes cobbled together from books, online classes, etc. to be used as quick reference for common work projects." />
   <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3.5 Bayes Factors | Statistical Inference" />
+  <meta property="og:title" content="3.8 Normal | Statistical Inference" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Notes cobbled together from books, online classes, etc. to be used as quick reference for common work projects." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3.5 Bayes Factors | Statistical Inference" />
+  <meta name="twitter:title" content="3.8 Normal | Statistical Inference" />
   
   <meta name="twitter:description" content="Notes cobbled together from books, online classes, etc. to be used as quick reference for common work projects." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="continuous-cases.html"/>
-<link rel="next" href="a-gentler-introduction.html"/>
+<link rel="prev" href="gamma-poisson.html"/>
+<link rel="next" href="one-sample.html"/>
 <script src="assets/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="assets/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -227,78 +227,61 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="bayes-factors" class="section level2 hasAnchor" number="3.5">
-<h2><span class="header-section-number">3.5</span> Bayes Factors<a href="bayes-factors.html#bayes-factors" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The Bayes Factor (BF) is a measure of the relative evidence of one model over another. Take another look at Bayes’ formula:</p>
-<p><span class="math display">\[P(\theta|D) = \frac{P(D|\theta)P(\theta)}{P(D)}.\]</span></p>
-<p>Suppose you want to compare how two models explain and observed data outcome, <span class="math inline">\(D\)</span>. Model <span class="math inline">\(M_1:f_1(D|\theta_1)\)</span> says the observed data <span class="math inline">\(D\)</span> was produced by a generative model with pdf <span class="math inline">\(f_1\)</span> parameterized by <span class="math inline">\(\theta_2\)</span>. Model <span class="math inline">\(M_2:f_2(D|\theta_2)\)</span> says it was produced by a generative model with pdf <span class="math inline">\(f_2\)</span> parameterized by <span class="math inline">\(\theta_2\)</span>. In each model you specify a prior probability distribution for the parameter</p>
-<p>If you take the ratio of the posterior probabilities, the posterior odds, the <span class="math inline">\(P(D)\)</span> terms cancel and you have</p>
-<p><span class="math display">\[\frac{P(\theta_1|D)}{P(\theta_2|D)} = \frac{P(D|\theta_1)}{P(D|\theta_2)} \cdot \frac{P(\theta_1)}{P(\theta_2)}\]</span></p>
-<p>The posterior odds equals the ratio of the likelihoods multiplied by the prior odds. That likelihood ratio is the Bayes Factor (BF). Rearranging, BF is the odds ratio of the posterior and prior odds.</p>
-<p><span class="math display">\[BF = \frac{P(D|\theta_1)}{P(D|\theta_2)} = \mathrm{\frac{Posterior Odds}{Prior Odds}}\]</span></p>
-<p>Return to the example of observing <span class="math inline">\(D\)</span> = 7 ones and 3 zeros. You can compare an hypothesized <span class="math inline">\(\theta\)</span> of .5 to a completely agnostic model where <span class="math inline">\(\theta\)</span> is uniform over [0, 1]. The likelihood of observing <span class="math inline">\(D\)</span> when <span class="math inline">\(\theta\)</span> = .5 is <span class="math inline">\(P(D|\theta_1) = 5^7(1-.5)^3\)</span> = 0.117. The likelihood of observing <span class="math inline">\(D\)</span> where <span class="math inline">\(\theta\)</span> is uniform on [0, 1] is <span class="math inline">\(P(D|\theta_2) = \int_0^1 \binom{10}{3}q^7(1-q)^3dq\)</span></p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="bayes-factors.html#cb14-1" tabindex="-1"></a>.<span class="dv">5</span><span class="sc">^</span><span class="dv">1</span> <span class="sc">*</span> .<span class="dv">5</span><span class="sc">^</span><span class="dv">1</span></span></code></pre></div>
-<pre><code>## [1] 0.25</code></pre>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="bayes-factors.html#cb16-1" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="dv">1</span>, <span class="dv">1</span>, .<span class="dv">5</span>)</span></code></pre></div>
-<pre><code>## [1] 0.5</code></pre>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="bayes-factors.html#cb18-1" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="dv">11</span>, <span class="dv">11</span>, .<span class="dv">5</span>)</span></code></pre></div>
-<pre><code>## [1] 0.0004882812</code></pre>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="bayes-factors.html#cb20-1" tabindex="-1"></a><span class="fu">beta</span>(<span class="dv">11</span>, <span class="dv">11</span>)</span></code></pre></div>
-<pre><code>## [1] 2.577402e-07</code></pre>
-<p>with a uniform Beta(1, 1) prior (i.e., complete agnosticism).</p>
-<p>The Bayes factor at <span class="math inline">\(\theta\)</span> = .7 quantifies how much the odds of H0: <span class="math inline">\(\theta\)</span> = .7 over H1: <span class="math inline">\(\hat{\theta}\)</span> = .7.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="bayes-factors.html#cb22-1" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="cf">function</span>(theta, alpha, beta) {</span>
-<span id="cb22-2"><a href="bayes-factors.html#cb22-2" tabindex="-1"></a>  (<span class="dv">1</span> <span class="sc">/</span> <span class="fu">beta</span>(alpha, beta)) <span class="sc">*</span> theta<span class="sc">^</span>(alpha<span class="dv">-1</span>) <span class="sc">*</span> (<span class="dv">1</span><span class="sc">-</span>theta)<span class="sc">^</span>(beta<span class="dv">-1</span>)</span>
-<span id="cb22-3"><a href="bayes-factors.html#cb22-3" tabindex="-1"></a>}</span>
-<span id="cb22-4"><a href="bayes-factors.html#cb22-4" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> <span class="cf">function</span>(theta, alpha, beta, a, b) {</span>
-<span id="cb22-5"><a href="bayes-factors.html#cb22-5" tabindex="-1"></a>  (<span class="dv">1</span> <span class="sc">/</span> <span class="fu">beta</span>(alpha <span class="sc">+</span> a, beta <span class="sc">+</span> b)) <span class="sc">*</span> theta<span class="sc">^</span>(alpha<span class="dv">-1</span><span class="sc">+</span>a) <span class="sc">*</span> (<span class="dv">1</span><span class="sc">-</span>theta)<span class="sc">^</span>(beta<span class="dv">-1</span><span class="sc">+</span>b)</span>
-<span id="cb22-6"><a href="bayes-factors.html#cb22-6" tabindex="-1"></a>}</span>
-<span id="cb22-7"><a href="bayes-factors.html#cb22-7" tabindex="-1"></a></span>
-<span id="cb22-8"><a href="bayes-factors.html#cb22-8" tabindex="-1"></a><span class="fu">prior</span>(.<span class="dv">5</span>, <span class="dv">115</span>, <span class="dv">85</span>) </span></code></pre></div>
-<pre><code>## [1] 1.164377</code></pre>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="bayes-factors.html#cb24-1" tabindex="-1"></a><span class="fu">posterior</span>(.<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">10</span>)</span></code></pre></div>
-<pre><code>## [1] 3.700138</code></pre>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="bayes-factors.html#cb26-1" tabindex="-1"></a><span class="fu">posterior</span>(.<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">10</span>) <span class="sc">/</span> <span class="fu">prior</span>(.<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">1</span>) </span></code></pre></div>
-<pre><code>## [1] 3.700138</code></pre>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="bayes-factors.html#cb28-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">/</span> <span class="fu">beta</span>(<span class="dv">115</span>, <span class="dv">85</span>)</span></code></pre></div>
-<pre><code>## [1] 4.677704e+59</code></pre>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="bayes-factors.html#cb30-1" tabindex="-1"></a><span class="co"># Posterior Distribution </span></span>
-<span id="cb30-2"><a href="bayes-factors.html#cb30-2" tabindex="-1"></a><span class="dv">1</span><span class="sc">/</span><span class="fu">beta</span>(<span class="dv">1</span><span class="sc">+</span><span class="dv">10</span>, <span class="dv">1</span><span class="sc">+</span><span class="dv">10</span>) <span class="sc">*</span> .<span class="dv">5</span><span class="sc">^</span>(<span class="dv">1-1</span><span class="sc">+</span><span class="dv">10</span>) <span class="sc">*</span> (<span class="dv">1</span><span class="fl">-.5</span>)<span class="sc">^</span>(<span class="dv">1-1</span><span class="sc">+</span><span class="dv">10</span>)</span></code></pre></div>
-<pre><code>## [1] 3.700138</code></pre>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="bayes-factors.html#cb32-1" tabindex="-1"></a><span class="fu">dbeta</span>(.<span class="dv">5</span>, <span class="dv">11</span>, <span class="dv">11</span>)</span></code></pre></div>
-<pre><code>## [1] 3.700138</code></pre>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="bayes-factors.html#cb34-1" tabindex="-1"></a><span class="co"># Prior Beta Distributions</span></span>
-<span id="cb34-2"><a href="bayes-factors.html#cb34-2" tabindex="-1"></a><span class="dv">1</span><span class="sc">/</span><span class="fu">beta</span>(<span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span> .<span class="dv">5</span><span class="sc">^</span>(<span class="dv">1-1</span>) <span class="sc">*</span> (<span class="dv">1</span><span class="fl">-.5</span>)<span class="sc">^</span>(<span class="dv">1-1</span>)</span></code></pre></div>
-<pre><code>## [1] 1</code></pre>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="bayes-factors.html#cb36-1" tabindex="-1"></a><span class="fu">dbeta</span>(.<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">1</span>)</span></code></pre></div>
-<pre><code>## [1] 1</code></pre>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="bayes-factors.html#cb38-1" tabindex="-1"></a><span class="fu">dbeta</span>(.<span class="dv">5</span>, <span class="dv">115</span>, <span class="dv">85</span>)</span></code></pre></div>
-<pre><code>## [1] 1.164377</code></pre>
-<p>The Bayes factor measures how much your prior belief is altered by the evidence. It is the ratio of the likelihoods at some hypothesized value before and after observing the data. In this case, our confidence increased by a factor of…</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="bayes-factors.html#cb40-1" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
-<span id="cb40-2"><a href="bayes-factors.html#cb40-2" tabindex="-1"></a></span>
-<span id="cb40-3"><a href="bayes-factors.html#cb40-3" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb40-4"><a href="bayes-factors.html#cb40-4" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb40-5"><a href="bayes-factors.html#cb40-5" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb40-6"><a href="bayes-factors.html#cb40-6" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb40-7"><a href="bayes-factors.html#cb40-7" tabindex="-1"></a></span>
-<span id="cb40-8"><a href="bayes-factors.html#cb40-8" tabindex="-1"></a>(prior_likelihood <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">/</span> <span class="fu">beta</span>(alpha, beta)) <span class="sc">*</span> theta<span class="sc">^</span>(alpha<span class="dv">-1</span>) <span class="sc">*</span> (<span class="dv">1</span><span class="sc">-</span>theta)<span class="sc">^</span>(beta<span class="dv">-1</span>))</span>
-<span id="cb40-9"><a href="bayes-factors.html#cb40-9" tabindex="-1"></a><span class="do">## [1] 1</span></span>
-<span id="cb40-10"><a href="bayes-factors.html#cb40-10" tabindex="-1"></a>(posterior_likelihood <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">/</span> <span class="fu">beta</span>(alpha <span class="sc">+</span> a, beta <span class="sc">+</span> b)) <span class="sc">*</span> theta<span class="sc">^</span>(alpha<span class="dv">-1</span><span class="sc">+</span>a) <span class="sc">*</span> (<span class="dv">1</span><span class="sc">-</span>theta)<span class="sc">^</span>(beta<span class="dv">-1</span><span class="sc">+</span>b))</span>
-<span id="cb40-11"><a href="bayes-factors.html#cb40-11" tabindex="-1"></a><span class="do">## [1] 3.700138</span></span>
-<span id="cb40-12"><a href="bayes-factors.html#cb40-12" tabindex="-1"></a>(bayes_factor <span class="ot">&lt;-</span> posterior_likelihood <span class="sc">/</span> prior_likelihood)</span>
-<span id="cb40-13"><a href="bayes-factors.html#cb40-13" tabindex="-1"></a><span class="do">## [1] 3.700138</span></span>
-<span id="cb40-14"><a href="bayes-factors.html#cb40-14" tabindex="-1"></a></span>
-<span id="cb40-15"><a href="bayes-factors.html#cb40-15" tabindex="-1"></a><span class="co"># 3.7 on alpha = beta = 1</span></span>
-<span id="cb40-16"><a href="bayes-factors.html#cb40-16" tabindex="-1"></a><span class="co"># 1.91 on alpha = beta = 4</span></span></code></pre></div>
+<div id="normal" class="section level2 hasAnchor" number="3.8">
+<h2><span class="header-section-number">3.8</span> Normal<a href="normal.html#normal" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Suppose you have a sample, <span class="math inline">\(\textbf{y}\)</span>, from a normally distribution population of unknown mean and precision, <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\tau\)</span>: <span class="math inline">\(y_i|\mu, \tau \sim N(\mu, \tau)\)</span>.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> Assume a normal prior for <span class="math inline">\(\mu \sim N(\mu_0, \tau_0)\)</span>, and a gamma prior for <span class="math inline">\(\tau \sim \text{Gamma}(a, b)\)</span> since it takes only positive values. The PDF for <span class="math inline">\(y_i\)</span> is <span class="math inline">\(f(y_i | \mu, \tau) = \frac{\tau^{.5}}{\sqrt{2\pi}} \exp\left(-\frac{\tau}{2} (y_i - \mu)^2 \right)\)</span>. We’ll derive posterior distributions for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\tau\)</span> separately.</p>
+<p>Using Bayes’ Theorem, the posterior distribution of <span class="math inline">\(\mu|y\)</span> is the joint likelihood of <span class="math inline">\(\mu\)</span> and <span class="math inline">\(y\)</span> divided by the likelihood of <span class="math inline">\(y\)</span>,</p>
+<p><span class="math display">\[
+f(\mu|y) = \frac{f(y|\mu)f(\mu)}{\int_\mu f(y|\mu)f(\mu)d\mu}
+\]</span></p>
+<p>The joint likelihood, <span class="math inline">\(f(\mu\y)\)</span>, is the sum-product of the normal distribution PDF. We can take <span class="math inline">\(\tau\)</span> as given initially.</p>
+<p><span class="math display">\[
+\begin{align}
+f(y|\mu) &amp;= \prod_i \frac{\tau^{(1/2)}}{\sqrt{2\pi}} \exp\left(-\frac{\tau}{2} (y_i - \mu)^2 \right) \\
+&amp;\propto \prod_i \exp\left(-\frac{\tau}{2} (y_i - \mu)^2 \right) \\
+&amp;\propto \exp \left( -\frac{\tau}{2} \sum_i(y_i - \mu)^2 \right)
+\end{align}
+\]</span></p>
+<p>The prior PDF for <span class="math inline">\(\mu\)</span> is the normal distribution, so <span class="math inline">\(f(\mu) \propto \exp\left(-\frac{\tau_0}{2} (\mu - \mu_0)^2 \right)\)</span>. But since we are working with proportions, we can throw out the denominator and say $f(|y) f(y|)f(). Plugging in and solving, we get</p>
+<p><span class="math display" id="eq:mu-posterior">\[
+\begin{equation}
+\mu|y \sim N\left(\frac{n\tau\bar{y} + \tau_0\mu_0}{n\tau + \tau_0}, n\tau + \tau_0 \right)
+\tag{3.2}
+\end{equation}
+\]</span></p>
+<p>The prior PDF for $ is the gamma distribution, so $
+The derivation above took <span class="math inline">\(\tau\)</span> as given, but now we need to derive its posterior too.</p>
+<p><span class="math display">\[
+f(\lambda |\textbf{D}) = \frac{\lambda^{a + \sum_i D_i-1}e^{-(b+n)\lambda}}{\int_0^\infty \lambda^{a + \sum_i D_i-1}e^{-(b+n)\lambda} d\lambda}
+\]</span></p>
+<p>However, there is good news. The integration in the denominator removes the dependence on <span class="math inline">\(\lambda\)</span>, so <span class="math inline">\(f(\lambda |\textbf{D}, a, b)\)</span> is proportional to the numerator up to a constant.</p>
+<p><span class="math display">\[
+f(\lambda |\textbf{D}) \propto f(\textbf{D} | \lambda) f(\lambda)
+\]</span></p>
+<p>Since <span class="math inline">\(f(\lambda |\textbf{D})\)</span> is a PMF, you integrates (sums) to 1 and you can always figure out the constant later. What makes this good news is that this has the form of the PDF of the gamma distribution.</p>
+<p><span class="math display" id="eq:gamma-posterior">\[
+\begin{equation}
+\lambda | \textbf{D}, a, b \sim \mathrm{Gamma}(a + \sum_i D_i, b + n)
+\tag{3.1}
+\end{equation}
+\]</span></p>
+<p>Equation <a href="gamma-poisson.html#eq:gamma-posterior">(3.1)</a> is the posterior distribution of <span class="math inline">\(\lambda\)</span>. We combined a gamma prior with the Poisson likelihood of evidence, <span class="math inline">\(D\)</span>, to produce a gamma posterior. We call priors that produce posteriors of the same form, <em>conjugate priors</em> for the Poisson likelihood. Conjugate priors are popular because of their computational convenience.</p>
+
+</div>
+<!-- </div> -->
+<div class="footnotes">
+<hr />
+<ol start="4">
+<li id="fn4"><p>In Bayesian statistics, the normal distribution is parameterized with the inverse of variance, called the <em>precision</em>, <span class="math inline">\(\tau = 1 / \sigma^2\)</span>.<a href="normal.html#fnref4" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="continuous-cases.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="a-gentler-introduction.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="gamma-poisson.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="one-sample.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="assets/gitbook-2.6.7/js/app.min.js"></script>
