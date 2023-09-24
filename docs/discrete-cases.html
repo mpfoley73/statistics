@@ -23,7 +23,7 @@
 <meta name="author" content="Michael Foley" />
 
 
-<meta name="date" content="2023-09-20" />
+<meta name="date" content="2023-09-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -250,30 +250,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="statistics_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>The posterior probability is the likelihood divided by the marginal probability of observing <span class="math inline">\(D\)</span> multiplied by the prior, <span class="math inline">\(P(\theta|D) = \frac{P(D|\theta)}{P(D)}\cdot P(\theta).\)</span> In this case, the marginal probability is straight-forward to calculate: it is the sum-product of the priors and their associated likelihoods.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="discrete-cases.html#cb4-1" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> likelihood <span class="sc">/</span> <span class="fu">sum</span>(likelihood <span class="sc">*</span> prior) <span class="sc">*</span> prior</span></code></pre></div>
-<pre><code>## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-## ℹ Please use `linewidth` instead.
-## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-## generated.</code></pre>
 <p><img src="statistics_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <p>What would the posterior look like if we started with an educated guess on <span class="math inline">\(P(\theta)\)</span> that more heavily weights <span class="math inline">\(\theta = 0.7\)</span>?</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="discrete-cases.html#cb6-1" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">c</span>(.<span class="dv">05</span>, .<span class="dv">05</span>, .<span class="dv">05</span>, .<span class="dv">05</span>, .<span class="dv">05</span>, .<span class="dv">10</span>, .<span class="dv">15</span>, .<span class="dv">20</span>, .<span class="dv">15</span>, .<span class="dv">10</span>, .<span class="dv">05</span>)</span>
-<span id="cb6-2"><a href="discrete-cases.html#cb6-2" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> likelihood <span class="sc">/</span> <span class="fu">sum</span>(likelihood <span class="sc">*</span> prior) <span class="sc">*</span> prior</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="discrete-cases.html#cb5-1" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">c</span>(.<span class="dv">05</span>, .<span class="dv">05</span>, .<span class="dv">05</span>, .<span class="dv">05</span>, .<span class="dv">05</span>, .<span class="dv">10</span>, .<span class="dv">15</span>, .<span class="dv">20</span>, .<span class="dv">15</span>, .<span class="dv">10</span>, .<span class="dv">05</span>)</span>
+<span id="cb5-2"><a href="discrete-cases.html#cb5-2" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> likelihood <span class="sc">/</span> <span class="fu">sum</span>(likelihood <span class="sc">*</span> prior) <span class="sc">*</span> prior</span></code></pre></div>
 <p><img src="statistics_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <p>What if we now employ a larger data set? To see, generate a sample of 100 Bernoulli(.7) observations.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="discrete-cases.html#cb7-1" tabindex="-1"></a>D100 <span class="ot">&lt;-</span> <span class="fu">rbernoulli</span>(<span class="dv">100</span>, <span class="at">p =</span> <span class="fl">0.7</span>) <span class="sc">%&gt;%</span> <span class="fu">as.numeric</span>()</span></code></pre></div>
-<pre><code>## Warning: `rbernoulli()` was deprecated in purrr 1.0.0.
-## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-## generated.</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="discrete-cases.html#cb9-1" tabindex="-1"></a>likelihood <span class="ot">&lt;-</span> theta<span class="sc">^</span><span class="fu">sum</span>(D100) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> theta)<span class="sc">^</span>(<span class="fu">length</span>(D100)<span class="sc">-</span><span class="fu">sum</span>(D100))</span>
-<span id="cb9-2"><a href="discrete-cases.html#cb9-2" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> likelihood <span class="sc">/</span> <span class="fu">sum</span>(likelihood <span class="sc">*</span> prior) <span class="sc">*</span> prior</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="discrete-cases.html#cb6-1" tabindex="-1"></a>D100 <span class="ot">&lt;-</span> Rlab<span class="sc">::</span><span class="fu">rbern</span>(<span class="dv">100</span>, <span class="at">p =</span> <span class="fl">0.7</span>) <span class="sc">%&gt;%</span> <span class="fu">as.numeric</span>()</span>
+<span id="cb6-2"><a href="discrete-cases.html#cb6-2" tabindex="-1"></a>likelihood <span class="ot">&lt;-</span> theta<span class="sc">^</span><span class="fu">sum</span>(D100) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> theta)<span class="sc">^</span>(<span class="fu">length</span>(D100)<span class="sc">-</span><span class="fu">sum</span>(D100))</span>
+<span id="cb6-3"><a href="discrete-cases.html#cb6-3" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> likelihood <span class="sc">/</span> <span class="fu">sum</span>(likelihood <span class="sc">*</span> prior) <span class="sc">*</span> prior</span></code></pre></div>
 <p><img src="statistics_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <p>What would it look like if it also had more competing hypotheses, <span class="math inline">\(\theta \in (0, .01, .02, \ldots, 1)\)</span>.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="discrete-cases.html#cb10-1" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> .<span class="dv">01</span>)</span>
-<span id="cb10-2"><a href="discrete-cases.html#cb10-2" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">100</span>, <span class="dv">101</span>)</span>
-<span id="cb10-3"><a href="discrete-cases.html#cb10-3" tabindex="-1"></a>likelihood <span class="ot">&lt;-</span> theta<span class="sc">^</span><span class="fu">sum</span>(D100) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> theta)<span class="sc">^</span>(<span class="fu">length</span>(D100)<span class="sc">-</span><span class="fu">sum</span>(D100))</span>
-<span id="cb10-4"><a href="discrete-cases.html#cb10-4" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> likelihood <span class="sc">/</span> <span class="fu">sum</span>(likelihood <span class="sc">*</span> prior) <span class="sc">*</span> prior</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="discrete-cases.html#cb7-1" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> .<span class="dv">01</span>)</span>
+<span id="cb7-2"><a href="discrete-cases.html#cb7-2" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">100</span>, <span class="dv">101</span>)</span>
+<span id="cb7-3"><a href="discrete-cases.html#cb7-3" tabindex="-1"></a>likelihood <span class="ot">&lt;-</span> theta<span class="sc">^</span><span class="fu">sum</span>(D100) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> theta)<span class="sc">^</span>(<span class="fu">length</span>(D100)<span class="sc">-</span><span class="fu">sum</span>(D100))</span>
+<span id="cb7-4"><a href="discrete-cases.html#cb7-4" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> likelihood <span class="sc">/</span> <span class="fu">sum</span>(likelihood <span class="sc">*</span> prior) <span class="sc">*</span> prior</span></code></pre></div>
 <p><img src="statistics_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 </div>
 <div class="footnotes">

@@ -1,0 +1,4 @@
+"0","plot_bayes(alpha = 7, beta = 3, a = 7, b = 3)"
+"2","Error in exists(cacheKey, where = .rs.WorkingDataEnv, inherits = FALSE) : 
+  invalid first argument
+"

@@ -1,0 +1,42 @@
+"0","sampling_idx <- sample("
+"2","Error in exists(cacheKey, where = .rs.WorkingDataEnv, inherits = FALSE) : 
+  invalid first argument
+"
+"0","  1:nrow(df_bayes_13), "
+"2","Error in exists(cacheKey, where = .rs.WorkingDataEnv, inherits = FALSE) : 
+  invalid first argument
+"
+"0","  size = 10000, "
+"2","Error in exists(cacheKey, where = .rs.WorkingDataEnv, inherits = FALSE) : 
+  invalid first argument
+"
+"0","  replace = TRUE, "
+"2","Error in exists(cacheKey, where = .rs.WorkingDataEnv, inherits = FALSE) : 
+  invalid first argument
+"
+"0","  prob = df_bayes_13$posterior"
+"2","Error in exists(cacheKey, where = .rs.WorkingDataEnv, inherits = FALSE) : 
+  invalid first argument
+"
+"0",")"
+"2","Error in exists(cacheKey, where = .rs.WorkingDataEnv, inherits = FALSE) : 
+  invalid first argument
+"
+"0","sampling_vals <- df_bayes_13[sampling_idx, ]"
+"2","Error in exists(cacheKey, where = .rs.WorkingDataEnv, inherits = FALSE) : 
+  invalid first argument
+"
+"2","Error in assign(cacheKey, frame, .rs.CachedDataEnv) : 
+  attempt to use zero-length variable name
+"
+"0","(df_bayes_ci <- quantile(sampling_vals$click_prob, c(.025, .5, .975)))"
+"1"," 2.5% "
+"1","  50% "
+"1","97.5% "
+"1","
+"
+"1","0.078 "
+"1","0.135 "
+"1","0.212 "
+"1","
+"

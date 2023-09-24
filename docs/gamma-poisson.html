@@ -23,7 +23,7 @@
 <meta name="author" content="Michael Foley" />
 
 
-<meta name="date" content="2023-09-20" />
+<meta name="date" content="2023-09-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -230,12 +230,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="gamma-poisson" class="section level2 hasAnchor" number="3.7">
 <h2><span class="header-section-number">3.7</span> Gamma Poisson<a href="gamma-poisson.html#gamma-poisson" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Given the following counts of weekday sandwich sales, what is the expected value?</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="gamma-poisson.html#cb58-1" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">65</span>, <span class="dv">72</span>, <span class="dv">63</span>, <span class="dv">70</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="gamma-poisson.html#cb55-1" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">65</span>, <span class="dv">72</span>, <span class="dv">63</span>, <span class="dv">70</span>)</span></code></pre></div>
 <p>Count data have a Poisson distribution, <span class="math inline">\(y_i|\lambda \sim Pois(\lambda)\)</span>, with expected value <span class="math inline">\(\lambda\)</span> and PMF <span class="math inline">\(f(y_i | \lambda) = e^{-\lambda}\frac{\lambda^{y_i}}{y_i!}\)</span>. Using Bayes’ Theorem, the posterior distribution of <span class="math inline">\(\lambda\)</span> given evidence <span class="math inline">\(\textbf{y}\)</span> is equal to the joint likelihood of <span class="math inline">\(\lambda\)</span> and <span class="math inline">\(\textbf{y}\)</span> divided by the likelihood of <span class="math inline">\(\textbf{y}\)</span>.</p>
 <p><span class="math display">\[
 f(\lambda |\textbf{y}) = \frac{f(\mathbf{y}|\lambda) f(\lambda)}{\int_\Lambda f(\mathbf{y}|\lambda) f(\lambda) d\lambda}
 \]</span></p>
-<p>The joint likelihood, <span class="math inline">\(f(\textbf{y}|\lambda)\)</span>, is the sum-product of the Poisson distribution PMF.</p>
+<p>The conditional likelihood, <span class="math inline">\(f(\textbf{y}|\lambda)\)</span>, is the sum-product of the Poisson distribution PMF.</p>
 <p><span class="math display">\[
 \begin{align}
 f(\textbf{y}|\lambda) = f(y_i,\ldots, y_n | \lambda) &amp;= \prod_i f(y_i | \lambda) \\
@@ -267,36 +267,36 @@ f(\lambda |\textbf{y}) \propto f(\textbf{y} | \lambda) f(\lambda)
 \lambda | \textbf{y}, a, b \sim \mathrm{Gamma}(784 + 320, 11.2 + 5) \sim \mathrm{Gamma}(1104, 16.2)
 \]</span></p>
 <p>The posterior <span class="math inline">\(E(y) = 1104 / 16.2 = 68.1\)</span> and <span class="math inline">\(\mathrm{Var}(y) = 1104 / 16.2^2 = 4.2\)</span>. Use the gamma distribution function to get the posterior 95% <em>credible</em> interval.</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="gamma-poisson.html#cb59-1" tabindex="-1"></a><span class="co"># Prior distribution</span></span>
-<span id="cb59-2"><a href="gamma-poisson.html#cb59-2" tabindex="-1"></a><span class="fu">qgamma</span>(<span class="at">p =</span> <span class="fu">c</span>(.<span class="dv">025</span>, .<span class="dv">975</span>), <span class="dv">784</span>, <span class="fl">11.2</span>)</span>
-<span id="cb59-3"><a href="gamma-poisson.html#cb59-3" tabindex="-1"></a><span class="do">## [1] 65.18520 74.98392</span></span>
-<span id="cb59-4"><a href="gamma-poisson.html#cb59-4" tabindex="-1"></a></span>
-<span id="cb59-5"><a href="gamma-poisson.html#cb59-5" tabindex="-1"></a><span class="co"># Posterior distribution</span></span>
-<span id="cb59-6"><a href="gamma-poisson.html#cb59-6" tabindex="-1"></a><span class="fu">qgamma</span>(<span class="at">p =</span> <span class="fu">c</span>(.<span class="dv">025</span>, .<span class="dv">975</span>), <span class="dv">784</span> <span class="sc">+</span> <span class="dv">320</span>, <span class="fl">11.2</span> <span class="sc">+</span> <span class="dv">5</span>)</span>
-<span id="cb59-7"><a href="gamma-poisson.html#cb59-7" tabindex="-1"></a><span class="do">## [1] 64.18701 72.22621</span></span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="gamma-poisson.html#cb56-1" tabindex="-1"></a><span class="co"># Prior distribution</span></span>
+<span id="cb56-2"><a href="gamma-poisson.html#cb56-2" tabindex="-1"></a><span class="fu">qgamma</span>(<span class="at">p =</span> <span class="fu">c</span>(.<span class="dv">025</span>, .<span class="dv">975</span>), <span class="dv">784</span>, <span class="fl">11.2</span>)</span>
+<span id="cb56-3"><a href="gamma-poisson.html#cb56-3" tabindex="-1"></a><span class="do">## [1] 65.18520 74.98392</span></span>
+<span id="cb56-4"><a href="gamma-poisson.html#cb56-4" tabindex="-1"></a></span>
+<span id="cb56-5"><a href="gamma-poisson.html#cb56-5" tabindex="-1"></a><span class="co"># Posterior distribution</span></span>
+<span id="cb56-6"><a href="gamma-poisson.html#cb56-6" tabindex="-1"></a><span class="fu">qgamma</span>(<span class="at">p =</span> <span class="fu">c</span>(.<span class="dv">025</span>, .<span class="dv">975</span>), <span class="dv">784</span> <span class="sc">+</span> <span class="dv">320</span>, <span class="fl">11.2</span> <span class="sc">+</span> <span class="dv">5</span>)</span>
+<span id="cb56-7"><a href="gamma-poisson.html#cb56-7" tabindex="-1"></a><span class="do">## [1] 64.18701 72.22621</span></span></code></pre></div>
 <p>Whereas the prior expected mean daily sandwich sales was 70 (95% CI: 65, 75), the posterior is 68 (95% CI: 64, 72). Compare this to classical statistics: <span class="math inline">\(E(y) = \bar{y} = 64\)</span>, <span class="math inline">\(SE = \sqrt{\bar{y} / n} = 3.6\)</span>:</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="gamma-poisson.html#cb60-1" tabindex="-1"></a><span class="co"># Classical estimate</span></span>
-<span id="cb60-2"><a href="gamma-poisson.html#cb60-2" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="at">p =</span> <span class="fu">c</span>(.<span class="dv">025</span>, .<span class="dv">975</span>), <span class="dv">64</span>, <span class="fl">3.6</span>)</span>
-<span id="cb60-3"><a href="gamma-poisson.html#cb60-3" tabindex="-1"></a><span class="do">## [1] 56.94413 71.05587</span></span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="gamma-poisson.html#cb57-1" tabindex="-1"></a><span class="co"># Classical estimate</span></span>
+<span id="cb57-2"><a href="gamma-poisson.html#cb57-2" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="at">p =</span> <span class="fu">c</span>(.<span class="dv">025</span>, .<span class="dv">975</span>), <span class="dv">64</span>, <span class="fl">3.6</span>)</span>
+<span id="cb57-3"><a href="gamma-poisson.html#cb57-3" tabindex="-1"></a><span class="do">## [1] 56.94413 71.05587</span></span></code></pre></div>
 <p>You might think that the reasonable Bayesian outcome was predicated on good <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> priors, but no. Suppose <span class="math inline">\(a = .01\)</span> and <span class="math inline">\(b = .01\)</span>. The posterior is still reasonable.</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="gamma-poisson.html#cb61-1" tabindex="-1"></a><span class="co"># Conservative prior</span></span>
-<span id="cb61-2"><a href="gamma-poisson.html#cb61-2" tabindex="-1"></a><span class="fu">qgamma</span>(<span class="at">p =</span> <span class="fu">c</span>(.<span class="dv">025</span>, .<span class="dv">975</span>), .<span class="dv">01</span> <span class="sc">+</span> <span class="dv">320</span>, .<span class="dv">01</span> <span class="sc">+</span> <span class="dv">5</span>)</span>
-<span id="cb61-3"><a href="gamma-poisson.html#cb61-3" tabindex="-1"></a><span class="do">## [1] 57.06689 71.05964</span></span></code></pre></div>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="gamma-poisson.html#cb62-1" tabindex="-1"></a><span class="fu">tibble</span>(</span>
-<span id="cb62-2"><a href="gamma-poisson.html#cb62-2" tabindex="-1"></a>  <span class="at">lambda =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">80</span>, .<span class="dv">1</span>),</span>
-<span id="cb62-3"><a href="gamma-poisson.html#cb62-3" tabindex="-1"></a>  <span class="st">`</span><span class="at">Gamma(.01, .01)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">dgamma</span>(lambda, .<span class="dv">01</span>, .<span class="dv">01</span>),</span>
-<span id="cb62-4"><a href="gamma-poisson.html#cb62-4" tabindex="-1"></a>  <span class="st">`</span><span class="at">Gamma(.01 + 320, .01 + 5)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">dgamma</span>(lambda, .<span class="dv">01</span> <span class="sc">+</span> <span class="dv">320</span>, .<span class="dv">01</span> <span class="sc">+</span> <span class="dv">5</span>),</span>
-<span id="cb62-5"><a href="gamma-poisson.html#cb62-5" tabindex="-1"></a>  <span class="st">`</span><span class="at">Gamma(784, 11.2)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">dgamma</span>(lambda, <span class="dv">784</span>, <span class="fl">11.2</span>),</span>
-<span id="cb62-6"><a href="gamma-poisson.html#cb62-6" tabindex="-1"></a>  <span class="st">`</span><span class="at">Gamma(784 + 320, 11.2 + 5)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">dgamma</span>(lambda, <span class="dv">784</span> <span class="sc">+</span> <span class="dv">320</span>, <span class="fl">11.2</span> <span class="sc">+</span> <span class="dv">5</span>)</span>
-<span id="cb62-7"><a href="gamma-poisson.html#cb62-7" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb62-8"><a href="gamma-poisson.html#cb62-8" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>lambda) <span class="sc">%&gt;%</span></span>
-<span id="cb62-9"><a href="gamma-poisson.html#cb62-9" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">name =</span> <span class="fu">fct_inorder</span>(name)) <span class="sc">%&gt;%</span></span>
-<span id="cb62-10"><a href="gamma-poisson.html#cb62-10" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prior =</span> <span class="fu">if_else</span>(<span class="fu">str_detect</span>(name, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">+&quot;</span>), <span class="st">&quot;posterior&quot;</span>, <span class="st">&quot;prior&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb62-11"><a href="gamma-poisson.html#cb62-11" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lambda, <span class="at">y =</span> value, <span class="at">color =</span> name, <span class="at">linetype =</span> prior)) <span class="sc">+</span></span>
-<span id="cb62-12"><a href="gamma-poisson.html#cb62-12" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb62-13"><a href="gamma-poisson.html#cb62-13" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;seagreen&quot;</span>, <span class="dv">2</span>), <span class="fu">rep</span>(<span class="st">&quot;firebrick&quot;</span>, <span class="dv">2</span>))) <span class="sc">+</span></span>
-<span id="cb62-14"><a href="gamma-poisson.html#cb62-14" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="cn">NULL</span>, <span class="at">linetype =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">&quot;density&quot;</span>,</span>
-<span id="cb62-15"><a href="gamma-poisson.html#cb62-15" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;Posteriors from Conservative and Informed Priors.&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="gamma-poisson.html#cb58-1" tabindex="-1"></a><span class="co"># Conservative prior</span></span>
+<span id="cb58-2"><a href="gamma-poisson.html#cb58-2" tabindex="-1"></a><span class="fu">qgamma</span>(<span class="at">p =</span> <span class="fu">c</span>(.<span class="dv">025</span>, .<span class="dv">975</span>), .<span class="dv">01</span> <span class="sc">+</span> <span class="dv">320</span>, .<span class="dv">01</span> <span class="sc">+</span> <span class="dv">5</span>)</span>
+<span id="cb58-3"><a href="gamma-poisson.html#cb58-3" tabindex="-1"></a><span class="do">## [1] 57.06689 71.05964</span></span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="gamma-poisson.html#cb59-1" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb59-2"><a href="gamma-poisson.html#cb59-2" tabindex="-1"></a>  <span class="at">lambda =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">80</span>, .<span class="dv">1</span>),</span>
+<span id="cb59-3"><a href="gamma-poisson.html#cb59-3" tabindex="-1"></a>  <span class="st">`</span><span class="at">Gamma(.01, .01)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">dgamma</span>(lambda, .<span class="dv">01</span>, .<span class="dv">01</span>),</span>
+<span id="cb59-4"><a href="gamma-poisson.html#cb59-4" tabindex="-1"></a>  <span class="st">`</span><span class="at">Gamma(.01 + 320, .01 + 5)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">dgamma</span>(lambda, .<span class="dv">01</span> <span class="sc">+</span> <span class="dv">320</span>, .<span class="dv">01</span> <span class="sc">+</span> <span class="dv">5</span>),</span>
+<span id="cb59-5"><a href="gamma-poisson.html#cb59-5" tabindex="-1"></a>  <span class="st">`</span><span class="at">Gamma(784, 11.2)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">dgamma</span>(lambda, <span class="dv">784</span>, <span class="fl">11.2</span>),</span>
+<span id="cb59-6"><a href="gamma-poisson.html#cb59-6" tabindex="-1"></a>  <span class="st">`</span><span class="at">Gamma(784 + 320, 11.2 + 5)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">dgamma</span>(lambda, <span class="dv">784</span> <span class="sc">+</span> <span class="dv">320</span>, <span class="fl">11.2</span> <span class="sc">+</span> <span class="dv">5</span>)</span>
+<span id="cb59-7"><a href="gamma-poisson.html#cb59-7" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb59-8"><a href="gamma-poisson.html#cb59-8" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>lambda) <span class="sc">%&gt;%</span></span>
+<span id="cb59-9"><a href="gamma-poisson.html#cb59-9" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">name =</span> <span class="fu">fct_inorder</span>(name)) <span class="sc">%&gt;%</span></span>
+<span id="cb59-10"><a href="gamma-poisson.html#cb59-10" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prior =</span> <span class="fu">if_else</span>(<span class="fu">str_detect</span>(name, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">+&quot;</span>), <span class="st">&quot;posterior&quot;</span>, <span class="st">&quot;prior&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb59-11"><a href="gamma-poisson.html#cb59-11" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lambda, <span class="at">y =</span> value, <span class="at">color =</span> name, <span class="at">linetype =</span> prior)) <span class="sc">+</span></span>
+<span id="cb59-12"><a href="gamma-poisson.html#cb59-12" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb59-13"><a href="gamma-poisson.html#cb59-13" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;seagreen&quot;</span>, <span class="dv">2</span>), <span class="fu">rep</span>(<span class="st">&quot;firebrick&quot;</span>, <span class="dv">2</span>))) <span class="sc">+</span></span>
+<span id="cb59-14"><a href="gamma-poisson.html#cb59-14" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="cn">NULL</span>, <span class="at">linetype =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">&quot;density&quot;</span>,</span>
+<span id="cb59-15"><a href="gamma-poisson.html#cb59-15" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;Posteriors from Conservative and Informed Priors.&quot;</span>)</span></code></pre></div>
 <p><img src="statistics_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
 <p>The Bayesian posterior approaches the classical <span class="math inline">\(\bar{y}\)</span> with increasing sample size.</p>
 <p><span class="math display">\[
@@ -304,46 +304,46 @@ E(\lambda|\textbf{y}, a, b) = \frac{a + \sum_i y_i}{b + n} = \frac{a + n \bar{y}
 \]</span></p>
 <p>Taking the limit, <span class="math inline">\(\lim_{n \rightarrow \infty} E(\lambda|\textbf{y}, a, b) = \bar{y}\)</span>.</p>
 <p>The <em>central</em> credible interval is the standard Bayesian credible interval. But when the posterior distribution is not perfectly symmetric, the shortest credible interval capturing x% of the distribution might have different endpoints. Our example has a pretty symmetric distribution, but let’s calculate the <em>highest density region (HDR)</em> anyway.</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="gamma-poisson.html#cb63-1" tabindex="-1"></a>pp <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">0.01</span>, .<span class="dv">99</span>, <span class="at">by =</span> .<span class="dv">0001</span>)</span>
-<span id="cb63-2"><a href="gamma-poisson.html#cb63-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(pp, <span class="sc">~</span><span class="fu">qgamma</span>(., <span class="dv">784</span> <span class="sc">+</span> <span class="dv">320</span>, <span class="fl">11.2</span> <span class="sc">+</span> <span class="dv">5</span>))</span>
-<span id="cb63-3"><a href="gamma-poisson.html#cb63-3" tabindex="-1"></a>hdrcde<span class="sc">::</span><span class="fu">hdr</span>(x, <span class="at">prob =</span> <span class="dv">95</span>)<span class="sc">$</span>hdr</span>
-<span id="cb63-4"><a href="gamma-poisson.html#cb63-4" tabindex="-1"></a><span class="do">##         [,1]     [,2]</span></span>
-<span id="cb63-5"><a href="gamma-poisson.html#cb63-5" tabindex="-1"></a><span class="do">## 95% 64.40787 71.86537</span></span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="gamma-poisson.html#cb60-1" tabindex="-1"></a>pp <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">0.01</span>, .<span class="dv">99</span>, <span class="at">by =</span> .<span class="dv">0001</span>)</span>
+<span id="cb60-2"><a href="gamma-poisson.html#cb60-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(pp, <span class="sc">~</span><span class="fu">qgamma</span>(., <span class="dv">784</span> <span class="sc">+</span> <span class="dv">320</span>, <span class="fl">11.2</span> <span class="sc">+</span> <span class="dv">5</span>))</span>
+<span id="cb60-3"><a href="gamma-poisson.html#cb60-3" tabindex="-1"></a>hdrcde<span class="sc">::</span><span class="fu">hdr</span>(x, <span class="at">prob =</span> <span class="dv">95</span>)<span class="sc">$</span>hdr</span>
+<span id="cb60-4"><a href="gamma-poisson.html#cb60-4" tabindex="-1"></a><span class="do">##         [,1]     [,2]</span></span>
+<span id="cb60-5"><a href="gamma-poisson.html#cb60-5" tabindex="-1"></a><span class="do">## 95% 64.40784 71.86582</span></span></code></pre></div>
 <p>The posterior predictive distribution of a predicted value, <span class="math inline">\(\tilde{y}\)</span> is</p>
 <p><span class="math display">\[
 f(\tilde{y} | x) = \int f(\tilde{y}|\lambda) f(\lambda | \textbf{y}) d\lambda
 \]</span></p>
 <p>Our sandwich example has a well defined functional solution: the expected value from <span class="math inline">\(\mathrm{Gamma}(1104, 16.2)\)</span> is <span class="math inline">\(1104/16.2 = 68\)</span>. Had we not known this, we could have simulated posterior values (Monte Carlo simulation) and calculated the mean and variance. The procedure is to take a random sample of perhaps 1,000 <span class="math inline">\(\lambda\)</span> values from the gamma posterior distribution, then for each <span class="math inline">\(\lambda\)</span> draw a single random <span class="math inline">\(\tilde{y}\)</span> from the Poisson distribution.</p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="gamma-poisson.html#cb64-1" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">1104</span> </span>
-<span id="cb64-2"><a href="gamma-poisson.html#cb64-2" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fl">16.2</span> </span>
-<span id="cb64-3"><a href="gamma-poisson.html#cb64-3" tabindex="-1"></a></span>
-<span id="cb64-4"><a href="gamma-poisson.html#cb64-4" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb64-5"><a href="gamma-poisson.html#cb64-5" tabindex="-1"></a></span>
-<span id="cb64-6"><a href="gamma-poisson.html#cb64-6" tabindex="-1"></a><span class="co"># random sample of lambdas, and a single random y_tilde for each lambda</span></span>
-<span id="cb64-7"><a href="gamma-poisson.html#cb64-7" tabindex="-1"></a>lambda_r <span class="ot">&lt;-</span> <span class="fu">rgamma</span>(<span class="dv">1000</span>, a, b)</span>
-<span id="cb64-8"><a href="gamma-poisson.html#cb64-8" tabindex="-1"></a>y_tilde <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="dv">1000</span>, lambda_r)</span>
-<span id="cb64-9"><a href="gamma-poisson.html#cb64-9" tabindex="-1"></a></span>
-<span id="cb64-10"><a href="gamma-poisson.html#cb64-10" tabindex="-1"></a><span class="co"># posterior predictive distribution</span></span>
-<span id="cb64-11"><a href="gamma-poisson.html#cb64-11" tabindex="-1"></a><span class="fu">mean</span>(y_tilde)</span>
-<span id="cb64-12"><a href="gamma-poisson.html#cb64-12" tabindex="-1"></a><span class="do">## [1] 68.252</span></span>
-<span id="cb64-13"><a href="gamma-poisson.html#cb64-13" tabindex="-1"></a><span class="fu">quantile</span>(y_tilde, <span class="fu">c</span>(.<span class="dv">025</span>, .<span class="dv">975</span>))</span>
-<span id="cb64-14"><a href="gamma-poisson.html#cb64-14" tabindex="-1"></a><span class="do">##   2.5%  97.5% </span></span>
-<span id="cb64-15"><a href="gamma-poisson.html#cb64-15" tabindex="-1"></a><span class="do">## 50.975 85.000</span></span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="gamma-poisson.html#cb61-1" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">1104</span> </span>
+<span id="cb61-2"><a href="gamma-poisson.html#cb61-2" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fl">16.2</span> </span>
+<span id="cb61-3"><a href="gamma-poisson.html#cb61-3" tabindex="-1"></a></span>
+<span id="cb61-4"><a href="gamma-poisson.html#cb61-4" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb61-5"><a href="gamma-poisson.html#cb61-5" tabindex="-1"></a></span>
+<span id="cb61-6"><a href="gamma-poisson.html#cb61-6" tabindex="-1"></a><span class="co"># random sample of lambdas, and a single random y_tilde for each lambda</span></span>
+<span id="cb61-7"><a href="gamma-poisson.html#cb61-7" tabindex="-1"></a>lambda_r <span class="ot">&lt;-</span> <span class="fu">rgamma</span>(<span class="dv">1000</span>, a, b)</span>
+<span id="cb61-8"><a href="gamma-poisson.html#cb61-8" tabindex="-1"></a>y_tilde <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="dv">1000</span>, lambda_r)</span>
+<span id="cb61-9"><a href="gamma-poisson.html#cb61-9" tabindex="-1"></a></span>
+<span id="cb61-10"><a href="gamma-poisson.html#cb61-10" tabindex="-1"></a><span class="co"># posterior predictive distribution</span></span>
+<span id="cb61-11"><a href="gamma-poisson.html#cb61-11" tabindex="-1"></a><span class="fu">mean</span>(y_tilde)</span>
+<span id="cb61-12"><a href="gamma-poisson.html#cb61-12" tabindex="-1"></a><span class="do">## [1] 68.252</span></span>
+<span id="cb61-13"><a href="gamma-poisson.html#cb61-13" tabindex="-1"></a><span class="fu">quantile</span>(y_tilde, <span class="fu">c</span>(.<span class="dv">025</span>, .<span class="dv">975</span>))</span>
+<span id="cb61-14"><a href="gamma-poisson.html#cb61-14" tabindex="-1"></a><span class="do">##   2.5%  97.5% </span></span>
+<span id="cb61-15"><a href="gamma-poisson.html#cb61-15" tabindex="-1"></a><span class="do">## 50.975 85.000</span></span></code></pre></div>
 <p>So on any given day, the predicted value of sandwich sales is 68.3 with 95% prediction interval 51.0, 85.0. The probability of exceeding 80 sandwiches, <span class="math inline">\(P(\tilde{y} &gt; 80 | \textbf{y})\)</span>, is <code>mean(y_tilde &gt; 80)</code> = 8.3%, and 99% of the time, sandwich sales will be less than <code>quantile(y_tilde, .99)</code> = 89.</p>
 <p>You can also predict individual weekdays. Suppose you take a <span class="math inline">\(\mathrm{Gamma}(700, 10)\)</span> distribution as your prior.</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="gamma-poisson.html#cb65-1" tabindex="-1"></a>day_tbl <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb65-2"><a href="gamma-poisson.html#cb65-2" tabindex="-1"></a>  <span class="at">dow =</span> <span class="fu">fct_inorder</span>(<span class="fu">c</span>(<span class="st">&quot;Mon&quot;</span>, <span class="st">&quot;Tue&quot;</span>, <span class="st">&quot;Wed&quot;</span>, <span class="st">&quot;Thu&quot;</span>, <span class="st">&quot;Fri&quot;</span>)),</span>
-<span id="cb65-3"><a href="gamma-poisson.html#cb65-3" tabindex="-1"></a>  <span class="at">d =</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">65</span>, <span class="dv">72</span>, <span class="dv">63</span>, <span class="dv">70</span>)</span>
-<span id="cb65-4"><a href="gamma-poisson.html#cb65-4" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb65-5"><a href="gamma-poisson.html#cb65-5" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb65-6"><a href="gamma-poisson.html#cb65-6" tabindex="-1"></a>    <span class="at">post_a =</span> <span class="dv">700</span> <span class="sc">+</span> d,</span>
-<span id="cb65-7"><a href="gamma-poisson.html#cb65-7" tabindex="-1"></a>    <span class="at">post_b =</span> <span class="dv">10</span> <span class="sc">+</span> <span class="dv">1</span>,</span>
-<span id="cb65-8"><a href="gamma-poisson.html#cb65-8" tabindex="-1"></a>    <span class="at">post_mean =</span> post_a <span class="sc">/</span> post_b,</span>
-<span id="cb65-9"><a href="gamma-poisson.html#cb65-9" tabindex="-1"></a>    <span class="at">post_lci =</span> <span class="fu">qgamma</span>(.<span class="dv">025</span>, post_a, post_b),</span>
-<span id="cb65-10"><a href="gamma-poisson.html#cb65-10" tabindex="-1"></a>    <span class="at">post_uci =</span> <span class="fu">qgamma</span>(.<span class="dv">975</span>, post_a, post_b)</span>
-<span id="cb65-11"><a href="gamma-poisson.html#cb65-11" tabindex="-1"></a>  )</span>
-<span id="cb65-12"><a href="gamma-poisson.html#cb65-12" tabindex="-1"></a></span>
-<span id="cb65-13"><a href="gamma-poisson.html#cb65-13" tabindex="-1"></a>day_tbl</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="gamma-poisson.html#cb62-1" tabindex="-1"></a>day_tbl <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb62-2"><a href="gamma-poisson.html#cb62-2" tabindex="-1"></a>  <span class="at">dow =</span> <span class="fu">fct_inorder</span>(<span class="fu">c</span>(<span class="st">&quot;Mon&quot;</span>, <span class="st">&quot;Tue&quot;</span>, <span class="st">&quot;Wed&quot;</span>, <span class="st">&quot;Thu&quot;</span>, <span class="st">&quot;Fri&quot;</span>)),</span>
+<span id="cb62-3"><a href="gamma-poisson.html#cb62-3" tabindex="-1"></a>  <span class="at">d =</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">65</span>, <span class="dv">72</span>, <span class="dv">63</span>, <span class="dv">70</span>)</span>
+<span id="cb62-4"><a href="gamma-poisson.html#cb62-4" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb62-5"><a href="gamma-poisson.html#cb62-5" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb62-6"><a href="gamma-poisson.html#cb62-6" tabindex="-1"></a>    <span class="at">post_a =</span> <span class="dv">700</span> <span class="sc">+</span> d,</span>
+<span id="cb62-7"><a href="gamma-poisson.html#cb62-7" tabindex="-1"></a>    <span class="at">post_b =</span> <span class="dv">10</span> <span class="sc">+</span> <span class="dv">1</span>,</span>
+<span id="cb62-8"><a href="gamma-poisson.html#cb62-8" tabindex="-1"></a>    <span class="at">post_mean =</span> post_a <span class="sc">/</span> post_b,</span>
+<span id="cb62-9"><a href="gamma-poisson.html#cb62-9" tabindex="-1"></a>    <span class="at">post_lci =</span> <span class="fu">qgamma</span>(.<span class="dv">025</span>, post_a, post_b),</span>
+<span id="cb62-10"><a href="gamma-poisson.html#cb62-10" tabindex="-1"></a>    <span class="at">post_uci =</span> <span class="fu">qgamma</span>(.<span class="dv">975</span>, post_a, post_b)</span>
+<span id="cb62-11"><a href="gamma-poisson.html#cb62-11" tabindex="-1"></a>  )</span>
+<span id="cb62-12"><a href="gamma-poisson.html#cb62-12" tabindex="-1"></a></span>
+<span id="cb62-13"><a href="gamma-poisson.html#cb62-13" tabindex="-1"></a>day_tbl</span></code></pre></div>
 <pre><code>## # A tibble: 5 × 7
 ##   dow       d post_a post_b post_mean post_lci post_uci
 ##   &lt;fct&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
@@ -353,35 +353,35 @@ f(\tilde{y} | x) = \int f(\tilde{y}|\lambda) f(\lambda | \textbf{y}) d\lambda
 ## 4 Thu      63    763     11      69.4     64.5     74.4
 ## 5 Fri      70    770     11      70       65.1     75.0</code></pre>
 <p>What is the probability that Mon sales are less than Tue?</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="gamma-poisson.html#cb67-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb67-2"><a href="gamma-poisson.html#cb67-2" tabindex="-1"></a>lambda_r_mon <span class="ot">&lt;-</span> <span class="fu">rgamma</span>(<span class="dv">1000</span>, <span class="dv">750</span>, <span class="dv">11</span>)</span>
-<span id="cb67-3"><a href="gamma-poisson.html#cb67-3" tabindex="-1"></a>lambda_r_tue <span class="ot">&lt;-</span> <span class="fu">rgamma</span>(<span class="dv">1000</span>, <span class="dv">765</span>, <span class="dv">11</span>)</span>
-<span id="cb67-4"><a href="gamma-poisson.html#cb67-4" tabindex="-1"></a></span>
-<span id="cb67-5"><a href="gamma-poisson.html#cb67-5" tabindex="-1"></a><span class="co"># posterior probability </span></span>
-<span id="cb67-6"><a href="gamma-poisson.html#cb67-6" tabindex="-1"></a><span class="fu">mean</span>(lambda_r_mon <span class="sc">&lt;</span> lambda_r_tue)</span>
-<span id="cb67-7"><a href="gamma-poisson.html#cb67-7" tabindex="-1"></a><span class="do">## [1] 0.664</span></span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="gamma-poisson.html#cb64-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb64-2"><a href="gamma-poisson.html#cb64-2" tabindex="-1"></a>lambda_r_mon <span class="ot">&lt;-</span> <span class="fu">rgamma</span>(<span class="dv">1000</span>, <span class="dv">750</span>, <span class="dv">11</span>)</span>
+<span id="cb64-3"><a href="gamma-poisson.html#cb64-3" tabindex="-1"></a>lambda_r_tue <span class="ot">&lt;-</span> <span class="fu">rgamma</span>(<span class="dv">1000</span>, <span class="dv">765</span>, <span class="dv">11</span>)</span>
+<span id="cb64-4"><a href="gamma-poisson.html#cb64-4" tabindex="-1"></a></span>
+<span id="cb64-5"><a href="gamma-poisson.html#cb64-5" tabindex="-1"></a><span class="co"># posterior probability </span></span>
+<span id="cb64-6"><a href="gamma-poisson.html#cb64-6" tabindex="-1"></a><span class="fu">mean</span>(lambda_r_mon <span class="sc">&lt;</span> lambda_r_tue)</span>
+<span id="cb64-7"><a href="gamma-poisson.html#cb64-7" tabindex="-1"></a><span class="do">## [1] 0.664</span></span></code></pre></div>
 <p>Which day of the week has the highest sandwich sales?</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="gamma-poisson.html#cb68-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
-<span id="cb68-2"><a href="gamma-poisson.html#cb68-2" tabindex="-1"></a></span>
-<span id="cb68-3"><a href="gamma-poisson.html#cb68-3" tabindex="-1"></a>lambda_r <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb68-4"><a href="gamma-poisson.html#cb68-4" tabindex="-1"></a>  <span class="at">r_mon =</span> <span class="fu">rgamma</span>(<span class="dv">1000</span>, <span class="dv">750</span>, <span class="dv">11</span>),</span>
-<span id="cb68-5"><a href="gamma-poisson.html#cb68-5" tabindex="-1"></a>  <span class="at">r_tue =</span> <span class="fu">rgamma</span>(<span class="dv">1000</span>, <span class="dv">765</span>, <span class="dv">11</span>),</span>
-<span id="cb68-6"><a href="gamma-poisson.html#cb68-6" tabindex="-1"></a>  <span class="at">r_wed =</span> <span class="fu">rgamma</span>(<span class="dv">1000</span>, <span class="dv">772</span>, <span class="dv">11</span>),</span>
-<span id="cb68-7"><a href="gamma-poisson.html#cb68-7" tabindex="-1"></a>  <span class="at">r_thu =</span> <span class="fu">rgamma</span>(<span class="dv">1000</span>, <span class="dv">763</span>, <span class="dv">11</span>),</span>
-<span id="cb68-8"><a href="gamma-poisson.html#cb68-8" tabindex="-1"></a>  <span class="at">r_fri =</span> <span class="fu">rgamma</span>(<span class="dv">1000</span>, <span class="dv">770</span>, <span class="dv">11</span>),</span>
-<span id="cb68-9"><a href="gamma-poisson.html#cb68-9" tabindex="-1"></a>  <span class="at">r_dow =</span> <span class="fu">pmap</span>(<span class="fu">list</span>(r_mon, r_tue, r_wed, r_thu, r_fri), </span>
-<span id="cb68-10"><a href="gamma-poisson.html#cb68-10" tabindex="-1"></a>                   <span class="cf">function</span>(m, t, w, r, f) <span class="fu">c</span>(m, t, w, r, f)),</span>
-<span id="cb68-11"><a href="gamma-poisson.html#cb68-11" tabindex="-1"></a>  <span class="at">max_dow_idx =</span> <span class="fu">map_dbl</span>(r_dow, <span class="sc">~</span><span class="fu">which.max</span>(.)),</span>
-<span id="cb68-12"><a href="gamma-poisson.html#cb68-12" tabindex="-1"></a>  <span class="at">max_dow =</span> <span class="fu">map_chr</span>(max_dow_idx, <span class="sc">~</span><span class="fu">c</span>(<span class="st">&quot;Mon&quot;</span>, <span class="st">&quot;Tue&quot;</span>, <span class="st">&quot;Wed&quot;</span>, <span class="st">&quot;Thu&quot;</span>, <span class="st">&quot;Fri&quot;</span>)[.])</span>
-<span id="cb68-13"><a href="gamma-poisson.html#cb68-13" tabindex="-1"></a>)</span>
-<span id="cb68-14"><a href="gamma-poisson.html#cb68-14" tabindex="-1"></a></span>
-<span id="cb68-15"><a href="gamma-poisson.html#cb68-15" tabindex="-1"></a>lambda_r <span class="sc">%&gt;%</span> janitor<span class="sc">::</span><span class="fu">tabyl</span>(max_dow)</span>
-<span id="cb68-16"><a href="gamma-poisson.html#cb68-16" tabindex="-1"></a><span class="do">##  max_dow   n percent</span></span>
-<span id="cb68-17"><a href="gamma-poisson.html#cb68-17" tabindex="-1"></a><span class="do">##      Fri 248   0.248</span></span>
-<span id="cb68-18"><a href="gamma-poisson.html#cb68-18" tabindex="-1"></a><span class="do">##      Mon  77   0.077</span></span>
-<span id="cb68-19"><a href="gamma-poisson.html#cb68-19" tabindex="-1"></a><span class="do">##      Thu 188   0.188</span></span>
-<span id="cb68-20"><a href="gamma-poisson.html#cb68-20" tabindex="-1"></a><span class="do">##      Tue 190   0.190</span></span>
-<span id="cb68-21"><a href="gamma-poisson.html#cb68-21" tabindex="-1"></a><span class="do">##      Wed 297   0.297</span></span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="gamma-poisson.html#cb65-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
+<span id="cb65-2"><a href="gamma-poisson.html#cb65-2" tabindex="-1"></a></span>
+<span id="cb65-3"><a href="gamma-poisson.html#cb65-3" tabindex="-1"></a>lambda_r <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb65-4"><a href="gamma-poisson.html#cb65-4" tabindex="-1"></a>  <span class="at">r_mon =</span> <span class="fu">rgamma</span>(<span class="dv">1000</span>, <span class="dv">750</span>, <span class="dv">11</span>),</span>
+<span id="cb65-5"><a href="gamma-poisson.html#cb65-5" tabindex="-1"></a>  <span class="at">r_tue =</span> <span class="fu">rgamma</span>(<span class="dv">1000</span>, <span class="dv">765</span>, <span class="dv">11</span>),</span>
+<span id="cb65-6"><a href="gamma-poisson.html#cb65-6" tabindex="-1"></a>  <span class="at">r_wed =</span> <span class="fu">rgamma</span>(<span class="dv">1000</span>, <span class="dv">772</span>, <span class="dv">11</span>),</span>
+<span id="cb65-7"><a href="gamma-poisson.html#cb65-7" tabindex="-1"></a>  <span class="at">r_thu =</span> <span class="fu">rgamma</span>(<span class="dv">1000</span>, <span class="dv">763</span>, <span class="dv">11</span>),</span>
+<span id="cb65-8"><a href="gamma-poisson.html#cb65-8" tabindex="-1"></a>  <span class="at">r_fri =</span> <span class="fu">rgamma</span>(<span class="dv">1000</span>, <span class="dv">770</span>, <span class="dv">11</span>),</span>
+<span id="cb65-9"><a href="gamma-poisson.html#cb65-9" tabindex="-1"></a>  <span class="at">r_dow =</span> <span class="fu">pmap</span>(<span class="fu">list</span>(r_mon, r_tue, r_wed, r_thu, r_fri), </span>
+<span id="cb65-10"><a href="gamma-poisson.html#cb65-10" tabindex="-1"></a>                   <span class="cf">function</span>(m, t, w, r, f) <span class="fu">c</span>(m, t, w, r, f)),</span>
+<span id="cb65-11"><a href="gamma-poisson.html#cb65-11" tabindex="-1"></a>  <span class="at">max_dow_idx =</span> <span class="fu">map_dbl</span>(r_dow, <span class="sc">~</span><span class="fu">which.max</span>(.)),</span>
+<span id="cb65-12"><a href="gamma-poisson.html#cb65-12" tabindex="-1"></a>  <span class="at">max_dow =</span> <span class="fu">map_chr</span>(max_dow_idx, <span class="sc">~</span><span class="fu">c</span>(<span class="st">&quot;Mon&quot;</span>, <span class="st">&quot;Tue&quot;</span>, <span class="st">&quot;Wed&quot;</span>, <span class="st">&quot;Thu&quot;</span>, <span class="st">&quot;Fri&quot;</span>)[.])</span>
+<span id="cb65-13"><a href="gamma-poisson.html#cb65-13" tabindex="-1"></a>)</span>
+<span id="cb65-14"><a href="gamma-poisson.html#cb65-14" tabindex="-1"></a></span>
+<span id="cb65-15"><a href="gamma-poisson.html#cb65-15" tabindex="-1"></a>lambda_r <span class="sc">%&gt;%</span> janitor<span class="sc">::</span><span class="fu">tabyl</span>(max_dow)</span>
+<span id="cb65-16"><a href="gamma-poisson.html#cb65-16" tabindex="-1"></a><span class="do">##  max_dow   n percent</span></span>
+<span id="cb65-17"><a href="gamma-poisson.html#cb65-17" tabindex="-1"></a><span class="do">##      Fri 248   0.248</span></span>
+<span id="cb65-18"><a href="gamma-poisson.html#cb65-18" tabindex="-1"></a><span class="do">##      Mon  77   0.077</span></span>
+<span id="cb65-19"><a href="gamma-poisson.html#cb65-19" tabindex="-1"></a><span class="do">##      Thu 188   0.188</span></span>
+<span id="cb65-20"><a href="gamma-poisson.html#cb65-20" tabindex="-1"></a><span class="do">##      Tue 190   0.190</span></span>
+<span id="cb65-21"><a href="gamma-poisson.html#cb65-21" tabindex="-1"></a><span class="do">##      Wed 297   0.297</span></span></code></pre></div>
 </div>
 <div class="footnotes">
 <hr />
