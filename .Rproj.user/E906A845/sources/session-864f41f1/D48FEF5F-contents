@@ -864,62 +864,9 @@ E[\tau|\mu,y] &= \frac{a + n/2}{b + \frac{1}{2} \sum_i(y_i - \mu)^2} \\
 \end{align}
 $$
 
-The problem here is that you never know $\mu$ or $\tau$, so you cannot use the posterior formulas directly. Instead, you need to use sampling. In particular, you use the *Gibbs sampler*. You set $\mu$ and $\tau$ to some initial values and use the posterior equations to estimate new values for $\mu$ and $\tau$, and repeat. This is called Markov chain Monte Carlo simulation because you are chaining the simulations. The method of sampling from a conditional posterior is called the Gibbs sampler.
+The problem here is that you never know $\mu$ or $\tau$, so you cannot use the posterior formulas directly. Instead, you need to use sampling. In particular, you use the *Gibbs sampler*. Set $\mu$ and $\tau$ to some initial values and use the posterior equations to estimate new values for $\mu$ and $\tau$, then repeat. This is called Markov Chain Monte Carlo (MCMC) simulation because you are chaining the simulations. The method of sampling from a conditional posterior is called the Gibbs sampler.
 
-Let's implement a Gibbs sampler with a data set of 100 random values from the normal distribution. Use vague priors of $\mu \sim N(\mu_0 = 0, \tau_0 = 1/100^2)$ and $\tau = \sim \text{Gamma}(a = .01, b = .01)$. Start by assigning starting values, $\mu*$ and $\tau*$). Given $\tau = \tau*$, sample a new value of $\mu*$ from the normal distribution. Given $\mu = \mu*$, sample a new value of $\tau*$ from the gamma distribution. Then repeat.
-
-```{r collapse=TRUE}
-# experiment setup
-n <- 100
-set.seed(12345)
-y <- rnorm(n, 0, 1)
-n_iter <- 10^3
-mu_sample <- tau_sample <- numeric(n_iter)
-
-# vague priors: mu ~ N(0, 1/100^2); tau ~ Gamma(.01, 01)
-mu_0 <- 0
-tau_0 <- 1 / 100^2
-a <- .01
-b <- .01
-
-# mu|tau,y 
-sample_mu <- function(tau) {
-  mean_mu <- (n * mean(y) * tau + mu_0 * tau_0) / (n * tau + tau_0)
-  precision_mu <- n * tau + tau_0
-  rnorm(1, mean_mu, 1 / sqrt(precision_mu))
-}
-
-# tau|mu,y
-sample_tau <- function(mu) {
-  rgamma(1, a + n/2, b + .5 * sum((y - mu)^2))
-}
-
-# starting values
-mu_sample[1] <- mean(y)
-tau_sample[1] <- 1 / var(y)
-
-# Gibbs sampler
-for(i in 2:n_iter){
-  mu_sample[i] <- map_dbl(tau_sample[i-1], sample_mu)
-  tau_sample[i] <- map_dbl(mu_sample[i-1], sample_tau)
-}
-
-# posterior mu
-mean(mu_sample); quantile(mu_sample, c(.025, .975))
-
-# posterior tau
-mean(tau_sample); quantile(tau_sample, c(.025, .975))
-
-tibble(iter = 1:n_iter, mu = mu_sample, tau = tau_sample) %>%
-  pivot_longer(cols = c(mu, tau)) %>% 
-  ggplot(aes(x = value)) + geom_density() + 
-  facet_wrap(facets = vars(name), scales = "free") +
-  labs(title = "Posterior Distributions", x = NULL)
-```
-
-It may take some time to converge on a solution. This convergence is called *burn-in* and is often discarded when describing the posterior. *Slow mixing* may occur if there is high autocorrelation in the Gibbs sample, resulting in slow exploration of the sample space of the posterior.
-
-Let's apply this using anthropological data collected by Nancy Howell.
+Let's apply this using anthropological data collected by Nancy Howell of human height. 
 
 ```{r}
 # downloaded this from 
@@ -927,12 +874,81 @@ Let's apply this using anthropological data collected by Nancy Howell.
 howell <- read_delim("input/Howell1.csv", delim = ";", show_col_types = FALSE) %>%
   filter(age >= 18) %>%
   mutate(male = factor(male, labels = c("women", "men")))
-```
 
-```{r}
 howell %>%
   ggplot(aes(sample = height, color = male)) +
   stat_qq() +
   geom_qq_line()
 ```
+
+From prior knowledge, we know average human height is about $175 \pm 10$ cm. Using the $\pm$ = 2SD, the variance $5^2$. Use vague priors of $\mu \sim N(\mu_0 = 175, \tau_0 = 1/5^2)$ and $\tau = \sim \text{Gamma}(a = .01, b = .01)$. Start by assigning starting values, $\mu*$ and $\tau*$). Given $\tau = \tau*$, sample a new value of $\mu*$ from the normal distribution. Given $\mu = \mu*$, sample a new value of $\tau*$ from the gamma distribution. Then repeat.
+
+```{r collapse=TRUE}
+gibbs_normal <- function(y, mu_0, tau_0, a, b, n_iter){
+  n <- length(y)
+  y_mean <- mean(y)
+  
+  mu_sample <- tau_sample <- numeric(n_iter)
+  
+  # starting values
+  mu_sample[1] <- mean(y)
+  tau_sample[1] <- 1 / var(y)
+
+  # Gibbs sampler
+  for(i in 2:n_iter){
+    # mu
+    tau <- tau_sample[i-1]
+    mean_mu <- (n * y_mean * tau + mu_0 * tau_0) / (n * tau + tau_0)
+    precision_mu <- n * tau + tau_0
+    mu_sample[i] <- rnorm(1, mean_mu, 1 / sqrt(precision_mu))
+    # tau
+    mu <- mu_sample[i-1]
+    tau_sample[i] <- rgamma(1, a + n/2, b + .5 * sum((y - mu)^2))
+  }
+  
+  return(list(mu = mu_sample, tau = tau_sample))
+}
+
+set.seed(12345)
+sample_m <- gibbs_normal(howell[howell$male == "men",]$height, 175, 1/5^2, .01, .01, 10^3)
+sample_w <- gibbs_normal(howell[howell$male == "women",]$height, 175, 1/5^2, .01, .01, 10^3)
+
+# posterior mu
+mean(sample_m$mu); quantile(sample_m$mu, c(.025, .975))
+mean(sample_w$mu); quantile(sample_w$mu, c(.025, .975))
+
+# posterior probability that men are taller than women on average
+mean(sample_m$mu > sample_w$mu)
+
+# posterior probability that a random man is taller than a random woman
+tilde_m <- rnorm(10^3, mean(sample_m$mu), sqrt(1/mean(sample_m$tau)))
+tilde_w <- rnorm(10^3, mean(sample_w$mu), sqrt(1/mean(sample_w$tau)))
+mean(tilde_m > tilde_w)
+
+tibble(
+  iter = rep(1:10^3, 2),
+  sex = c(rep("men", 10^3), rep("women", 10^3)),
+  mu = c(sample_m$mu, sample_w$mu),
+  tau = c(sample_m$tau, sample_w$tau),
+) %>%
+  pivot_longer(cols = c(mu, tau)) %>% 
+  ggplot(aes(x = value, color = sex)) + 
+  geom_density() + 
+  facet_wrap(facets = vars(name), scales = "free") +
+  labs(title = "Posterior Distributions", x = NULL, color = NULL)
+
+tibble(
+  iter = rep(1:10^3, 2),
+  sex = c(rep("men", 10^3), rep("women", 10^3)),
+  tilde = c(tilde_m, tilde_w)
+) %>%
+  ggplot(aes(x = tilde, color = sex)) + 
+  geom_density() + 
+  labs(title = "Posterior Predictive Distributions", x = NULL, color = NULL)
+```
+
+It may take some time to converge on a solution. This convergence is called *burn-in* and is often discarded when describing the posterior. *Slow mixing* may occur if there is high autocorrelation in the Gibbs sample, resulting in slow exploration of the sample space of the posterior.
+
+
+
 

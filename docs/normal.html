@@ -23,7 +23,7 @@
 <meta name="author" content="Michael Foley" />
 
 
-<meta name="date" content="2023-09-22" />
+<meta name="date" content="2023-09-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -298,59 +298,92 @@ E[\tau|\mu,y] &amp;= \frac{a + n/2}{b + \frac{1}{2} \sum_i(y_i - \mu)^2} \\
 &amp;\sim \frac{1}{\sum_i(y_i - \mu)^2}
 \end{align}
 \]</span></p>
-<p>The problem here is that you never know <span class="math inline">\(\mu\)</span> or <span class="math inline">\(\tau\)</span>, so you cannot use the posterior formulas directly. Instead, you need to use sampling. In particular, you use the <em>Gibbs sampler</em>. You set <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\tau\)</span> to some initial values and use the posterior equations to estimate new values for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\tau\)</span>, and repeat. This is called Markov chain Monte Carlo simulation because you are chaining the simulations. The method of sampling from a conditional posterior is called the Gibbs sampler.</p>
-<p>Let’s implement a Gibbs sampler with a data set of 100 random values from the normal distribution. Use vague priors of <span class="math inline">\(\mu \sim N(\mu_0 = 0, \tau_0 = 1/100^2)\)</span> and <span class="math inline">\(\tau = \sim \text{Gamma}(a = .01, b = .01)\)</span>. Start by assigning starting values, <span class="math inline">\(\mu*\)</span> and <span class="math inline">\(\tau*\)</span>). Given <span class="math inline">\(\tau = \tau*\)</span>, sample a new value of <span class="math inline">\(\mu*\)</span> from the normal distribution. Given <span class="math inline">\(\mu = \mu*\)</span>, sample a new value of <span class="math inline">\(\tau*\)</span> from the gamma distribution. Then repeat.</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="normal.html#cb66-1" tabindex="-1"></a><span class="co"># experiment setup</span></span>
-<span id="cb66-2"><a href="normal.html#cb66-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb66-3"><a href="normal.html#cb66-3" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
-<span id="cb66-4"><a href="normal.html#cb66-4" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb66-5"><a href="normal.html#cb66-5" tabindex="-1"></a>n_iter <span class="ot">&lt;-</span> <span class="dv">10</span><span class="sc">^</span><span class="dv">3</span></span>
-<span id="cb66-6"><a href="normal.html#cb66-6" tabindex="-1"></a>mu_sample <span class="ot">&lt;-</span> tau_sample <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n_iter)</span>
-<span id="cb66-7"><a href="normal.html#cb66-7" tabindex="-1"></a></span>
-<span id="cb66-8"><a href="normal.html#cb66-8" tabindex="-1"></a><span class="co"># vague priors: mu ~ N(0, 1/100^2); tau ~ Gamma(.01, 01)</span></span>
-<span id="cb66-9"><a href="normal.html#cb66-9" tabindex="-1"></a>mu_0 <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb66-10"><a href="normal.html#cb66-10" tabindex="-1"></a>tau_0 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> <span class="dv">100</span><span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb66-11"><a href="normal.html#cb66-11" tabindex="-1"></a>a <span class="ot">&lt;-</span> .<span class="dv">01</span></span>
-<span id="cb66-12"><a href="normal.html#cb66-12" tabindex="-1"></a>b <span class="ot">&lt;-</span> .<span class="dv">01</span></span>
-<span id="cb66-13"><a href="normal.html#cb66-13" tabindex="-1"></a></span>
-<span id="cb66-14"><a href="normal.html#cb66-14" tabindex="-1"></a><span class="co"># mu|tau,y </span></span>
-<span id="cb66-15"><a href="normal.html#cb66-15" tabindex="-1"></a>sample_mu <span class="ot">&lt;-</span> <span class="cf">function</span>(tau) {</span>
-<span id="cb66-16"><a href="normal.html#cb66-16" tabindex="-1"></a>  mean_mu <span class="ot">&lt;-</span> (n <span class="sc">*</span> <span class="fu">mean</span>(y) <span class="sc">*</span> tau <span class="sc">+</span> mu_0 <span class="sc">*</span> tau_0) <span class="sc">/</span> (n <span class="sc">*</span> tau <span class="sc">+</span> tau_0)</span>
-<span id="cb66-17"><a href="normal.html#cb66-17" tabindex="-1"></a>  precision_mu <span class="ot">&lt;-</span> n <span class="sc">*</span> tau <span class="sc">+</span> tau_0</span>
-<span id="cb66-18"><a href="normal.html#cb66-18" tabindex="-1"></a>  <span class="fu">rnorm</span>(<span class="dv">1</span>, mean_mu, <span class="dv">1</span> <span class="sc">/</span> <span class="fu">sqrt</span>(precision_mu))</span>
-<span id="cb66-19"><a href="normal.html#cb66-19" tabindex="-1"></a>}</span>
-<span id="cb66-20"><a href="normal.html#cb66-20" tabindex="-1"></a><span class="co"># tau conditional mean</span></span>
-<span id="cb66-21"><a href="normal.html#cb66-21" tabindex="-1"></a>sample_tau <span class="ot">&lt;-</span> <span class="cf">function</span>(mu) {</span>
-<span id="cb66-22"><a href="normal.html#cb66-22" tabindex="-1"></a>  <span class="fu">rgamma</span>(<span class="dv">1</span>, a <span class="sc">+</span> n<span class="sc">/</span><span class="dv">2</span>, b <span class="sc">+</span> .<span class="dv">5</span> <span class="sc">*</span> <span class="fu">sum</span>((y <span class="sc">-</span> mu)<span class="sc">^</span><span class="dv">2</span>))</span>
-<span id="cb66-23"><a href="normal.html#cb66-23" tabindex="-1"></a>}</span>
-<span id="cb66-24"><a href="normal.html#cb66-24" tabindex="-1"></a></span>
-<span id="cb66-25"><a href="normal.html#cb66-25" tabindex="-1"></a>mu_sample[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">mean</span>(y)</span>
-<span id="cb66-26"><a href="normal.html#cb66-26" tabindex="-1"></a>tau_sample[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> <span class="fu">var</span>(y)</span>
-<span id="cb66-27"><a href="normal.html#cb66-27" tabindex="-1"></a></span>
-<span id="cb66-28"><a href="normal.html#cb66-28" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>n_iter){</span>
-<span id="cb66-29"><a href="normal.html#cb66-29" tabindex="-1"></a>  mu_sample[i] <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(tau_sample[i<span class="dv">-1</span>], sample_mu)</span>
-<span id="cb66-30"><a href="normal.html#cb66-30" tabindex="-1"></a>  tau_sample[i] <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(mu_sample[i<span class="dv">-1</span>], sample_tau)</span>
-<span id="cb66-31"><a href="normal.html#cb66-31" tabindex="-1"></a>}</span>
-<span id="cb66-32"><a href="normal.html#cb66-32" tabindex="-1"></a></span>
-<span id="cb66-33"><a href="normal.html#cb66-33" tabindex="-1"></a><span class="co"># posterior mu</span></span>
-<span id="cb66-34"><a href="normal.html#cb66-34" tabindex="-1"></a><span class="fu">mean</span>(mu_sample)</span>
-<span id="cb66-35"><a href="normal.html#cb66-35" tabindex="-1"></a><span class="do">## [1] 0.249428</span></span>
-<span id="cb66-36"><a href="normal.html#cb66-36" tabindex="-1"></a><span class="fu">quantile</span>(mu_sample, <span class="fu">c</span>(.<span class="dv">025</span>, .<span class="dv">975</span>))</span>
-<span id="cb66-37"><a href="normal.html#cb66-37" tabindex="-1"></a><span class="do">##      2.5%     97.5% </span></span>
-<span id="cb66-38"><a href="normal.html#cb66-38" tabindex="-1"></a><span class="do">## 0.0283041 0.4718523</span></span>
-<span id="cb66-39"><a href="normal.html#cb66-39" tabindex="-1"></a><span class="co"># posterior tau</span></span>
-<span id="cb66-40"><a href="normal.html#cb66-40" tabindex="-1"></a><span class="fu">mean</span>(tau_sample)</span>
-<span id="cb66-41"><a href="normal.html#cb66-41" tabindex="-1"></a><span class="do">## [1] 0.8084949</span></span>
-<span id="cb66-42"><a href="normal.html#cb66-42" tabindex="-1"></a><span class="fu">quantile</span>(tau_sample, <span class="fu">c</span>(.<span class="dv">025</span>, .<span class="dv">975</span>))</span>
-<span id="cb66-43"><a href="normal.html#cb66-43" tabindex="-1"></a><span class="do">##      2.5%     97.5% </span></span>
-<span id="cb66-44"><a href="normal.html#cb66-44" tabindex="-1"></a><span class="do">## 0.6046357 1.0507100</span></span>
-<span id="cb66-45"><a href="normal.html#cb66-45" tabindex="-1"></a></span>
-<span id="cb66-46"><a href="normal.html#cb66-46" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">iter =</span> <span class="dv">1</span><span class="sc">:</span>n_iter, <span class="at">mu =</span> mu_sample, <span class="at">tau =</span> tau_sample) <span class="sc">%&gt;%</span></span>
-<span id="cb66-47"><a href="normal.html#cb66-47" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(mu, tau)) <span class="sc">%&gt;%</span> </span>
-<span id="cb66-48"><a href="normal.html#cb66-48" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> value)) <span class="sc">+</span> <span class="fu">geom_density</span>() <span class="sc">+</span> </span>
-<span id="cb66-49"><a href="normal.html#cb66-49" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="at">facets =</span> <span class="fu">vars</span>(name), <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
-<span id="cb66-50"><a href="normal.html#cb66-50" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Posterior Distributions&quot;</span>, <span class="at">x =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<p>The problem here is that you never know <span class="math inline">\(\mu\)</span> or <span class="math inline">\(\tau\)</span>, so you cannot use the posterior formulas directly. Instead, you need to use sampling. In particular, you use the <em>Gibbs sampler</em>. Set <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\tau\)</span> to some initial values and use the posterior equations to estimate new values for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\tau\)</span>, then repeat. This is called Markov Chain Monte Carlo (MCMC) simulation because you are chaining the simulations. The method of sampling from a conditional posterior is called the Gibbs sampler.</p>
+<p>Let’s apply this using anthropological data collected by Nancy Howell of human height.</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="normal.html#cb66-1" tabindex="-1"></a><span class="co"># downloaded this from </span></span>
+<span id="cb66-2"><a href="normal.html#cb66-2" tabindex="-1"></a><span class="co"># https://github.com/rmcelreath/rethinking/blob/master/data/Howell1.csv</span></span>
+<span id="cb66-3"><a href="normal.html#cb66-3" tabindex="-1"></a>howell <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">&quot;input/Howell1.csv&quot;</span>, <span class="at">delim =</span> <span class="st">&quot;;&quot;</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb66-4"><a href="normal.html#cb66-4" tabindex="-1"></a>  <span class="fu">filter</span>(age <span class="sc">&gt;=</span> <span class="dv">18</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb66-5"><a href="normal.html#cb66-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">male =</span> <span class="fu">factor</span>(male, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;women&quot;</span>, <span class="st">&quot;men&quot;</span>)))</span>
+<span id="cb66-6"><a href="normal.html#cb66-6" tabindex="-1"></a></span>
+<span id="cb66-7"><a href="normal.html#cb66-7" tabindex="-1"></a>howell <span class="sc">%&gt;%</span></span>
+<span id="cb66-8"><a href="normal.html#cb66-8" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample =</span> height, <span class="at">color =</span> male)) <span class="sc">+</span></span>
+<span id="cb66-9"><a href="normal.html#cb66-9" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span></span>
+<span id="cb66-10"><a href="normal.html#cb66-10" tabindex="-1"></a>  <span class="fu">geom_qq_line</span>()</span></code></pre></div>
 <p><img src="statistics_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
+<p>From prior knowledge, we know average human height is about <span class="math inline">\(175 \pm 10\)</span> cm. Using the <span class="math inline">\(\pm\)</span> = 2SD, the variance <span class="math inline">\(5^2\)</span>. Use vague priors of <span class="math inline">\(\mu \sim N(\mu_0 = 175, \tau_0 = 1/5^2)\)</span> and <span class="math inline">\(\tau = \sim \text{Gamma}(a = .01, b = .01)\)</span>. Start by assigning starting values, <span class="math inline">\(\mu*\)</span> and <span class="math inline">\(\tau*\)</span>). Given <span class="math inline">\(\tau = \tau*\)</span>, sample a new value of <span class="math inline">\(\mu*\)</span> from the normal distribution. Given <span class="math inline">\(\mu = \mu*\)</span>, sample a new value of <span class="math inline">\(\tau*\)</span> from the gamma distribution. Then repeat.</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="normal.html#cb67-1" tabindex="-1"></a>gibbs_normal <span class="ot">&lt;-</span> <span class="cf">function</span>(y, mu_0, tau_0, a, b, n_iter){</span>
+<span id="cb67-2"><a href="normal.html#cb67-2" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(y)</span>
+<span id="cb67-3"><a href="normal.html#cb67-3" tabindex="-1"></a>  y_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(y)</span>
+<span id="cb67-4"><a href="normal.html#cb67-4" tabindex="-1"></a>  </span>
+<span id="cb67-5"><a href="normal.html#cb67-5" tabindex="-1"></a>  mu_sample <span class="ot">&lt;-</span> tau_sample <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n_iter)</span>
+<span id="cb67-6"><a href="normal.html#cb67-6" tabindex="-1"></a>  </span>
+<span id="cb67-7"><a href="normal.html#cb67-7" tabindex="-1"></a>  <span class="co"># starting values</span></span>
+<span id="cb67-8"><a href="normal.html#cb67-8" tabindex="-1"></a>  mu_sample[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">mean</span>(y)</span>
+<span id="cb67-9"><a href="normal.html#cb67-9" tabindex="-1"></a>  tau_sample[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> <span class="fu">var</span>(y)</span>
+<span id="cb67-10"><a href="normal.html#cb67-10" tabindex="-1"></a></span>
+<span id="cb67-11"><a href="normal.html#cb67-11" tabindex="-1"></a>  <span class="co"># Gibbs sampler</span></span>
+<span id="cb67-12"><a href="normal.html#cb67-12" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>n_iter){</span>
+<span id="cb67-13"><a href="normal.html#cb67-13" tabindex="-1"></a>    <span class="co"># mu</span></span>
+<span id="cb67-14"><a href="normal.html#cb67-14" tabindex="-1"></a>    tau <span class="ot">&lt;-</span> tau_sample[i<span class="dv">-1</span>]</span>
+<span id="cb67-15"><a href="normal.html#cb67-15" tabindex="-1"></a>    mean_mu <span class="ot">&lt;-</span> (n <span class="sc">*</span> y_mean <span class="sc">*</span> tau <span class="sc">+</span> mu_0 <span class="sc">*</span> tau_0) <span class="sc">/</span> (n <span class="sc">*</span> tau <span class="sc">+</span> tau_0)</span>
+<span id="cb67-16"><a href="normal.html#cb67-16" tabindex="-1"></a>    precision_mu <span class="ot">&lt;-</span> n <span class="sc">*</span> tau <span class="sc">+</span> tau_0</span>
+<span id="cb67-17"><a href="normal.html#cb67-17" tabindex="-1"></a>    mu_sample[i] <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1</span>, mean_mu, <span class="dv">1</span> <span class="sc">/</span> <span class="fu">sqrt</span>(precision_mu))</span>
+<span id="cb67-18"><a href="normal.html#cb67-18" tabindex="-1"></a>    <span class="co"># tau</span></span>
+<span id="cb67-19"><a href="normal.html#cb67-19" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> mu_sample[i<span class="dv">-1</span>]</span>
+<span id="cb67-20"><a href="normal.html#cb67-20" tabindex="-1"></a>    tau_sample[i] <span class="ot">&lt;-</span> <span class="fu">rgamma</span>(<span class="dv">1</span>, a <span class="sc">+</span> n<span class="sc">/</span><span class="dv">2</span>, b <span class="sc">+</span> .<span class="dv">5</span> <span class="sc">*</span> <span class="fu">sum</span>((y <span class="sc">-</span> mu)<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb67-21"><a href="normal.html#cb67-21" tabindex="-1"></a>  }</span>
+<span id="cb67-22"><a href="normal.html#cb67-22" tabindex="-1"></a>  </span>
+<span id="cb67-23"><a href="normal.html#cb67-23" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">mu =</span> mu_sample, <span class="at">tau =</span> tau_sample))</span>
+<span id="cb67-24"><a href="normal.html#cb67-24" tabindex="-1"></a>}</span>
+<span id="cb67-25"><a href="normal.html#cb67-25" tabindex="-1"></a></span>
+<span id="cb67-26"><a href="normal.html#cb67-26" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
+<span id="cb67-27"><a href="normal.html#cb67-27" tabindex="-1"></a>sample_m <span class="ot">&lt;-</span> <span class="fu">gibbs_normal</span>(howell[howell<span class="sc">$</span>male <span class="sc">==</span> <span class="st">&quot;men&quot;</span>,]<span class="sc">$</span>height, <span class="dv">175</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">5</span><span class="sc">^</span><span class="dv">2</span>, .<span class="dv">01</span>, .<span class="dv">01</span>, <span class="dv">10</span><span class="sc">^</span><span class="dv">3</span>)</span>
+<span id="cb67-28"><a href="normal.html#cb67-28" tabindex="-1"></a>sample_w <span class="ot">&lt;-</span> <span class="fu">gibbs_normal</span>(howell[howell<span class="sc">$</span>male <span class="sc">==</span> <span class="st">&quot;women&quot;</span>,]<span class="sc">$</span>height, <span class="dv">175</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">5</span><span class="sc">^</span><span class="dv">2</span>, .<span class="dv">01</span>, .<span class="dv">01</span>, <span class="dv">10</span><span class="sc">^</span><span class="dv">3</span>)</span>
+<span id="cb67-29"><a href="normal.html#cb67-29" tabindex="-1"></a></span>
+<span id="cb67-30"><a href="normal.html#cb67-30" tabindex="-1"></a><span class="co"># posterior mu</span></span>
+<span id="cb67-31"><a href="normal.html#cb67-31" tabindex="-1"></a><span class="fu">mean</span>(sample_m<span class="sc">$</span>mu); <span class="fu">quantile</span>(sample_m<span class="sc">$</span>mu, <span class="fu">c</span>(.<span class="dv">025</span>, .<span class="dv">975</span>))</span>
+<span id="cb67-32"><a href="normal.html#cb67-32" tabindex="-1"></a><span class="do">## [1] 160.5146</span></span>
+<span id="cb67-33"><a href="normal.html#cb67-33" tabindex="-1"></a><span class="do">##     2.5%    97.5% </span></span>
+<span id="cb67-34"><a href="normal.html#cb67-34" tabindex="-1"></a><span class="do">## 159.6103 161.4231</span></span>
+<span id="cb67-35"><a href="normal.html#cb67-35" tabindex="-1"></a><span class="fu">mean</span>(sample_w<span class="sc">$</span>mu); <span class="fu">quantile</span>(sample_w<span class="sc">$</span>mu, <span class="fu">c</span>(.<span class="dv">025</span>, .<span class="dv">975</span>))</span>
+<span id="cb67-36"><a href="normal.html#cb67-36" tabindex="-1"></a><span class="do">## [1] 149.6363</span></span>
+<span id="cb67-37"><a href="normal.html#cb67-37" tabindex="-1"></a><span class="do">##     2.5%    97.5% </span></span>
+<span id="cb67-38"><a href="normal.html#cb67-38" tabindex="-1"></a><span class="do">## 148.9256 150.3641</span></span>
+<span id="cb67-39"><a href="normal.html#cb67-39" tabindex="-1"></a></span>
+<span id="cb67-40"><a href="normal.html#cb67-40" tabindex="-1"></a><span class="co"># posterior probability that men are taller than women on average</span></span>
+<span id="cb67-41"><a href="normal.html#cb67-41" tabindex="-1"></a><span class="fu">mean</span>(sample_m<span class="sc">$</span>mu <span class="sc">&gt;</span> sample_w<span class="sc">$</span>mu)</span>
+<span id="cb67-42"><a href="normal.html#cb67-42" tabindex="-1"></a><span class="do">## [1] 1</span></span>
+<span id="cb67-43"><a href="normal.html#cb67-43" tabindex="-1"></a></span>
+<span id="cb67-44"><a href="normal.html#cb67-44" tabindex="-1"></a><span class="co"># posterior probability that a random man is taller than a random woman</span></span>
+<span id="cb67-45"><a href="normal.html#cb67-45" tabindex="-1"></a>tilde_m <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span><span class="sc">^</span><span class="dv">3</span>, <span class="fu">mean</span>(sample_m<span class="sc">$</span>mu), <span class="fu">sqrt</span>(<span class="dv">1</span><span class="sc">/</span><span class="fu">mean</span>(sample_m<span class="sc">$</span>tau)))</span>
+<span id="cb67-46"><a href="normal.html#cb67-46" tabindex="-1"></a>tilde_w <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span><span class="sc">^</span><span class="dv">3</span>, <span class="fu">mean</span>(sample_w<span class="sc">$</span>mu), <span class="fu">sqrt</span>(<span class="dv">1</span><span class="sc">/</span><span class="fu">mean</span>(sample_w<span class="sc">$</span>tau)))</span>
+<span id="cb67-47"><a href="normal.html#cb67-47" tabindex="-1"></a><span class="fu">mean</span>(tilde_m <span class="sc">&gt;</span> tilde_w)</span>
+<span id="cb67-48"><a href="normal.html#cb67-48" tabindex="-1"></a><span class="do">## [1] 0.909</span></span>
+<span id="cb67-49"><a href="normal.html#cb67-49" tabindex="-1"></a></span>
+<span id="cb67-50"><a href="normal.html#cb67-50" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb67-51"><a href="normal.html#cb67-51" tabindex="-1"></a>  <span class="at">iter =</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span><span class="sc">^</span><span class="dv">3</span>, <span class="dv">2</span>),</span>
+<span id="cb67-52"><a href="normal.html#cb67-52" tabindex="-1"></a>  <span class="at">sex =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;men&quot;</span>, <span class="dv">10</span><span class="sc">^</span><span class="dv">3</span>), <span class="fu">rep</span>(<span class="st">&quot;women&quot;</span>, <span class="dv">10</span><span class="sc">^</span><span class="dv">3</span>)),</span>
+<span id="cb67-53"><a href="normal.html#cb67-53" tabindex="-1"></a>  <span class="at">mu =</span> <span class="fu">c</span>(sample_m<span class="sc">$</span>mu, sample_w<span class="sc">$</span>mu),</span>
+<span id="cb67-54"><a href="normal.html#cb67-54" tabindex="-1"></a>  <span class="at">tau =</span> <span class="fu">c</span>(sample_m<span class="sc">$</span>tau, sample_w<span class="sc">$</span>tau),</span>
+<span id="cb67-55"><a href="normal.html#cb67-55" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb67-56"><a href="normal.html#cb67-56" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(mu, tau)) <span class="sc">%&gt;%</span> </span>
+<span id="cb67-57"><a href="normal.html#cb67-57" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> value, <span class="at">color =</span> sex)) <span class="sc">+</span> </span>
+<span id="cb67-58"><a href="normal.html#cb67-58" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span> </span>
+<span id="cb67-59"><a href="normal.html#cb67-59" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="at">facets =</span> <span class="fu">vars</span>(name), <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
+<span id="cb67-60"><a href="normal.html#cb67-60" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Posterior Distributions&quot;</span>, <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">color =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<p><img src="statistics_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="normal.html#cb68-1" tabindex="-1"></a></span>
+<span id="cb68-2"><a href="normal.html#cb68-2" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb68-3"><a href="normal.html#cb68-3" tabindex="-1"></a>  <span class="at">iter =</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span><span class="sc">^</span><span class="dv">3</span>, <span class="dv">2</span>),</span>
+<span id="cb68-4"><a href="normal.html#cb68-4" tabindex="-1"></a>  <span class="at">sex =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;men&quot;</span>, <span class="dv">10</span><span class="sc">^</span><span class="dv">3</span>), <span class="fu">rep</span>(<span class="st">&quot;women&quot;</span>, <span class="dv">10</span><span class="sc">^</span><span class="dv">3</span>)),</span>
+<span id="cb68-5"><a href="normal.html#cb68-5" tabindex="-1"></a>  <span class="at">tilde =</span> <span class="fu">c</span>(tilde_m, tilde_w)</span>
+<span id="cb68-6"><a href="normal.html#cb68-6" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb68-7"><a href="normal.html#cb68-7" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> tilde, <span class="at">color =</span> sex)) <span class="sc">+</span> </span>
+<span id="cb68-8"><a href="normal.html#cb68-8" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span> </span>
+<span id="cb68-9"><a href="normal.html#cb68-9" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Posterior Predictive Distributions&quot;</span>, <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">color =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<p><img src="statistics_files/figure-html/unnamed-chunk-47-2.png" width="672" /></p>
+<p>It may take some time to converge on a solution. This convergence is called <em>burn-in</em> and is often discarded when describing the posterior. <em>Slow mixing</em> may occur if there is high autocorrelation in the Gibbs sample, resulting in slow exploration of the sample space of the posterior.</p>
 
 </div>
 <!-- </div> -->

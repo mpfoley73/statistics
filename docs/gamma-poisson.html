@@ -23,7 +23,7 @@
 <meta name="author" content="Michael Foley" />
 
 
-<meta name="date" content="2023-09-22" />
+<meta name="date" content="2023-09-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -308,7 +308,7 @@ E(\lambda|\textbf{y}, a, b) = \frac{a + \sum_i y_i}{b + n} = \frac{a + n \bar{y}
 <span id="cb60-2"><a href="gamma-poisson.html#cb60-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(pp, <span class="sc">~</span><span class="fu">qgamma</span>(., <span class="dv">784</span> <span class="sc">+</span> <span class="dv">320</span>, <span class="fl">11.2</span> <span class="sc">+</span> <span class="dv">5</span>))</span>
 <span id="cb60-3"><a href="gamma-poisson.html#cb60-3" tabindex="-1"></a>hdrcde<span class="sc">::</span><span class="fu">hdr</span>(x, <span class="at">prob =</span> <span class="dv">95</span>)<span class="sc">$</span>hdr</span>
 <span id="cb60-4"><a href="gamma-poisson.html#cb60-4" tabindex="-1"></a><span class="do">##         [,1]     [,2]</span></span>
-<span id="cb60-5"><a href="gamma-poisson.html#cb60-5" tabindex="-1"></a><span class="do">## 95% 64.40784 71.86582</span></span></code></pre></div>
+<span id="cb60-5"><a href="gamma-poisson.html#cb60-5" tabindex="-1"></a><span class="do">## 95% 64.40785 71.86582</span></span></code></pre></div>
 <p>The posterior predictive distribution of a predicted value, <span class="math inline">\(\tilde{y}\)</span> is</p>
 <p><span class="math display">\[
 f(\tilde{y} | x) = \int f(\tilde{y}|\lambda) f(\lambda | \textbf{y}) d\lambda
