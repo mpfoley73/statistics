@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>1.2 Hypothesis Testing | Statistical Inference</title>
   <meta name="description" content="Notes cobbled together from books, online classes, etc. to be used as quick reference for common work projects." />
-  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
   <meta property="og:title" content="1.2 Hypothesis Testing | Statistical Inference" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Michael Foley" />
 
 
-<meta name="date" content="2023-04-09" />
+<meta name="date" content="2023-10-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,10 +52,10 @@
 <link href="assets/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="assets/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="assets/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="assets/kePrint-0.0.1/kePrint.js"></script>
-<link href="assets/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <link href="assets/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
 <script src="assets/tabwid-1.1.3/tabwid.js"></script>
+<script src="assets/kePrint-0.0.1/kePrint.js"></script>
+<link href="assets/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -123,6 +123,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -149,13 +153,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3" data-path="bayesian-statistics.html"><a href="bayesian-statistics.html"><i class="fa fa-check"></i><b>3</b> Bayesian Statistics</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="bayes-law.html"><a href="bayes-law.html"><i class="fa fa-check"></i><b>3.1</b> Bayes’ Law</a></li>
+<li class="chapter" data-level="3.1" data-path="bayes-theorem.html"><a href="bayes-theorem.html"><i class="fa fa-check"></i><b>3.1</b> Bayes’ Theorem</a></li>
 <li class="chapter" data-level="3.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html"><i class="fa fa-check"></i><b>3.2</b> Bayesian Inference</a></li>
-<li class="chapter" data-level="3.3" data-path="discrete-cases.html"><a href="discrete-cases.html"><i class="fa fa-check"></i><b>3.3</b> Discrete Cases</a></li>
-<li class="chapter" data-level="3.4" data-path="continuous-cases.html"><a href="continuous-cases.html"><i class="fa fa-check"></i><b>3.4</b> Continuous Cases</a></li>
-<li class="chapter" data-level="3.5" data-path="bayes-factors.html"><a href="bayes-factors.html"><i class="fa fa-check"></i><b>3.5</b> Bayes Factors</a></li>
-<li class="chapter" data-level="3.6" data-path="a-gentler-introduction.html"><a href="a-gentler-introduction.html"><i class="fa fa-check"></i><b>3.6</b> A Gentler Introduction</a></li>
-<li class="chapter" data-level="3.7" data-path="coursera-notes-inference.html"><a href="coursera-notes-inference.html"><i class="fa fa-check"></i><b>3.7</b> Coursera Notes Inference</a></li>
+<li class="chapter" data-level="3.3" data-path="bayes-factors.html"><a href="bayes-factors.html"><i class="fa fa-check"></i><b>3.3</b> Bayes Factors</a></li>
+<li class="chapter" data-level="3.4" data-path="gamma-poisson.html"><a href="gamma-poisson.html"><i class="fa fa-check"></i><b>3.4</b> Gamma Poisson</a></li>
+<li class="chapter" data-level="3.5" data-path="normal.html"><a href="normal.html"><i class="fa fa-check"></i><b>3.5</b> Normal</a></li>
+<li class="chapter" data-level="3.6" data-path="proportions-and-the-beta-binomial.html"><a href="proportions-and-the-beta-binomial.html"><i class="fa fa-check"></i><b>3.6</b> Proportions and the Beta Binomial</a></li>
+<li class="chapter" data-level="3.7" data-path="dic.html"><a href="dic.html"><i class="fa fa-check"></i><b>3.7</b> DIC</a></li>
+<li class="chapter" data-level="3.8" data-path="appendix-gentle-introduction.html"><a href="appendix-gentle-introduction.html"><i class="fa fa-check"></i><b>3.8</b> Appendix: Gentle Introduction</a></li>
+<li class="chapter" data-level="3.9" data-path="further-reading-1.html"><a href="further-reading-1.html"><i class="fa fa-check"></i><b>3.9</b> Further Reading</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="one-sample.html"><a href="one-sample.html"><i class="fa fa-check"></i><b>4</b> One-Sample</a>
 <ul>
@@ -229,33 +235,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="hypothesis-testing" class="section level2 hasAnchor" number="1.2">
 <h2><span class="header-section-number">1.2</span> Hypothesis Testing<a href="hypothesis-testing.html#hypothesis-testing" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><em>P</em>-values express how surprising a summary measure is given the null hypothesis (H0). Suppose you hypothesize that IQs have increased from the intended mean of <span class="math inline">\(\mu\)</span> = 100, <span class="math inline">\(\sigma\)</span> = 15. H0 is <span class="math inline">\(\mu_0\)</span> = 100 with alternative H1 that <span class="math inline">\(\mu\)</span> &gt; 100. Suppose also that you are <em>right</em>: <span class="math inline">\(\mu\)</span> is actually 106.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="hypothesis-testing.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123456</span>)</span>
-<span id="cb1-2"><a href="hypothesis-testing.html#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="hypothesis-testing.html#cb1-3" aria-hidden="true" tabindex="-1"></a>mu_0 <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb1-4"><a href="hypothesis-testing.html#cb1-4" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="dv">15</span></span>
-<span id="cb1-5"><a href="hypothesis-testing.html#cb1-5" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="dv">106</span></span>
-<span id="cb1-6"><a href="hypothesis-testing.html#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="hypothesis-testing.html#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a population of size N with values plucked from normal dist centered at</span></span>
-<span id="cb1-8"><a href="hypothesis-testing.html#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># mu_0 and mu.</span></span>
-<span id="cb1-9"><a href="hypothesis-testing.html#cb1-9" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="fl">1E6</span> <span class="co"># a big number</span></span>
-<span id="cb1-10"><a href="hypothesis-testing.html#cb1-10" aria-hidden="true" tabindex="-1"></a>pop_100 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">person =</span> <span class="fu">seq</span>(<span class="dv">1</span>, N), <span class="at">iq =</span> <span class="fu">rnorm</span>(N, mu_0, sigma))</span>
-<span id="cb1-11"><a href="hypothesis-testing.html#cb1-11" aria-hidden="true" tabindex="-1"></a>pop_106 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">person =</span> <span class="fu">seq</span>(<span class="dv">1</span>, N), <span class="at">iq =</span> <span class="fu">rnorm</span>(N, mu, sigma))</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="hypothesis-testing.html#cb1-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123456</span>)</span>
+<span id="cb1-2"><a href="hypothesis-testing.html#cb1-2" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="hypothesis-testing.html#cb1-3" tabindex="-1"></a>mu_0 <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb1-4"><a href="hypothesis-testing.html#cb1-4" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="dv">15</span></span>
+<span id="cb1-5"><a href="hypothesis-testing.html#cb1-5" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="dv">106</span></span>
+<span id="cb1-6"><a href="hypothesis-testing.html#cb1-6" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="hypothesis-testing.html#cb1-7" tabindex="-1"></a><span class="co"># Create a population of size N with values plucked from normal dist centered at</span></span>
+<span id="cb1-8"><a href="hypothesis-testing.html#cb1-8" tabindex="-1"></a><span class="co"># mu_0 and mu.</span></span>
+<span id="cb1-9"><a href="hypothesis-testing.html#cb1-9" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="fl">1E6</span> <span class="co"># a big number</span></span>
+<span id="cb1-10"><a href="hypothesis-testing.html#cb1-10" tabindex="-1"></a>pop_100 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">person =</span> <span class="fu">seq</span>(<span class="dv">1</span>, N), <span class="at">iq =</span> <span class="fu">rnorm</span>(N, mu_0, sigma))</span>
+<span id="cb1-11"><a href="hypothesis-testing.html#cb1-11" tabindex="-1"></a>pop_106 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">person =</span> <span class="fu">seq</span>(<span class="dv">1</span>, N), <span class="at">iq =</span> <span class="fu">rnorm</span>(N, mu, sigma))</span></code></pre></div>
 <p>The presumed distribution of IQs might look like this.</p>
 <p><img src="statistics_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>Take a random sample of <em>n</em> = 30 IQs from the population.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="hypothesis-testing.html#cb2-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">30</span></span>
-<span id="cb2-2"><a href="hypothesis-testing.html#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="hypothesis-testing.html#cb2-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sample</span>(pop_106<span class="sc">$</span>iq, n)</span>
-<span id="cb2-4"><a href="hypothesis-testing.html#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="hypothesis-testing.html#cb2-5" aria-hidden="true" tabindex="-1"></a>(x_bar <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)) <span class="sc">%&gt;%</span> scales<span class="sc">::</span><span class="fu">comma</span>(.<span class="dv">1</span>)</span>
-<span id="cb2-6"><a href="hypothesis-testing.html#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;105.6&quot;</span></span>
-<span id="cb2-7"><a href="hypothesis-testing.html#cb2-7" aria-hidden="true" tabindex="-1"></a>(s <span class="ot">&lt;-</span> <span class="fu">sd</span>(x)) <span class="sc">%&gt;%</span> scales<span class="sc">::</span><span class="fu">comma</span>(.<span class="dv">1</span>)</span>
-<span id="cb2-8"><a href="hypothesis-testing.html#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;15.2&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="hypothesis-testing.html#cb2-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">30</span></span>
+<span id="cb2-2"><a href="hypothesis-testing.html#cb2-2" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="hypothesis-testing.html#cb2-3" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sample</span>(pop_106<span class="sc">$</span>iq, n)</span>
+<span id="cb2-4"><a href="hypothesis-testing.html#cb2-4" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="hypothesis-testing.html#cb2-5" tabindex="-1"></a>(x_bar <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)) <span class="sc">%&gt;%</span> scales<span class="sc">::</span><span class="fu">comma</span>(.<span class="dv">1</span>)</span>
+<span id="cb2-6"><a href="hypothesis-testing.html#cb2-6" tabindex="-1"></a><span class="do">## [1] &quot;105.6&quot;</span></span>
+<span id="cb2-7"><a href="hypothesis-testing.html#cb2-7" tabindex="-1"></a>(s <span class="ot">&lt;-</span> <span class="fu">sd</span>(x)) <span class="sc">%&gt;%</span> scales<span class="sc">::</span><span class="fu">comma</span>(.<span class="dv">1</span>)</span>
+<span id="cb2-8"><a href="hypothesis-testing.html#cb2-8" tabindex="-1"></a><span class="do">## [1] &quot;15.2&quot;</span></span></code></pre></div>
 <p>The sample has <span class="math inline">\(\bar{x}\)</span> = 105.6, SD = 15.2. How surprising is this if H0 is true? I.e., what is the <em>probability</em> of observing 105.6 when <span class="math inline">\(\mu\)</span> is 100? According to the Central Limit Theorem (CLM), repeated samples of size <em>n</em> from a large population will yield <span class="math inline">\(\bar{x}\)</span> values that approach a normal distribution centered at <span class="math inline">\(\mu\)</span> with a standard deviation equal to the the <em>standard error</em>, <span class="math inline">\(SE = \frac{\sigma}{\sqrt{n}}\)</span> where <span class="math inline">\(\sigma\)</span> is the population SD. In this example, <em>n</em> = 30, so <em>SE</em> = <span class="math inline">\(15/\sqrt{30}\)</span> = 2.7 and repeated samples would be expected to be distributed <span class="math inline">\(\sim N(100.0, 2.7^2).\)</span> You can verify this empirically with a simulation.</p>
 <p><img src="statistics_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <p>But you measured <span class="math inline">\(\bar{x}\)</span> = 105.6. The probability of measuring a value <span class="math inline">\(z = \frac{\bar{x} - \mu_0}{\sigma / \sqrt{n}} = \frac{105.6 - 100}{2.7}\)</span> &gt;= 2.0 standard errors greater than 100 is 0.020. A common threshold probability is <span class="math inline">\(\alpha\)</span> = .05 level of significance. A sample of 30 from a population with <span class="math inline">\(\mu\)</span> = 100 that has a mean greater than <code>qnorm(.05, 100, 15 / sqrt(30), lower.tail = FALSE)</code> = 104.5 would occur with less than 5% probability.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="hypothesis-testing.html#cb3-1" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> (x_bar <span class="sc">-</span> mu_0) <span class="sc">/</span> (sigma <span class="sc">/</span> <span class="fu">sqrt</span>(n))</span>
-<span id="cb3-2"><a href="hypothesis-testing.html#cb3-2" aria-hidden="true" tabindex="-1"></a>critical_value <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(.<span class="dv">95</span>, mu_0, sigma <span class="sc">/</span> <span class="fu">sqrt</span>(n))</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="hypothesis-testing.html#cb3-1" tabindex="-1"></a>z <span class="ot">&lt;-</span> (x_bar <span class="sc">-</span> mu_0) <span class="sc">/</span> (sigma <span class="sc">/</span> <span class="fu">sqrt</span>(n))</span>
+<span id="cb3-2"><a href="hypothesis-testing.html#cb3-2" tabindex="-1"></a>critical_value <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(.<span class="dv">95</span>, mu_0, sigma <span class="sc">/</span> <span class="fu">sqrt</span>(n))</span></code></pre></div>
 <p><img src="statistics_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <p>The sampling mean is <span class="math inline">\(\bar{x}\)</span> = 105.6, well into the <span class="math inline">\(\alpha\)</span> &lt;= .05 shaded region. The probability of measuring a mean IQ of 105.6 from a sample of size <em>n</em> = 30 when the population mean is 100 is <em>p</em> = 0.020, meaning only 2.0% of the area under the distribution is to the right of 105.6. Using an <span class="math inline">\(\alpha\)</span> = .05 level of significance, reject H0. This is a <em>true positive</em> because the population mean is 106, not 100. Imagine a stricter level of significance, shrinking the shaded region right of 105.6. You would mistakenly fail to reject H0, a <em>false negative</em> (Type II error). The <span class="math inline">\(\beta\)</span> blue-shaded region is Type II error probability. Any measured mean in this region would be greater than <span class="math inline">\(mu_0\)</span> = 100, yet not be rejected by the statistical test.</p>
 <div id="type-i-and-ii-errors" class="section level3 unnumbered hasAnchor">
@@ -304,40 +310,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The 1 - <span class="math inline">\(\beta\)</span> statistical power threshold is usually set at .80, similar to the <span class="math inline">\(\alpha\)</span> = .05 level of significance threshold convention. Given a real effect, a study with a statistical power of .80 will only find a positive test result 80% of the time. You may think more power is better, but beware that with a large enough sample size, even trivial effect sizes may yield a positive test result. You need to consider both sides of this coin.</p>
 <p>A <em>power analysis</em> is frequently used to determine the sample size required to detect a threshold effect size given an <span class="math inline">\(\alpha\)</span> level of significance. A power analysis expresses the relationship among four components. If you know any three, it tells you the fourth: The components are i) 1 - <span class="math inline">\(\beta\)</span>, ii) <em>n</em>, iii) <span class="math inline">\(\alpha\)</span>, and iv) expected effect size, Cohen’s d = <span class="math inline">\((\bar{x} - \mu_0)/\sigma\)</span>.</p>
 <p>Suppose you set power at .80, significance level at .05, and <em>n</em> = 30. What effect size will this design detect?</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="hypothesis-testing.html#cb4-1" aria-hidden="true" tabindex="-1"></a>(pwr <span class="ot">&lt;-</span> pwr<span class="sc">::</span><span class="fu">pwr.t.test</span>(</span>
-<span id="cb4-2"><a href="hypothesis-testing.html#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="dv">30</span>,</span>
-<span id="cb4-3"><a href="hypothesis-testing.html#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">sig.level =</span> .<span class="dv">05</span>,</span>
-<span id="cb4-4"><a href="hypothesis-testing.html#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">power =</span> <span class="fl">0.80</span>,</span>
-<span id="cb4-5"><a href="hypothesis-testing.html#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;one.sample&quot;</span>,</span>
-<span id="cb4-6"><a href="hypothesis-testing.html#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span></span>
-<span id="cb4-7"><a href="hypothesis-testing.html#cb4-7" aria-hidden="true" tabindex="-1"></a>))</span>
-<span id="cb4-8"><a href="hypothesis-testing.html#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb4-9"><a href="hypothesis-testing.html#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="do">##      One-sample t test power calculation </span></span>
-<span id="cb4-10"><a href="hypothesis-testing.html#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb4-11"><a href="hypothesis-testing.html#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="do">##               n = 30</span></span>
-<span id="cb4-12"><a href="hypothesis-testing.html#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="do">##               d = 0.464949</span></span>
-<span id="cb4-13"><a href="hypothesis-testing.html#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="do">##       sig.level = 0.05</span></span>
-<span id="cb4-14"><a href="hypothesis-testing.html#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="do">##           power = 0.8</span></span>
-<span id="cb4-15"><a href="hypothesis-testing.html#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="do">##     alternative = greater</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="hypothesis-testing.html#cb4-1" tabindex="-1"></a>(pwr <span class="ot">&lt;-</span> pwr<span class="sc">::</span><span class="fu">pwr.t.test</span>(</span>
+<span id="cb4-2"><a href="hypothesis-testing.html#cb4-2" tabindex="-1"></a>  <span class="at">n =</span> <span class="dv">30</span>,</span>
+<span id="cb4-3"><a href="hypothesis-testing.html#cb4-3" tabindex="-1"></a>  <span class="at">sig.level =</span> .<span class="dv">05</span>,</span>
+<span id="cb4-4"><a href="hypothesis-testing.html#cb4-4" tabindex="-1"></a>  <span class="at">power =</span> <span class="fl">0.80</span>,</span>
+<span id="cb4-5"><a href="hypothesis-testing.html#cb4-5" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;one.sample&quot;</span>,</span>
+<span id="cb4-6"><a href="hypothesis-testing.html#cb4-6" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span></span>
+<span id="cb4-7"><a href="hypothesis-testing.html#cb4-7" tabindex="-1"></a>))</span>
+<span id="cb4-8"><a href="hypothesis-testing.html#cb4-8" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb4-9"><a href="hypothesis-testing.html#cb4-9" tabindex="-1"></a><span class="do">##      One-sample t test power calculation </span></span>
+<span id="cb4-10"><a href="hypothesis-testing.html#cb4-10" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb4-11"><a href="hypothesis-testing.html#cb4-11" tabindex="-1"></a><span class="do">##               n = 30</span></span>
+<span id="cb4-12"><a href="hypothesis-testing.html#cb4-12" tabindex="-1"></a><span class="do">##               d = 0.464949</span></span>
+<span id="cb4-13"><a href="hypothesis-testing.html#cb4-13" tabindex="-1"></a><span class="do">##       sig.level = 0.05</span></span>
+<span id="cb4-14"><a href="hypothesis-testing.html#cb4-14" tabindex="-1"></a><span class="do">##           power = 0.8</span></span>
+<span id="cb4-15"><a href="hypothesis-testing.html#cb4-15" tabindex="-1"></a><span class="do">##     alternative = greater</span></span></code></pre></div>
 <p>An effect size of <em>d</em> = 0.465 will fall in the <span class="math inline">\(\alpha\)</span> = .05 region with probability 1 - <span class="math inline">\(\beta\)</span> = .80 if the sample size is <em>n</em> = 30. Multiply <em>d</em> = 0.465 by <span class="math inline">\(\sigma\)</span> = 15 to convert to the IQ units, 7.0. More likely, you will use the power test to detect the required sample size. Suppose you set <span class="math inline">\(1 - \beta\)</span> = .8 and <span class="math inline">\(\alpha = .05\)</span>, and want to detect an effect size of <span class="math inline">\(5 / 15\)</span>.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="hypothesis-testing.html#cb5-1" aria-hidden="true" tabindex="-1"></a>(pwr <span class="ot">&lt;-</span> pwr<span class="sc">::</span><span class="fu">pwr.t.test</span>(</span>
-<span id="cb5-2"><a href="hypothesis-testing.html#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">d =</span> <span class="dv">5</span> <span class="sc">/</span> <span class="dv">15</span>,</span>
-<span id="cb5-3"><a href="hypothesis-testing.html#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">sig.level =</span> .<span class="dv">05</span>,</span>
-<span id="cb5-4"><a href="hypothesis-testing.html#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">power =</span> <span class="fl">0.80</span>,</span>
-<span id="cb5-5"><a href="hypothesis-testing.html#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;one.sample&quot;</span>,</span>
-<span id="cb5-6"><a href="hypothesis-testing.html#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span></span>
-<span id="cb5-7"><a href="hypothesis-testing.html#cb5-7" aria-hidden="true" tabindex="-1"></a>))</span>
-<span id="cb5-8"><a href="hypothesis-testing.html#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb5-9"><a href="hypothesis-testing.html#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="do">##      One-sample t test power calculation </span></span>
-<span id="cb5-10"><a href="hypothesis-testing.html#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb5-11"><a href="hypothesis-testing.html#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="do">##               n = 57.02048</span></span>
-<span id="cb5-12"><a href="hypothesis-testing.html#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="do">##               d = 0.3333333</span></span>
-<span id="cb5-13"><a href="hypothesis-testing.html#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="do">##       sig.level = 0.05</span></span>
-<span id="cb5-14"><a href="hypothesis-testing.html#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="do">##           power = 0.8</span></span>
-<span id="cb5-15"><a href="hypothesis-testing.html#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="do">##     alternative = greater</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="hypothesis-testing.html#cb5-1" tabindex="-1"></a>(pwr <span class="ot">&lt;-</span> pwr<span class="sc">::</span><span class="fu">pwr.t.test</span>(</span>
+<span id="cb5-2"><a href="hypothesis-testing.html#cb5-2" tabindex="-1"></a>  <span class="at">d =</span> <span class="dv">5</span> <span class="sc">/</span> <span class="dv">15</span>,</span>
+<span id="cb5-3"><a href="hypothesis-testing.html#cb5-3" tabindex="-1"></a>  <span class="at">sig.level =</span> .<span class="dv">05</span>,</span>
+<span id="cb5-4"><a href="hypothesis-testing.html#cb5-4" tabindex="-1"></a>  <span class="at">power =</span> <span class="fl">0.80</span>,</span>
+<span id="cb5-5"><a href="hypothesis-testing.html#cb5-5" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;one.sample&quot;</span>,</span>
+<span id="cb5-6"><a href="hypothesis-testing.html#cb5-6" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span></span>
+<span id="cb5-7"><a href="hypothesis-testing.html#cb5-7" tabindex="-1"></a>))</span>
+<span id="cb5-8"><a href="hypothesis-testing.html#cb5-8" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb5-9"><a href="hypothesis-testing.html#cb5-9" tabindex="-1"></a><span class="do">##      One-sample t test power calculation </span></span>
+<span id="cb5-10"><a href="hypothesis-testing.html#cb5-10" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb5-11"><a href="hypothesis-testing.html#cb5-11" tabindex="-1"></a><span class="do">##               n = 57.02048</span></span>
+<span id="cb5-12"><a href="hypothesis-testing.html#cb5-12" tabindex="-1"></a><span class="do">##               d = 0.3333333</span></span>
+<span id="cb5-13"><a href="hypothesis-testing.html#cb5-13" tabindex="-1"></a><span class="do">##       sig.level = 0.05</span></span>
+<span id="cb5-14"><a href="hypothesis-testing.html#cb5-14" tabindex="-1"></a><span class="do">##           power = 0.8</span></span>
+<span id="cb5-15"><a href="hypothesis-testing.html#cb5-15" tabindex="-1"></a><span class="do">##     alternative = greater</span></span></code></pre></div>
 <p>You need a larger sample, <em>n</em> = 58. You can use the power test formula for various <em>n</em> sizes to see the relationship with effect size. <em>Note: the y-axis multiplies Cohen’s d by <span class="math inline">\(\sigma\)</span> to get the effect size in original units</em>.</p>
-<pre><code>## Warning: Using `size` aesthetic for lines was deprecated in ggplot2
-## 3.4.0.
+<pre><code>## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
 ## ℹ Please use `linewidth` instead.
 ## This warning is displayed once every 8 hours.
 ## Call `lifecycle::last_lifecycle_warnings()` to see where this
@@ -349,41 +354,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3>What p-values would you expect?<a href="hypothesis-testing.html#what-p-values-would-you-expect" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>What distribution of p-values would you expect if there <em>is</em> a true effect and you repeated the study many times? What if there is <em>no</em> true effect? The answer is completely determined by the statistical power of the study.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
 <p>To see this, run 100,000 simulations of an experiment measuring the average IQ from a sample of size <em>n</em> = 26. The samples will be 26 random values from the normal distribution centered at 106 with a standard deviation of 15. H0 is <span class="math inline">\(\mu\)</span> = 100.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="hypothesis-testing.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 100,000 random samples of IQ simulations from a normal distribution where</span></span>
-<span id="cb7-2"><a href="hypothesis-testing.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># sigma = 15. True population value is 100, but we&#39;ll try other values.</span></span>
-<span id="cb7-3"><a href="hypothesis-testing.html#cb7-3" aria-hidden="true" tabindex="-1"></a>n_sims <span class="ot">&lt;-</span> <span class="fl">1E5</span></span>
-<span id="cb7-4"><a href="hypothesis-testing.html#cb7-4" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb7-5"><a href="hypothesis-testing.html#cb7-5" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="dv">15</span></span>
-<span id="cb7-6"><a href="hypothesis-testing.html#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="hypothesis-testing.html#cb7-7" aria-hidden="true" tabindex="-1"></a>run_sim <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">mu_0 =</span> <span class="dv">106</span>, <span class="at">n =</span> <span class="dv">26</span>) {</span>
-<span id="cb7-8"><a href="hypothesis-testing.html#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">i =</span> <span class="dv">1</span><span class="sc">:</span>n_sims) <span class="sc">%&gt;%</span></span>
-<span id="cb7-9"><a href="hypothesis-testing.html#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
-<span id="cb7-10"><a href="hypothesis-testing.html#cb7-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="fu">map</span>(i, <span class="sc">~</span> <span class="fu">rnorm</span>(<span class="at">n =</span> n, <span class="at">mean =</span> mu_0, <span class="at">sd =</span> sigma)),</span>
-<span id="cb7-11"><a href="hypothesis-testing.html#cb7-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">z =</span> <span class="fu">map</span>(x, <span class="sc">~</span> <span class="fu">t.test</span>(., <span class="at">mu =</span> mu)),</span>
-<span id="cb7-12"><a href="hypothesis-testing.html#cb7-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">p =</span> <span class="fu">map_dbl</span>(z, <span class="sc">~</span> .x<span class="sc">$</span>p.value),</span>
-<span id="cb7-13"><a href="hypothesis-testing.html#cb7-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">x_bar =</span> <span class="fu">map_dbl</span>(x, mean)</span>
-<span id="cb7-14"><a href="hypothesis-testing.html#cb7-14" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
-<span id="cb7-15"><a href="hypothesis-testing.html#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(x_bar, p)</span>
-<span id="cb7-16"><a href="hypothesis-testing.html#cb7-16" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="hypothesis-testing.html#cb7-1" tabindex="-1"></a><span class="co"># 100,000 random samples of IQ simulations from a normal distribution where</span></span>
+<span id="cb7-2"><a href="hypothesis-testing.html#cb7-2" tabindex="-1"></a><span class="co"># sigma = 15. True population value is 100, but we&#39;ll try other values.</span></span>
+<span id="cb7-3"><a href="hypothesis-testing.html#cb7-3" tabindex="-1"></a>n_sims <span class="ot">&lt;-</span> <span class="fl">1E5</span></span>
+<span id="cb7-4"><a href="hypothesis-testing.html#cb7-4" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb7-5"><a href="hypothesis-testing.html#cb7-5" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="dv">15</span></span>
+<span id="cb7-6"><a href="hypothesis-testing.html#cb7-6" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="hypothesis-testing.html#cb7-7" tabindex="-1"></a>run_sim <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">mu_0 =</span> <span class="dv">106</span>, <span class="at">n =</span> <span class="dv">26</span>) {</span>
+<span id="cb7-8"><a href="hypothesis-testing.html#cb7-8" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">i =</span> <span class="dv">1</span><span class="sc">:</span>n_sims) <span class="sc">%&gt;%</span></span>
+<span id="cb7-9"><a href="hypothesis-testing.html#cb7-9" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb7-10"><a href="hypothesis-testing.html#cb7-10" tabindex="-1"></a>      <span class="at">x =</span> <span class="fu">map</span>(i, <span class="sc">~</span> <span class="fu">rnorm</span>(<span class="at">n =</span> n, <span class="at">mean =</span> mu_0, <span class="at">sd =</span> sigma)),</span>
+<span id="cb7-11"><a href="hypothesis-testing.html#cb7-11" tabindex="-1"></a>      <span class="at">z =</span> <span class="fu">map</span>(x, <span class="sc">~</span> <span class="fu">t.test</span>(., <span class="at">mu =</span> mu)),</span>
+<span id="cb7-12"><a href="hypothesis-testing.html#cb7-12" tabindex="-1"></a>      <span class="at">p =</span> <span class="fu">map_dbl</span>(z, <span class="sc">~</span> .x<span class="sc">$</span>p.value),</span>
+<span id="cb7-13"><a href="hypothesis-testing.html#cb7-13" tabindex="-1"></a>      <span class="at">x_bar =</span> <span class="fu">map_dbl</span>(x, mean)</span>
+<span id="cb7-14"><a href="hypothesis-testing.html#cb7-14" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb7-15"><a href="hypothesis-testing.html#cb7-15" tabindex="-1"></a>    <span class="fu">select</span>(x_bar, p)</span>
+<span id="cb7-16"><a href="hypothesis-testing.html#cb7-16" tabindex="-1"></a>}</span></code></pre></div>
 <p>The null hypothesis is that the average IQ is 100. Our rigged simulation finds an average IQ of 106 - an effect size of 6.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="hypothesis-testing.html#cb8-1" aria-hidden="true" tabindex="-1"></a>sim_106_26 <span class="ot">&lt;-</span> <span class="fu">run_sim</span>(<span class="at">mu_0 =</span> <span class="dv">106</span>, <span class="at">n =</span> <span class="dv">26</span>)</span>
-<span id="cb8-2"><a href="hypothesis-testing.html#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="hypothesis-testing.html#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(sim_106_26)</span>
-<span id="cb8-4"><a href="hypothesis-testing.html#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Rows: 100,000</span></span>
-<span id="cb8-5"><a href="hypothesis-testing.html#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Columns: 2</span></span>
-<span id="cb8-6"><a href="hypothesis-testing.html#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="do">## $ x_bar &lt;dbl&gt; 104.0366, 107.4146, 106.3826, 101.9452, 104.9108, 106.0985, 109.…</span></span>
-<span id="cb8-7"><a href="hypothesis-testing.html#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="do">## $ p     &lt;dbl&gt; 0.1764747839, 0.0345864346, 0.0419669200, 0.4522238256, 0.065089…</span></span>
-<span id="cb8-8"><a href="hypothesis-testing.html#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-9"><a href="hypothesis-testing.html#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(sim_106_26<span class="sc">$</span>x_bar)</span>
-<span id="cb8-10"><a href="hypothesis-testing.html#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 106.0062</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="hypothesis-testing.html#cb8-1" tabindex="-1"></a>sim_106_26 <span class="ot">&lt;-</span> <span class="fu">run_sim</span>(<span class="at">mu_0 =</span> <span class="dv">106</span>, <span class="at">n =</span> <span class="dv">26</span>)</span>
+<span id="cb8-2"><a href="hypothesis-testing.html#cb8-2" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="hypothesis-testing.html#cb8-3" tabindex="-1"></a><span class="fu">glimpse</span>(sim_106_26)</span>
+<span id="cb8-4"><a href="hypothesis-testing.html#cb8-4" tabindex="-1"></a><span class="do">## Rows: 100,000</span></span>
+<span id="cb8-5"><a href="hypothesis-testing.html#cb8-5" tabindex="-1"></a><span class="do">## Columns: 2</span></span>
+<span id="cb8-6"><a href="hypothesis-testing.html#cb8-6" tabindex="-1"></a><span class="do">## $ x_bar &lt;dbl&gt; 104.0366, 107.4146, 106.3826, 101.9452, 104.9108, 106.0985, 109.…</span></span>
+<span id="cb8-7"><a href="hypothesis-testing.html#cb8-7" tabindex="-1"></a><span class="do">## $ p     &lt;dbl&gt; 0.1764747839, 0.0345864346, 0.0419669200, 0.4522238256, 0.065089…</span></span>
+<span id="cb8-8"><a href="hypothesis-testing.html#cb8-8" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="hypothesis-testing.html#cb8-9" tabindex="-1"></a><span class="fu">mean</span>(sim_106_26<span class="sc">$</span>x_bar)</span>
+<span id="cb8-10"><a href="hypothesis-testing.html#cb8-10" tabindex="-1"></a><span class="do">## [1] 106.0062</span></span></code></pre></div>
 <p>The statistical power achieved by the simulations is 50%. That is, the typical simulation detected the effect size of 6 at the .05 significance level about 50% of the time.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="hypothesis-testing.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pwr.t.test</span>(</span>
-<span id="cb9-2"><a href="hypothesis-testing.html#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="dv">26</span>,</span>
-<span id="cb9-3"><a href="hypothesis-testing.html#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">d =</span> (<span class="dv">106</span> <span class="sc">-</span> <span class="dv">100</span>) <span class="sc">/</span> <span class="dv">15</span>,</span>
-<span id="cb9-4"><a href="hypothesis-testing.html#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">sig.level =</span> .<span class="dv">05</span>,</span>
-<span id="cb9-5"><a href="hypothesis-testing.html#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;one.sample&quot;</span>,</span>
-<span id="cb9-6"><a href="hypothesis-testing.html#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span></span>
-<span id="cb9-7"><a href="hypothesis-testing.html#cb9-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="hypothesis-testing.html#cb9-1" tabindex="-1"></a><span class="fu">pwr.t.test</span>(</span>
+<span id="cb9-2"><a href="hypothesis-testing.html#cb9-2" tabindex="-1"></a>  <span class="at">n =</span> <span class="dv">26</span>,</span>
+<span id="cb9-3"><a href="hypothesis-testing.html#cb9-3" tabindex="-1"></a>  <span class="at">d =</span> (<span class="dv">106</span> <span class="sc">-</span> <span class="dv">100</span>) <span class="sc">/</span> <span class="dv">15</span>,</span>
+<span id="cb9-4"><a href="hypothesis-testing.html#cb9-4" tabindex="-1"></a>  <span class="at">sig.level =</span> .<span class="dv">05</span>,</span>
+<span id="cb9-5"><a href="hypothesis-testing.html#cb9-5" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;one.sample&quot;</span>,</span>
+<span id="cb9-6"><a href="hypothesis-testing.html#cb9-6" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span></span>
+<span id="cb9-7"><a href="hypothesis-testing.html#cb9-7" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## 
 ##      One-sample t test power calculation 
 ## 
@@ -393,20 +398,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##           power = 0.5004646
 ##     alternative = two.sided</code></pre>
 <p>That means that given a population with an average IQ of 106, a two-sided hypothesis test of H0: <span class="math inline">\(\mu\)</span> = 100 from a sample of size 26 will measure an <span class="math inline">\(\bar{x}\)</span> with a <em>p</em>-value under .05 only 50% of the time. You can see that in this histogram of <em>p</em>-values.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="hypothesis-testing.html#cb11-1" aria-hidden="true" tabindex="-1"></a>sim_106_26 <span class="sc">%&gt;%</span> <span class="fu">plot_sim</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="hypothesis-testing.html#cb11-1" tabindex="-1"></a>sim_106_26 <span class="sc">%&gt;%</span> <span class="fu">plot_sim</span>()</span></code></pre></div>
 <p><img src="statistics_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <p>Had there been no effect to observe, you’d expect all <em>p</em>-values to be equally likely, so the 20 bins would all have been 5% of the number of simulations – i.e., <em>uniformly distributed under the null</em>. This is called “0 power”, although 5% of the <em>p</em>-values will still be significant at the .05 level. The 5% of <em>p</em>-values &lt; .05 is the Type II error rate - that probability of a positive test result when there is no actual effect to observe.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="hypothesis-testing.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">run_sim</span>(<span class="at">mu_0 =</span> <span class="dv">100</span>, <span class="at">n =</span> <span class="dv">26</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb12-2"><a href="hypothesis-testing.html#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_sim</span>(<span class="at">mu_0 =</span> <span class="dv">100</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="hypothesis-testing.html#cb12-1" tabindex="-1"></a><span class="fu">run_sim</span>(<span class="at">mu_0 =</span> <span class="dv">100</span>, <span class="at">n =</span> <span class="dv">26</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="hypothesis-testing.html#cb12-2" tabindex="-1"></a>  <span class="fu">plot_sim</span>(<span class="at">mu_0 =</span> <span class="dv">100</span>)</span></code></pre></div>
 <p><img src="statistics_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 <p>If you want a higher powered study that would detect the effect at least 80% of the time (the normal standard), you’ll need a higher sample size. How high? Conduct the power analysis again, but specify the power while leaving out the sample size.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="hypothesis-testing.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pwr.t.test</span>(</span>
-<span id="cb13-2"><a href="hypothesis-testing.html#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">power =</span> <span class="fl">0.80</span>,</span>
-<span id="cb13-3"><a href="hypothesis-testing.html#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">d =</span> (<span class="dv">106</span> <span class="sc">-</span> <span class="dv">100</span>) <span class="sc">/</span> <span class="dv">15</span>,</span>
-<span id="cb13-4"><a href="hypothesis-testing.html#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">sig.level =</span> .<span class="dv">05</span>,</span>
-<span id="cb13-5"><a href="hypothesis-testing.html#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;one.sample&quot;</span>,</span>
-<span id="cb13-6"><a href="hypothesis-testing.html#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span></span>
-<span id="cb13-7"><a href="hypothesis-testing.html#cb13-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="hypothesis-testing.html#cb13-1" tabindex="-1"></a><span class="fu">pwr.t.test</span>(</span>
+<span id="cb13-2"><a href="hypothesis-testing.html#cb13-2" tabindex="-1"></a>  <span class="at">power =</span> <span class="fl">0.80</span>,</span>
+<span id="cb13-3"><a href="hypothesis-testing.html#cb13-3" tabindex="-1"></a>  <span class="at">d =</span> (<span class="dv">106</span> <span class="sc">-</span> <span class="dv">100</span>) <span class="sc">/</span> <span class="dv">15</span>,</span>
+<span id="cb13-4"><a href="hypothesis-testing.html#cb13-4" tabindex="-1"></a>  <span class="at">sig.level =</span> .<span class="dv">05</span>,</span>
+<span id="cb13-5"><a href="hypothesis-testing.html#cb13-5" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;one.sample&quot;</span>,</span>
+<span id="cb13-6"><a href="hypothesis-testing.html#cb13-6" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span></span>
+<span id="cb13-7"><a href="hypothesis-testing.html#cb13-7" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## 
 ##      One-sample t test power calculation 
 ## 
@@ -416,20 +421,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##           power = 0.8
 ##     alternative = two.sided</code></pre>
 <p>You need 51 people (technically, you might want to round up to 52). Here’s what that looks like. 80% of <em>p</em>-values are below .05 now.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="hypothesis-testing.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">run_sim</span>(<span class="at">mu_0 =</span> <span class="dv">106</span>, <span class="at">n =</span> <span class="dv">51</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb15-2"><a href="hypothesis-testing.html#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_sim</span>(<span class="at">mu_0 =</span> <span class="dv">106</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="hypothesis-testing.html#cb15-1" tabindex="-1"></a><span class="fu">run_sim</span>(<span class="at">mu_0 =</span> <span class="dv">106</span>, <span class="at">n =</span> <span class="dv">51</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="hypothesis-testing.html#cb15-2" tabindex="-1"></a>  <span class="fu">plot_sim</span>(<span class="at">mu_0 =</span> <span class="dv">106</span>)</span></code></pre></div>
 <p><img src="statistics_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
 <p>So far, we’ve discovered that when there <em>is</em> an effect, the probability that the measure <em>p</em>-value is under the <span class="math inline">\(\alpha\)</span> significance level equals the <em>power of the study</em>, 1 - <span class="math inline">\(\beta\)</span> - the <em>true positive</em> rate, and <span class="math inline">\(\beta\)</span> will be above the <span class="math inline">\(\alpha\)</span> level - the <em>false negative</em> rate. We’ve also discovered that when there is <em>no</em> effect, all <em>p</em>-values are equally likely, so <span class="math inline">\(\alpha\)</span> of them will be below the <span class="math inline">\(alpha\)</span> level of significance - the <em>false positive</em> rate, and 1 - <span class="math inline">\(\alpha\)</span> will be above <span class="math inline">\(\alpha\)</span> - the <em>true negative</em> rate.</p>
 <p>It’s not the case that all p-values below 0.05 are support for the alternative hypothesis. If the statistical power is high enough, a <em>p</em>-value just under .05 can be even <em>less</em> likely under the null hypothesis.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="hypothesis-testing.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">run_sim</span>(<span class="at">mu_0 =</span> <span class="dv">108</span>, <span class="at">n =</span> <span class="dv">51</span>)  <span class="sc">%&gt;%</span></span>
-<span id="cb16-2"><a href="hypothesis-testing.html#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">bin =</span> <span class="fu">case_when</span>(p <span class="sc">&lt;</span> .<span class="dv">01</span> <span class="sc">~</span> <span class="st">&quot;0.00 - 0.01&quot;</span>,</span>
-<span id="cb16-3"><a href="hypothesis-testing.html#cb16-3" aria-hidden="true" tabindex="-1"></a>                         p <span class="sc">&lt;</span> .<span class="dv">02</span> <span class="sc">~</span> <span class="st">&quot;0.01 - 0.02&quot;</span>,</span>
-<span id="cb16-4"><a href="hypothesis-testing.html#cb16-4" aria-hidden="true" tabindex="-1"></a>                         p <span class="sc">&lt;</span> .<span class="dv">03</span> <span class="sc">~</span> <span class="st">&quot;0.02 - 0.03&quot;</span>,</span>
-<span id="cb16-5"><a href="hypothesis-testing.html#cb16-5" aria-hidden="true" tabindex="-1"></a>                         p <span class="sc">&lt;</span> .<span class="dv">04</span> <span class="sc">~</span> <span class="st">&quot;0.03 - 0.04&quot;</span>,</span>
-<span id="cb16-6"><a href="hypothesis-testing.html#cb16-6" aria-hidden="true" tabindex="-1"></a>                         p <span class="sc">&lt;</span> .<span class="dv">05</span> <span class="sc">~</span> <span class="st">&quot;0.04 - 0.05&quot;</span>,</span>
-<span id="cb16-7"><a href="hypothesis-testing.html#cb16-7" aria-hidden="true" tabindex="-1"></a>                         <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">&quot;other&quot;</span>)</span>
-<span id="cb16-8"><a href="hypothesis-testing.html#cb16-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb16-9"><a href="hypothesis-testing.html#cb16-9" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">tabyl</span>(bin)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="hypothesis-testing.html#cb16-1" tabindex="-1"></a><span class="fu">run_sim</span>(<span class="at">mu_0 =</span> <span class="dv">108</span>, <span class="at">n =</span> <span class="dv">51</span>)  <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="hypothesis-testing.html#cb16-2" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">bin =</span> <span class="fu">case_when</span>(p <span class="sc">&lt;</span> .<span class="dv">01</span> <span class="sc">~</span> <span class="st">&quot;0.00 - 0.01&quot;</span>,</span>
+<span id="cb16-3"><a href="hypothesis-testing.html#cb16-3" tabindex="-1"></a>                         p <span class="sc">&lt;</span> .<span class="dv">02</span> <span class="sc">~</span> <span class="st">&quot;0.01 - 0.02&quot;</span>,</span>
+<span id="cb16-4"><a href="hypothesis-testing.html#cb16-4" tabindex="-1"></a>                         p <span class="sc">&lt;</span> .<span class="dv">03</span> <span class="sc">~</span> <span class="st">&quot;0.02 - 0.03&quot;</span>,</span>
+<span id="cb16-5"><a href="hypothesis-testing.html#cb16-5" tabindex="-1"></a>                         p <span class="sc">&lt;</span> .<span class="dv">04</span> <span class="sc">~</span> <span class="st">&quot;0.03 - 0.04&quot;</span>,</span>
+<span id="cb16-6"><a href="hypothesis-testing.html#cb16-6" tabindex="-1"></a>                         p <span class="sc">&lt;</span> .<span class="dv">05</span> <span class="sc">~</span> <span class="st">&quot;0.04 - 0.05&quot;</span>,</span>
+<span id="cb16-7"><a href="hypothesis-testing.html#cb16-7" tabindex="-1"></a>                         <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">&quot;other&quot;</span>)</span>
+<span id="cb16-8"><a href="hypothesis-testing.html#cb16-8" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb16-9"><a href="hypothesis-testing.html#cb16-9" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">tabyl</span>(bin)</span></code></pre></div>
 <pre><code>##          bin     n percent
 ##  0.00 - 0.01 86618 0.86618
 ##  0.01 - 0.02  5011 0.05011

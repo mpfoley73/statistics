@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Case Study 1 | Statistical Inference</title>
   <meta name="description" content="Notes cobbled together from books, online classes, etc. to be used as quick reference for common work projects." />
-  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Case Study 1 | Statistical Inference" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Michael Foley" />
 
 
-<meta name="date" content="2023-04-09" />
+<meta name="date" content="2023-10-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,10 +52,10 @@
 <link href="assets/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="assets/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="assets/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="assets/kePrint-0.0.1/kePrint.js"></script>
-<link href="assets/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <link href="assets/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
 <script src="assets/tabwid-1.1.3/tabwid.js"></script>
+<script src="assets/kePrint-0.0.1/kePrint.js"></script>
+<link href="assets/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -123,6 +123,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -149,13 +153,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3" data-path="bayesian-statistics.html"><a href="bayesian-statistics.html"><i class="fa fa-check"></i><b>3</b> Bayesian Statistics</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="bayes-law.html"><a href="bayes-law.html"><i class="fa fa-check"></i><b>3.1</b> Bayes’ Law</a></li>
+<li class="chapter" data-level="3.1" data-path="bayes-theorem.html"><a href="bayes-theorem.html"><i class="fa fa-check"></i><b>3.1</b> Bayes’ Theorem</a></li>
 <li class="chapter" data-level="3.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html"><i class="fa fa-check"></i><b>3.2</b> Bayesian Inference</a></li>
-<li class="chapter" data-level="3.3" data-path="discrete-cases.html"><a href="discrete-cases.html"><i class="fa fa-check"></i><b>3.3</b> Discrete Cases</a></li>
-<li class="chapter" data-level="3.4" data-path="continuous-cases.html"><a href="continuous-cases.html"><i class="fa fa-check"></i><b>3.4</b> Continuous Cases</a></li>
-<li class="chapter" data-level="3.5" data-path="bayes-factors.html"><a href="bayes-factors.html"><i class="fa fa-check"></i><b>3.5</b> Bayes Factors</a></li>
-<li class="chapter" data-level="3.6" data-path="a-gentler-introduction.html"><a href="a-gentler-introduction.html"><i class="fa fa-check"></i><b>3.6</b> A Gentler Introduction</a></li>
-<li class="chapter" data-level="3.7" data-path="coursera-notes-inference.html"><a href="coursera-notes-inference.html"><i class="fa fa-check"></i><b>3.7</b> Coursera Notes Inference</a></li>
+<li class="chapter" data-level="3.3" data-path="bayes-factors.html"><a href="bayes-factors.html"><i class="fa fa-check"></i><b>3.3</b> Bayes Factors</a></li>
+<li class="chapter" data-level="3.4" data-path="gamma-poisson.html"><a href="gamma-poisson.html"><i class="fa fa-check"></i><b>3.4</b> Gamma Poisson</a></li>
+<li class="chapter" data-level="3.5" data-path="normal.html"><a href="normal.html"><i class="fa fa-check"></i><b>3.5</b> Normal</a></li>
+<li class="chapter" data-level="3.6" data-path="proportions-and-the-beta-binomial.html"><a href="proportions-and-the-beta-binomial.html"><i class="fa fa-check"></i><b>3.6</b> Proportions and the Beta Binomial</a></li>
+<li class="chapter" data-level="3.7" data-path="dic.html"><a href="dic.html"><i class="fa fa-check"></i><b>3.7</b> DIC</a></li>
+<li class="chapter" data-level="3.8" data-path="appendix-gentle-introduction.html"><a href="appendix-gentle-introduction.html"><i class="fa fa-check"></i><b>3.8</b> Appendix: Gentle Introduction</a></li>
+<li class="chapter" data-level="3.9" data-path="further-reading-1.html"><a href="further-reading-1.html"><i class="fa fa-check"></i><b>3.9</b> Further Reading</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="one-sample.html"><a href="one-sample.html"><i class="fa fa-check"></i><b>4</b> One-Sample</a>
 <ul>
@@ -230,31 +236,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2>Case Study 1<a href="case-study-1.html#case-study-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A company shows an advertisement to <span class="math inline">\(n_M\)</span> = 20 males and <span class="math inline">\(n_F\)</span> = 20 females, then measures their engagement with a survey. Do the groups’ mean engagement scores differ?</p>
 <p><a href="https://statistics.laerd.com/">Laerd</a> has two data sets for this example. One meets the conditions for a <em>t</em>-test, and the other fails the normality test, forcing you to use the Mann-Whitney U test.</p>
-<p><img src="statistics_files/figure-html/unnamed-chunk-118-1.png" width="720" /></p>
-<p><img src="statistics_files/figure-html/unnamed-chunk-119-1.png" width="720" /></p>
+<p><img src="statistics_files/figure-html/unnamed-chunk-128-1.png" width="720" /></p>
+<p><img src="statistics_files/figure-html/unnamed-chunk-129-1.png" width="720" /></p>
 <p>The <em>t</em>-test data set has the following summary statistics.</p>
-<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="case-study-1.html#cb135-1" aria-hidden="true" tabindex="-1"></a>(ind_num<span class="sc">$</span>t_gt <span class="ot">&lt;-</span> ind_num<span class="sc">$</span>t_dat <span class="sc">%&gt;%</span> </span>
-<span id="cb135-2"><a href="case-study-1.html#cb135-2" aria-hidden="true" tabindex="-1"></a>  gtsummary<span class="sc">::</span><span class="fu">tbl_summary</span>(</span>
-<span id="cb135-3"><a href="case-study-1.html#cb135-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="fu">c</span>(gender), </span>
-<span id="cb135-4"><a href="case-study-1.html#cb135-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">statistic =</span> <span class="fu">list</span>(<span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="st">&quot;{mean} ({sd})&quot;</span>)</span>
-<span id="cb135-5"><a href="case-study-1.html#cb135-5" aria-hidden="true" tabindex="-1"></a>  ))</span></code></pre></div>
-<div id="yvpkngabka" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#yvpkngabka table {
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="case-study-1.html#cb193-1" tabindex="-1"></a>(ind_num<span class="sc">$</span>t_gt <span class="ot">&lt;-</span> ind_num<span class="sc">$</span>t_dat <span class="sc">%&gt;%</span> </span>
+<span id="cb193-2"><a href="case-study-1.html#cb193-2" tabindex="-1"></a>  gtsummary<span class="sc">::</span><span class="fu">tbl_summary</span>(</span>
+<span id="cb193-3"><a href="case-study-1.html#cb193-3" tabindex="-1"></a>    <span class="at">by =</span> <span class="fu">c</span>(gender), </span>
+<span id="cb193-4"><a href="case-study-1.html#cb193-4" tabindex="-1"></a>    <span class="at">statistic =</span> <span class="fu">list</span>(<span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="st">&quot;{mean} ({sd})&quot;</span>)</span>
+<span id="cb193-5"><a href="case-study-1.html#cb193-5" tabindex="-1"></a>  ))</span></code></pre></div>
+<div id="wzopmcsqrx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#wzopmcsqrx table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#yvpkngabka thead, #yvpkngabka tbody, #yvpkngabka tfoot, #yvpkngabka tr, #yvpkngabka td, #yvpkngabka th {
+#wzopmcsqrx thead, #wzopmcsqrx tbody, #wzopmcsqrx tfoot, #wzopmcsqrx tr, #wzopmcsqrx td, #wzopmcsqrx th {
   border-style: none;
 }
 
-#yvpkngabka p {
+#wzopmcsqrx p {
   margin: 0;
   padding: 0;
 }
 
-#yvpkngabka .gt_table {
+#wzopmcsqrx .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -280,12 +286,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-left-color: #D3D3D3;
 }
 
-#yvpkngabka .gt_caption {
+#wzopmcsqrx .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#yvpkngabka .gt_title {
+#wzopmcsqrx .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -297,7 +303,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-width: 0;
 }
 
-#yvpkngabka .gt_subtitle {
+#wzopmcsqrx .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -309,7 +315,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-width: 0;
 }
 
-#yvpkngabka .gt_heading {
+#wzopmcsqrx .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -321,13 +327,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#yvpkngabka .gt_bottom_border {
+#wzopmcsqrx .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#yvpkngabka .gt_col_headings {
+#wzopmcsqrx .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -342,7 +348,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#yvpkngabka .gt_col_heading {
+#wzopmcsqrx .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -362,7 +368,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#yvpkngabka .gt_column_spanner_outer {
+#wzopmcsqrx .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -374,15 +380,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 4px;
 }
 
-#yvpkngabka .gt_column_spanner_outer:first-child {
+#wzopmcsqrx .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#yvpkngabka .gt_column_spanner_outer:last-child {
+#wzopmcsqrx .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#yvpkngabka .gt_column_spanner {
+#wzopmcsqrx .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -394,11 +400,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   width: 100%;
 }
 
-#yvpkngabka .gt_spanner_row {
+#wzopmcsqrx .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#yvpkngabka .gt_group_heading {
+#wzopmcsqrx .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -424,7 +430,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   text-align: left;
 }
 
-#yvpkngabka .gt_empty_group_heading {
+#wzopmcsqrx .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -439,15 +445,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: middle;
 }
 
-#yvpkngabka .gt_from_md > :first-child {
+#wzopmcsqrx .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#yvpkngabka .gt_from_md > :last-child {
+#wzopmcsqrx .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#yvpkngabka .gt_row {
+#wzopmcsqrx .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -466,7 +472,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#yvpkngabka .gt_stub {
+#wzopmcsqrx .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -479,7 +485,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#yvpkngabka .gt_stub_row_group {
+#wzopmcsqrx .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -493,15 +499,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: top;
 }
 
-#yvpkngabka .gt_row_group_first td {
+#wzopmcsqrx .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#yvpkngabka .gt_row_group_first th {
+#wzopmcsqrx .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#yvpkngabka .gt_summary_row {
+#wzopmcsqrx .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -511,16 +517,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#yvpkngabka .gt_first_summary_row {
+#wzopmcsqrx .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#yvpkngabka .gt_first_summary_row.thick {
+#wzopmcsqrx .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#yvpkngabka .gt_last_summary_row {
+#wzopmcsqrx .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -530,7 +536,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#yvpkngabka .gt_grand_summary_row {
+#wzopmcsqrx .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -540,7 +546,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#yvpkngabka .gt_first_grand_summary_row {
+#wzopmcsqrx .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -550,7 +556,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-color: #D3D3D3;
 }
 
-#yvpkngabka .gt_last_grand_summary_row_top {
+#wzopmcsqrx .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -560,11 +566,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#yvpkngabka .gt_striped {
+#wzopmcsqrx .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#yvpkngabka .gt_table_body {
+#wzopmcsqrx .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -573,7 +579,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#yvpkngabka .gt_footnotes {
+#wzopmcsqrx .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -587,7 +593,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#yvpkngabka .gt_footnote {
+#wzopmcsqrx .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -596,7 +602,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#yvpkngabka .gt_sourcenotes {
+#wzopmcsqrx .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -610,7 +616,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#yvpkngabka .gt_sourcenote {
+#wzopmcsqrx .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -618,63 +624,63 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#yvpkngabka .gt_left {
+#wzopmcsqrx .gt_left {
   text-align: left;
 }
 
-#yvpkngabka .gt_center {
+#wzopmcsqrx .gt_center {
   text-align: center;
 }
 
-#yvpkngabka .gt_right {
+#wzopmcsqrx .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#yvpkngabka .gt_font_normal {
+#wzopmcsqrx .gt_font_normal {
   font-weight: normal;
 }
 
-#yvpkngabka .gt_font_bold {
+#wzopmcsqrx .gt_font_bold {
   font-weight: bold;
 }
 
-#yvpkngabka .gt_font_italic {
+#wzopmcsqrx .gt_font_italic {
   font-style: italic;
 }
 
-#yvpkngabka .gt_super {
+#wzopmcsqrx .gt_super {
   font-size: 65%;
 }
 
-#yvpkngabka .gt_footnote_marks {
+#wzopmcsqrx .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#yvpkngabka .gt_asterisk {
+#wzopmcsqrx .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#yvpkngabka .gt_indent_1 {
+#wzopmcsqrx .gt_indent_1 {
   text-indent: 5px;
 }
 
-#yvpkngabka .gt_indent_2 {
+#wzopmcsqrx .gt_indent_2 {
   text-indent: 10px;
 }
 
-#yvpkngabka .gt_indent_3 {
+#wzopmcsqrx .gt_indent_3 {
   text-indent: 15px;
 }
 
-#yvpkngabka .gt_indent_4 {
+#wzopmcsqrx .gt_indent_4 {
   text-indent: 20px;
 }
 
-#yvpkngabka .gt_indent_5 {
+#wzopmcsqrx .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -704,28 +710,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>There were 20 male and 20 female participants. Data are mean <span class="math inline">\(\pm\)</span> standard deviation, unless otherwise stated. The advertisement was more engaging to male viewers, 5.56 (0.29), than female viewers, 5.30 (0.39).</p>
 </blockquote>
 <p>The Mann-Whitney data set has the following summary statistics.</p>
-<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="case-study-1.html#cb136-1" aria-hidden="true" tabindex="-1"></a>(ind_num<span class="sc">$</span>mw_gt <span class="ot">&lt;-</span> ind_num<span class="sc">$</span>mw_dat <span class="sc">%&gt;%</span> </span>
-<span id="cb136-2"><a href="case-study-1.html#cb136-2" aria-hidden="true" tabindex="-1"></a>  gtsummary<span class="sc">::</span><span class="fu">tbl_summary</span>(</span>
-<span id="cb136-3"><a href="case-study-1.html#cb136-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="fu">c</span>(gender), </span>
-<span id="cb136-4"><a href="case-study-1.html#cb136-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">statistic =</span> <span class="fu">list</span>(<span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="st">&quot;{mean} ({sd})&quot;</span>)</span>
-<span id="cb136-5"><a href="case-study-1.html#cb136-5" aria-hidden="true" tabindex="-1"></a>  ))</span></code></pre></div>
-<div id="ceeirqtwyx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ceeirqtwyx table {
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="case-study-1.html#cb194-1" tabindex="-1"></a>(ind_num<span class="sc">$</span>mw_gt <span class="ot">&lt;-</span> ind_num<span class="sc">$</span>mw_dat <span class="sc">%&gt;%</span> </span>
+<span id="cb194-2"><a href="case-study-1.html#cb194-2" tabindex="-1"></a>  gtsummary<span class="sc">::</span><span class="fu">tbl_summary</span>(</span>
+<span id="cb194-3"><a href="case-study-1.html#cb194-3" tabindex="-1"></a>    <span class="at">by =</span> <span class="fu">c</span>(gender), </span>
+<span id="cb194-4"><a href="case-study-1.html#cb194-4" tabindex="-1"></a>    <span class="at">statistic =</span> <span class="fu">list</span>(<span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="st">&quot;{mean} ({sd})&quot;</span>)</span>
+<span id="cb194-5"><a href="case-study-1.html#cb194-5" tabindex="-1"></a>  ))</span></code></pre></div>
+<div id="cynryavovc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#cynryavovc table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ceeirqtwyx thead, #ceeirqtwyx tbody, #ceeirqtwyx tfoot, #ceeirqtwyx tr, #ceeirqtwyx td, #ceeirqtwyx th {
+#cynryavovc thead, #cynryavovc tbody, #cynryavovc tfoot, #cynryavovc tr, #cynryavovc td, #cynryavovc th {
   border-style: none;
 }
 
-#ceeirqtwyx p {
+#cynryavovc p {
   margin: 0;
   padding: 0;
 }
 
-#ceeirqtwyx .gt_table {
+#cynryavovc .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -751,12 +757,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-left-color: #D3D3D3;
 }
 
-#ceeirqtwyx .gt_caption {
+#cynryavovc .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ceeirqtwyx .gt_title {
+#cynryavovc .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -768,7 +774,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-width: 0;
 }
 
-#ceeirqtwyx .gt_subtitle {
+#cynryavovc .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -780,7 +786,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-width: 0;
 }
 
-#ceeirqtwyx .gt_heading {
+#cynryavovc .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -792,13 +798,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#ceeirqtwyx .gt_bottom_border {
+#cynryavovc .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ceeirqtwyx .gt_col_headings {
+#cynryavovc .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -813,7 +819,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#ceeirqtwyx .gt_col_heading {
+#cynryavovc .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -833,7 +839,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#ceeirqtwyx .gt_column_spanner_outer {
+#cynryavovc .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -845,15 +851,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 4px;
 }
 
-#ceeirqtwyx .gt_column_spanner_outer:first-child {
+#cynryavovc .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ceeirqtwyx .gt_column_spanner_outer:last-child {
+#cynryavovc .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ceeirqtwyx .gt_column_spanner {
+#cynryavovc .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -865,11 +871,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   width: 100%;
 }
 
-#ceeirqtwyx .gt_spanner_row {
+#cynryavovc .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ceeirqtwyx .gt_group_heading {
+#cynryavovc .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -895,7 +901,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   text-align: left;
 }
 
-#ceeirqtwyx .gt_empty_group_heading {
+#cynryavovc .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -910,15 +916,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: middle;
 }
 
-#ceeirqtwyx .gt_from_md > :first-child {
+#cynryavovc .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ceeirqtwyx .gt_from_md > :last-child {
+#cynryavovc .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ceeirqtwyx .gt_row {
+#cynryavovc .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -937,7 +943,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#ceeirqtwyx .gt_stub {
+#cynryavovc .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -950,7 +956,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#ceeirqtwyx .gt_stub_row_group {
+#cynryavovc .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -964,15 +970,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: top;
 }
 
-#ceeirqtwyx .gt_row_group_first td {
+#cynryavovc .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ceeirqtwyx .gt_row_group_first th {
+#cynryavovc .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ceeirqtwyx .gt_summary_row {
+#cynryavovc .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -982,16 +988,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#ceeirqtwyx .gt_first_summary_row {
+#cynryavovc .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ceeirqtwyx .gt_first_summary_row.thick {
+#cynryavovc .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ceeirqtwyx .gt_last_summary_row {
+#cynryavovc .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1001,7 +1007,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#ceeirqtwyx .gt_grand_summary_row {
+#cynryavovc .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1011,7 +1017,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#ceeirqtwyx .gt_first_grand_summary_row {
+#cynryavovc .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1021,7 +1027,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-color: #D3D3D3;
 }
 
-#ceeirqtwyx .gt_last_grand_summary_row_top {
+#cynryavovc .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1031,11 +1037,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#ceeirqtwyx .gt_striped {
+#cynryavovc .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ceeirqtwyx .gt_table_body {
+#cynryavovc .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1044,7 +1050,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#ceeirqtwyx .gt_footnotes {
+#cynryavovc .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1058,7 +1064,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#ceeirqtwyx .gt_footnote {
+#cynryavovc .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1067,7 +1073,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#ceeirqtwyx .gt_sourcenotes {
+#cynryavovc .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1081,7 +1087,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#ceeirqtwyx .gt_sourcenote {
+#cynryavovc .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1089,63 +1095,63 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#ceeirqtwyx .gt_left {
+#cynryavovc .gt_left {
   text-align: left;
 }
 
-#ceeirqtwyx .gt_center {
+#cynryavovc .gt_center {
   text-align: center;
 }
 
-#ceeirqtwyx .gt_right {
+#cynryavovc .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ceeirqtwyx .gt_font_normal {
+#cynryavovc .gt_font_normal {
   font-weight: normal;
 }
 
-#ceeirqtwyx .gt_font_bold {
+#cynryavovc .gt_font_bold {
   font-weight: bold;
 }
 
-#ceeirqtwyx .gt_font_italic {
+#cynryavovc .gt_font_italic {
   font-style: italic;
 }
 
-#ceeirqtwyx .gt_super {
+#cynryavovc .gt_super {
   font-size: 65%;
 }
 
-#ceeirqtwyx .gt_footnote_marks {
+#cynryavovc .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ceeirqtwyx .gt_asterisk {
+#cynryavovc .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ceeirqtwyx .gt_indent_1 {
+#cynryavovc .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ceeirqtwyx .gt_indent_2 {
+#cynryavovc .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ceeirqtwyx .gt_indent_3 {
+#cynryavovc .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ceeirqtwyx .gt_indent_4 {
+#cynryavovc .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ceeirqtwyx .gt_indent_5 {
+#cynryavovc .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1192,7 +1198,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="checking-for-outliers" class="section level5 unnumbered hasAnchor">
 <h5>Checking for Outliers<a href="case-study-1.html#checking-for-outliers" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>Assess outliers with a box plot. Box plot whiskers extend up to 1.5*IQR from the upper and lower hinges and outliers (beyond the whiskers) are are plotted individually.</p>
-<p><img src="statistics_files/figure-html/unnamed-chunk-122-1.png" width="720" /></p>
+<p><img src="statistics_files/figure-html/unnamed-chunk-132-1.png" width="720" /></p>
 <p>For the <em>t</em> test data set,</p>
 <blockquote>
 <p>There were no outliers in the data, as assessed by inspection of a boxplot.</p>
@@ -1211,22 +1217,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h5>Checking for Normality<a href="case-study-1.html#checking-for-normality" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>Assume the population is normally distributed if <em>n</em> <span class="math inline">\(\ge\)</span> 30. Otherwise, assess a Q-Q plot, skewness and kurtosis values, or a histogram. If you still don’t feel confident about normality, run a Shapiro-Wilk test.</p>
 <p>There are only <span class="math inline">\(n_M\)</span> = 20 male and <span class="math inline">\(n_F\)</span> = 20 female observations, so you need to test normality. The QQ plot indicates normality in the t-test data set, but not in the Mann-Whitney data set.</p>
-<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="case-study-1.html#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(</span>
-<span id="cb137-2"><a href="case-study-1.html#cb137-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">t-test</span><span class="st">`</span> <span class="ot">=</span> ind_num<span class="sc">$</span>t_dat,</span>
-<span id="cb137-3"><a href="case-study-1.html#cb137-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Mann-Whitney</span><span class="st">`</span> <span class="ot">=</span> ind_num<span class="sc">$</span>mw_dat,</span>
-<span id="cb137-4"><a href="case-study-1.html#cb137-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">.id =</span> <span class="st">&quot;set&quot;</span></span>
-<span id="cb137-5"><a href="case-study-1.html#cb137-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb137-6"><a href="case-study-1.html#cb137-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample =</span> engagement, <span class="at">group =</span> gender, <span class="at">color =</span> <span class="fu">fct_rev</span>(gender))) <span class="sc">+</span></span>
-<span id="cb137-7"><a href="case-study-1.html#cb137-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span></span>
-<span id="cb137-8"><a href="case-study-1.html#cb137-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>(<span class="at">col =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
-<span id="cb137-9"><a href="case-study-1.html#cb137-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>) <span class="sc">+</span></span>
-<span id="cb137-10"><a href="case-study-1.html#cb137-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span><span class="fu">fct_rev</span>(set)) <span class="sc">+</span></span>
-<span id="cb137-11"><a href="case-study-1.html#cb137-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Normal Q-Q Plot&quot;</span>, <span class="at">color =</span> <span class="cn">NULL</span>)</span></code></pre></div>
-<p><img src="statistics_files/figure-html/unnamed-chunk-123-1.png" width="720" /></p>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="case-study-1.html#cb195-1" tabindex="-1"></a><span class="fu">bind_rows</span>(</span>
+<span id="cb195-2"><a href="case-study-1.html#cb195-2" tabindex="-1"></a>  <span class="st">`</span><span class="at">t-test</span><span class="st">`</span> <span class="ot">=</span> ind_num<span class="sc">$</span>t_dat,</span>
+<span id="cb195-3"><a href="case-study-1.html#cb195-3" tabindex="-1"></a>  <span class="st">`</span><span class="at">Mann-Whitney</span><span class="st">`</span> <span class="ot">=</span> ind_num<span class="sc">$</span>mw_dat,</span>
+<span id="cb195-4"><a href="case-study-1.html#cb195-4" tabindex="-1"></a>  <span class="at">.id =</span> <span class="st">&quot;set&quot;</span></span>
+<span id="cb195-5"><a href="case-study-1.html#cb195-5" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb195-6"><a href="case-study-1.html#cb195-6" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample =</span> engagement, <span class="at">group =</span> gender, <span class="at">color =</span> <span class="fu">fct_rev</span>(gender))) <span class="sc">+</span></span>
+<span id="cb195-7"><a href="case-study-1.html#cb195-7" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span></span>
+<span id="cb195-8"><a href="case-study-1.html#cb195-8" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>(<span class="at">col =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
+<span id="cb195-9"><a href="case-study-1.html#cb195-9" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>) <span class="sc">+</span></span>
+<span id="cb195-10"><a href="case-study-1.html#cb195-10" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span><span class="fu">fct_rev</span>(set)) <span class="sc">+</span></span>
+<span id="cb195-11"><a href="case-study-1.html#cb195-11" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Normal Q-Q Plot&quot;</span>, <span class="at">color =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<p><img src="statistics_files/figure-html/unnamed-chunk-133-1.png" width="720" /></p>
 <p>Run Shapiro-Wilk separately for the males and for the females. Since we are looking at two data sets in tandem, there are four tests below. For the t-test data set,</p>
-<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="case-study-1.html#cb138-1" aria-hidden="true" tabindex="-1"></a>(ind_num<span class="sc">$</span>t_shapiro <span class="ot">&lt;-</span> <span class="fu">split</span>(ind_num<span class="sc">$</span>t_dat, ind_num<span class="sc">$</span>t_dat<span class="sc">$</span>gender) <span class="sc">%&gt;%</span> </span>
-<span id="cb138-2"><a href="case-study-1.html#cb138-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(<span class="sc">~</span><span class="fu">shapiro.test</span>(.<span class="sc">$</span>engagement))</span>
-<span id="cb138-3"><a href="case-study-1.html#cb138-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="case-study-1.html#cb196-1" tabindex="-1"></a>(ind_num<span class="sc">$</span>t_shapiro <span class="ot">&lt;-</span> <span class="fu">split</span>(ind_num<span class="sc">$</span>t_dat, ind_num<span class="sc">$</span>t_dat<span class="sc">$</span>gender) <span class="sc">%&gt;%</span> </span>
+<span id="cb196-2"><a href="case-study-1.html#cb196-2" tabindex="-1"></a>  <span class="fu">map</span>(<span class="sc">~</span><span class="fu">shapiro.test</span>(.<span class="sc">$</span>engagement))</span>
+<span id="cb196-3"><a href="case-study-1.html#cb196-3" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## $Male
 ## 
 ##  Shapiro-Wilk normality test
@@ -1245,9 +1251,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Engagement scores for each level of gender were normally distributed, as assessed by Shapiro-Wilk’s test (<em>p</em> &gt; .05).</p>
 </blockquote>
 <p>For the Mann-Whitney data set,</p>
-<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="case-study-1.html#cb140-1" aria-hidden="true" tabindex="-1"></a>(ind_num<span class="sc">$</span>mw_shapiro <span class="ot">&lt;-</span> <span class="fu">split</span>(ind_num<span class="sc">$</span>mw_dat, ind_num<span class="sc">$</span>mw_dat<span class="sc">$</span>gender) <span class="sc">%&gt;%</span> </span>
-<span id="cb140-2"><a href="case-study-1.html#cb140-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(<span class="sc">~</span><span class="fu">shapiro.test</span>(.<span class="sc">$</span>engagement))</span>
-<span id="cb140-3"><a href="case-study-1.html#cb140-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="case-study-1.html#cb198-1" tabindex="-1"></a>(ind_num<span class="sc">$</span>mw_shapiro <span class="ot">&lt;-</span> <span class="fu">split</span>(ind_num<span class="sc">$</span>mw_dat, ind_num<span class="sc">$</span>mw_dat<span class="sc">$</span>gender) <span class="sc">%&gt;%</span> </span>
+<span id="cb198-2"><a href="case-study-1.html#cb198-2" tabindex="-1"></a>  <span class="fu">map</span>(<span class="sc">~</span><span class="fu">shapiro.test</span>(.<span class="sc">$</span>engagement))</span>
+<span id="cb198-3"><a href="case-study-1.html#cb198-3" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## $Male
 ## 
 ##  Shapiro-Wilk normality test
@@ -1274,12 +1280,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="checking-for-homogenous-variances" class="section level5 unnumbered hasAnchor">
 <h5>Checking for Homogenous Variances<a href="case-study-1.html#checking-for-homogenous-variances" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>If the data passed the outliers and normality tests, you will use the <em>t</em>-test, so now you need to test the variances to see which version (<em>pooled-variances</em> method if variances are homogeneous; <em>separate variances</em> if variances are heterogeneous). A rule of thumb is that homogeneous variances have a ratio of standard deviations between 0.5 and 2.0:</p>
-<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="case-study-1.html#cb142-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(ind_num<span class="sc">$</span>t_dat <span class="sc">%&gt;%</span> <span class="fu">filter</span>(gender <span class="sc">==</span> <span class="st">&quot;Male&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(engagement)) <span class="sc">/</span></span>
-<span id="cb142-2"><a href="case-study-1.html#cb142-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sd</span>(ind_num<span class="sc">$</span>t_dat <span class="sc">%&gt;%</span> <span class="fu">filter</span>(gender <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(engagement))</span></code></pre></div>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="case-study-1.html#cb200-1" tabindex="-1"></a><span class="fu">sd</span>(ind_num<span class="sc">$</span>t_dat <span class="sc">%&gt;%</span> <span class="fu">filter</span>(gender <span class="sc">==</span> <span class="st">&quot;Male&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(engagement)) <span class="sc">/</span></span>
+<span id="cb200-2"><a href="case-study-1.html#cb200-2" tabindex="-1"></a>  <span class="fu">sd</span>(ind_num<span class="sc">$</span>t_dat <span class="sc">%&gt;%</span> <span class="fu">filter</span>(gender <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(engagement))</span></code></pre></div>
 <pre><code>## [1] 0.7419967</code></pre>
 <p>You can also use the <em>F</em> test to compare the ratio of the sample variances <span class="math inline">\(\hat{r} = s_X^2 / s_Y^2\)</span> to an hypothesized ratio of population variances <span class="math inline">\(r_0 = \sigma_X^2 / \sigma_Y^2 = 1.\)</span></p>
-<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="case-study-1.html#cb144-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var.test</span>(ind_num<span class="sc">$</span>t_dat <span class="sc">%&gt;%</span> <span class="fu">filter</span>(gender <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(engagement), </span>
-<span id="cb144-2"><a href="case-study-1.html#cb144-2" aria-hidden="true" tabindex="-1"></a>         ind_num<span class="sc">$</span>t_dat <span class="sc">%&gt;%</span> <span class="fu">filter</span>(gender <span class="sc">==</span> <span class="st">&quot;Male&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(engagement))</span></code></pre></div>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="case-study-1.html#cb202-1" tabindex="-1"></a><span class="fu">var.test</span>(ind_num<span class="sc">$</span>t_dat <span class="sc">%&gt;%</span> <span class="fu">filter</span>(gender <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(engagement), </span>
+<span id="cb202-2"><a href="case-study-1.html#cb202-2" tabindex="-1"></a>         ind_num<span class="sc">$</span>t_dat <span class="sc">%&gt;%</span> <span class="fu">filter</span>(gender <span class="sc">==</span> <span class="st">&quot;Male&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(engagement))</span></code></pre></div>
 <pre><code>## 
 ##  F test to compare two variances
 ## 
@@ -1292,16 +1298,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## ratio of variances 
 ##           1.816336</code></pre>
 <p>Bartlett’s test is another option.</p>
-<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="case-study-1.html#cb146-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bartlett.test</span>(ind_num<span class="sc">$</span>t_dat<span class="sc">$</span>engagement, ind_num<span class="sc">$</span>t_dat<span class="sc">$</span>gender)</span></code></pre></div>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="case-study-1.html#cb204-1" tabindex="-1"></a><span class="fu">bartlett.test</span>(ind_num<span class="sc">$</span>t_dat<span class="sc">$</span>engagement, ind_num<span class="sc">$</span>t_dat<span class="sc">$</span>gender)</span></code></pre></div>
 <pre><code>## 
 ##  Bartlett test of homogeneity of variances
 ## 
 ## data:  ind_num$t_dat$engagement and ind_num$t_dat$gender
 ## Bartlett&#39;s K-squared = 1.6246, df = 1, p-value = 0.2024</code></pre>
 <p>Levene’s test is a third option. Levene’s is less sensitive to departures from normality than Bartlett.</p>
-<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="case-study-1.html#cb148-1" aria-hidden="true" tabindex="-1"></a>(ind_num<span class="sc">$</span>levene <span class="ot">&lt;-</span> <span class="fu">with</span>(ind_num<span class="sc">$</span>t_dat, </span>
-<span id="cb148-2"><a href="case-study-1.html#cb148-2" aria-hidden="true" tabindex="-1"></a>                        car<span class="sc">::</span><span class="fu">leveneTest</span>(engagement, gender, <span class="at">center =</span> <span class="st">&quot;mean&quot;</span>))</span>
-<span id="cb148-3"><a href="case-study-1.html#cb148-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="case-study-1.html#cb206-1" tabindex="-1"></a>(ind_num<span class="sc">$</span>levene <span class="ot">&lt;-</span> <span class="fu">with</span>(ind_num<span class="sc">$</span>t_dat, </span>
+<span id="cb206-2"><a href="case-study-1.html#cb206-2" tabindex="-1"></a>                        car<span class="sc">::</span><span class="fu">leveneTest</span>(engagement, gender, <span class="at">center =</span> <span class="st">&quot;mean&quot;</span>))</span>
+<span id="cb206-3"><a href="case-study-1.html#cb206-3" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = &quot;mean&quot;)
 ##       Df F value Pr(&gt;F)
 ## group  1   1.922 0.1737
@@ -1313,7 +1319,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="checking-for-similar-distributions" class="section level5 unnumbered hasAnchor">
 <h5>Checking for Similar Distributions<a href="case-study-1.html#checking-for-similar-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>If the data fail either the outliers or the normality test, use the Mann-Whitney test. The Mann-Whitney data set failed both, so the Mann-Whitney test applies. Now you need to test the distributions to determine how to interpret its results. If the distributions are similarly shaped, interpret the Mann-Whitney U test as inferences about differences in medians between the two groups. If the distributions are dissimilar, interpret the test as inferences about the distributions, lower/higher scores and/or mean ranks.</p>
-<p><img src="statistics_files/figure-html/unnamed-chunk-130-1.png" width="720" /></p>
+<p><img src="statistics_files/figure-html/unnamed-chunk-140-1.png" width="720" /></p>
 <blockquote>
 <p>Distributions of the engagement scores for males and females were similar, as assessed by visual inspection.</p>
 </blockquote>
@@ -1325,7 +1331,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="t-test" class="section level5 unnumbered hasAnchor">
 <h5>t-Test<a href="case-study-1.html#t-test" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>The the <em>t</em>-test data the variances were equal, so the pooled-variances version applies (<code>t.test(var.equal = TRUE)</code>).</p>
-<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="case-study-1.html#cb150-1" aria-hidden="true" tabindex="-1"></a>(ind_num<span class="sc">$</span>t_test <span class="ot">&lt;-</span> <span class="fu">t.test</span>(engagement <span class="sc">~</span> gender, <span class="at">data =</span> ind_num<span class="sc">$</span>t_dat, <span class="at">var.equal =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="case-study-1.html#cb208-1" tabindex="-1"></a>(ind_num<span class="sc">$</span>t_test <span class="ot">&lt;-</span> <span class="fu">t.test</span>(engagement <span class="sc">~</span> gender, <span class="at">data =</span> ind_num<span class="sc">$</span>t_dat, <span class="at">var.equal =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
 <pre><code>## 
 ##  Two Sample t-test
 ## 
@@ -1341,7 +1347,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>There was a statistically significant difference in mean engagement score between males and females, with males scoring higher than females, 0.26 (95% CI, 0.04 to 0.48), t(38) = 2.365, <em>p</em> = 0.023.</p>
 </blockquote>
 <p>The effect size, Cohen’s <em>d</em>, is defined as <span class="math inline">\(d = |M_D| / s\)</span>, where <span class="math inline">\(|M_D| = \bar{x} - \bar{y}\)</span>, and <span class="math inline">\(s\)</span> is the pooled sample standard deviation, <span class="math inline">\(s_p = \sqrt{\frac{(n_X - 1) s_X^2 + (n_Y-1) s_Y^2}{n_X + n_Y-2}}\)</span>. <span class="math inline">\(d &lt;.2\)</span> is considered trivial, <span class="math inline">\(.2 \le d &lt; .5\)</span> small, and <span class="math inline">\(.5 \le d &lt; .8\)</span> large.</p>
-<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="case-study-1.html#cb152-1" aria-hidden="true" tabindex="-1"></a>(d <span class="ot">&lt;-</span> effectsize<span class="sc">::</span><span class="fu">cohens_d</span>(engagement <span class="sc">~</span> gender, <span class="at">data =</span> ind_num<span class="sc">$</span>t_dat, <span class="at">pooled_sd =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="case-study-1.html#cb210-1" tabindex="-1"></a>(d <span class="ot">&lt;-</span> effectsize<span class="sc">::</span><span class="fu">cohens_d</span>(engagement <span class="sc">~</span> gender, <span class="at">data =</span> ind_num<span class="sc">$</span>t_dat, <span class="at">pooled_sd =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
 <pre><code>## Cohen&#39;s d |       95% CI
 ## ------------------------
 ## 0.75      | [0.10, 1.39]
@@ -1351,36 +1357,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>There was a large difference in mean engagement score between males and females, Cohen’s d = 0.75 95% CI [0.10, 1.39]</p>
 </blockquote>
 <p>Before rejecting the null hypothesis, construct a plot as a sanity check.</p>
-<p><img src="statistics_files/figure-html/unnamed-chunk-133-1.png" width="720" /></p>
+<p><img src="statistics_files/figure-html/unnamed-chunk-143-1.png" width="720" /></p>
 </div>
 <div id="wilcoxon-rank-sum-test" class="section level5 unnumbered hasAnchor">
 <h5>Wilcoxon Rank Sum test<a href="case-study-1.html#wilcoxon-rank-sum-test" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>The reference level for the <code>gender</code> variable is males, so the Wilcoxon Rank Sum test statistic is the sum of male ranks minus <span class="math inline">\(n_f(n_f + 1) / 2\)</span> where <span class="math inline">\(n_f\)</span> is the number of females. You can calculate the test statistic by hand.</p>
-<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="case-study-1.html#cb154-1" aria-hidden="true" tabindex="-1"></a>(ind_num<span class="sc">$</span>mw_test_manual <span class="ot">&lt;-</span> ind_num<span class="sc">$</span>mw_dat <span class="sc">%&gt;%</span> </span>
-<span id="cb154-2"><a href="case-study-1.html#cb154-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">R =</span> <span class="fu">rank</span>(engagement)) <span class="sc">%&gt;%</span></span>
-<span id="cb154-3"><a href="case-study-1.html#cb154-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(gender) <span class="sc">%&gt;%</span></span>
-<span id="cb154-4"><a href="case-study-1.html#cb154-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span>, <span class="at">n =</span> <span class="fu">n</span>(), <span class="at">R =</span> <span class="fu">sum</span>(R), <span class="at">meanR =</span> <span class="fu">sum</span>(R)<span class="sc">/</span><span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb154-5"><a href="case-study-1.html#cb154-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> gender, <span class="at">values_from =</span> <span class="fu">c</span>(n, R, meanR)) <span class="sc">%&gt;%</span></span>
-<span id="cb154-6"><a href="case-study-1.html#cb154-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">U =</span> R_Male <span class="sc">-</span> n_Female <span class="sc">*</span> (n_Female <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">/</span> <span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="case-study-1.html#cb212-1" tabindex="-1"></a>(ind_num<span class="sc">$</span>mw_test_manual <span class="ot">&lt;-</span> ind_num<span class="sc">$</span>mw_dat <span class="sc">%&gt;%</span> </span>
+<span id="cb212-2"><a href="case-study-1.html#cb212-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">R =</span> <span class="fu">rank</span>(engagement)) <span class="sc">%&gt;%</span></span>
+<span id="cb212-3"><a href="case-study-1.html#cb212-3" tabindex="-1"></a>  <span class="fu">group_by</span>(gender) <span class="sc">%&gt;%</span></span>
+<span id="cb212-4"><a href="case-study-1.html#cb212-4" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span>, <span class="at">n =</span> <span class="fu">n</span>(), <span class="at">R =</span> <span class="fu">sum</span>(R), <span class="at">meanR =</span> <span class="fu">sum</span>(R)<span class="sc">/</span><span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb212-5"><a href="case-study-1.html#cb212-5" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> gender, <span class="at">values_from =</span> <span class="fu">c</span>(n, R, meanR)) <span class="sc">%&gt;%</span></span>
+<span id="cb212-6"><a href="case-study-1.html#cb212-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">U =</span> R_Male <span class="sc">-</span> n_Female <span class="sc">*</span> (n_Female <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">/</span> <span class="dv">2</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 7
 ##   n_Male n_Female R_Male R_Female meanR_Male meanR_Female     U
 ##    &lt;int&gt;    &lt;int&gt;  &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;        &lt;dbl&gt; &lt;dbl&gt;
 ## 1     20       20    465      355       23.2         17.8   255</code></pre>
 <p>Compare the test statistic to the Wilcoxon rank sum distribution with <code>pwilcox()</code>.</p>
-<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="case-study-1.html#cb156-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pwilcox</span>(</span>
-<span id="cb156-2"><a href="case-study-1.html#cb156-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">q =</span> ind_num<span class="sc">$</span>mw_test_manual[<span class="dv">1</span>, ]<span class="sc">$</span>U <span class="sc">-</span> <span class="dv">1</span>, </span>
-<span id="cb156-3"><a href="case-study-1.html#cb156-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">m =</span> ind_num<span class="sc">$</span>mw_test_manual[<span class="dv">1</span>, ]<span class="sc">$</span>n_Male, </span>
-<span id="cb156-4"><a href="case-study-1.html#cb156-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> ind_num<span class="sc">$</span>mw_test_manual[<span class="dv">1</span>, ]<span class="sc">$</span>n_Male, </span>
-<span id="cb156-5"><a href="case-study-1.html#cb156-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">lower.tail =</span> <span class="cn">FALSE</span></span>
-<span id="cb156-6"><a href="case-study-1.html#cb156-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">*</span> <span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="case-study-1.html#cb214-1" tabindex="-1"></a><span class="fu">pwilcox</span>(</span>
+<span id="cb214-2"><a href="case-study-1.html#cb214-2" tabindex="-1"></a>  <span class="at">q =</span> ind_num<span class="sc">$</span>mw_test_manual[<span class="dv">1</span>, ]<span class="sc">$</span>U <span class="sc">-</span> <span class="dv">1</span>, </span>
+<span id="cb214-3"><a href="case-study-1.html#cb214-3" tabindex="-1"></a>  <span class="at">m =</span> ind_num<span class="sc">$</span>mw_test_manual[<span class="dv">1</span>, ]<span class="sc">$</span>n_Male, </span>
+<span id="cb214-4"><a href="case-study-1.html#cb214-4" tabindex="-1"></a>  <span class="at">n =</span> ind_num<span class="sc">$</span>mw_test_manual[<span class="dv">1</span>, ]<span class="sc">$</span>n_Male, </span>
+<span id="cb214-5"><a href="case-study-1.html#cb214-5" tabindex="-1"></a>  <span class="at">lower.tail =</span> <span class="cn">FALSE</span></span>
+<span id="cb214-6"><a href="case-study-1.html#cb214-6" tabindex="-1"></a>) <span class="sc">*</span> <span class="dv">2</span></span></code></pre></div>
 <pre><code>## [1] 0.141705</code></pre>
 <p>There is a function for all this.</p>
-<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="case-study-1.html#cb158-1" aria-hidden="true" tabindex="-1"></a>(ind_num<span class="sc">$</span>mw_test <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(</span>
-<span id="cb158-2"><a href="case-study-1.html#cb158-2" aria-hidden="true" tabindex="-1"></a>  engagement <span class="sc">~</span> gender, </span>
-<span id="cb158-3"><a href="case-study-1.html#cb158-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> ind_num<span class="sc">$</span>mw_dat, </span>
-<span id="cb158-4"><a href="case-study-1.html#cb158-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">exact =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb158-5"><a href="case-study-1.html#cb158-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">correct =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb158-6"><a href="case-study-1.html#cb158-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">conf.int =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="case-study-1.html#cb216-1" tabindex="-1"></a>(ind_num<span class="sc">$</span>mw_test <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(</span>
+<span id="cb216-2"><a href="case-study-1.html#cb216-2" tabindex="-1"></a>  engagement <span class="sc">~</span> gender, </span>
+<span id="cb216-3"><a href="case-study-1.html#cb216-3" tabindex="-1"></a>  <span class="at">data =</span> ind_num<span class="sc">$</span>mw_dat, </span>
+<span id="cb216-4"><a href="case-study-1.html#cb216-4" tabindex="-1"></a>  <span class="at">exact =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb216-5"><a href="case-study-1.html#cb216-5" tabindex="-1"></a>  <span class="at">correct =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb216-6"><a href="case-study-1.html#cb216-6" tabindex="-1"></a>  <span class="at">conf.int =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
 <pre><code>## 
 ##  Wilcoxon rank sum exact test
 ## 

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4.3 One-Sample Median Wilcoxon Test | Statistical Inference</title>
   <meta name="description" content="Notes cobbled together from books, online classes, etc. to be used as quick reference for common work projects." />
-  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4.3 One-Sample Median Wilcoxon Test | Statistical Inference" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Michael Foley" />
 
 
-<meta name="date" content="2023-04-09" />
+<meta name="date" content="2023-10-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,10 +52,10 @@
 <link href="assets/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="assets/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="assets/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="assets/kePrint-0.0.1/kePrint.js"></script>
-<link href="assets/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <link href="assets/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
 <script src="assets/tabwid-1.1.3/tabwid.js"></script>
+<script src="assets/kePrint-0.0.1/kePrint.js"></script>
+<link href="assets/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -123,6 +123,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -149,13 +153,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3" data-path="bayesian-statistics.html"><a href="bayesian-statistics.html"><i class="fa fa-check"></i><b>3</b> Bayesian Statistics</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="bayes-law.html"><a href="bayes-law.html"><i class="fa fa-check"></i><b>3.1</b> Bayes’ Law</a></li>
+<li class="chapter" data-level="3.1" data-path="bayes-theorem.html"><a href="bayes-theorem.html"><i class="fa fa-check"></i><b>3.1</b> Bayes’ Theorem</a></li>
 <li class="chapter" data-level="3.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html"><i class="fa fa-check"></i><b>3.2</b> Bayesian Inference</a></li>
-<li class="chapter" data-level="3.3" data-path="discrete-cases.html"><a href="discrete-cases.html"><i class="fa fa-check"></i><b>3.3</b> Discrete Cases</a></li>
-<li class="chapter" data-level="3.4" data-path="continuous-cases.html"><a href="continuous-cases.html"><i class="fa fa-check"></i><b>3.4</b> Continuous Cases</a></li>
-<li class="chapter" data-level="3.5" data-path="bayes-factors.html"><a href="bayes-factors.html"><i class="fa fa-check"></i><b>3.5</b> Bayes Factors</a></li>
-<li class="chapter" data-level="3.6" data-path="a-gentler-introduction.html"><a href="a-gentler-introduction.html"><i class="fa fa-check"></i><b>3.6</b> A Gentler Introduction</a></li>
-<li class="chapter" data-level="3.7" data-path="coursera-notes-inference.html"><a href="coursera-notes-inference.html"><i class="fa fa-check"></i><b>3.7</b> Coursera Notes Inference</a></li>
+<li class="chapter" data-level="3.3" data-path="bayes-factors.html"><a href="bayes-factors.html"><i class="fa fa-check"></i><b>3.3</b> Bayes Factors</a></li>
+<li class="chapter" data-level="3.4" data-path="gamma-poisson.html"><a href="gamma-poisson.html"><i class="fa fa-check"></i><b>3.4</b> Gamma Poisson</a></li>
+<li class="chapter" data-level="3.5" data-path="normal.html"><a href="normal.html"><i class="fa fa-check"></i><b>3.5</b> Normal</a></li>
+<li class="chapter" data-level="3.6" data-path="proportions-and-the-beta-binomial.html"><a href="proportions-and-the-beta-binomial.html"><i class="fa fa-check"></i><b>3.6</b> Proportions and the Beta Binomial</a></li>
+<li class="chapter" data-level="3.7" data-path="dic.html"><a href="dic.html"><i class="fa fa-check"></i><b>3.7</b> DIC</a></li>
+<li class="chapter" data-level="3.8" data-path="appendix-gentle-introduction.html"><a href="appendix-gentle-introduction.html"><i class="fa fa-check"></i><b>3.8</b> Appendix: Gentle Introduction</a></li>
+<li class="chapter" data-level="3.9" data-path="further-reading-1.html"><a href="further-reading-1.html"><i class="fa fa-check"></i><b>3.9</b> Further Reading</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="one-sample.html"><a href="one-sample.html"><i class="fa fa-check"></i><b>4</b> One-Sample</a>
 <ul>
@@ -231,22 +237,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The Wilcoxon one-sample median test (aka Wilcoxon signed rank test) is a non-parametric alternative to the <em>t</em>-test for cases when the the sampling distribution of the population mean is <em>not</em> normally distributed, but is at least symmetric.</p>
 <p>Under the Wilcoxon test, the measured median, <span class="math inline">\(\eta_x\)</span>, approximates the population median, <span class="math inline">\(\eta\)</span>. The method calculates the difference between each value and the hypothesized median, <span class="math inline">\(\eta_0\)</span>, ranks the difference magnitudes, then sums the ranks for the negative and the positive differences, <span class="math inline">\(W+\)</span> and <span class="math inline">\(W-\)</span>. The test compares the smaller of the two sums to a table of critical values.</p>
 <p>Here is a case study. A store claims their checkout wait times are <span class="math inline">\(\le\)</span> 4 minutes. You challenge the claim by sampling 6 checkout experiences. The mean wait time was 4.6, but the data may violate normality.</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="one-sample-median-wilcoxon-test.html#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">wait =</span> wait) <span class="sc">%&gt;%</span></span>
-<span id="cb87-2"><a href="one-sample-median-wilcoxon-test.html#cb87-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample =</span> wait)) <span class="sc">+</span></span>
-<span id="cb87-3"><a href="one-sample-median-wilcoxon-test.html#cb87-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span></span>
-<span id="cb87-4"><a href="one-sample-median-wilcoxon-test.html#cb87-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>(<span class="at">col =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
-<span id="cb87-5"><a href="one-sample-median-wilcoxon-test.html#cb87-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb87-6"><a href="one-sample-median-wilcoxon-test.html#cb87-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Normal Q-Q Plot&quot;</span>)</span></code></pre></div>
-<p><img src="statistics_files/figure-html/unnamed-chunk-78-1.png" width="672" /></p>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="one-sample-median-wilcoxon-test.html#cb145-1" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">wait =</span> wait) <span class="sc">%&gt;%</span></span>
+<span id="cb145-2"><a href="one-sample-median-wilcoxon-test.html#cb145-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample =</span> wait)) <span class="sc">+</span></span>
+<span id="cb145-3"><a href="one-sample-median-wilcoxon-test.html#cb145-3" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span></span>
+<span id="cb145-4"><a href="one-sample-median-wilcoxon-test.html#cb145-4" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>(<span class="at">col =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
+<span id="cb145-5"><a href="one-sample-median-wilcoxon-test.html#cb145-5" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb145-6"><a href="one-sample-median-wilcoxon-test.html#cb145-6" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Normal Q-Q Plot&quot;</span>)</span></code></pre></div>
+<p><img src="statistics_files/figure-html/unnamed-chunk-88-1.png" width="672" /></p>
 <p>Shapiro-Wilk rejects the null hypothesis of a normally distributed population.</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="one-sample-median-wilcoxon-test.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(wait)</span></code></pre></div>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="one-sample-median-wilcoxon-test.html#cb146-1" tabindex="-1"></a><span class="fu">shapiro.test</span>(wait)</span></code></pre></div>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  wait
 ## W = 0.75105, p-value = 0.0204</code></pre>
 <p>Use the Wilcoxon test instead.</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="one-sample-median-wilcoxon-test.html#cb90-1" aria-hidden="true" tabindex="-1"></a>(wt <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(wait, <span class="at">mu =</span> <span class="dv">4</span>, <span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="one-sample-median-wilcoxon-test.html#cb148-1" tabindex="-1"></a>(wt <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(wait, <span class="at">mu =</span> <span class="dv">4</span>, <span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span>))</span></code></pre></div>
 <pre><code>## Warning in wilcox.test.default(wait, mu = 4, alternative = &quot;greater&quot;): cannot
 ## compute exact p-value with ties</code></pre>
 <pre><code>## 

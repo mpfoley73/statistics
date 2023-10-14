@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4.8 One-Sample Proportion z Test | Statistical Inference</title>
   <meta name="description" content="Notes cobbled together from books, online classes, etc. to be used as quick reference for common work projects." />
-  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4.8 One-Sample Proportion z Test | Statistical Inference" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Michael Foley" />
 
 
-<meta name="date" content="2023-04-09" />
+<meta name="date" content="2023-10-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,10 +52,10 @@
 <link href="assets/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="assets/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="assets/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="assets/kePrint-0.0.1/kePrint.js"></script>
-<link href="assets/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <link href="assets/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
 <script src="assets/tabwid-1.1.3/tabwid.js"></script>
+<script src="assets/kePrint-0.0.1/kePrint.js"></script>
+<link href="assets/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -123,6 +123,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -149,13 +153,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3" data-path="bayesian-statistics.html"><a href="bayesian-statistics.html"><i class="fa fa-check"></i><b>3</b> Bayesian Statistics</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="bayes-law.html"><a href="bayes-law.html"><i class="fa fa-check"></i><b>3.1</b> Bayes’ Law</a></li>
+<li class="chapter" data-level="3.1" data-path="bayes-theorem.html"><a href="bayes-theorem.html"><i class="fa fa-check"></i><b>3.1</b> Bayes’ Theorem</a></li>
 <li class="chapter" data-level="3.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html"><i class="fa fa-check"></i><b>3.2</b> Bayesian Inference</a></li>
-<li class="chapter" data-level="3.3" data-path="discrete-cases.html"><a href="discrete-cases.html"><i class="fa fa-check"></i><b>3.3</b> Discrete Cases</a></li>
-<li class="chapter" data-level="3.4" data-path="continuous-cases.html"><a href="continuous-cases.html"><i class="fa fa-check"></i><b>3.4</b> Continuous Cases</a></li>
-<li class="chapter" data-level="3.5" data-path="bayes-factors.html"><a href="bayes-factors.html"><i class="fa fa-check"></i><b>3.5</b> Bayes Factors</a></li>
-<li class="chapter" data-level="3.6" data-path="a-gentler-introduction.html"><a href="a-gentler-introduction.html"><i class="fa fa-check"></i><b>3.6</b> A Gentler Introduction</a></li>
-<li class="chapter" data-level="3.7" data-path="coursera-notes-inference.html"><a href="coursera-notes-inference.html"><i class="fa fa-check"></i><b>3.7</b> Coursera Notes Inference</a></li>
+<li class="chapter" data-level="3.3" data-path="bayes-factors.html"><a href="bayes-factors.html"><i class="fa fa-check"></i><b>3.3</b> Bayes Factors</a></li>
+<li class="chapter" data-level="3.4" data-path="gamma-poisson.html"><a href="gamma-poisson.html"><i class="fa fa-check"></i><b>3.4</b> Gamma Poisson</a></li>
+<li class="chapter" data-level="3.5" data-path="normal.html"><a href="normal.html"><i class="fa fa-check"></i><b>3.5</b> Normal</a></li>
+<li class="chapter" data-level="3.6" data-path="proportions-and-the-beta-binomial.html"><a href="proportions-and-the-beta-binomial.html"><i class="fa fa-check"></i><b>3.6</b> Proportions and the Beta Binomial</a></li>
+<li class="chapter" data-level="3.7" data-path="dic.html"><a href="dic.html"><i class="fa fa-check"></i><b>3.7</b> DIC</a></li>
+<li class="chapter" data-level="3.8" data-path="appendix-gentle-introduction.html"><a href="appendix-gentle-introduction.html"><i class="fa fa-check"></i><b>3.8</b> Appendix: Gentle Introduction</a></li>
+<li class="chapter" data-level="3.9" data-path="further-reading-1.html"><a href="further-reading-1.html"><i class="fa fa-check"></i><b>3.9</b> Further Reading</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="one-sample.html"><a href="one-sample.html"><i class="fa fa-check"></i><b>4</b> One-Sample</a>
 <ul>
@@ -240,7 +246,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="example-4" class="section level4 unnumbered hasAnchor">
 <h4>Example<a href="one-sample-proportion-z-test.html#example-4" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>A machine is supposed to randomly churn out prizes in 60% of boxes. In a random sample of <em>n</em> = 40 boxes there are prizes in 20 boxes. Is the machine flawed?</p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="one-sample-proportion-z-test.html#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="dv">20</span>, <span class="dv">40</span>, <span class="fl">0.6</span>, <span class="st">&quot;two.sided&quot;</span>, <span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="one-sample-proportion-z-test.html#cb178-1" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="dv">20</span>, <span class="dv">40</span>, <span class="fl">0.6</span>, <span class="st">&quot;two.sided&quot;</span>, <span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## 
 ##  1-sample proportions test without continuity correction
 ## 
@@ -253,43 +259,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   p 
 ## 0.5</code></pre>
 <p>The first thing you’ll notice is that <code>prop.test()</code> performs a chi-squared goodness-of-fit test, not a one-proportion <em>Z</em>-test!</p>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="one-sample-proportion-z-test.html#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">40-20</span>), <span class="at">p =</span> <span class="fu">c</span>(.<span class="dv">6</span>, .<span class="dv">4</span>), <span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="one-sample-proportion-z-test.html#cb180-1" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">40-20</span>), <span class="at">p =</span> <span class="fu">c</span>(.<span class="dv">6</span>, .<span class="dv">4</span>), <span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Chi-squared test for given probabilities
 ## 
 ## data:  c(20, 40 - 20)
 ## X-squared = 1.6667, df = 1, p-value = 0.1967</code></pre>
 <p>It turns out <span class="math inline">\(P(\chi^2 &gt; X^2)\)</span> equals <span class="math inline">\(2 \cdot P(Z &gt; z).\)</span> Here is the manual calculation of the chi-squared test statistic <span class="math inline">\(X^2\)</span> and resulting <em>p</em>-value on 1 dof.</p>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="one-sample-proportion-z-test.html#cb124-1" aria-hidden="true" tabindex="-1"></a>pi_0 <span class="ot">&lt;-</span> .<span class="dv">6</span></span>
-<span id="cb124-2"><a href="one-sample-proportion-z-test.html#cb124-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">20</span> <span class="sc">/</span> <span class="dv">40</span></span>
-<span id="cb124-3"><a href="one-sample-proportion-z-test.html#cb124-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb124-4"><a href="one-sample-proportion-z-test.html#cb124-4" aria-hidden="true" tabindex="-1"></a>observed <span class="ot">&lt;-</span> <span class="fu">c</span>(p, <span class="dv">1</span><span class="sc">-</span>p) <span class="sc">*</span> <span class="dv">40</span></span>
-<span id="cb124-5"><a href="one-sample-proportion-z-test.html#cb124-5" aria-hidden="true" tabindex="-1"></a>expected <span class="ot">&lt;-</span> <span class="fu">c</span>(pi_0, <span class="dv">1</span><span class="sc">-</span>pi_0) <span class="sc">*</span> <span class="dv">40</span></span>
-<span id="cb124-6"><a href="one-sample-proportion-z-test.html#cb124-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb124-7"><a href="one-sample-proportion-z-test.html#cb124-7" aria-hidden="true" tabindex="-1"></a>X2 <span class="ot">&lt;-</span> <span class="fu">sum</span>((observed <span class="sc">-</span> expected)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> expected)</span>
-<span id="cb124-8"><a href="one-sample-proportion-z-test.html#cb124-8" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(X2, <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="one-sample-proportion-z-test.html#cb182-1" tabindex="-1"></a>pi_0 <span class="ot">&lt;-</span> .<span class="dv">6</span></span>
+<span id="cb182-2"><a href="one-sample-proportion-z-test.html#cb182-2" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">20</span> <span class="sc">/</span> <span class="dv">40</span></span>
+<span id="cb182-3"><a href="one-sample-proportion-z-test.html#cb182-3" tabindex="-1"></a></span>
+<span id="cb182-4"><a href="one-sample-proportion-z-test.html#cb182-4" tabindex="-1"></a>observed <span class="ot">&lt;-</span> <span class="fu">c</span>(p, <span class="dv">1</span><span class="sc">-</span>p) <span class="sc">*</span> <span class="dv">40</span></span>
+<span id="cb182-5"><a href="one-sample-proportion-z-test.html#cb182-5" tabindex="-1"></a>expected <span class="ot">&lt;-</span> <span class="fu">c</span>(pi_0, <span class="dv">1</span><span class="sc">-</span>pi_0) <span class="sc">*</span> <span class="dv">40</span></span>
+<span id="cb182-6"><a href="one-sample-proportion-z-test.html#cb182-6" tabindex="-1"></a></span>
+<span id="cb182-7"><a href="one-sample-proportion-z-test.html#cb182-7" tabindex="-1"></a>X2 <span class="ot">&lt;-</span> <span class="fu">sum</span>((observed <span class="sc">-</span> expected)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> expected)</span>
+<span id="cb182-8"><a href="one-sample-proportion-z-test.html#cb182-8" tabindex="-1"></a><span class="fu">pchisq</span>(X2, <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## [1] 0.1967056</code></pre>
 <p>And here is the manual calculation of the <em>Z</em>-test statistic <span class="math inline">\(z\)</span> and resulting <em>p</em>-value.</p>
-<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="one-sample-proportion-z-test.html#cb126-1" aria-hidden="true" tabindex="-1"></a>se <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(pi_0<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>pi_0)) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">40</span>)</span>
-<span id="cb126-2"><a href="one-sample-proportion-z-test.html#cb126-2" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> (p <span class="sc">-</span> pi_0) <span class="sc">/</span> se</span>
-<span id="cb126-3"><a href="one-sample-proportion-z-test.html#cb126-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(z, <span class="at">lower.tail =</span> <span class="cn">TRUE</span>) <span class="sc">*</span> <span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="one-sample-proportion-z-test.html#cb184-1" tabindex="-1"></a>se <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(pi_0<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>pi_0)) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">40</span>)</span>
+<span id="cb184-2"><a href="one-sample-proportion-z-test.html#cb184-2" tabindex="-1"></a>z <span class="ot">&lt;-</span> (p <span class="sc">-</span> pi_0) <span class="sc">/</span> se</span>
+<span id="cb184-3"><a href="one-sample-proportion-z-test.html#cb184-3" tabindex="-1"></a><span class="fu">pnorm</span>(z, <span class="at">lower.tail =</span> <span class="cn">TRUE</span>) <span class="sc">*</span> <span class="dv">2</span></span></code></pre></div>
 <pre><code>## [1] 0.1967056</code></pre>
 <p>The 95% CI presented by <code>prop.test()</code> is also not the <span class="math inline">\(p \pm z_{\alpha / 2}se_p\)</span> Wald interval; it is the <em>Wilson</em> interval!</p>
-<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="one-sample-proportion-z-test.html#cb128-1" aria-hidden="true" tabindex="-1"></a>DescTools<span class="sc">::</span><span class="fu">BinomCI</span>(<span class="dv">20</span>, <span class="dv">40</span>, <span class="at">method =</span> <span class="st">&quot;wilson&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="one-sample-proportion-z-test.html#cb186-1" tabindex="-1"></a>DescTools<span class="sc">::</span><span class="fu">BinomCI</span>(<span class="dv">20</span>, <span class="dv">40</span>, <span class="at">method =</span> <span class="st">&quot;wilson&quot;</span>)</span></code></pre></div>
 <pre><code>##      est    lwr.ci    upr.ci
 ## [1,] 0.5 0.3519953 0.6480047</code></pre>
 <p>There are a lot of methods (<em>see</em> <code>?DescTools::BinomCI</code>), and <em>Wilson</em> is the one Agresti-Coull recommends. If you want <em>Wald</em>, use <code>DescTools::BinomCI()</code> with <code>method = "wald"</code>.</p>
-<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="one-sample-proportion-z-test.html#cb130-1" aria-hidden="true" tabindex="-1"></a>DescTools<span class="sc">::</span><span class="fu">BinomCI</span>(<span class="dv">20</span>, <span class="dv">40</span>, <span class="at">method =</span> <span class="st">&quot;wald&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="one-sample-proportion-z-test.html#cb188-1" tabindex="-1"></a>DescTools<span class="sc">::</span><span class="fu">BinomCI</span>(<span class="dv">20</span>, <span class="dv">40</span>, <span class="at">method =</span> <span class="st">&quot;wald&quot;</span>)</span></code></pre></div>
 <pre><code>##      est    lwr.ci    upr.ci
 ## [1,] 0.5 0.3450512 0.6549488</code></pre>
 <p>This matches the manual calculation below.</p>
-<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="one-sample-proportion-z-test.html#cb132-1" aria-hidden="true" tabindex="-1"></a>z_crit <span class="ot">=</span> <span class="fu">qnorm</span>(<span class="dv">1</span> <span class="sc">-</span> .<span class="dv">05</span><span class="sc">/</span><span class="dv">2</span>)</span>
-<span id="cb132-2"><a href="one-sample-proportion-z-test.html#cb132-2" aria-hidden="true" tabindex="-1"></a>se <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(p<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p)) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">40</span>)</span>
-<span id="cb132-3"><a href="one-sample-proportion-z-test.html#cb132-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb132-4"><a href="one-sample-proportion-z-test.html#cb132-4" aria-hidden="true" tabindex="-1"></a>(CI <span class="ot">&lt;-</span> <span class="fu">c</span>(p <span class="sc">-</span> z_crit<span class="sc">*</span>se, p <span class="sc">+</span> z_crit<span class="sc">*</span>se))</span></code></pre></div>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="one-sample-proportion-z-test.html#cb190-1" tabindex="-1"></a>z_crit <span class="ot">=</span> <span class="fu">qnorm</span>(<span class="dv">1</span> <span class="sc">-</span> .<span class="dv">05</span><span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb190-2"><a href="one-sample-proportion-z-test.html#cb190-2" tabindex="-1"></a>se <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(p<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p)) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">40</span>)</span>
+<span id="cb190-3"><a href="one-sample-proportion-z-test.html#cb190-3" tabindex="-1"></a></span>
+<span id="cb190-4"><a href="one-sample-proportion-z-test.html#cb190-4" tabindex="-1"></a>(CI <span class="ot">&lt;-</span> <span class="fu">c</span>(p <span class="sc">-</span> z_crit<span class="sc">*</span>se, p <span class="sc">+</span> z_crit<span class="sc">*</span>se))</span></code></pre></div>
 <pre><code>## [1] 0.3450512 0.6549488</code></pre>
 <p><code>prop.test()</code> (and <code>chissq.test()</code>) reported a <em>p</em>-value of 0.1967056, so you cannot reject the null hypothesis that <span class="math inline">\(\pi = 0.6\)</span>. It’s good practice to plot this out to make sure your head is on straight.</p>
-<p><img src="statistics_files/figure-html/unnamed-chunk-114-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p><img src="statistics_files/figure-html/unnamed-chunk-124-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>Incidentally, if you have a margin of error requirement, you can back into the required sample size to achieve it. Just solve the margin of error equation <span class="math inline">\(\epsilon = z_{\alpha/2}^2 = \sqrt{\frac{\pi_0(1-\pi_0)}{n}}\)</span> for <span class="math inline">\(n = \frac{z_{\alpha/2}^2 \pi_0(1-\pi_0)}{\epsilon^2}.\)</span></p>
 </div>
 </div>

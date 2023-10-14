@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>7.1 Central Tendancy, Dispersion, and Association | Statistical Inference</title>
   <meta name="description" content="Notes cobbled together from books, online classes, etc. to be used as quick reference for common work projects." />
-  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
   <meta property="og:title" content="7.1 Central Tendancy, Dispersion, and Association | Statistical Inference" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Michael Foley" />
 
 
-<meta name="date" content="2023-04-09" />
+<meta name="date" content="2023-10-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,10 +52,10 @@
 <link href="assets/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="assets/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="assets/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="assets/kePrint-0.0.1/kePrint.js"></script>
-<link href="assets/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <link href="assets/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
 <script src="assets/tabwid-1.1.3/tabwid.js"></script>
+<script src="assets/kePrint-0.0.1/kePrint.js"></script>
+<link href="assets/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -123,6 +123,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -149,13 +153,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3" data-path="bayesian-statistics.html"><a href="bayesian-statistics.html"><i class="fa fa-check"></i><b>3</b> Bayesian Statistics</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="bayes-law.html"><a href="bayes-law.html"><i class="fa fa-check"></i><b>3.1</b> Bayes’ Law</a></li>
+<li class="chapter" data-level="3.1" data-path="bayes-theorem.html"><a href="bayes-theorem.html"><i class="fa fa-check"></i><b>3.1</b> Bayes’ Theorem</a></li>
 <li class="chapter" data-level="3.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html"><i class="fa fa-check"></i><b>3.2</b> Bayesian Inference</a></li>
-<li class="chapter" data-level="3.3" data-path="discrete-cases.html"><a href="discrete-cases.html"><i class="fa fa-check"></i><b>3.3</b> Discrete Cases</a></li>
-<li class="chapter" data-level="3.4" data-path="continuous-cases.html"><a href="continuous-cases.html"><i class="fa fa-check"></i><b>3.4</b> Continuous Cases</a></li>
-<li class="chapter" data-level="3.5" data-path="bayes-factors.html"><a href="bayes-factors.html"><i class="fa fa-check"></i><b>3.5</b> Bayes Factors</a></li>
-<li class="chapter" data-level="3.6" data-path="a-gentler-introduction.html"><a href="a-gentler-introduction.html"><i class="fa fa-check"></i><b>3.6</b> A Gentler Introduction</a></li>
-<li class="chapter" data-level="3.7" data-path="coursera-notes-inference.html"><a href="coursera-notes-inference.html"><i class="fa fa-check"></i><b>3.7</b> Coursera Notes Inference</a></li>
+<li class="chapter" data-level="3.3" data-path="bayes-factors.html"><a href="bayes-factors.html"><i class="fa fa-check"></i><b>3.3</b> Bayes Factors</a></li>
+<li class="chapter" data-level="3.4" data-path="gamma-poisson.html"><a href="gamma-poisson.html"><i class="fa fa-check"></i><b>3.4</b> Gamma Poisson</a></li>
+<li class="chapter" data-level="3.5" data-path="normal.html"><a href="normal.html"><i class="fa fa-check"></i><b>3.5</b> Normal</a></li>
+<li class="chapter" data-level="3.6" data-path="proportions-and-the-beta-binomial.html"><a href="proportions-and-the-beta-binomial.html"><i class="fa fa-check"></i><b>3.6</b> Proportions and the Beta Binomial</a></li>
+<li class="chapter" data-level="3.7" data-path="dic.html"><a href="dic.html"><i class="fa fa-check"></i><b>3.7</b> DIC</a></li>
+<li class="chapter" data-level="3.8" data-path="appendix-gentle-introduction.html"><a href="appendix-gentle-introduction.html"><i class="fa fa-check"></i><b>3.8</b> Appendix: Gentle Introduction</a></li>
+<li class="chapter" data-level="3.9" data-path="further-reading-1.html"><a href="further-reading-1.html"><i class="fa fa-check"></i><b>3.9</b> Further Reading</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="one-sample.html"><a href="one-sample.html"><i class="fa fa-check"></i><b>4</b> One-Sample</a>
 <ul>
@@ -254,17 +260,17 @@ S &amp;= \frac{1}{n-1} \sum_{i=1}^n (X_i - \bar{x}) (X_i - \bar{x})&#39; \\
 <div id="example-6" class="section level4 unnumbered hasAnchor">
 <h4>Example<a href="central-tendancy-dispersion-and-association.html#example-6" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>File nutrient.txt is from <a href="https://online.stat.psu.edu/stat505/lesson/1/1.4">PSU STAT 505</a>.</p>
-<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="central-tendancy-dispersion-and-association.html#cb262-1" aria-hidden="true" tabindex="-1"></a>nutrient <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_fwf</span>(</span>
-<span id="cb262-2"><a href="central-tendancy-dispersion-and-association.html#cb262-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">file =</span> <span class="st">&quot;./input/nutrient.txt&quot;</span>, </span>
-<span id="cb262-3"><a href="central-tendancy-dispersion-and-association.html#cb262-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_positions =</span> readr<span class="sc">::</span><span class="fu">fwf_widths</span>(</span>
-<span id="cb262-4"><a href="central-tendancy-dispersion-and-association.html#cb262-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">8</span>, <span class="dv">8</span>, <span class="dv">8</span>, <span class="dv">8</span>, <span class="dv">8</span>),</span>
-<span id="cb262-5"><a href="central-tendancy-dispersion-and-association.html#cb262-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">col_names =</span> <span class="fu">c</span>(<span class="st">&quot;ID&quot;</span>, <span class="st">&quot;Calcium&quot;</span>, <span class="st">&quot;Iron&quot;</span>, <span class="st">&quot;Protien&quot;</span>, <span class="st">&quot;Vitamin A&quot;</span>, <span class="st">&quot;Vitamin C&quot;</span>)</span>
-<span id="cb262-6"><a href="central-tendancy-dispersion-and-association.html#cb262-6" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb262-7"><a href="central-tendancy-dispersion-and-association.html#cb262-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">show_col_types =</span> <span class="cn">FALSE</span></span>
-<span id="cb262-8"><a href="central-tendancy-dispersion-and-association.html#cb262-8" aria-hidden="true" tabindex="-1"></a>) </span></code></pre></div>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="central-tendancy-dispersion-and-association.html#cb319-1" tabindex="-1"></a>nutrient <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_fwf</span>(</span>
+<span id="cb319-2"><a href="central-tendancy-dispersion-and-association.html#cb319-2" tabindex="-1"></a>  <span class="at">file =</span> <span class="st">&quot;./input/nutrient.txt&quot;</span>, </span>
+<span id="cb319-3"><a href="central-tendancy-dispersion-and-association.html#cb319-3" tabindex="-1"></a>  <span class="at">col_positions =</span> readr<span class="sc">::</span><span class="fu">fwf_widths</span>(</span>
+<span id="cb319-4"><a href="central-tendancy-dispersion-and-association.html#cb319-4" tabindex="-1"></a>    <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">8</span>, <span class="dv">8</span>, <span class="dv">8</span>, <span class="dv">8</span>, <span class="dv">8</span>),</span>
+<span id="cb319-5"><a href="central-tendancy-dispersion-and-association.html#cb319-5" tabindex="-1"></a>    <span class="at">col_names =</span> <span class="fu">c</span>(<span class="st">&quot;ID&quot;</span>, <span class="st">&quot;Calcium&quot;</span>, <span class="st">&quot;Iron&quot;</span>, <span class="st">&quot;Protien&quot;</span>, <span class="st">&quot;Vitamin A&quot;</span>, <span class="st">&quot;Vitamin C&quot;</span>)</span>
+<span id="cb319-6"><a href="central-tendancy-dispersion-and-association.html#cb319-6" tabindex="-1"></a>  ),</span>
+<span id="cb319-7"><a href="central-tendancy-dispersion-and-association.html#cb319-7" tabindex="-1"></a>  <span class="at">show_col_types =</span> <span class="cn">FALSE</span></span>
+<span id="cb319-8"><a href="central-tendancy-dispersion-and-association.html#cb319-8" tabindex="-1"></a>) </span></code></pre></div>
 <p>This is an 737 <span class="math inline">\(\times\)</span> 5 data set.</p>
-<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="central-tendancy-dispersion-and-association.html#cb263-1" aria-hidden="true" tabindex="-1"></a>(nutrient_smry <span class="ot">&lt;-</span> nutrient <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>ID) <span class="sc">%&gt;%</span></span>
-<span id="cb263-2"><a href="central-tendancy-dispersion-and-association.html#cb263-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">M =</span> <span class="fu">mean</span>(value), <span class="at">SD =</span> <span class="fu">sd</span>(value), <span class="at">.by =</span> name))</span></code></pre></div>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="central-tendancy-dispersion-and-association.html#cb320-1" tabindex="-1"></a>(nutrient_smry <span class="ot">&lt;-</span> nutrient <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>ID) <span class="sc">%&gt;%</span></span>
+<span id="cb320-2"><a href="central-tendancy-dispersion-and-association.html#cb320-2" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">M =</span> <span class="fu">mean</span>(value), <span class="at">SD =</span> <span class="fu">sd</span>(value), <span class="at">.by =</span> name))</span></code></pre></div>
 <pre><code>## # A tibble: 5 × 3
 ##   name          M      SD
 ##   &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;
@@ -274,12 +280,12 @@ S &amp;= \frac{1}{n-1} \sum_{i=1}^n (X_i - \bar{x}) (X_i - \bar{x})&#39; \\
 ## 4 Vitamin A 840.  1634.  
 ## 5 Vitamin C  78.9   73.6</code></pre>
 <p>Calculate the variance-covariance matrix with matrix algebra. Notice the transpose step, <code>t()</code>, to convert the <span class="math inline">\(i \times j\)</span> data set into the <span class="math inline">\(j \times i\)</span> matrix .</p>
-<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="central-tendancy-dispersion-and-association.html#cb265-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> nutrient <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>ID) <span class="sc">%&gt;%</span> <span class="fu">as.matrix</span>() <span class="sc">%&gt;%</span> <span class="fu">t</span>()</span>
-<span id="cb265-2"><a href="central-tendancy-dispersion-and-association.html#cb265-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb265-3"><a href="central-tendancy-dispersion-and-association.html#cb265-3" aria-hidden="true" tabindex="-1"></a>varcov_mtrx <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> (<span class="fu">nrow</span>(nutrient) <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> </span>
-<span id="cb265-4"><a href="central-tendancy-dispersion-and-association.html#cb265-4" aria-hidden="true" tabindex="-1"></a>    (X <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">-</span> <span class="fu">rowSums</span>(X) <span class="sc">%*%</span> <span class="fu">t</span>(<span class="fu">rowSums</span>(X)) <span class="sc">/</span> <span class="fu">nrow</span>(nutrient))</span>
-<span id="cb265-5"><a href="central-tendancy-dispersion-and-association.html#cb265-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb265-6"><a href="central-tendancy-dispersion-and-association.html#cb265-6" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(varcov_mtrx, <span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="central-tendancy-dispersion-and-association.html#cb322-1" tabindex="-1"></a>X <span class="ot">&lt;-</span> nutrient <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>ID) <span class="sc">%&gt;%</span> <span class="fu">as.matrix</span>() <span class="sc">%&gt;%</span> <span class="fu">t</span>()</span>
+<span id="cb322-2"><a href="central-tendancy-dispersion-and-association.html#cb322-2" tabindex="-1"></a></span>
+<span id="cb322-3"><a href="central-tendancy-dispersion-and-association.html#cb322-3" tabindex="-1"></a>varcov_mtrx <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> (<span class="fu">nrow</span>(nutrient) <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> </span>
+<span id="cb322-4"><a href="central-tendancy-dispersion-and-association.html#cb322-4" tabindex="-1"></a>    (X <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">-</span> <span class="fu">rowSums</span>(X) <span class="sc">%*%</span> <span class="fu">t</span>(<span class="fu">rowSums</span>(X)) <span class="sc">/</span> <span class="fu">nrow</span>(nutrient))</span>
+<span id="cb322-5"><a href="central-tendancy-dispersion-and-association.html#cb322-5" tabindex="-1"></a></span>
+<span id="cb322-6"><a href="central-tendancy-dispersion-and-association.html#cb322-6" tabindex="-1"></a><span class="fu">round</span>(varcov_mtrx, <span class="dv">0</span>)</span></code></pre></div>
 <pre><code>##           Calcium Iron Protien Vitamin A Vitamin C
 ## Calcium    157829  940    6076    102411      6702
 ## Iron          940   36     114      2383       138
@@ -287,11 +293,11 @@ S &amp;= \frac{1}{n-1} \sum_{i=1}^n (X_i - \bar{x}) (X_i - \bar{x})&#39; \\
 ## Vitamin A  102411 2383    7330   2668452     22063
 ## Vitamin C    6702  138     477     22063      5416</code></pre>
 <p>Divide by the product of the standard deviations to get the correlation matrix.</p>
-<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="central-tendancy-dispersion-and-association.html#cb267-1" aria-hidden="true" tabindex="-1"></a>sd_prd <span class="ot">&lt;-</span> nutrient_smry<span class="sc">$</span>SD <span class="sc">%*%</span> <span class="fu">t</span>(nutrient_smry<span class="sc">$</span>SD)</span>
-<span id="cb267-2"><a href="central-tendancy-dispersion-and-association.html#cb267-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb267-3"><a href="central-tendancy-dispersion-and-association.html#cb267-3" aria-hidden="true" tabindex="-1"></a>corr_mtrx <span class="ot">&lt;-</span> varcov_mtrx <span class="sc">/</span> sd_prd</span>
-<span id="cb267-4"><a href="central-tendancy-dispersion-and-association.html#cb267-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb267-5"><a href="central-tendancy-dispersion-and-association.html#cb267-5" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(corr_mtrx, <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="central-tendancy-dispersion-and-association.html#cb324-1" tabindex="-1"></a>sd_prd <span class="ot">&lt;-</span> nutrient_smry<span class="sc">$</span>SD <span class="sc">%*%</span> <span class="fu">t</span>(nutrient_smry<span class="sc">$</span>SD)</span>
+<span id="cb324-2"><a href="central-tendancy-dispersion-and-association.html#cb324-2" tabindex="-1"></a></span>
+<span id="cb324-3"><a href="central-tendancy-dispersion-and-association.html#cb324-3" tabindex="-1"></a>corr_mtrx <span class="ot">&lt;-</span> varcov_mtrx <span class="sc">/</span> sd_prd</span>
+<span id="cb324-4"><a href="central-tendancy-dispersion-and-association.html#cb324-4" tabindex="-1"></a></span>
+<span id="cb324-5"><a href="central-tendancy-dispersion-and-association.html#cb324-5" tabindex="-1"></a><span class="fu">round</span>(corr_mtrx, <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>##           Calcium  Iron Protien Vitamin A Vitamin C
 ## Calcium     1.000 0.395   0.500     0.158     0.229
 ## Iron        0.395 1.000   0.623     0.244     0.313
@@ -299,7 +305,7 @@ S &amp;= \frac{1}{n-1} \sum_{i=1}^n (X_i - \bar{x}) (X_i - \bar{x})&#39; \\
 ## Vitamin A   0.158 0.244   0.147     1.000     0.184
 ## Vitamin C   0.229 0.313   0.212     0.184     1.000</code></pre>
 <p>That’s what <code>cor()</code> does.</p>
-<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="central-tendancy-dispersion-and-association.html#cb269-1" aria-hidden="true" tabindex="-1"></a>nutrient <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>ID) <span class="sc">%&gt;%</span> <span class="fu">cor</span>() <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="central-tendancy-dispersion-and-association.html#cb326-1" tabindex="-1"></a>nutrient <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>ID) <span class="sc">%&gt;%</span> <span class="fu">cor</span>() <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>##           Calcium  Iron Protien Vitamin A Vitamin C
 ## Calcium     1.000 0.395   0.500     0.158     0.229
 ## Iron        0.395 1.000   0.623     0.244     0.313
@@ -307,9 +313,9 @@ S &amp;= \frac{1}{n-1} \sum_{i=1}^n (X_i - \bar{x}) (X_i - \bar{x})&#39; \\
 ## Vitamin A   0.158 0.244   0.147     1.000     0.184
 ## Vitamin C   0.229 0.313   0.212     0.184     1.000</code></pre>
 <p>The <em>coefficient of determination</em> is the square of the correlation coefficient. Interpret cell (1, 2) below as 15.6% of the variation in iron is explained by calcium intake, or vice-versa.</p>
-<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="central-tendancy-dispersion-and-association.html#cb271-1" aria-hidden="true" tabindex="-1"></a>r_sqr_mtrx <span class="ot">&lt;-</span> corr_mtrx<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb271-2"><a href="central-tendancy-dispersion-and-association.html#cb271-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb271-3"><a href="central-tendancy-dispersion-and-association.html#cb271-3" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(r_sqr_mtrx, <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="central-tendancy-dispersion-and-association.html#cb328-1" tabindex="-1"></a>r_sqr_mtrx <span class="ot">&lt;-</span> corr_mtrx<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb328-2"><a href="central-tendancy-dispersion-and-association.html#cb328-2" tabindex="-1"></a></span>
+<span id="cb328-3"><a href="central-tendancy-dispersion-and-association.html#cb328-3" tabindex="-1"></a><span class="fu">round</span>(r_sqr_mtrx, <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>##           Calcium  Iron Protien Vitamin A Vitamin C
 ## Calcium     1.000 0.156   0.250     0.025     0.053
 ## Iron        0.156 1.000   0.389     0.059     0.098
@@ -317,14 +323,14 @@ S &amp;= \frac{1}{n-1} \sum_{i=1}^n (X_i - \bar{x}) (X_i - \bar{x})&#39; \\
 ## Vitamin A   0.025 0.059   0.022     1.000     0.034
 ## Vitamin C   0.053 0.098   0.045     0.034     1.000</code></pre>
 <p>The total variation of the nutrient data set is the trace of the covariance-variance matrix.</p>
-<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="central-tendancy-dispersion-and-association.html#cb273-1" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">tr</span>(varcov_mtrx)</span>
-<span id="cb273-2"><a href="central-tendancy-dispersion-and-association.html#cb273-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 2832669</span></span>
-<span id="cb273-3"><a href="central-tendancy-dispersion-and-association.html#cb273-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb273-4"><a href="central-tendancy-dispersion-and-association.html#cb273-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Or just the sum of the variances</span></span>
-<span id="cb273-5"><a href="central-tendancy-dispersion-and-association.html#cb273-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>((nutrient_smry<span class="sc">$</span>SD)<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb273-6"><a href="central-tendancy-dispersion-and-association.html#cb273-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 2832669</span></span></code></pre></div>
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="central-tendancy-dispersion-and-association.html#cb330-1" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">tr</span>(varcov_mtrx)</span>
+<span id="cb330-2"><a href="central-tendancy-dispersion-and-association.html#cb330-2" tabindex="-1"></a><span class="do">## [1] 2832669</span></span>
+<span id="cb330-3"><a href="central-tendancy-dispersion-and-association.html#cb330-3" tabindex="-1"></a></span>
+<span id="cb330-4"><a href="central-tendancy-dispersion-and-association.html#cb330-4" tabindex="-1"></a><span class="co"># Or just the sum of the variances</span></span>
+<span id="cb330-5"><a href="central-tendancy-dispersion-and-association.html#cb330-5" tabindex="-1"></a><span class="fu">sum</span>((nutrient_smry<span class="sc">$</span>SD)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb330-6"><a href="central-tendancy-dispersion-and-association.html#cb330-6" tabindex="-1"></a><span class="do">## [1] 2832669</span></span></code></pre></div>
 <p>The generalized variance is the determinant.</p>
-<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="central-tendancy-dispersion-and-association.html#cb274-1" aria-hidden="true" tabindex="-1"></a><span class="fu">det</span>(varcov_mtrx)</span></code></pre></div>
+<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="central-tendancy-dispersion-and-association.html#cb331-1" tabindex="-1"></a><span class="fu">det</span>(varcov_mtrx)</span></code></pre></div>
 <pre><code>## [1] 2.831042e+19</code></pre>
 </div>
 </div>

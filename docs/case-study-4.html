@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Case Study 4 | Statistical Inference</title>
   <meta name="description" content="Notes cobbled together from books, online classes, etc. to be used as quick reference for common work projects." />
-  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Case Study 4 | Statistical Inference" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Michael Foley" />
 
 
-<meta name="date" content="2023-04-09" />
+<meta name="date" content="2023-10-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,10 +52,10 @@
 <link href="assets/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="assets/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="assets/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="assets/kePrint-0.0.1/kePrint.js"></script>
-<link href="assets/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <link href="assets/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
 <script src="assets/tabwid-1.1.3/tabwid.js"></script>
+<script src="assets/kePrint-0.0.1/kePrint.js"></script>
+<link href="assets/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -123,6 +123,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -149,13 +153,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3" data-path="bayesian-statistics.html"><a href="bayesian-statistics.html"><i class="fa fa-check"></i><b>3</b> Bayesian Statistics</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="bayes-law.html"><a href="bayes-law.html"><i class="fa fa-check"></i><b>3.1</b> Bayes’ Law</a></li>
+<li class="chapter" data-level="3.1" data-path="bayes-theorem.html"><a href="bayes-theorem.html"><i class="fa fa-check"></i><b>3.1</b> Bayes’ Theorem</a></li>
 <li class="chapter" data-level="3.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html"><i class="fa fa-check"></i><b>3.2</b> Bayesian Inference</a></li>
-<li class="chapter" data-level="3.3" data-path="discrete-cases.html"><a href="discrete-cases.html"><i class="fa fa-check"></i><b>3.3</b> Discrete Cases</a></li>
-<li class="chapter" data-level="3.4" data-path="continuous-cases.html"><a href="continuous-cases.html"><i class="fa fa-check"></i><b>3.4</b> Continuous Cases</a></li>
-<li class="chapter" data-level="3.5" data-path="bayes-factors.html"><a href="bayes-factors.html"><i class="fa fa-check"></i><b>3.5</b> Bayes Factors</a></li>
-<li class="chapter" data-level="3.6" data-path="a-gentler-introduction.html"><a href="a-gentler-introduction.html"><i class="fa fa-check"></i><b>3.6</b> A Gentler Introduction</a></li>
-<li class="chapter" data-level="3.7" data-path="coursera-notes-inference.html"><a href="coursera-notes-inference.html"><i class="fa fa-check"></i><b>3.7</b> Coursera Notes Inference</a></li>
+<li class="chapter" data-level="3.3" data-path="bayes-factors.html"><a href="bayes-factors.html"><i class="fa fa-check"></i><b>3.3</b> Bayes Factors</a></li>
+<li class="chapter" data-level="3.4" data-path="gamma-poisson.html"><a href="gamma-poisson.html"><i class="fa fa-check"></i><b>3.4</b> Gamma Poisson</a></li>
+<li class="chapter" data-level="3.5" data-path="normal.html"><a href="normal.html"><i class="fa fa-check"></i><b>3.5</b> Normal</a></li>
+<li class="chapter" data-level="3.6" data-path="proportions-and-the-beta-binomial.html"><a href="proportions-and-the-beta-binomial.html"><i class="fa fa-check"></i><b>3.6</b> Proportions and the Beta Binomial</a></li>
+<li class="chapter" data-level="3.7" data-path="dic.html"><a href="dic.html"><i class="fa fa-check"></i><b>3.7</b> DIC</a></li>
+<li class="chapter" data-level="3.8" data-path="appendix-gentle-introduction.html"><a href="appendix-gentle-introduction.html"><i class="fa fa-check"></i><b>3.8</b> Appendix: Gentle Introduction</a></li>
+<li class="chapter" data-level="3.9" data-path="further-reading-1.html"><a href="further-reading-1.html"><i class="fa fa-check"></i><b>3.9</b> Further Reading</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="one-sample.html"><a href="one-sample.html"><i class="fa fa-check"></i><b>4</b> One-Sample</a>
 <ul>
@@ -230,7 +236,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2>Case Study 4<a href="case-study-4.html#case-study-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The case study below uses a data set from <a href="https://statistics.laerd.com/">Laerd</a> and a second modified version. The first data set passes the chi-square test of homogeneity requirements. The second (in parentheses), fails the n-sizes test.</p>
 <p>A researcher recruits 100 (50) patients who have a “high” classification of cholesterol and who currently have a poor lifestyle. The researcher randomly assigns 50 (25) of them to a drug intervention and 50 (25) to a lifestyle intervention. After six months, a doctor reclassifies the patients as either still having a “high” classification of cholesterol or now having a “normal” classification of cholesterol.</p>
-<p><img src="statistics_files/figure-html/unnamed-chunk-175-1.png" width="720" /></p>
+<p><img src="statistics_files/figure-html/unnamed-chunk-185-1.png" width="720" /></p>
 <p>The chi-sq data set has the following summary statistics.</p>
 <p>The Fisher data set has the following summary statistics.</p>
 <div id="conditions-6" class="section level4 unnumbered hasAnchor">
@@ -251,9 +257,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4>Test<a href="case-study-4.html#test-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <div id="chi-square" class="section level5 unnumbered hasAnchor">
 <h5>Chi-Square<a href="case-study-4.html#chi-square" class="anchor-section" aria-label="Anchor link to header"></a></h5>
-<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="case-study-4.html#cb207-1" aria-hidden="true" tabindex="-1"></a>(ind_discrete<span class="sc">$</span>chisq_test <span class="ot">&lt;-</span> ind_discrete<span class="sc">$</span>chisq_dat <span class="sc">%&gt;%</span></span>
-<span id="cb207-2"><a href="case-study-4.html#cb207-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabyl</span>(intervention, risk_level) <span class="sc">%&gt;%</span></span>
-<span id="cb207-3"><a href="case-study-4.html#cb207-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">chisq.test</span>(<span class="at">correct =</span> <span class="cn">FALSE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="case-study-4.html#cb265-1" tabindex="-1"></a>(ind_discrete<span class="sc">$</span>chisq_test <span class="ot">&lt;-</span> ind_discrete<span class="sc">$</span>chisq_dat <span class="sc">%&gt;%</span></span>
+<span id="cb265-2"><a href="case-study-4.html#cb265-2" tabindex="-1"></a>  <span class="fu">tabyl</span>(intervention, risk_level) <span class="sc">%&gt;%</span></span>
+<span id="cb265-3"><a href="case-study-4.html#cb265-3" tabindex="-1"></a>  <span class="fu">chisq.test</span>(<span class="at">correct =</span> <span class="cn">FALSE</span>))</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s Chi-squared test
 ## 
@@ -265,9 +271,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="fisher" class="section level5 unnumbered hasAnchor">
 <h5>Fisher<a href="case-study-4.html#fisher" class="anchor-section" aria-label="Anchor link to header"></a></h5>
-<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="case-study-4.html#cb209-1" aria-hidden="true" tabindex="-1"></a>(ind_discrete<span class="sc">$</span>fisher_test <span class="ot">&lt;-</span> ind_discrete<span class="sc">$</span>fisher_dat <span class="sc">%&gt;%</span></span>
-<span id="cb209-2"><a href="case-study-4.html#cb209-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabyl</span>(intervention, risk_level) <span class="sc">%&gt;%</span></span>
-<span id="cb209-3"><a href="case-study-4.html#cb209-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fisher.test</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="case-study-4.html#cb267-1" tabindex="-1"></a>(ind_discrete<span class="sc">$</span>fisher_test <span class="ot">&lt;-</span> ind_discrete<span class="sc">$</span>fisher_dat <span class="sc">%&gt;%</span></span>
+<span id="cb267-2"><a href="case-study-4.html#cb267-2" tabindex="-1"></a>  <span class="fu">tabyl</span>(intervention, risk_level) <span class="sc">%&gt;%</span></span>
+<span id="cb267-3"><a href="case-study-4.html#cb267-3" tabindex="-1"></a>  <span class="fu">fisher.test</span>())</span></code></pre></div>
 <pre><code>## 
 ##  Fisher&#39;s Exact Test for Count Data
 ## 

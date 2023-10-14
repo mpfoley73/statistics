@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4.5 G-Test | Statistical Inference</title>
   <meta name="description" content="Notes cobbled together from books, online classes, etc. to be used as quick reference for common work projects." />
-  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4.5 G-Test | Statistical Inference" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Michael Foley" />
 
 
-<meta name="date" content="2023-04-09" />
+<meta name="date" content="2023-10-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,10 +52,10 @@
 <link href="assets/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="assets/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="assets/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="assets/kePrint-0.0.1/kePrint.js"></script>
-<link href="assets/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <link href="assets/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
 <script src="assets/tabwid-1.1.3/tabwid.js"></script>
+<script src="assets/kePrint-0.0.1/kePrint.js"></script>
+<link href="assets/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -123,6 +123,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -149,13 +153,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3" data-path="bayesian-statistics.html"><a href="bayesian-statistics.html"><i class="fa fa-check"></i><b>3</b> Bayesian Statistics</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="bayes-law.html"><a href="bayes-law.html"><i class="fa fa-check"></i><b>3.1</b> Bayes’ Law</a></li>
+<li class="chapter" data-level="3.1" data-path="bayes-theorem.html"><a href="bayes-theorem.html"><i class="fa fa-check"></i><b>3.1</b> Bayes’ Theorem</a></li>
 <li class="chapter" data-level="3.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html"><i class="fa fa-check"></i><b>3.2</b> Bayesian Inference</a></li>
-<li class="chapter" data-level="3.3" data-path="discrete-cases.html"><a href="discrete-cases.html"><i class="fa fa-check"></i><b>3.3</b> Discrete Cases</a></li>
-<li class="chapter" data-level="3.4" data-path="continuous-cases.html"><a href="continuous-cases.html"><i class="fa fa-check"></i><b>3.4</b> Continuous Cases</a></li>
-<li class="chapter" data-level="3.5" data-path="bayes-factors.html"><a href="bayes-factors.html"><i class="fa fa-check"></i><b>3.5</b> Bayes Factors</a></li>
-<li class="chapter" data-level="3.6" data-path="a-gentler-introduction.html"><a href="a-gentler-introduction.html"><i class="fa fa-check"></i><b>3.6</b> A Gentler Introduction</a></li>
-<li class="chapter" data-level="3.7" data-path="coursera-notes-inference.html"><a href="coursera-notes-inference.html"><i class="fa fa-check"></i><b>3.7</b> Coursera Notes Inference</a></li>
+<li class="chapter" data-level="3.3" data-path="bayes-factors.html"><a href="bayes-factors.html"><i class="fa fa-check"></i><b>3.3</b> Bayes Factors</a></li>
+<li class="chapter" data-level="3.4" data-path="gamma-poisson.html"><a href="gamma-poisson.html"><i class="fa fa-check"></i><b>3.4</b> Gamma Poisson</a></li>
+<li class="chapter" data-level="3.5" data-path="normal.html"><a href="normal.html"><i class="fa fa-check"></i><b>3.5</b> Normal</a></li>
+<li class="chapter" data-level="3.6" data-path="proportions-and-the-beta-binomial.html"><a href="proportions-and-the-beta-binomial.html"><i class="fa fa-check"></i><b>3.6</b> Proportions and the Beta Binomial</a></li>
+<li class="chapter" data-level="3.7" data-path="dic.html"><a href="dic.html"><i class="fa fa-check"></i><b>3.7</b> DIC</a></li>
+<li class="chapter" data-level="3.8" data-path="appendix-gentle-introduction.html"><a href="appendix-gentle-introduction.html"><i class="fa fa-check"></i><b>3.8</b> Appendix: Gentle Introduction</a></li>
+<li class="chapter" data-level="3.9" data-path="further-reading-1.html"><a href="further-reading-1.html"><i class="fa fa-check"></i><b>3.9</b> Further Reading</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="one-sample.html"><a href="one-sample.html"><i class="fa fa-check"></i><b>4</b> One-Sample</a>
 <ul>
@@ -232,20 +238,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><span class="math display">\[G^2 = 2 \sum O_j \log \left[ \frac{O_j}{E_j} \right]\]</span></p>
 <p>where the 2 multiplier asymptotically aligns with the chi-squared test formula. <em>G</em> is distributed <span class="math inline">\(\sim \chi^2\)</span>, with the same number of degrees of freedom as in the corresponding chi-squared test. In fact, the chi-squared test statistic is a second order Taylor expansion of the natural logarithm around 1.</p>
 <p>Returning to the phenotype case study in the chi-squared goodness-of-fit test section, you can calculate the <span class="math inline">\(G^2\)</span> test statistic and probability by hand.</p>
-<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="g-test.html#cb100-1" aria-hidden="true" tabindex="-1"></a>(pheno_g2 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">sum</span>(pheno_obs <span class="sc">*</span> <span class="fu">log</span>(pheno_obs <span class="sc">/</span> pheno_exp)))</span>
-<span id="cb100-2"><a href="g-test.html#cb100-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 9.836806</span></span>
-<span id="cb100-3"><a href="g-test.html#cb100-3" aria-hidden="true" tabindex="-1"></a>(<span class="fu">pchisq</span>(<span class="at">q =</span> pheno_g2, <span class="at">df =</span> <span class="fu">length</span>(pheno_type) <span class="sc">-</span> <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>))</span>
-<span id="cb100-4"><a href="g-test.html#cb100-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.02000552</span></span></code></pre></div>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="g-test.html#cb158-1" tabindex="-1"></a>(pheno_g2 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">sum</span>(pheno_obs <span class="sc">*</span> <span class="fu">log</span>(pheno_obs <span class="sc">/</span> pheno_exp)))</span>
+<span id="cb158-2"><a href="g-test.html#cb158-2" tabindex="-1"></a><span class="do">## [1] 9.836806</span></span>
+<span id="cb158-3"><a href="g-test.html#cb158-3" tabindex="-1"></a>(<span class="fu">pchisq</span>(<span class="at">q =</span> pheno_g2, <span class="at">df =</span> <span class="fu">length</span>(pheno_type) <span class="sc">-</span> <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb158-4"><a href="g-test.html#cb158-4" tabindex="-1"></a><span class="do">## [1] 0.02000552</span></span></code></pre></div>
 <p>This is pretty close to the <span class="math inline">\(X^2\)</span> = 9.547, <em>p</em> = 0.023 using the chi-squared goodness-of-fit test. The <code>DescTools::GTest()</code> function to conducts a G-test.</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="g-test.html#cb101-1" aria-hidden="true" tabindex="-1"></a>DescTools<span class="sc">::</span><span class="fu">GTest</span>(pheno_obs, <span class="at">p =</span> pheno_pi)</span></code></pre></div>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="g-test.html#cb159-1" tabindex="-1"></a>DescTools<span class="sc">::</span><span class="fu">GTest</span>(pheno_obs, <span class="at">p =</span> pheno_pi)</span></code></pre></div>
 <pre><code>## 
 ##  Log likelihood ratio (G-test) goodness of fit test
 ## 
 ## data:  pheno_obs
 ## G = 9.8368, X-squared df = 3, p-value = 0.02001</code></pre>
 <p>According to the function documentation, the G-test is not usually used for 2x2 tables.</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="g-test.html#cb103-1" aria-hidden="true" tabindex="-1"></a>EMT<span class="sc">::</span><span class="fu">multinomial.test</span>(o, f, <span class="at">useChisq =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="g-test.html#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(o, e)</span></code></pre></div>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="g-test.html#cb161-1" tabindex="-1"></a>EMT<span class="sc">::</span><span class="fu">multinomial.test</span>(o, f, <span class="at">useChisq =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="g-test.html#cb162-1" tabindex="-1"></a><span class="fu">chisq.test</span>(o, e)</span></code></pre></div>
 <pre><code>## Warning in chisq.test(o, e): Chi-squared approximation may be incorrect</code></pre>
 <pre><code>## 
 ##  Pearson&#39;s Chi-squared test

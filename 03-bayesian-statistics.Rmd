@@ -917,9 +917,9 @@ tibble(p, prior, update, posterior) %>%
        subtitle = "Data: y=35, n=50.")
 ```
 
-If instead of observing a single proportion of $y$ events in $n$ trials, you observe $j$ proportions of $y_i$ events in $n_i$ trials? E.g., suppose 100 persons report the number of days per week they consume alcohol (0 - 7). 
+If instead of observing a single proportion of $y$ events in $n$ trials, you observe $j$ proportions of $y_i$ events in $n_i$ trials? E.g., suppose 100 persons report the number of days per week they consume alcohol (0 - 7). What is the posterior estimated probability of a person having a drink on any given day?
 
-```{r}
+```{r collapse=TRUE}
 days <- 0:7
 y <- c(22, 6, 18, 23, 18, 10, 3, 0)
 

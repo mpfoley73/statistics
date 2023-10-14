@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>7.2 Linear Transformations | Statistical Inference</title>
   <meta name="description" content="Notes cobbled together from books, online classes, etc. to be used as quick reference for common work projects." />
-  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
   <meta property="og:title" content="7.2 Linear Transformations | Statistical Inference" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Michael Foley" />
 
 
-<meta name="date" content="2023-04-09" />
+<meta name="date" content="2023-10-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,10 +52,10 @@
 <link href="assets/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="assets/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="assets/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="assets/kePrint-0.0.1/kePrint.js"></script>
-<link href="assets/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <link href="assets/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
 <script src="assets/tabwid-1.1.3/tabwid.js"></script>
+<script src="assets/kePrint-0.0.1/kePrint.js"></script>
+<link href="assets/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -123,6 +123,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -149,13 +153,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3" data-path="bayesian-statistics.html"><a href="bayesian-statistics.html"><i class="fa fa-check"></i><b>3</b> Bayesian Statistics</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="bayes-law.html"><a href="bayes-law.html"><i class="fa fa-check"></i><b>3.1</b> Bayes’ Law</a></li>
+<li class="chapter" data-level="3.1" data-path="bayes-theorem.html"><a href="bayes-theorem.html"><i class="fa fa-check"></i><b>3.1</b> Bayes’ Theorem</a></li>
 <li class="chapter" data-level="3.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html"><i class="fa fa-check"></i><b>3.2</b> Bayesian Inference</a></li>
-<li class="chapter" data-level="3.3" data-path="discrete-cases.html"><a href="discrete-cases.html"><i class="fa fa-check"></i><b>3.3</b> Discrete Cases</a></li>
-<li class="chapter" data-level="3.4" data-path="continuous-cases.html"><a href="continuous-cases.html"><i class="fa fa-check"></i><b>3.4</b> Continuous Cases</a></li>
-<li class="chapter" data-level="3.5" data-path="bayes-factors.html"><a href="bayes-factors.html"><i class="fa fa-check"></i><b>3.5</b> Bayes Factors</a></li>
-<li class="chapter" data-level="3.6" data-path="a-gentler-introduction.html"><a href="a-gentler-introduction.html"><i class="fa fa-check"></i><b>3.6</b> A Gentler Introduction</a></li>
-<li class="chapter" data-level="3.7" data-path="coursera-notes-inference.html"><a href="coursera-notes-inference.html"><i class="fa fa-check"></i><b>3.7</b> Coursera Notes Inference</a></li>
+<li class="chapter" data-level="3.3" data-path="bayes-factors.html"><a href="bayes-factors.html"><i class="fa fa-check"></i><b>3.3</b> Bayes Factors</a></li>
+<li class="chapter" data-level="3.4" data-path="gamma-poisson.html"><a href="gamma-poisson.html"><i class="fa fa-check"></i><b>3.4</b> Gamma Poisson</a></li>
+<li class="chapter" data-level="3.5" data-path="normal.html"><a href="normal.html"><i class="fa fa-check"></i><b>3.5</b> Normal</a></li>
+<li class="chapter" data-level="3.6" data-path="proportions-and-the-beta-binomial.html"><a href="proportions-and-the-beta-binomial.html"><i class="fa fa-check"></i><b>3.6</b> Proportions and the Beta Binomial</a></li>
+<li class="chapter" data-level="3.7" data-path="dic.html"><a href="dic.html"><i class="fa fa-check"></i><b>3.7</b> DIC</a></li>
+<li class="chapter" data-level="3.8" data-path="appendix-gentle-introduction.html"><a href="appendix-gentle-introduction.html"><i class="fa fa-check"></i><b>3.8</b> Appendix: Gentle Introduction</a></li>
+<li class="chapter" data-level="3.9" data-path="further-reading-1.html"><a href="further-reading-1.html"><i class="fa fa-check"></i><b>3.9</b> Further Reading</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="one-sample.html"><a href="one-sample.html"><i class="fa fa-check"></i><b>4</b> One-Sample</a>
 <ul>
@@ -235,30 +241,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="example-7" class="section level4 unnumbered hasAnchor">
 <h4>Example<a href="linear-transformations.html#example-7" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Using file nutrient.txt from the prior section, if <span class="math inline">\(Y = .001 X_4 + X5\)</span>, then the mean of <span class="math inline">\(Y\)</span> is 79.8.</p>
-<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="linear-transformations.html#cb276-1" aria-hidden="true" tabindex="-1"></a>C <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, .<span class="dv">001</span>, <span class="dv">1</span>)</span>
-<span id="cb276-2"><a href="linear-transformations.html#cb276-2" aria-hidden="true" tabindex="-1"></a>x_bar <span class="ot">&lt;-</span> nutrient_smry<span class="sc">$</span>M</span>
-<span id="cb276-3"><a href="linear-transformations.html#cb276-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb276-4"><a href="linear-transformations.html#cb276-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Mean</span></span>
-<span id="cb276-5"><a href="linear-transformations.html#cb276-5" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(C) <span class="sc">%*%</span> x_bar</span>
-<span id="cb276-6"><a href="linear-transformations.html#cb276-6" aria-hidden="true" tabindex="-1"></a><span class="do">##          [,1]</span></span>
-<span id="cb276-7"><a href="linear-transformations.html#cb276-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,] 79.76808</span></span>
-<span id="cb276-8"><a href="linear-transformations.html#cb276-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb276-9"><a href="linear-transformations.html#cb276-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Variance</span></span>
-<span id="cb276-10"><a href="linear-transformations.html#cb276-10" aria-hidden="true" tabindex="-1"></a>(VarY1 <span class="ot">&lt;-</span> <span class="fu">t</span>(C) <span class="sc">%*%</span> varcov_mtrx <span class="sc">%*%</span> C)</span>
-<span id="cb276-11"><a href="linear-transformations.html#cb276-11" aria-hidden="true" tabindex="-1"></a><span class="do">##          [,1]</span></span>
-<span id="cb276-12"><a href="linear-transformations.html#cb276-12" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,] 5463.059</span></span>
-<span id="cb276-13"><a href="linear-transformations.html#cb276-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb276-14"><a href="linear-transformations.html#cb276-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Covariance between Y1 = cX and Y2 = dX</span></span>
-<span id="cb276-15"><a href="linear-transformations.html#cb276-15" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>)</span>
-<span id="cb276-16"><a href="linear-transformations.html#cb276-16" aria-hidden="true" tabindex="-1"></a>(CovY1Y2 <span class="ot">&lt;-</span> <span class="fu">t</span>(C) <span class="sc">%*%</span> varcov_mtrx <span class="sc">%*%</span> d)</span>
-<span id="cb276-17"><a href="linear-transformations.html#cb276-17" aria-hidden="true" tabindex="-1"></a><span class="do">##          [,1]</span></span>
-<span id="cb276-18"><a href="linear-transformations.html#cb276-18" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,] 6944.082</span></span>
-<span id="cb276-19"><a href="linear-transformations.html#cb276-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb276-20"><a href="linear-transformations.html#cb276-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Correlation</span></span>
-<span id="cb276-21"><a href="linear-transformations.html#cb276-21" aria-hidden="true" tabindex="-1"></a>VarY2 <span class="ot">&lt;-</span> <span class="fu">t</span>(d) <span class="sc">%*%</span> varcov_mtrx <span class="sc">%*%</span> d</span>
-<span id="cb276-22"><a href="linear-transformations.html#cb276-22" aria-hidden="true" tabindex="-1"></a>(CorY1Y2 <span class="ot">&lt;-</span> CovY1Y2 <span class="sc">/</span> <span class="fu">sqrt</span>(VarY1 <span class="sc">*</span> VarY2))</span>
-<span id="cb276-23"><a href="linear-transformations.html#cb276-23" aria-hidden="true" tabindex="-1"></a><span class="do">##           [,1]</span></span>
-<span id="cb276-24"><a href="linear-transformations.html#cb276-24" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,] 0.2350621</span></span></code></pre></div>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="linear-transformations.html#cb333-1" tabindex="-1"></a>C <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, .<span class="dv">001</span>, <span class="dv">1</span>)</span>
+<span id="cb333-2"><a href="linear-transformations.html#cb333-2" tabindex="-1"></a>x_bar <span class="ot">&lt;-</span> nutrient_smry<span class="sc">$</span>M</span>
+<span id="cb333-3"><a href="linear-transformations.html#cb333-3" tabindex="-1"></a></span>
+<span id="cb333-4"><a href="linear-transformations.html#cb333-4" tabindex="-1"></a><span class="co"># Mean</span></span>
+<span id="cb333-5"><a href="linear-transformations.html#cb333-5" tabindex="-1"></a><span class="fu">t</span>(C) <span class="sc">%*%</span> x_bar</span>
+<span id="cb333-6"><a href="linear-transformations.html#cb333-6" tabindex="-1"></a><span class="do">##          [,1]</span></span>
+<span id="cb333-7"><a href="linear-transformations.html#cb333-7" tabindex="-1"></a><span class="do">## [1,] 79.76808</span></span>
+<span id="cb333-8"><a href="linear-transformations.html#cb333-8" tabindex="-1"></a></span>
+<span id="cb333-9"><a href="linear-transformations.html#cb333-9" tabindex="-1"></a><span class="co"># Variance</span></span>
+<span id="cb333-10"><a href="linear-transformations.html#cb333-10" tabindex="-1"></a>(VarY1 <span class="ot">&lt;-</span> <span class="fu">t</span>(C) <span class="sc">%*%</span> varcov_mtrx <span class="sc">%*%</span> C)</span>
+<span id="cb333-11"><a href="linear-transformations.html#cb333-11" tabindex="-1"></a><span class="do">##          [,1]</span></span>
+<span id="cb333-12"><a href="linear-transformations.html#cb333-12" tabindex="-1"></a><span class="do">## [1,] 5463.059</span></span>
+<span id="cb333-13"><a href="linear-transformations.html#cb333-13" tabindex="-1"></a></span>
+<span id="cb333-14"><a href="linear-transformations.html#cb333-14" tabindex="-1"></a><span class="co"># Covariance between Y1 = cX and Y2 = dX</span></span>
+<span id="cb333-15"><a href="linear-transformations.html#cb333-15" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>)</span>
+<span id="cb333-16"><a href="linear-transformations.html#cb333-16" tabindex="-1"></a>(CovY1Y2 <span class="ot">&lt;-</span> <span class="fu">t</span>(C) <span class="sc">%*%</span> varcov_mtrx <span class="sc">%*%</span> d)</span>
+<span id="cb333-17"><a href="linear-transformations.html#cb333-17" tabindex="-1"></a><span class="do">##          [,1]</span></span>
+<span id="cb333-18"><a href="linear-transformations.html#cb333-18" tabindex="-1"></a><span class="do">## [1,] 6944.082</span></span>
+<span id="cb333-19"><a href="linear-transformations.html#cb333-19" tabindex="-1"></a></span>
+<span id="cb333-20"><a href="linear-transformations.html#cb333-20" tabindex="-1"></a><span class="co"># Correlation</span></span>
+<span id="cb333-21"><a href="linear-transformations.html#cb333-21" tabindex="-1"></a>VarY2 <span class="ot">&lt;-</span> <span class="fu">t</span>(d) <span class="sc">%*%</span> varcov_mtrx <span class="sc">%*%</span> d</span>
+<span id="cb333-22"><a href="linear-transformations.html#cb333-22" tabindex="-1"></a>(CorY1Y2 <span class="ot">&lt;-</span> CovY1Y2 <span class="sc">/</span> <span class="fu">sqrt</span>(VarY1 <span class="sc">*</span> VarY2))</span>
+<span id="cb333-23"><a href="linear-transformations.html#cb333-23" tabindex="-1"></a><span class="do">##           [,1]</span></span>
+<span id="cb333-24"><a href="linear-transformations.html#cb333-24" tabindex="-1"></a><span class="do">## [1,] 0.2350621</span></span></code></pre></div>
 </div>
 </div>
             </section>

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Case Study 2 | Statistical Inference</title>
   <meta name="description" content="Notes cobbled together from books, online classes, etc. to be used as quick reference for common work projects." />
-  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Case Study 2 | Statistical Inference" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Michael Foley" />
 
 
-<meta name="date" content="2023-04-09" />
+<meta name="date" content="2023-10-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,10 +52,10 @@
 <link href="assets/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="assets/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="assets/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="assets/kePrint-0.0.1/kePrint.js"></script>
-<link href="assets/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <link href="assets/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
 <script src="assets/tabwid-1.1.3/tabwid.js"></script>
+<script src="assets/kePrint-0.0.1/kePrint.js"></script>
+<link href="assets/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -123,6 +123,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -149,13 +153,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3" data-path="bayesian-statistics.html"><a href="bayesian-statistics.html"><i class="fa fa-check"></i><b>3</b> Bayesian Statistics</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="bayes-law.html"><a href="bayes-law.html"><i class="fa fa-check"></i><b>3.1</b> Bayes’ Law</a></li>
+<li class="chapter" data-level="3.1" data-path="bayes-theorem.html"><a href="bayes-theorem.html"><i class="fa fa-check"></i><b>3.1</b> Bayes’ Theorem</a></li>
 <li class="chapter" data-level="3.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html"><i class="fa fa-check"></i><b>3.2</b> Bayesian Inference</a></li>
-<li class="chapter" data-level="3.3" data-path="discrete-cases.html"><a href="discrete-cases.html"><i class="fa fa-check"></i><b>3.3</b> Discrete Cases</a></li>
-<li class="chapter" data-level="3.4" data-path="continuous-cases.html"><a href="continuous-cases.html"><i class="fa fa-check"></i><b>3.4</b> Continuous Cases</a></li>
-<li class="chapter" data-level="3.5" data-path="bayes-factors.html"><a href="bayes-factors.html"><i class="fa fa-check"></i><b>3.5</b> Bayes Factors</a></li>
-<li class="chapter" data-level="3.6" data-path="a-gentler-introduction.html"><a href="a-gentler-introduction.html"><i class="fa fa-check"></i><b>3.6</b> A Gentler Introduction</a></li>
-<li class="chapter" data-level="3.7" data-path="coursera-notes-inference.html"><a href="coursera-notes-inference.html"><i class="fa fa-check"></i><b>3.7</b> Coursera Notes Inference</a></li>
+<li class="chapter" data-level="3.3" data-path="bayes-factors.html"><a href="bayes-factors.html"><i class="fa fa-check"></i><b>3.3</b> Bayes Factors</a></li>
+<li class="chapter" data-level="3.4" data-path="gamma-poisson.html"><a href="gamma-poisson.html"><i class="fa fa-check"></i><b>3.4</b> Gamma Poisson</a></li>
+<li class="chapter" data-level="3.5" data-path="normal.html"><a href="normal.html"><i class="fa fa-check"></i><b>3.5</b> Normal</a></li>
+<li class="chapter" data-level="3.6" data-path="proportions-and-the-beta-binomial.html"><a href="proportions-and-the-beta-binomial.html"><i class="fa fa-check"></i><b>3.6</b> Proportions and the Beta Binomial</a></li>
+<li class="chapter" data-level="3.7" data-path="dic.html"><a href="dic.html"><i class="fa fa-check"></i><b>3.7</b> DIC</a></li>
+<li class="chapter" data-level="3.8" data-path="appendix-gentle-introduction.html"><a href="appendix-gentle-introduction.html"><i class="fa fa-check"></i><b>3.8</b> Appendix: Gentle Introduction</a></li>
+<li class="chapter" data-level="3.9" data-path="further-reading-1.html"><a href="further-reading-1.html"><i class="fa fa-check"></i><b>3.9</b> Further Reading</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="one-sample.html"><a href="one-sample.html"><i class="fa fa-check"></i><b>4</b> One-Sample</a>
 <ul>
@@ -232,26 +238,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><a href="https://statistics.laerd.com/">Laerd</a> has three data sets for this example. One meets the conditions for a t-test. The second fails the normality condition, but is symmetric and meets the conditions for the Wilcoxon test. The third fails the symmetry condition and requires the sign test.</p>
 <div id="t-test-data-set" class="section level5 unnumbered hasAnchor">
 <h5>t-test data set<a href="case-study-2.html#t-test-data-set" class="anchor-section" aria-label="Anchor link to header"></a></h5>
-<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="case-study-2.html#cb160-1" aria-hidden="true" tabindex="-1"></a>(drink<span class="sc">$</span>t_gt <span class="ot">&lt;-</span> drink<span class="sc">$</span>t_dat <span class="sc">%&gt;%</span> </span>
-<span id="cb160-2"><a href="case-study-2.html#cb160-2" aria-hidden="true" tabindex="-1"></a>  gtsummary<span class="sc">::</span><span class="fu">tbl_summary</span>(<span class="at">statistic =</span> <span class="fu">list</span>(<span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="st">&quot;{mean} ({sd})&quot;</span>))</span>
-<span id="cb160-3"><a href="case-study-2.html#cb160-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<div id="qkkybgfmvo" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#qkkybgfmvo table {
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="case-study-2.html#cb218-1" tabindex="-1"></a>(drink<span class="sc">$</span>t_gt <span class="ot">&lt;-</span> drink<span class="sc">$</span>t_dat <span class="sc">%&gt;%</span> </span>
+<span id="cb218-2"><a href="case-study-2.html#cb218-2" tabindex="-1"></a>  gtsummary<span class="sc">::</span><span class="fu">tbl_summary</span>(<span class="at">statistic =</span> <span class="fu">list</span>(<span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="st">&quot;{mean} ({sd})&quot;</span>))</span>
+<span id="cb218-3"><a href="case-study-2.html#cb218-3" tabindex="-1"></a>)</span></code></pre></div>
+<div id="jhejjozutr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#jhejjozutr table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#qkkybgfmvo thead, #qkkybgfmvo tbody, #qkkybgfmvo tfoot, #qkkybgfmvo tr, #qkkybgfmvo td, #qkkybgfmvo th {
+#jhejjozutr thead, #jhejjozutr tbody, #jhejjozutr tfoot, #jhejjozutr tr, #jhejjozutr td, #jhejjozutr th {
   border-style: none;
 }
 
-#qkkybgfmvo p {
+#jhejjozutr p {
   margin: 0;
   padding: 0;
 }
 
-#qkkybgfmvo .gt_table {
+#jhejjozutr .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -277,12 +283,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-left-color: #D3D3D3;
 }
 
-#qkkybgfmvo .gt_caption {
+#jhejjozutr .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#qkkybgfmvo .gt_title {
+#jhejjozutr .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -294,7 +300,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-width: 0;
 }
 
-#qkkybgfmvo .gt_subtitle {
+#jhejjozutr .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -306,7 +312,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-width: 0;
 }
 
-#qkkybgfmvo .gt_heading {
+#jhejjozutr .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -318,13 +324,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#qkkybgfmvo .gt_bottom_border {
+#jhejjozutr .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#qkkybgfmvo .gt_col_headings {
+#jhejjozutr .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -339,7 +345,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#qkkybgfmvo .gt_col_heading {
+#jhejjozutr .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -359,7 +365,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#qkkybgfmvo .gt_column_spanner_outer {
+#jhejjozutr .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -371,15 +377,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 4px;
 }
 
-#qkkybgfmvo .gt_column_spanner_outer:first-child {
+#jhejjozutr .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#qkkybgfmvo .gt_column_spanner_outer:last-child {
+#jhejjozutr .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#qkkybgfmvo .gt_column_spanner {
+#jhejjozutr .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -391,11 +397,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   width: 100%;
 }
 
-#qkkybgfmvo .gt_spanner_row {
+#jhejjozutr .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#qkkybgfmvo .gt_group_heading {
+#jhejjozutr .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -421,7 +427,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   text-align: left;
 }
 
-#qkkybgfmvo .gt_empty_group_heading {
+#jhejjozutr .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -436,15 +442,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: middle;
 }
 
-#qkkybgfmvo .gt_from_md > :first-child {
+#jhejjozutr .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#qkkybgfmvo .gt_from_md > :last-child {
+#jhejjozutr .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#qkkybgfmvo .gt_row {
+#jhejjozutr .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -463,7 +469,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#qkkybgfmvo .gt_stub {
+#jhejjozutr .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -476,7 +482,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#qkkybgfmvo .gt_stub_row_group {
+#jhejjozutr .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -490,15 +496,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: top;
 }
 
-#qkkybgfmvo .gt_row_group_first td {
+#jhejjozutr .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#qkkybgfmvo .gt_row_group_first th {
+#jhejjozutr .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#qkkybgfmvo .gt_summary_row {
+#jhejjozutr .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -508,16 +514,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#qkkybgfmvo .gt_first_summary_row {
+#jhejjozutr .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#qkkybgfmvo .gt_first_summary_row.thick {
+#jhejjozutr .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#qkkybgfmvo .gt_last_summary_row {
+#jhejjozutr .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -527,7 +533,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#qkkybgfmvo .gt_grand_summary_row {
+#jhejjozutr .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -537,7 +543,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#qkkybgfmvo .gt_first_grand_summary_row {
+#jhejjozutr .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -547,7 +553,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-color: #D3D3D3;
 }
 
-#qkkybgfmvo .gt_last_grand_summary_row_top {
+#jhejjozutr .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -557,11 +563,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#qkkybgfmvo .gt_striped {
+#jhejjozutr .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#qkkybgfmvo .gt_table_body {
+#jhejjozutr .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -570,7 +576,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#qkkybgfmvo .gt_footnotes {
+#jhejjozutr .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -584,7 +590,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#qkkybgfmvo .gt_footnote {
+#jhejjozutr .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -593,7 +599,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#qkkybgfmvo .gt_sourcenotes {
+#jhejjozutr .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -607,7 +613,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#qkkybgfmvo .gt_sourcenote {
+#jhejjozutr .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -615,63 +621,63 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#qkkybgfmvo .gt_left {
+#jhejjozutr .gt_left {
   text-align: left;
 }
 
-#qkkybgfmvo .gt_center {
+#jhejjozutr .gt_center {
   text-align: center;
 }
 
-#qkkybgfmvo .gt_right {
+#jhejjozutr .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#qkkybgfmvo .gt_font_normal {
+#jhejjozutr .gt_font_normal {
   font-weight: normal;
 }
 
-#qkkybgfmvo .gt_font_bold {
+#jhejjozutr .gt_font_bold {
   font-weight: bold;
 }
 
-#qkkybgfmvo .gt_font_italic {
+#jhejjozutr .gt_font_italic {
   font-style: italic;
 }
 
-#qkkybgfmvo .gt_super {
+#jhejjozutr .gt_super {
   font-size: 65%;
 }
 
-#qkkybgfmvo .gt_footnote_marks {
+#jhejjozutr .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#qkkybgfmvo .gt_asterisk {
+#jhejjozutr .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#qkkybgfmvo .gt_indent_1 {
+#jhejjozutr .gt_indent_1 {
   text-indent: 5px;
 }
 
-#qkkybgfmvo .gt_indent_2 {
+#jhejjozutr .gt_indent_2 {
   text-indent: 10px;
 }
 
-#qkkybgfmvo .gt_indent_3 {
+#jhejjozutr .gt_indent_3 {
   text-indent: 15px;
 }
 
-#qkkybgfmvo .gt_indent_4 {
+#jhejjozutr .gt_indent_4 {
   text-indent: 20px;
 }
 
-#qkkybgfmvo .gt_indent_5 {
+#jhejjozutr .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -706,26 +712,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="wilcoxon-data-set" class="section level5 unnumbered hasAnchor">
 <h5>Wilcoxon data set<a href="case-study-2.html#wilcoxon-data-set" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>Once you learn you need Wilcoxon or the sign-test, show the median and IQR summary statistics instead.</p>
-<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="case-study-2.html#cb161-1" aria-hidden="true" tabindex="-1"></a>(drink<span class="sc">$</span>wilcoxon_gt <span class="ot">&lt;-</span> drink<span class="sc">$</span>wilcoxon_dat <span class="sc">%&gt;%</span> </span>
-<span id="cb161-2"><a href="case-study-2.html#cb161-2" aria-hidden="true" tabindex="-1"></a>  gtsummary<span class="sc">::</span><span class="fu">tbl_summary</span>()</span>
-<span id="cb161-3"><a href="case-study-2.html#cb161-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<div id="wkrvjkbdzu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#wkrvjkbdzu table {
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="case-study-2.html#cb219-1" tabindex="-1"></a>(drink<span class="sc">$</span>wilcoxon_gt <span class="ot">&lt;-</span> drink<span class="sc">$</span>wilcoxon_dat <span class="sc">%&gt;%</span> </span>
+<span id="cb219-2"><a href="case-study-2.html#cb219-2" tabindex="-1"></a>  gtsummary<span class="sc">::</span><span class="fu">tbl_summary</span>()</span>
+<span id="cb219-3"><a href="case-study-2.html#cb219-3" tabindex="-1"></a>)</span></code></pre></div>
+<div id="tqbketkfaf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#tqbketkfaf table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#wkrvjkbdzu thead, #wkrvjkbdzu tbody, #wkrvjkbdzu tfoot, #wkrvjkbdzu tr, #wkrvjkbdzu td, #wkrvjkbdzu th {
+#tqbketkfaf thead, #tqbketkfaf tbody, #tqbketkfaf tfoot, #tqbketkfaf tr, #tqbketkfaf td, #tqbketkfaf th {
   border-style: none;
 }
 
-#wkrvjkbdzu p {
+#tqbketkfaf p {
   margin: 0;
   padding: 0;
 }
 
-#wkrvjkbdzu .gt_table {
+#tqbketkfaf .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -751,12 +757,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-left-color: #D3D3D3;
 }
 
-#wkrvjkbdzu .gt_caption {
+#tqbketkfaf .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#wkrvjkbdzu .gt_title {
+#tqbketkfaf .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -768,7 +774,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-width: 0;
 }
 
-#wkrvjkbdzu .gt_subtitle {
+#tqbketkfaf .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -780,7 +786,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-width: 0;
 }
 
-#wkrvjkbdzu .gt_heading {
+#tqbketkfaf .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -792,13 +798,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#wkrvjkbdzu .gt_bottom_border {
+#tqbketkfaf .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#wkrvjkbdzu .gt_col_headings {
+#tqbketkfaf .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -813,7 +819,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#wkrvjkbdzu .gt_col_heading {
+#tqbketkfaf .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -833,7 +839,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#wkrvjkbdzu .gt_column_spanner_outer {
+#tqbketkfaf .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -845,15 +851,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 4px;
 }
 
-#wkrvjkbdzu .gt_column_spanner_outer:first-child {
+#tqbketkfaf .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#wkrvjkbdzu .gt_column_spanner_outer:last-child {
+#tqbketkfaf .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#wkrvjkbdzu .gt_column_spanner {
+#tqbketkfaf .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -865,11 +871,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   width: 100%;
 }
 
-#wkrvjkbdzu .gt_spanner_row {
+#tqbketkfaf .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#wkrvjkbdzu .gt_group_heading {
+#tqbketkfaf .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -895,7 +901,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   text-align: left;
 }
 
-#wkrvjkbdzu .gt_empty_group_heading {
+#tqbketkfaf .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -910,15 +916,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: middle;
 }
 
-#wkrvjkbdzu .gt_from_md > :first-child {
+#tqbketkfaf .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#wkrvjkbdzu .gt_from_md > :last-child {
+#tqbketkfaf .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#wkrvjkbdzu .gt_row {
+#tqbketkfaf .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -937,7 +943,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#wkrvjkbdzu .gt_stub {
+#tqbketkfaf .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -950,7 +956,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#wkrvjkbdzu .gt_stub_row_group {
+#tqbketkfaf .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -964,15 +970,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: top;
 }
 
-#wkrvjkbdzu .gt_row_group_first td {
+#tqbketkfaf .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#wkrvjkbdzu .gt_row_group_first th {
+#tqbketkfaf .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#wkrvjkbdzu .gt_summary_row {
+#tqbketkfaf .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -982,16 +988,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#wkrvjkbdzu .gt_first_summary_row {
+#tqbketkfaf .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#wkrvjkbdzu .gt_first_summary_row.thick {
+#tqbketkfaf .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#wkrvjkbdzu .gt_last_summary_row {
+#tqbketkfaf .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1001,7 +1007,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#wkrvjkbdzu .gt_grand_summary_row {
+#tqbketkfaf .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1011,7 +1017,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#wkrvjkbdzu .gt_first_grand_summary_row {
+#tqbketkfaf .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1021,7 +1027,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-color: #D3D3D3;
 }
 
-#wkrvjkbdzu .gt_last_grand_summary_row_top {
+#tqbketkfaf .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1031,11 +1037,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#wkrvjkbdzu .gt_striped {
+#tqbketkfaf .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#wkrvjkbdzu .gt_table_body {
+#tqbketkfaf .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1044,7 +1050,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#wkrvjkbdzu .gt_footnotes {
+#tqbketkfaf .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1058,7 +1064,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#wkrvjkbdzu .gt_footnote {
+#tqbketkfaf .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1067,7 +1073,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#wkrvjkbdzu .gt_sourcenotes {
+#tqbketkfaf .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1081,7 +1087,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#wkrvjkbdzu .gt_sourcenote {
+#tqbketkfaf .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1089,63 +1095,63 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#wkrvjkbdzu .gt_left {
+#tqbketkfaf .gt_left {
   text-align: left;
 }
 
-#wkrvjkbdzu .gt_center {
+#tqbketkfaf .gt_center {
   text-align: center;
 }
 
-#wkrvjkbdzu .gt_right {
+#tqbketkfaf .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#wkrvjkbdzu .gt_font_normal {
+#tqbketkfaf .gt_font_normal {
   font-weight: normal;
 }
 
-#wkrvjkbdzu .gt_font_bold {
+#tqbketkfaf .gt_font_bold {
   font-weight: bold;
 }
 
-#wkrvjkbdzu .gt_font_italic {
+#tqbketkfaf .gt_font_italic {
   font-style: italic;
 }
 
-#wkrvjkbdzu .gt_super {
+#tqbketkfaf .gt_super {
   font-size: 65%;
 }
 
-#wkrvjkbdzu .gt_footnote_marks {
+#tqbketkfaf .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#wkrvjkbdzu .gt_asterisk {
+#tqbketkfaf .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#wkrvjkbdzu .gt_indent_1 {
+#tqbketkfaf .gt_indent_1 {
   text-indent: 5px;
 }
 
-#wkrvjkbdzu .gt_indent_2 {
+#tqbketkfaf .gt_indent_2 {
   text-indent: 10px;
 }
 
-#wkrvjkbdzu .gt_indent_3 {
+#tqbketkfaf .gt_indent_3 {
   text-indent: 15px;
 }
 
-#wkrvjkbdzu .gt_indent_4 {
+#tqbketkfaf .gt_indent_4 {
   text-indent: 20px;
 }
 
-#wkrvjkbdzu .gt_indent_5 {
+#tqbketkfaf .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1179,26 +1185,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="sign-data-set" class="section level5 unnumbered hasAnchor">
 <h5>Sign data set<a href="case-study-2.html#sign-data-set" class="anchor-section" aria-label="Anchor link to header"></a></h5>
-<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="case-study-2.html#cb162-1" aria-hidden="true" tabindex="-1"></a>(drink<span class="sc">$</span>sign_gt <span class="ot">&lt;-</span> drink<span class="sc">$</span>sign_dat <span class="sc">%&gt;%</span> </span>
-<span id="cb162-2"><a href="case-study-2.html#cb162-2" aria-hidden="true" tabindex="-1"></a>  gtsummary<span class="sc">::</span><span class="fu">tbl_summary</span>()</span>
-<span id="cb162-3"><a href="case-study-2.html#cb162-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<div id="blsklmwltf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#blsklmwltf table {
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="case-study-2.html#cb220-1" tabindex="-1"></a>(drink<span class="sc">$</span>sign_gt <span class="ot">&lt;-</span> drink<span class="sc">$</span>sign_dat <span class="sc">%&gt;%</span> </span>
+<span id="cb220-2"><a href="case-study-2.html#cb220-2" tabindex="-1"></a>  gtsummary<span class="sc">::</span><span class="fu">tbl_summary</span>()</span>
+<span id="cb220-3"><a href="case-study-2.html#cb220-3" tabindex="-1"></a>)</span></code></pre></div>
+<div id="xtfznwjxll" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#xtfznwjxll table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#blsklmwltf thead, #blsklmwltf tbody, #blsklmwltf tfoot, #blsklmwltf tr, #blsklmwltf td, #blsklmwltf th {
+#xtfznwjxll thead, #xtfznwjxll tbody, #xtfznwjxll tfoot, #xtfznwjxll tr, #xtfznwjxll td, #xtfznwjxll th {
   border-style: none;
 }
 
-#blsklmwltf p {
+#xtfznwjxll p {
   margin: 0;
   padding: 0;
 }
 
-#blsklmwltf .gt_table {
+#xtfznwjxll .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1224,12 +1230,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-left-color: #D3D3D3;
 }
 
-#blsklmwltf .gt_caption {
+#xtfznwjxll .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#blsklmwltf .gt_title {
+#xtfznwjxll .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1241,7 +1247,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-width: 0;
 }
 
-#blsklmwltf .gt_subtitle {
+#xtfznwjxll .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1253,7 +1259,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-width: 0;
 }
 
-#blsklmwltf .gt_heading {
+#xtfznwjxll .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1265,13 +1271,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#blsklmwltf .gt_bottom_border {
+#xtfznwjxll .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#blsklmwltf .gt_col_headings {
+#xtfznwjxll .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1286,7 +1292,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#blsklmwltf .gt_col_heading {
+#xtfznwjxll .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1306,7 +1312,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#blsklmwltf .gt_column_spanner_outer {
+#xtfznwjxll .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1318,15 +1324,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 4px;
 }
 
-#blsklmwltf .gt_column_spanner_outer:first-child {
+#xtfznwjxll .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#blsklmwltf .gt_column_spanner_outer:last-child {
+#xtfznwjxll .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#blsklmwltf .gt_column_spanner {
+#xtfznwjxll .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1338,11 +1344,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   width: 100%;
 }
 
-#blsklmwltf .gt_spanner_row {
+#xtfznwjxll .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#blsklmwltf .gt_group_heading {
+#xtfznwjxll .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1368,7 +1374,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   text-align: left;
 }
 
-#blsklmwltf .gt_empty_group_heading {
+#xtfznwjxll .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1383,15 +1389,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: middle;
 }
 
-#blsklmwltf .gt_from_md > :first-child {
+#xtfznwjxll .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#blsklmwltf .gt_from_md > :last-child {
+#xtfznwjxll .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#blsklmwltf .gt_row {
+#xtfznwjxll .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1410,7 +1416,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#blsklmwltf .gt_stub {
+#xtfznwjxll .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1423,7 +1429,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#blsklmwltf .gt_stub_row_group {
+#xtfznwjxll .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1437,15 +1443,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: top;
 }
 
-#blsklmwltf .gt_row_group_first td {
+#xtfznwjxll .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#blsklmwltf .gt_row_group_first th {
+#xtfznwjxll .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#blsklmwltf .gt_summary_row {
+#xtfznwjxll .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1455,16 +1461,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#blsklmwltf .gt_first_summary_row {
+#xtfznwjxll .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#blsklmwltf .gt_first_summary_row.thick {
+#xtfznwjxll .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#blsklmwltf .gt_last_summary_row {
+#xtfznwjxll .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1474,7 +1480,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#blsklmwltf .gt_grand_summary_row {
+#xtfznwjxll .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1484,7 +1490,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#blsklmwltf .gt_first_grand_summary_row {
+#xtfznwjxll .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1494,7 +1500,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-color: #D3D3D3;
 }
 
-#blsklmwltf .gt_last_grand_summary_row_top {
+#xtfznwjxll .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1504,11 +1510,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#blsklmwltf .gt_striped {
+#xtfznwjxll .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#blsklmwltf .gt_table_body {
+#xtfznwjxll .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1517,7 +1523,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#blsklmwltf .gt_footnotes {
+#xtfznwjxll .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1531,7 +1537,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#blsklmwltf .gt_footnote {
+#xtfznwjxll .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1540,7 +1546,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#blsklmwltf .gt_sourcenotes {
+#xtfznwjxll .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1554,7 +1560,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#blsklmwltf .gt_sourcenote {
+#xtfznwjxll .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1562,63 +1568,63 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#blsklmwltf .gt_left {
+#xtfznwjxll .gt_left {
   text-align: left;
 }
 
-#blsklmwltf .gt_center {
+#xtfznwjxll .gt_center {
   text-align: center;
 }
 
-#blsklmwltf .gt_right {
+#xtfznwjxll .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#blsklmwltf .gt_font_normal {
+#xtfznwjxll .gt_font_normal {
   font-weight: normal;
 }
 
-#blsklmwltf .gt_font_bold {
+#xtfznwjxll .gt_font_bold {
   font-weight: bold;
 }
 
-#blsklmwltf .gt_font_italic {
+#xtfznwjxll .gt_font_italic {
   font-style: italic;
 }
 
-#blsklmwltf .gt_super {
+#xtfznwjxll .gt_super {
   font-size: 65%;
 }
 
-#blsklmwltf .gt_footnote_marks {
+#xtfznwjxll .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#blsklmwltf .gt_asterisk {
+#xtfznwjxll .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#blsklmwltf .gt_indent_1 {
+#xtfznwjxll .gt_indent_1 {
   text-indent: 5px;
 }
 
-#blsklmwltf .gt_indent_2 {
+#xtfznwjxll .gt_indent_2 {
   text-indent: 10px;
 }
 
-#blsklmwltf .gt_indent_3 {
+#xtfznwjxll .gt_indent_3 {
   text-indent: 15px;
 }
 
-#blsklmwltf .gt_indent_4 {
+#xtfznwjxll .gt_indent_4 {
   text-indent: 20px;
 }
 
-#blsklmwltf .gt_indent_5 {
+#xtfznwjxll .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1660,7 +1666,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="outliers-1" class="section level5 unnumbered hasAnchor">
 <h5>Outliers<a href="case-study-2.html#outliers-1" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>Assess outliers with a box plot. Box plot whiskers extend up to 1.5*IQR from the upper and lower hinges and outliers (beyond the whiskers) are are plotted individually.</p>
-<p><img src="statistics_files/figure-html/unnamed-chunk-141-1.png" width="720" /></p>
+<p><img src="statistics_files/figure-html/unnamed-chunk-151-1.png" width="720" /></p>
 <blockquote>
 <p>There were no outliers in the data, as assessed by inspection of a boxplot.</p>
 </blockquote>
@@ -1673,9 +1679,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="normality-1" class="section level5 unnumbered hasAnchor">
 <h5>Normality<a href="case-study-2.html#normality-1" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>Assume the population is normally distributed if <em>n</em> <span class="math inline">\(\ge\)</span> 30. These data sets have <em>n</em> = 20 observations, so you cannot assume normality. Asses a Q-Q plot, skewness and kurtosis values, histogram, or Shapiro-Wilk test.</p>
-<p><img src="statistics_files/figure-html/unnamed-chunk-142-1.png" width="720" /></p>
+<p><img src="statistics_files/figure-html/unnamed-chunk-152-1.png" width="720" /></p>
 <p>For the t-test data set,</p>
-<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="case-study-2.html#cb163-1" aria-hidden="true" tabindex="-1"></a>(drink<span class="sc">$</span>t_shapiro <span class="ot">&lt;-</span> <span class="fu">shapiro.test</span>(drink<span class="sc">$</span>t_dat<span class="sc">$</span>diff))</span></code></pre></div>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="case-study-2.html#cb221-1" tabindex="-1"></a>(drink<span class="sc">$</span>t_shapiro <span class="ot">&lt;-</span> <span class="fu">shapiro.test</span>(drink<span class="sc">$</span>t_dat<span class="sc">$</span>diff))</span></code></pre></div>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -1685,7 +1691,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The differences between the distance ran in the carbohydrate-only and carbohydrate-protein trial were normally distributed, as assessed by Shapiro-Wilk’s test (<em>p</em> = 0.780).</p>
 </blockquote>
 <p>For the Wilcoxon data set,</p>
-<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="case-study-2.html#cb165-1" aria-hidden="true" tabindex="-1"></a>(drink<span class="sc">$</span>wilcoxon_shapiro <span class="ot">&lt;-</span> <span class="fu">shapiro.test</span>(drink<span class="sc">$</span>wilcoxon_dat<span class="sc">$</span>diff))</span></code></pre></div>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="case-study-2.html#cb223-1" tabindex="-1"></a>(drink<span class="sc">$</span>wilcoxon_shapiro <span class="ot">&lt;-</span> <span class="fu">shapiro.test</span>(drink<span class="sc">$</span>wilcoxon_dat<span class="sc">$</span>diff))</span></code></pre></div>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -1695,7 +1701,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The differences between the distance ran in the carbohydrate-only and carbohydrate-protein trial were <em>not</em> normally distributed, as assessed by Shapiro-Wilk’s test (<em>p</em> = 0.012).</p>
 </blockquote>
 <p>For the sign-test data set,</p>
-<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="case-study-2.html#cb167-1" aria-hidden="true" tabindex="-1"></a>(drink<span class="sc">$</span>sign_shapiro <span class="ot">&lt;-</span> <span class="fu">shapiro.test</span>(drink<span class="sc">$</span>sign_dat<span class="sc">$</span>diff))</span></code></pre></div>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="case-study-2.html#cb225-1" tabindex="-1"></a>(drink<span class="sc">$</span>sign_shapiro <span class="ot">&lt;-</span> <span class="fu">shapiro.test</span>(drink<span class="sc">$</span>sign_dat<span class="sc">$</span>diff))</span></code></pre></div>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -1709,7 +1715,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="symmetric-distribution" class="section level5 unnumbered hasAnchor">
 <h5>Symmetric Distribution<a href="case-study-2.html#symmetric-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>If the data passed the outliers test, but failed the normality test, as the Wilcoxon and sign test data sets above did, you will use the Wilcoxon signed-rank test or sign test. Now you need to test the distribution to determine which test. If the distribution is symmetric, use Wilcoxon; otherwise use the sign test.</p>
-<p><img src="statistics_files/figure-html/unnamed-chunk-146-1.png" width="720" /></p>
+<p><img src="statistics_files/figure-html/unnamed-chunk-156-1.png" width="720" /></p>
 <p>For the Wilcoxon data set,</p>
 <blockquote>
 <p>The distribution of the differences between the carbohydrate-protein drink and the carbohydrate-only was symmetric, as assessed by visual inspection.</p>
@@ -1724,8 +1730,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4>Test<a href="case-study-2.html#test-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <div id="t-test-1" class="section level5 unnumbered hasAnchor">
 <h5>t-test<a href="case-study-2.html#t-test-1" class="anchor-section" aria-label="Anchor link to header"></a></h5>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="case-study-2.html#cb169-1" aria-hidden="true" tabindex="-1"></a>(drink<span class="sc">$</span>t_t <span class="ot">&lt;-</span> <span class="fu">t.test</span>(<span class="at">x =</span> drink<span class="sc">$</span>t_dat<span class="sc">$</span>carb_protein, <span class="at">y =</span> drink<span class="sc">$</span>t_dat<span class="sc">$</span>carb, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb169-2"><a href="case-study-2.html#cb169-2" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="case-study-2.html#cb227-1" tabindex="-1"></a>(drink<span class="sc">$</span>t_t <span class="ot">&lt;-</span> <span class="fu">t.test</span>(<span class="at">x =</span> drink<span class="sc">$</span>t_dat<span class="sc">$</span>carb_protein, <span class="at">y =</span> drink<span class="sc">$</span>t_dat<span class="sc">$</span>carb, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb227-2"><a href="case-study-2.html#cb227-2" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## 
 ##  Paired t-test
 ## 
@@ -1741,12 +1747,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The carbohydrate-protein drink elicited an increase of 0.135 (95% CI, 0.091 to 0.180) km in the distance run in two hours compared to a carbohydrate-only drink.</p>
 </blockquote>
 <p>The effect size, called Cohen’s <em>d</em>, is the number of standard deviations the measured mean difference is from the hypothesized difference, <span class="math inline">\((\bar{d}-d_0) / s\)</span>, where <span class="math inline">\(s\)</span> is the sample standard deviation. .2 is small, .5 is medium, and .8 is large. This one is large.</p>
-<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="case-study-2.html#cb171-1" aria-hidden="true" tabindex="-1"></a>(drink<span class="sc">$</span>t_d <span class="ot">&lt;-</span> effectsize<span class="sc">::</span><span class="fu">cohens_d</span>(drink<span class="sc">$</span>t_dat<span class="sc">$</span>diff))</span></code></pre></div>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="case-study-2.html#cb229-1" tabindex="-1"></a>(drink<span class="sc">$</span>t_d <span class="ot">&lt;-</span> effectsize<span class="sc">::</span><span class="fu">cohens_d</span>(drink<span class="sc">$</span>t_dat<span class="sc">$</span>diff))</span></code></pre></div>
 <pre><code>## Cohen&#39;s d |       95% CI
 ## ------------------------
 ## 1.42      | [0.78, 2.04]</code></pre>
 <p>You are about to reject the null hypothesis. Construct a plot as a sanity check on your reasoning.</p>
-<p><img src="statistics_files/figure-html/unnamed-chunk-149-1.png" width="624" /></p>
+<p><img src="statistics_files/figure-html/unnamed-chunk-159-1.png" width="624" /></p>
 <p>Report the results.</p>
 <blockquote>
 <p>A paired-samples t-test was used to determine the effect of a new formula of sports drink on running performance. Instead of the regular, carbohydrate-only drink, the new sports drink contains a new carbohydrate-protein mixture. Twenty participants were recruited to the study who each performed two trials in which they had to run as far as possible in two hours on a treadmill. In one of the trials they drank the carbohydrate-only drink and in the other trial they drank the carbohydrate-protein drink. The order of the trials was counterbalanced and the distance they ran in both trials was recorded.</p>
@@ -1757,9 +1763,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="wilcoxon-signed-rank-test" class="section level5 unnumbered hasAnchor">
 <h5>Wilcoxon Signed-Rank Test<a href="case-study-2.html#wilcoxon-signed-rank-test" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>From the distribution plot, you can see that most of the signs were positive, and the largest absolute difference values were among the positives, so expect a pretty large test statistic.</p>
-<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="case-study-2.html#cb173-1" aria-hidden="true" tabindex="-1"></a>(drink<span class="sc">$</span>wilcoxon_test <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(drink<span class="sc">$</span>wilcoxon_dat<span class="sc">$</span>carb_protein,</span>
-<span id="cb173-2"><a href="case-study-2.html#cb173-2" aria-hidden="true" tabindex="-1"></a>                                    drink<span class="sc">$</span>wilcoxon_dat<span class="sc">$</span>carb, </span>
-<span id="cb173-3"><a href="case-study-2.html#cb173-3" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">paired =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="case-study-2.html#cb231-1" tabindex="-1"></a>(drink<span class="sc">$</span>wilcoxon_test <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(drink<span class="sc">$</span>wilcoxon_dat<span class="sc">$</span>carb_protein,</span>
+<span id="cb231-2"><a href="case-study-2.html#cb231-2" tabindex="-1"></a>                                    drink<span class="sc">$</span>wilcoxon_dat<span class="sc">$</span>carb, </span>
+<span id="cb231-3"><a href="case-study-2.html#cb231-3" tabindex="-1"></a>                                    <span class="at">paired =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
 <pre><code>## 
 ##  Wilcoxon signed rank exact test
 ## 
@@ -1779,8 +1785,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="sign-signed-rank-test" class="section level5 unnumbered hasAnchor">
 <h5>Sign Signed-Rank Test<a href="case-study-2.html#sign-signed-rank-test" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>Conduct the exact sign test since the n-size is not so large that we need the normal approximation to the binomial. Notice <code>n</code> is the count of <em>non-zero</em> differences.</p>
-<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="case-study-2.html#cb175-1" aria-hidden="true" tabindex="-1"></a>(drink<span class="sc">$</span>sign_test <span class="ot">&lt;-</span> <span class="fu">binom.test</span>(<span class="fu">sum</span>(drink<span class="sc">$</span>sign_dat<span class="sc">$</span>diff <span class="sc">&gt;</span> <span class="dv">0</span>), </span>
-<span id="cb175-2"><a href="case-study-2.html#cb175-2" aria-hidden="true" tabindex="-1"></a>                               <span class="at">n =</span> <span class="fu">sum</span>(drink<span class="sc">$</span>sign_dat<span class="sc">$</span>diff <span class="sc">!=</span> <span class="dv">0</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="case-study-2.html#cb233-1" tabindex="-1"></a>(drink<span class="sc">$</span>sign_test <span class="ot">&lt;-</span> <span class="fu">binom.test</span>(<span class="fu">sum</span>(drink<span class="sc">$</span>sign_dat<span class="sc">$</span>diff <span class="sc">&gt;</span> <span class="dv">0</span>), </span>
+<span id="cb233-2"><a href="case-study-2.html#cb233-2" tabindex="-1"></a>                               <span class="at">n =</span> <span class="fu">sum</span>(drink<span class="sc">$</span>sign_dat<span class="sc">$</span>diff <span class="sc">!=</span> <span class="dv">0</span>)))</span></code></pre></div>
 <pre><code>## 
 ##  Exact binomial test
 ## 
