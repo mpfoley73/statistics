@@ -23,7 +23,7 @@
 <meta name="author" content="Michael Foley" />
 
 
-<meta name="date" content="2023-09-25" />
+<meta name="date" content="2023-10-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="bayes-theorem.html"/>
-<link rel="next" href="discrete-cases.html"/>
+<link rel="next" href="bayes-factors.html"/>
 <script src="assets/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="assets/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -52,6 +52,8 @@
 <link href="assets/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="assets/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="assets/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="assets/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
+<script src="assets/tabwid-1.1.3/tabwid.js"></script>
 
 
 <style type="text/css">
@@ -151,12 +153,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="3.1" data-path="bayes-theorem.html"><a href="bayes-theorem.html"><i class="fa fa-check"></i><b>3.1</b> Bayes’ Theorem</a></li>
 <li class="chapter" data-level="3.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html"><i class="fa fa-check"></i><b>3.2</b> Bayesian Inference</a></li>
-<li class="chapter" data-level="3.3" data-path="discrete-cases.html"><a href="discrete-cases.html"><i class="fa fa-check"></i><b>3.3</b> Discrete Cases</a></li>
-<li class="chapter" data-level="3.4" data-path="continuous-cases.html"><a href="continuous-cases.html"><i class="fa fa-check"></i><b>3.4</b> Continuous Cases</a></li>
-<li class="chapter" data-level="3.5" data-path="bayes-factors.html"><a href="bayes-factors.html"><i class="fa fa-check"></i><b>3.5</b> Bayes Factors</a></li>
-<li class="chapter" data-level="3.6" data-path="a-gentler-introduction.html"><a href="a-gentler-introduction.html"><i class="fa fa-check"></i><b>3.6</b> A Gentler Introduction</a></li>
-<li class="chapter" data-level="3.7" data-path="gamma-poisson.html"><a href="gamma-poisson.html"><i class="fa fa-check"></i><b>3.7</b> Gamma Poisson</a></li>
-<li class="chapter" data-level="3.8" data-path="normal.html"><a href="normal.html"><i class="fa fa-check"></i><b>3.8</b> Normal</a></li>
+<li class="chapter" data-level="3.3" data-path="bayes-factors.html"><a href="bayes-factors.html"><i class="fa fa-check"></i><b>3.3</b> Bayes Factors</a></li>
+<li class="chapter" data-level="3.4" data-path="gamma-poisson.html"><a href="gamma-poisson.html"><i class="fa fa-check"></i><b>3.4</b> Gamma Poisson</a></li>
+<li class="chapter" data-level="3.5" data-path="normal.html"><a href="normal.html"><i class="fa fa-check"></i><b>3.5</b> Normal</a></li>
+<li class="chapter" data-level="3.6" data-path="proportions-and-the-beta-binomial.html"><a href="proportions-and-the-beta-binomial.html"><i class="fa fa-check"></i><b>3.6</b> Proportions and the Beta Binomial</a></li>
+<li class="chapter" data-level="3.7" data-path="dic.html"><a href="dic.html"><i class="fa fa-check"></i><b>3.7</b> DIC</a></li>
+<li class="chapter" data-level="3.8" data-path="appendix-gentle-introduction.html"><a href="appendix-gentle-introduction.html"><i class="fa fa-check"></i><b>3.8</b> Appendix: Gentle Introduction</a></li>
+<li class="chapter" data-level="3.9" data-path="further-reading-1.html"><a href="further-reading-1.html"><i class="fa fa-check"></i><b>3.9</b> Further Reading</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="one-sample.html"><a href="one-sample.html"><i class="fa fa-check"></i><b>4</b> One-Sample</a>
 <ul>
@@ -233,10 +236,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><span class="math display">\[
 f(\theta | D) = \frac{f(D|\theta) f(\theta)}{\int_\Theta f(D|\theta) f(\theta) d\theta}
 \]</span></p>
-<p>This formula expresses the posterior distribution of <span class="math inline">\(\theta\)</span> as a function of the prior distribution and new information.</p>
-<p>Let <span class="math inline">\(\Pi(\theta)\)</span> be the prior probability function. <span class="math inline">\(\Pi(\theta)\)</span> has a PMF or PDF <span class="math inline">\(P(\theta) = f(\theta)\)</span>, and a set of conditional distributions, <span class="math inline">\(\{f_\theta(D) = f(D|\theta), \theta \in \Omega\}\)</span>, called the <em>generative model</em>. <span class="math inline">\(f_\theta(D)\)</span> is the <em>likelihood</em> of observing <span class="math inline">\(D\)</span> given <span class="math inline">\(\theta\)</span>. The numerator is the product of the likelihood and the PMF/PDF, <span class="math inline">\(f_\theta(D)P(\theta)\)</span>, the joint distribution of <span class="math inline">\((D, \theta)\)</span>. The denominator is the marginal distribution, or prior predictive distribution, of <span class="math inline">\(D\)</span>: <span class="math inline">\(m(D) = \int_\Omega f_\theta(D)P(\theta) d\theta\)</span>. For discrete cases, replace the integral with a sum, <span class="math inline">\(m(D) = \sum\nolimits_\Omega f_\theta(D) P(\theta)\)</span>. The <em>posterior</em> probability distribution of <span class="math inline">\(\theta\)</span>, conditioned on the observance of <span class="math inline">\(D\)</span>, <span class="math inline">\(\Pi(\cdot|D)\)</span>, is the joint density, <span class="math inline">\(f_\theta(D) P(\theta),\)</span> divided by the the marginal density, <span class="math inline">\(m(D)\)</span>.</p>
-<p><span class="math display">\[P(\theta | D) = \frac{f_\theta(D) P(\theta)}{m(D)}\]</span></p>
-<p>The numerator makes the posterior proportional to the prior. The denominator is a normalizing constant that scales the likelihood into a proper density function (whose values sum to 1).</p>
+<p>This formula expresses the posterior distribution of <span class="math inline">\(\theta\)</span> as a function of the prior distribution and new information. Let <span class="math inline">\(\Pi(\theta)\)</span> be the prior probability function. <span class="math inline">\(\Pi(\theta)\)</span> has a PMF or PDF <span class="math inline">\(f(\theta)\)</span>, and a set of conditional distributions, <span class="math inline">\(\{P=f(D|\theta), \theta \in \Omega\}\)</span>, called the <em>generative model</em>. <span class="math inline">\(f_\theta(D)\)</span> is the <em>likelihood</em> of observing <span class="math inline">\(D\)</span> given <span class="math inline">\(\theta\)</span>. The <em>posterior</em> probability distribution of <span class="math inline">\(\theta\)</span>, conditioned on the observance of <span class="math inline">\(D\)</span>, is the joint distribution of <span class="math inline">\(D\)</span> and <span class="math inline">\(\theta\)</span> (aka <em>joint density</em>, the product of the likelihood and the prior) divided by the <em>marginal distribution</em> of <span class="math inline">\(D\)</span> (aka <em>marginal density</em> or <em>prior predictive distribution</em>). For discrete cases, replace the integral with a sum. The numerator makes the posterior proportional to the prior. The denominator is a normalizing constant that scales the likelihood into a proper density function (whose values sum to 1).</p>
 <p>It is easier to see how observed evidence shifts the probabilities of the priors into their posterior probabilities by working with discrete priors first. From there it is straight-forward to grasp the more abstract case of continuous prior and posterior distributions.</p>
 </div>
             </section>
@@ -245,7 +245,7 @@ f(\theta | D) = \frac{f(D|\theta) f(\theta)}{\int_\Theta f(D|\theta) f(\theta) d
         </div>
       </div>
 <a href="bayes-theorem.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="discrete-cases.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="bayes-factors.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="assets/gitbook-2.6.7/js/app.min.js"></script>

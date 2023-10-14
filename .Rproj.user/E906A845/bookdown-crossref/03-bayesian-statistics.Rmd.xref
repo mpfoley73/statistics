@@ -1,10 +1,14 @@
 h1:bayesian-statistics Bayesian Statistics
 h2:bayes-theorem Bayes’ Theorem
 h2:bayesian-inference Bayesian Inference
-h2:discrete-cases Discrete Cases
-h2:continuous-cases Continuous Cases
 h2:bayes-factors Bayes Factors
-h2:a-gentler-introduction A Gentler Introduction
 h2:gamma-poisson Gamma Poisson
 h2:normal Normal
+h3:population-estimate Population Estimate
+h3:regression Regression
+h3:cluster-analysis Cluster Analysis
+h2:proportions-and-the-beta-binomial Proportions and the Beta Binomial
+h2:dic DIC
+h2:appendix-gentle-introduction Appendix: Gentle Introduction
+h2:further-reading Further Reading
 

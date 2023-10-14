@@ -1,6 +1,0 @@
-"0","pred_temp <- rnorm(1000, mean = sampling_vals$mu, sampling_vals$sigma)"
-"0","scales::percent(sum(pred_temp >= 18) / length(pred_temp))"
-"1","[1]"
-"1"," ""55%"""
-"1","
-"

@@ -1,4 +1,0 @@
-"0","howell %>%"
-"0","  ggplot(aes(sample = height, color = male)) +"
-"0","  stat_qq() +"
-"0","  geom_qq_line()"

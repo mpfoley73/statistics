@@ -61,3 +61,17 @@ matrix-algebra
 central-tendancy-dispersion-and-association
 linear-transformations
 multivariate-normal-distribution
+population-estimate
+regression
+cluster-analysis
+beta-binomial
+further-reading-1
+gentle-introduction
+discrete-cases-and-the-beta-binomial
+appendix-gentle-introduction
+eq:beta-prior
+eq:beta-likelihood
+eq:beta-marginal
+eq:beta-posterior
+proportions-and-the-beta-binomial
+dic
