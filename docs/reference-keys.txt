@@ -79,3 +79,4 @@ matrix-algebra
 central-tendancy-dispersion-and-association
 linear-transformations
 multivariate-normal-distribution
+zero-inflation-and-latent-variables
