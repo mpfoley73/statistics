@@ -23,7 +23,7 @@
 <meta name="author" content="Michael Foley" />
 
 
-<meta name="date" content="2023-10-14" />
+<meta name="date" content="2023-10-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -127,6 +127,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 </style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -145,7 +167,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1" data-path="frequentist-statistics.html"><a href="frequentist-statistics.html"><i class="fa fa-check"></i><b>1</b> Frequentist Statistics</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="central-tendancy-and-dispersion.html"><a href="central-tendancy-and-dispersion.html"><i class="fa fa-check"></i><b>1.1</b> Central Tendancy and Dispersion</a></li>
-<li class="chapter" data-level="1.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>1.2</b> Hypothesis Testing</a></li>
+<li class="chapter" data-level="1.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>1.2</b> Hypothesis Testing</a>
+<ul>
+<li class="chapter" data-level="" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#type-i-and-ii-errors"><i class="fa fa-check"></i>Type I and II Errors</a></li>
+<li class="chapter" data-level="" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#statistical-power"><i class="fa fa-check"></i>Statistical Power</a></li>
+<li class="chapter" data-level="" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#what-p-values-would-you-expect"><i class="fa fa-check"></i>What p-values would you expect?</a></li>
+<li class="chapter" data-level="1.2.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#further-reading"><i class="fa fa-check"></i><b>1.2.1</b> Further Reading</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="likelihood-statistics.html"><a href="likelihood-statistics.html"><i class="fa fa-check"></i><b>2</b> Likelihood Statistics</a>
 <ul>
@@ -155,13 +183,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="3.1" data-path="bayes-theorem.html"><a href="bayes-theorem.html"><i class="fa fa-check"></i><b>3.1</b> Bayes’ Theorem</a></li>
 <li class="chapter" data-level="3.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html"><i class="fa fa-check"></i><b>3.2</b> Bayesian Inference</a></li>
-<li class="chapter" data-level="3.3" data-path="bayes-factors.html"><a href="bayes-factors.html"><i class="fa fa-check"></i><b>3.3</b> Bayes Factors</a></li>
-<li class="chapter" data-level="3.4" data-path="gamma-poisson.html"><a href="gamma-poisson.html"><i class="fa fa-check"></i><b>3.4</b> Gamma Poisson</a></li>
-<li class="chapter" data-level="3.5" data-path="normal.html"><a href="normal.html"><i class="fa fa-check"></i><b>3.5</b> Normal</a></li>
-<li class="chapter" data-level="3.6" data-path="proportions-and-the-beta-binomial.html"><a href="proportions-and-the-beta-binomial.html"><i class="fa fa-check"></i><b>3.6</b> Proportions and the Beta Binomial</a></li>
+<li class="chapter" data-level="3.3" data-path="gamma-poisson-and-estimating-counts.html"><a href="gamma-poisson-and-estimating-counts.html"><i class="fa fa-check"></i><b>3.3</b> Gamma Poisson and Estimating Counts</a></li>
+<li class="chapter" data-level="3.4" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html"><i class="fa fa-check"></i><b>3.4</b> Normal and Estimating Means</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#population-estimate"><i class="fa fa-check"></i><b>3.4.1</b> Population Estimate</a></li>
+<li class="chapter" data-level="3.4.2" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#regression"><i class="fa fa-check"></i><b>3.4.2</b> Regression</a></li>
+<li class="chapter" data-level="3.4.3" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#change-point-regression"><i class="fa fa-check"></i><b>3.4.3</b> Change Point Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="beta-binomial-and-estimating-proportions.html"><a href="beta-binomial-and-estimating-proportions.html"><i class="fa fa-check"></i><b>3.5</b> Beta Binomial and Estimating Proportions</a></li>
+<li class="chapter" data-level="3.6" data-path="zero-inflation-and-latent-variables.html"><a href="zero-inflation-and-latent-variables.html"><i class="fa fa-check"></i><b>3.6</b> Zero-Inflation and Latent Variables</a></li>
 <li class="chapter" data-level="3.7" data-path="dic.html"><a href="dic.html"><i class="fa fa-check"></i><b>3.7</b> DIC</a></li>
-<li class="chapter" data-level="3.8" data-path="appendix-gentle-introduction.html"><a href="appendix-gentle-introduction.html"><i class="fa fa-check"></i><b>3.8</b> Appendix: Gentle Introduction</a></li>
-<li class="chapter" data-level="3.9" data-path="further-reading-1.html"><a href="further-reading-1.html"><i class="fa fa-check"></i><b>3.9</b> Further Reading</a></li>
+<li class="chapter" data-level="3.8" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html"><i class="fa fa-check"></i><b>3.8</b> Monte Carlo Integration</a>
+<ul>
+<li class="chapter" data-level="3.8.1" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html#inverse-sampling"><i class="fa fa-check"></i><b>3.8.1</b> Inverse Sampling</a></li>
+<li class="chapter" data-level="3.8.2" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html#rejection-sampling"><i class="fa fa-check"></i><b>3.8.2</b> Rejection Sampling</a></li>
+<li class="chapter" data-level="3.8.3" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html#importance-sampling"><i class="fa fa-check"></i><b>3.8.3</b> Importance Sampling</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="metropolis-hastings.html"><a href="metropolis-hastings.html"><i class="fa fa-check"></i><b>3.9</b> Metropolis-Hastings</a></li>
+<li class="chapter" data-level="3.10" data-path="appendix-gentle-introduction.html"><a href="appendix-gentle-introduction.html"><i class="fa fa-check"></i><b>3.10</b> Appendix: Gentle Introduction</a></li>
+<li class="chapter" data-level="3.11" data-path="appendix-bayes-factors.html"><a href="appendix-bayes-factors.html"><i class="fa fa-check"></i><b>3.11</b> Appendix: Bayes Factors</a></li>
+<li class="chapter" data-level="3.12" data-path="further-reading-1.html"><a href="further-reading-1.html"><i class="fa fa-check"></i><b>3.12</b> Further Reading</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="one-sample.html"><a href="one-sample.html"><i class="fa fa-check"></i><b>4</b> One-Sample</a>
 <ul>
@@ -183,16 +224,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2" data-path="wilcoxonranksum.html"><a href="wilcoxonranksum.html"><i class="fa fa-check"></i><b>5.2</b> Wilcoxon Rank Sum Test</a></li>
 <li class="chapter" data-level="" data-path="case-study-1.html"><a href="case-study-1.html"><i class="fa fa-check"></i>Case Study 1</a></li>
 <li class="chapter" data-level="5.3" data-path="pairedttest.html"><a href="pairedttest.html"><i class="fa fa-check"></i><b>5.3</b> Paired Samples t-Test</a></li>
-<li class="chapter" data-level="5.4" data-path="wilcoxonsignedrank.html"><a href="wilcoxonsignedrank.html"><i class="fa fa-check"></i><b>5.4</b> Wilcoxon Signed-Rank Test</a></li>
+<li class="chapter" data-level="5.4" data-path="wilcoxonsignedrank.html"><a href="wilcoxonsignedrank.html"><i class="fa fa-check"></i><b>5.4</b> Wilcoxon Signed-Rank Test</a>
+<ul>
+<li class="chapter" data-level="" data-path="wilcoxonsignedrank.html"><a href="wilcoxonsignedrank.html#sign-test"><i class="fa fa-check"></i>Sign Test</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="case-study-2.html"><a href="case-study-2.html"><i class="fa fa-check"></i>Case Study 2</a></li>
 <li class="chapter" data-level="5.5" data-path="onewayanova.html"><a href="onewayanova.html"><i class="fa fa-check"></i><b>5.5</b> One-way ANOVA</a></li>
 <li class="chapter" data-level="5.6" data-path="kw.html"><a href="kw.html"><i class="fa fa-check"></i><b>5.6</b> Kruskal–Wallis Test</a></li>
-<li class="chapter" data-level="" data-path="groupdiffscs3.html"><a href="groupdiffscs3.html"><i class="fa fa-check"></i>Case Study 3</a></li>
+<li class="chapter" data-level="" data-path="groupdiffscs3.html"><a href="groupdiffscs3.html"><i class="fa fa-check"></i>Case Study 3</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="groupdiffscs3.html"><a href="groupdiffscs3.html#assumptions"><i class="fa fa-check"></i><b>5.6.1</b> Assumptions</a></li>
+<li class="chapter" data-level="5.6.2" data-path="groupdiffscs3.html"><a href="groupdiffscs3.html#anova"><i class="fa fa-check"></i><b>5.6.2</b> ANOVA</a></li>
+<li class="chapter" data-level="5.6.3" data-path="groupdiffscs3.html"><a href="groupdiffscs3.html#kruskal-wallis-test"><i class="fa fa-check"></i><b>5.6.3</b> Kruskal-Wallis Test</a></li>
+</ul></li>
 <li class="chapter" data-level="5.7" data-path="chisqhomogeneity.html"><a href="chisqhomogeneity.html"><i class="fa fa-check"></i><b>5.7</b> Chi-Square Test of Homogeneity</a></li>
 <li class="chapter" data-level="5.8" data-path="fisherexact.html"><a href="fisherexact.html"><i class="fa fa-check"></i><b>5.8</b> Fisher’s Exact Test</a></li>
 <li class="chapter" data-level="" data-path="case-study-4.html"><a href="case-study-4.html"><i class="fa fa-check"></i>Case Study 4</a></li>
 <li class="chapter" data-level="5.9" data-path="pairwiseproptest.html"><a href="pairwiseproptest.html"><i class="fa fa-check"></i><b>5.9</b> Pairwise Prop Test</a></li>
-<li class="chapter" data-level="5.10" data-path="mcnemar.html"><a href="mcnemar.html"><i class="fa fa-check"></i><b>5.10</b> McNemar’s Test</a></li>
+<li class="chapter" data-level="5.10" data-path="mcnemar.html"><a href="mcnemar.html"><i class="fa fa-check"></i><b>5.10</b> McNemar’s Test</a>
+<ul>
+<li class="chapter" data-level="5.10.1" data-path="mcnemar.html"><a href="mcnemar.html#manova"><i class="fa fa-check"></i><b>5.10.1</b> MANOVA</a></li>
+<li class="chapter" data-level="5.10.2" data-path="mcnemar.html"><a href="mcnemar.html#multiple-variance-comparison-f-test"><i class="fa fa-check"></i><b>5.10.2</b> Multiple Variance Comparison F Test</a></li>
+<li class="chapter" data-level="5.10.3" data-path="mcnemar.html"><a href="mcnemar.html#example-5"><i class="fa fa-check"></i><b>5.10.3</b> Example</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="association.html"><a href="association.html"><i class="fa fa-check"></i><b>6</b> Association</a>
 <ul>
@@ -272,18 +326,18 @@ Figure 6.2: <code>dat2</code> meets the mononicity assumption for Spearman’s r
 <div id="bivariate-normality" class="section level5 unnumbered hasAnchor">
 <h5>Bivariate Normality<a href="case-study-pearson-spearman-kendall.html#bivariate-normality" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>Bivariate normality is difficult to assess. If two variables are bivariate normal, they will each be individually normal as well. That’s the best you can hope to check for. Use the Shapiro-Wilk test.</p>
-<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="case-study-pearson-spearman-kendall.html#cb275-1" tabindex="-1"></a><span class="fu">shapiro.test</span>(cs<span class="sc">$</span>dat1<span class="sc">$</span>time_tv)</span>
-<span id="cb275-2"><a href="case-study-pearson-spearman-kendall.html#cb275-2" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb275-3"><a href="case-study-pearson-spearman-kendall.html#cb275-3" tabindex="-1"></a><span class="do">##  Shapiro-Wilk normality test</span></span>
-<span id="cb275-4"><a href="case-study-pearson-spearman-kendall.html#cb275-4" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb275-5"><a href="case-study-pearson-spearman-kendall.html#cb275-5" tabindex="-1"></a><span class="do">## data:  cs$dat1$time_tv</span></span>
-<span id="cb275-6"><a href="case-study-pearson-spearman-kendall.html#cb275-6" tabindex="-1"></a><span class="do">## W = 0.97989, p-value = 0.1304</span></span>
-<span id="cb275-7"><a href="case-study-pearson-spearman-kendall.html#cb275-7" tabindex="-1"></a><span class="fu">shapiro.test</span>(cs<span class="sc">$</span>dat1<span class="sc">$</span>cholesterol)</span>
-<span id="cb275-8"><a href="case-study-pearson-spearman-kendall.html#cb275-8" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb275-9"><a href="case-study-pearson-spearman-kendall.html#cb275-9" tabindex="-1"></a><span class="do">##  Shapiro-Wilk normality test</span></span>
-<span id="cb275-10"><a href="case-study-pearson-spearman-kendall.html#cb275-10" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb275-11"><a href="case-study-pearson-spearman-kendall.html#cb275-11" tabindex="-1"></a><span class="do">## data:  cs$dat1$cholesterol</span></span>
-<span id="cb275-12"><a href="case-study-pearson-spearman-kendall.html#cb275-12" tabindex="-1"></a><span class="do">## W = 0.97594, p-value = 0.06387</span></span></code></pre></div>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="case-study-pearson-spearman-kendall.html#cb315-1" tabindex="-1"></a><span class="fu">shapiro.test</span>(cs<span class="sc">$</span>dat1<span class="sc">$</span>time_tv)</span>
+<span id="cb315-2"><a href="case-study-pearson-spearman-kendall.html#cb315-2" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb315-3"><a href="case-study-pearson-spearman-kendall.html#cb315-3" tabindex="-1"></a><span class="do">##  Shapiro-Wilk normality test</span></span>
+<span id="cb315-4"><a href="case-study-pearson-spearman-kendall.html#cb315-4" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb315-5"><a href="case-study-pearson-spearman-kendall.html#cb315-5" tabindex="-1"></a><span class="do">## data:  cs$dat1$time_tv</span></span>
+<span id="cb315-6"><a href="case-study-pearson-spearman-kendall.html#cb315-6" tabindex="-1"></a><span class="do">## W = 0.97989, p-value = 0.1304</span></span>
+<span id="cb315-7"><a href="case-study-pearson-spearman-kendall.html#cb315-7" tabindex="-1"></a><span class="fu">shapiro.test</span>(cs<span class="sc">$</span>dat1<span class="sc">$</span>cholesterol)</span>
+<span id="cb315-8"><a href="case-study-pearson-spearman-kendall.html#cb315-8" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb315-9"><a href="case-study-pearson-spearman-kendall.html#cb315-9" tabindex="-1"></a><span class="do">##  Shapiro-Wilk normality test</span></span>
+<span id="cb315-10"><a href="case-study-pearson-spearman-kendall.html#cb315-10" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb315-11"><a href="case-study-pearson-spearman-kendall.html#cb315-11" tabindex="-1"></a><span class="do">## data:  cs$dat1$cholesterol</span></span>
+<span id="cb315-12"><a href="case-study-pearson-spearman-kendall.html#cb315-12" tabindex="-1"></a><span class="do">## W = 0.97594, p-value = 0.06387</span></span></code></pre></div>
 <p>If a variable is not normally distributed, you can transform it, carry on regardless since the Pearson correlation is fairly robust to deviations from normality, or revert to Spearman and Kendall.</p>
 </div>
 </div>
@@ -293,9 +347,9 @@ Figure 6.2: <code>dat2</code> meets the mononicity assumption for Spearman’s r
 <div id="pearsons-correlation" class="section level5 unnumbered hasAnchor">
 <h5>Pearson’s Correlation<a href="case-study-pearson-spearman-kendall.html#pearsons-correlation" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p><code>dat1</code> met the conditions for Pearson’s correlation.</p>
-<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="case-study-pearson-spearman-kendall.html#cb276-1" tabindex="-1"></a>(cs<span class="sc">$</span>cc_pearson <span class="ot">&lt;-</span> </span>
-<span id="cb276-2"><a href="case-study-pearson-spearman-kendall.html#cb276-2" tabindex="-1"></a>  <span class="fu">cor.test</span>(cs<span class="sc">$</span>dat1<span class="sc">$</span>cholesterol, cs<span class="sc">$</span>dat1<span class="sc">$</span>time_tv, <span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>)</span>
-<span id="cb276-3"><a href="case-study-pearson-spearman-kendall.html#cb276-3" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="case-study-pearson-spearman-kendall.html#cb316-1" tabindex="-1"></a>(cs<span class="sc">$</span>cc_pearson <span class="ot">&lt;-</span> </span>
+<span id="cb316-2"><a href="case-study-pearson-spearman-kendall.html#cb316-2" tabindex="-1"></a>  <span class="fu">cor.test</span>(cs<span class="sc">$</span>dat1<span class="sc">$</span>cholesterol, cs<span class="sc">$</span>dat1<span class="sc">$</span>time_tv, <span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>)</span>
+<span id="cb316-3"><a href="case-study-pearson-spearman-kendall.html#cb316-3" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
@@ -314,16 +368,16 @@ Figure 6.2: <code>dat2</code> meets the mononicity assumption for Spearman’s r
 <p>There was a statistically significant, moderate positive correlation between daily time spent watching TV and cholesterol concentration, <em>r</em>(98) = 0.37, p &lt; .0005, with time spent watching TV explaining 14% of the variation in cholesterol concentration.</p>
 </blockquote>
 <p>You wouldn’t use Spearman’s rho or Kendall’s tau here since the more precise Pearson’s correlation is available. But just out of curiosity, here are the correlations using those two measures.</p>
-<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="case-study-pearson-spearman-kendall.html#cb278-1" tabindex="-1"></a><span class="fu">cor</span>(cs<span class="sc">$</span>dat1<span class="sc">$</span>cholesterol, cs<span class="sc">$</span>dat1<span class="sc">$</span>time_tv, <span class="at">method =</span> <span class="st">&quot;kendall&quot;</span>)</span>
-<span id="cb278-2"><a href="case-study-pearson-spearman-kendall.html#cb278-2" tabindex="-1"></a><span class="do">## [1] 0.2383971</span></span>
-<span id="cb278-3"><a href="case-study-pearson-spearman-kendall.html#cb278-3" tabindex="-1"></a><span class="fu">cor</span>(cs<span class="sc">$</span>dat1<span class="sc">$</span>cholesterol, cs<span class="sc">$</span>dat1<span class="sc">$</span>time_tv, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>)</span>
-<span id="cb278-4"><a href="case-study-pearson-spearman-kendall.html#cb278-4" tabindex="-1"></a><span class="do">## [1] 0.3322122</span></span></code></pre></div>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="case-study-pearson-spearman-kendall.html#cb318-1" tabindex="-1"></a><span class="fu">cor</span>(cs<span class="sc">$</span>dat1<span class="sc">$</span>cholesterol, cs<span class="sc">$</span>dat1<span class="sc">$</span>time_tv, <span class="at">method =</span> <span class="st">&quot;kendall&quot;</span>)</span>
+<span id="cb318-2"><a href="case-study-pearson-spearman-kendall.html#cb318-2" tabindex="-1"></a><span class="do">## [1] 0.2383971</span></span>
+<span id="cb318-3"><a href="case-study-pearson-spearman-kendall.html#cb318-3" tabindex="-1"></a><span class="fu">cor</span>(cs<span class="sc">$</span>dat1<span class="sc">$</span>cholesterol, cs<span class="sc">$</span>dat1<span class="sc">$</span>time_tv, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>)</span>
+<span id="cb318-4"><a href="case-study-pearson-spearman-kendall.html#cb318-4" tabindex="-1"></a><span class="do">## [1] 0.3322122</span></span></code></pre></div>
 <p>Both Kendall and Spearman produced more conservative estimates of the strength of the relationship - Kendall especially so.</p>
 <p>You probably wouldn’t use linear regression here either because it describes the linear relationship between a <em>response</em> variable and changes to an independent <em>explanatory</em> variable. Even though we are reluctant to interpret a regression model in terms of causality, that is what is implied the formulation <code>y ~ x</code> and independence assumption in of X. Nevertheless, correlation and regression are related. The slope term in a simple linear regression of the normalized values equals the Pearson correlation.</p>
-<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="case-study-pearson-spearman-kendall.html#cb279-1" tabindex="-1"></a><span class="fu">lm</span>(</span>
-<span id="cb279-2"><a href="case-study-pearson-spearman-kendall.html#cb279-2" tabindex="-1"></a>  y <span class="sc">~</span> x, </span>
-<span id="cb279-3"><a href="case-study-pearson-spearman-kendall.html#cb279-3" tabindex="-1"></a>  <span class="at">data =</span> cs<span class="sc">$</span>dat1 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">y =</span> <span class="fu">scale</span>(cholesterol), <span class="at">x =</span> <span class="fu">scale</span>(time_tv))</span>
-<span id="cb279-4"><a href="case-study-pearson-spearman-kendall.html#cb279-4" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="case-study-pearson-spearman-kendall.html#cb319-1" tabindex="-1"></a><span class="fu">lm</span>(</span>
+<span id="cb319-2"><a href="case-study-pearson-spearman-kendall.html#cb319-2" tabindex="-1"></a>  y <span class="sc">~</span> x, </span>
+<span id="cb319-3"><a href="case-study-pearson-spearman-kendall.html#cb319-3" tabindex="-1"></a>  <span class="at">data =</span> cs<span class="sc">$</span>dat1 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">y =</span> <span class="fu">scale</span>(cholesterol), <span class="at">x =</span> <span class="fu">scale</span>(time_tv))</span>
+<span id="cb319-4"><a href="case-study-pearson-spearman-kendall.html#cb319-4" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = y ~ x, data = cs$dat1 %&gt;% mutate(y = scale(cholesterol), 
@@ -337,16 +391,16 @@ Figure 6.2: <code>dat2</code> meets the mononicity assumption for Spearman’s r
 <h5>Spearman’s Rho<a href="case-study-pearson-spearman-kendall.html#spearmans-rho" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>Data set <code>dat2</code> did not meet the conditions for Pearson’s correlation, so use Spearman’s rho and/or Kendall’s tau.</p>
 <p>Start with Spearman’s rho. Recall that Spearman’s rho is just the Pearson correlation applied to the ranks. Recall also that the Pearson’s correlation is just the covariance divided by the product of the standard deviations. You can quickly calculate it by hand.</p>
-<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="case-study-pearson-spearman-kendall.html#cb281-1" tabindex="-1"></a><span class="fu">cov</span>(<span class="fu">rank</span>(cs<span class="sc">$</span>dat2<span class="sc">$</span>income), <span class="fu">rank</span>(cs<span class="sc">$</span>dat2<span class="sc">$</span>tax_too_high)) <span class="sc">/</span></span>
-<span id="cb281-2"><a href="case-study-pearson-spearman-kendall.html#cb281-2" tabindex="-1"></a>  (<span class="fu">sd</span>(<span class="fu">rank</span>(cs<span class="sc">$</span>dat2<span class="sc">$</span>income)) <span class="sc">*</span> <span class="fu">sd</span>(<span class="fu">rank</span>(cs<span class="sc">$</span>dat2<span class="sc">$</span>tax_too_high)))</span></code></pre></div>
+<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="case-study-pearson-spearman-kendall.html#cb321-1" tabindex="-1"></a><span class="fu">cov</span>(<span class="fu">rank</span>(cs<span class="sc">$</span>dat2<span class="sc">$</span>income), <span class="fu">rank</span>(cs<span class="sc">$</span>dat2<span class="sc">$</span>tax_too_high)) <span class="sc">/</span></span>
+<span id="cb321-2"><a href="case-study-pearson-spearman-kendall.html#cb321-2" tabindex="-1"></a>  (<span class="fu">sd</span>(<span class="fu">rank</span>(cs<span class="sc">$</span>dat2<span class="sc">$</span>income)) <span class="sc">*</span> <span class="fu">sd</span>(<span class="fu">rank</span>(cs<span class="sc">$</span>dat2<span class="sc">$</span>tax_too_high)))</span></code></pre></div>
 <pre><code>## [1] 0.6024641</code></pre>
 <p>Use the function though. I don’t get why <code>cor.test</code> requires <code>x</code> and <code>y</code> be numeric.</p>
-<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="case-study-pearson-spearman-kendall.html#cb283-1" tabindex="-1"></a>(cs<span class="sc">$</span>spearman <span class="ot">&lt;-</span> </span>
-<span id="cb283-2"><a href="case-study-pearson-spearman-kendall.html#cb283-2" tabindex="-1"></a>  <span class="fu">cor.test</span>(</span>
-<span id="cb283-3"><a href="case-study-pearson-spearman-kendall.html#cb283-3" tabindex="-1"></a>    <span class="fu">as.numeric</span>(cs<span class="sc">$</span>dat2<span class="sc">$</span>tax_too_high), </span>
-<span id="cb283-4"><a href="case-study-pearson-spearman-kendall.html#cb283-4" tabindex="-1"></a>    <span class="fu">as.numeric</span>(cs<span class="sc">$</span>dat2<span class="sc">$</span>income), </span>
-<span id="cb283-5"><a href="case-study-pearson-spearman-kendall.html#cb283-5" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>)</span>
-<span id="cb283-6"><a href="case-study-pearson-spearman-kendall.html#cb283-6" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="case-study-pearson-spearman-kendall.html#cb323-1" tabindex="-1"></a>(cs<span class="sc">$</span>spearman <span class="ot">&lt;-</span> </span>
+<span id="cb323-2"><a href="case-study-pearson-spearman-kendall.html#cb323-2" tabindex="-1"></a>  <span class="fu">cor.test</span>(</span>
+<span id="cb323-3"><a href="case-study-pearson-spearman-kendall.html#cb323-3" tabindex="-1"></a>    <span class="fu">as.numeric</span>(cs<span class="sc">$</span>dat2<span class="sc">$</span>tax_too_high), </span>
+<span id="cb323-4"><a href="case-study-pearson-spearman-kendall.html#cb323-4" tabindex="-1"></a>    <span class="fu">as.numeric</span>(cs<span class="sc">$</span>dat2<span class="sc">$</span>income), </span>
+<span id="cb323-5"><a href="case-study-pearson-spearman-kendall.html#cb323-5" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>)</span>
+<span id="cb323-6"><a href="case-study-pearson-spearman-kendall.html#cb323-6" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## Warning in cor.test.default(as.numeric(cs$dat2$tax_too_high),
 ## as.numeric(cs$dat2$income), : Cannot compute exact p-value with ties</code></pre>
 <pre><code>## 
@@ -366,12 +420,12 @@ Figure 6.2: <code>dat2</code> meets the mononicity assumption for Spearman’s r
 <div id="kendalls-tau" class="section level5 unnumbered hasAnchor">
 <h5>Kendall’s Tau<a href="case-study-pearson-spearman-kendall.html#kendalls-tau" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>Recall that Kendall’s tau is a function of concordant (C), discordant (D) and tied (Tx and Ty) pairs of observations. The manual calculation is a little more involved. Here is the function instead.</p>
-<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="case-study-pearson-spearman-kendall.html#cb286-1" tabindex="-1"></a>(cs<span class="sc">$</span>kendall <span class="ot">&lt;-</span> </span>
-<span id="cb286-2"><a href="case-study-pearson-spearman-kendall.html#cb286-2" tabindex="-1"></a>  <span class="fu">cor.test</span>(</span>
-<span id="cb286-3"><a href="case-study-pearson-spearman-kendall.html#cb286-3" tabindex="-1"></a>    <span class="fu">as.numeric</span>(cs<span class="sc">$</span>dat2<span class="sc">$</span>tax_too_high), </span>
-<span id="cb286-4"><a href="case-study-pearson-spearman-kendall.html#cb286-4" tabindex="-1"></a>    <span class="fu">as.numeric</span>(cs<span class="sc">$</span>dat2<span class="sc">$</span>income), </span>
-<span id="cb286-5"><a href="case-study-pearson-spearman-kendall.html#cb286-5" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">&quot;kendall&quot;</span>)</span>
-<span id="cb286-6"><a href="case-study-pearson-spearman-kendall.html#cb286-6" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="case-study-pearson-spearman-kendall.html#cb326-1" tabindex="-1"></a>(cs<span class="sc">$</span>kendall <span class="ot">&lt;-</span> </span>
+<span id="cb326-2"><a href="case-study-pearson-spearman-kendall.html#cb326-2" tabindex="-1"></a>  <span class="fu">cor.test</span>(</span>
+<span id="cb326-3"><a href="case-study-pearson-spearman-kendall.html#cb326-3" tabindex="-1"></a>    <span class="fu">as.numeric</span>(cs<span class="sc">$</span>dat2<span class="sc">$</span>tax_too_high), </span>
+<span id="cb326-4"><a href="case-study-pearson-spearman-kendall.html#cb326-4" tabindex="-1"></a>    <span class="fu">as.numeric</span>(cs<span class="sc">$</span>dat2<span class="sc">$</span>income), </span>
+<span id="cb326-5"><a href="case-study-pearson-spearman-kendall.html#cb326-5" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">&quot;kendall&quot;</span>)</span>
+<span id="cb326-6"><a href="case-study-pearson-spearman-kendall.html#cb326-6" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## Warning in cor.test.default(as.numeric(cs$dat2$tax_too_high),
 ## as.numeric(cs$dat2$income), : Cannot compute exact p-value with ties</code></pre>
 <pre><code>## 

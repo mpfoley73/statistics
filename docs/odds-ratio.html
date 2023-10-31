@@ -23,7 +23,7 @@
 <meta name="author" content="Michael Foley" />
 
 
-<meta name="date" content="2023-10-14" />
+<meta name="date" content="2023-10-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -127,6 +127,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 </style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -145,7 +167,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1" data-path="frequentist-statistics.html"><a href="frequentist-statistics.html"><i class="fa fa-check"></i><b>1</b> Frequentist Statistics</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="central-tendancy-and-dispersion.html"><a href="central-tendancy-and-dispersion.html"><i class="fa fa-check"></i><b>1.1</b> Central Tendancy and Dispersion</a></li>
-<li class="chapter" data-level="1.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>1.2</b> Hypothesis Testing</a></li>
+<li class="chapter" data-level="1.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>1.2</b> Hypothesis Testing</a>
+<ul>
+<li class="chapter" data-level="" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#type-i-and-ii-errors"><i class="fa fa-check"></i>Type I and II Errors</a></li>
+<li class="chapter" data-level="" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#statistical-power"><i class="fa fa-check"></i>Statistical Power</a></li>
+<li class="chapter" data-level="" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#what-p-values-would-you-expect"><i class="fa fa-check"></i>What p-values would you expect?</a></li>
+<li class="chapter" data-level="1.2.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#further-reading"><i class="fa fa-check"></i><b>1.2.1</b> Further Reading</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="likelihood-statistics.html"><a href="likelihood-statistics.html"><i class="fa fa-check"></i><b>2</b> Likelihood Statistics</a>
 <ul>
@@ -155,13 +183,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="3.1" data-path="bayes-theorem.html"><a href="bayes-theorem.html"><i class="fa fa-check"></i><b>3.1</b> Bayes’ Theorem</a></li>
 <li class="chapter" data-level="3.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html"><i class="fa fa-check"></i><b>3.2</b> Bayesian Inference</a></li>
-<li class="chapter" data-level="3.3" data-path="bayes-factors.html"><a href="bayes-factors.html"><i class="fa fa-check"></i><b>3.3</b> Bayes Factors</a></li>
-<li class="chapter" data-level="3.4" data-path="gamma-poisson.html"><a href="gamma-poisson.html"><i class="fa fa-check"></i><b>3.4</b> Gamma Poisson</a></li>
-<li class="chapter" data-level="3.5" data-path="normal.html"><a href="normal.html"><i class="fa fa-check"></i><b>3.5</b> Normal</a></li>
-<li class="chapter" data-level="3.6" data-path="proportions-and-the-beta-binomial.html"><a href="proportions-and-the-beta-binomial.html"><i class="fa fa-check"></i><b>3.6</b> Proportions and the Beta Binomial</a></li>
+<li class="chapter" data-level="3.3" data-path="gamma-poisson-and-estimating-counts.html"><a href="gamma-poisson-and-estimating-counts.html"><i class="fa fa-check"></i><b>3.3</b> Gamma Poisson and Estimating Counts</a></li>
+<li class="chapter" data-level="3.4" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html"><i class="fa fa-check"></i><b>3.4</b> Normal and Estimating Means</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#population-estimate"><i class="fa fa-check"></i><b>3.4.1</b> Population Estimate</a></li>
+<li class="chapter" data-level="3.4.2" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#regression"><i class="fa fa-check"></i><b>3.4.2</b> Regression</a></li>
+<li class="chapter" data-level="3.4.3" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#change-point-regression"><i class="fa fa-check"></i><b>3.4.3</b> Change Point Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="beta-binomial-and-estimating-proportions.html"><a href="beta-binomial-and-estimating-proportions.html"><i class="fa fa-check"></i><b>3.5</b> Beta Binomial and Estimating Proportions</a></li>
+<li class="chapter" data-level="3.6" data-path="zero-inflation-and-latent-variables.html"><a href="zero-inflation-and-latent-variables.html"><i class="fa fa-check"></i><b>3.6</b> Zero-Inflation and Latent Variables</a></li>
 <li class="chapter" data-level="3.7" data-path="dic.html"><a href="dic.html"><i class="fa fa-check"></i><b>3.7</b> DIC</a></li>
-<li class="chapter" data-level="3.8" data-path="appendix-gentle-introduction.html"><a href="appendix-gentle-introduction.html"><i class="fa fa-check"></i><b>3.8</b> Appendix: Gentle Introduction</a></li>
-<li class="chapter" data-level="3.9" data-path="further-reading-1.html"><a href="further-reading-1.html"><i class="fa fa-check"></i><b>3.9</b> Further Reading</a></li>
+<li class="chapter" data-level="3.8" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html"><i class="fa fa-check"></i><b>3.8</b> Monte Carlo Integration</a>
+<ul>
+<li class="chapter" data-level="3.8.1" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html#inverse-sampling"><i class="fa fa-check"></i><b>3.8.1</b> Inverse Sampling</a></li>
+<li class="chapter" data-level="3.8.2" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html#rejection-sampling"><i class="fa fa-check"></i><b>3.8.2</b> Rejection Sampling</a></li>
+<li class="chapter" data-level="3.8.3" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html#importance-sampling"><i class="fa fa-check"></i><b>3.8.3</b> Importance Sampling</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="metropolis-hastings.html"><a href="metropolis-hastings.html"><i class="fa fa-check"></i><b>3.9</b> Metropolis-Hastings</a></li>
+<li class="chapter" data-level="3.10" data-path="appendix-gentle-introduction.html"><a href="appendix-gentle-introduction.html"><i class="fa fa-check"></i><b>3.10</b> Appendix: Gentle Introduction</a></li>
+<li class="chapter" data-level="3.11" data-path="appendix-bayes-factors.html"><a href="appendix-bayes-factors.html"><i class="fa fa-check"></i><b>3.11</b> Appendix: Bayes Factors</a></li>
+<li class="chapter" data-level="3.12" data-path="further-reading-1.html"><a href="further-reading-1.html"><i class="fa fa-check"></i><b>3.12</b> Further Reading</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="one-sample.html"><a href="one-sample.html"><i class="fa fa-check"></i><b>4</b> One-Sample</a>
 <ul>
@@ -183,16 +224,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2" data-path="wilcoxonranksum.html"><a href="wilcoxonranksum.html"><i class="fa fa-check"></i><b>5.2</b> Wilcoxon Rank Sum Test</a></li>
 <li class="chapter" data-level="" data-path="case-study-1.html"><a href="case-study-1.html"><i class="fa fa-check"></i>Case Study 1</a></li>
 <li class="chapter" data-level="5.3" data-path="pairedttest.html"><a href="pairedttest.html"><i class="fa fa-check"></i><b>5.3</b> Paired Samples t-Test</a></li>
-<li class="chapter" data-level="5.4" data-path="wilcoxonsignedrank.html"><a href="wilcoxonsignedrank.html"><i class="fa fa-check"></i><b>5.4</b> Wilcoxon Signed-Rank Test</a></li>
+<li class="chapter" data-level="5.4" data-path="wilcoxonsignedrank.html"><a href="wilcoxonsignedrank.html"><i class="fa fa-check"></i><b>5.4</b> Wilcoxon Signed-Rank Test</a>
+<ul>
+<li class="chapter" data-level="" data-path="wilcoxonsignedrank.html"><a href="wilcoxonsignedrank.html#sign-test"><i class="fa fa-check"></i>Sign Test</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="case-study-2.html"><a href="case-study-2.html"><i class="fa fa-check"></i>Case Study 2</a></li>
 <li class="chapter" data-level="5.5" data-path="onewayanova.html"><a href="onewayanova.html"><i class="fa fa-check"></i><b>5.5</b> One-way ANOVA</a></li>
 <li class="chapter" data-level="5.6" data-path="kw.html"><a href="kw.html"><i class="fa fa-check"></i><b>5.6</b> Kruskal–Wallis Test</a></li>
-<li class="chapter" data-level="" data-path="groupdiffscs3.html"><a href="groupdiffscs3.html"><i class="fa fa-check"></i>Case Study 3</a></li>
+<li class="chapter" data-level="" data-path="groupdiffscs3.html"><a href="groupdiffscs3.html"><i class="fa fa-check"></i>Case Study 3</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="groupdiffscs3.html"><a href="groupdiffscs3.html#assumptions"><i class="fa fa-check"></i><b>5.6.1</b> Assumptions</a></li>
+<li class="chapter" data-level="5.6.2" data-path="groupdiffscs3.html"><a href="groupdiffscs3.html#anova"><i class="fa fa-check"></i><b>5.6.2</b> ANOVA</a></li>
+<li class="chapter" data-level="5.6.3" data-path="groupdiffscs3.html"><a href="groupdiffscs3.html#kruskal-wallis-test"><i class="fa fa-check"></i><b>5.6.3</b> Kruskal-Wallis Test</a></li>
+</ul></li>
 <li class="chapter" data-level="5.7" data-path="chisqhomogeneity.html"><a href="chisqhomogeneity.html"><i class="fa fa-check"></i><b>5.7</b> Chi-Square Test of Homogeneity</a></li>
 <li class="chapter" data-level="5.8" data-path="fisherexact.html"><a href="fisherexact.html"><i class="fa fa-check"></i><b>5.8</b> Fisher’s Exact Test</a></li>
 <li class="chapter" data-level="" data-path="case-study-4.html"><a href="case-study-4.html"><i class="fa fa-check"></i>Case Study 4</a></li>
 <li class="chapter" data-level="5.9" data-path="pairwiseproptest.html"><a href="pairwiseproptest.html"><i class="fa fa-check"></i><b>5.9</b> Pairwise Prop Test</a></li>
-<li class="chapter" data-level="5.10" data-path="mcnemar.html"><a href="mcnemar.html"><i class="fa fa-check"></i><b>5.10</b> McNemar’s Test</a></li>
+<li class="chapter" data-level="5.10" data-path="mcnemar.html"><a href="mcnemar.html"><i class="fa fa-check"></i><b>5.10</b> McNemar’s Test</a>
+<ul>
+<li class="chapter" data-level="5.10.1" data-path="mcnemar.html"><a href="mcnemar.html#manova"><i class="fa fa-check"></i><b>5.10.1</b> MANOVA</a></li>
+<li class="chapter" data-level="5.10.2" data-path="mcnemar.html"><a href="mcnemar.html#multiple-variance-comparison-f-test"><i class="fa fa-check"></i><b>5.10.2</b> Multiple Variance Comparison F Test</a></li>
+<li class="chapter" data-level="5.10.3" data-path="mcnemar.html"><a href="mcnemar.html#example-5"><i class="fa fa-check"></i><b>5.10.3</b> Example</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="association.html"><a href="association.html"><i class="fa fa-check"></i><b>6</b> Association</a>
 <ul>
@@ -236,14 +290,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">6.10</span> Odds Ratio<a href="odds-ratio.html#odds-ratio" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Calculate relative risks for <em>dichotomous</em> nominal, independent variables when one variable is independent, the other dependent. Relative risks are valid for <em>prospective</em> and <em>retrospective cohort designs</em>, <em>randomized controlled trials (RCTs)</em>, and some types of <em>cross-sectional studies</em>, but not with case-control studies.</p>
 <p>Calculate odds ratios as an alternative to relative risk. It makes the same assumptions. Unlike relative risk, it is valid for <em>all</em> study designs.</p>
-<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="odds-ratio.html#cb315-1" tabindex="-1"></a>cs<span class="sc">$</span>or2</span></code></pre></div>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="odds-ratio.html#cb355-1" tabindex="-1"></a>cs<span class="sc">$</span>or2</span></code></pre></div>
 <pre><code>## NULL</code></pre>
-<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="odds-ratio.html#cb317-1" tabindex="-1"></a><span class="co"># Smoking vs Lung Cancer</span></span>
-<span id="cb317-2"><a href="odds-ratio.html#cb317-2" tabindex="-1"></a><span class="co"># https://statistics.laerd.com/premium/spss/rr2x2/relative-risk-2x2-in-spss.php</span></span>
-<span id="cb317-3"><a href="odds-ratio.html#cb317-3" tabindex="-1"></a>cs<span class="sc">$</span>rr2x2 <span class="ot">&lt;-</span> <span class="fu">read.spss</span>(</span>
-<span id="cb317-4"><a href="odds-ratio.html#cb317-4" tabindex="-1"></a>  <span class="st">&quot;./input/relative-risk-2x2-individual-scores.sav&quot;</span>, </span>
-<span id="cb317-5"><a href="odds-ratio.html#cb317-5" tabindex="-1"></a>  <span class="at">to.data.frame =</span> <span class="cn">TRUE</span></span>
-<span id="cb317-6"><a href="odds-ratio.html#cb317-6" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="odds-ratio.html#cb357-1" tabindex="-1"></a><span class="co"># Smoking vs Lung Cancer</span></span>
+<span id="cb357-2"><a href="odds-ratio.html#cb357-2" tabindex="-1"></a><span class="co"># https://statistics.laerd.com/premium/spss/rr2x2/relative-risk-2x2-in-spss.php</span></span>
+<span id="cb357-3"><a href="odds-ratio.html#cb357-3" tabindex="-1"></a>cs<span class="sc">$</span>rr2x2 <span class="ot">&lt;-</span> <span class="fu">read.spss</span>(</span>
+<span id="cb357-4"><a href="odds-ratio.html#cb357-4" tabindex="-1"></a>  <span class="st">&quot;./input/relative-risk-2x2-individual-scores.sav&quot;</span>, </span>
+<span id="cb357-5"><a href="odds-ratio.html#cb357-5" tabindex="-1"></a>  <span class="at">to.data.frame =</span> <span class="cn">TRUE</span></span>
+<span id="cb357-6"><a href="odds-ratio.html#cb357-6" tabindex="-1"></a>)</span></code></pre></div>
 </div>
             </section>
 

@@ -23,37 +23,15 @@
             "type": "book"
         },
         {
-            "URL": "https://otexts.com/fpp3/",
+            "URL": "https://xcelab.net/rm/statistical-rethinking/",
             "author": [
                 {
-                    "family": "Rob J Hyndman",
-                    "given": "George Athanasopoulos"
+                    "family": "McElreath",
+                    "given": "Richard"
                 }
             ],
-            "edition": "3rd",
-            "id": "Hyndman2021",
-            "issued": {
-                "date-parts": [
-                    [
-                        2021
-                    ]
-                ]
-            },
-            "note": "ISBN 978-0987507136",
-            "publisher": "Otexts",
-            "title": "Forecasting: Principles and practice",
-            "title-short": "Forecasting",
-            "type": "book"
-        },
-        {
-            "URL": "https://christophm.github.io/interpretable-ml-book/",
-            "author": [
-                {
-                    "family": "Molnar",
-                    "given": "Christoph"
-                }
-            ],
-            "id": "Molner2020",
+            "edition": "2nd",
+            "id": "McElreath2020",
             "issued": {
                 "date-parts": [
                     [
@@ -61,7 +39,10 @@
                     ]
                 ]
             },
-            "title": "Interpretable machine learning",
+            "note": "ISBN 978-0367139919",
+            "publisher": "Chapman & Hall",
+            "title": "Statistical rethinking: A bayesian course with examples in r and STAN",
+            "title-short": "Statistical rethinking",
             "type": "book"
         },
         {

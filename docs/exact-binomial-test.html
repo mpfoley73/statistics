@@ -23,7 +23,7 @@
 <meta name="author" content="Michael Foley" />
 
 
-<meta name="date" content="2023-10-14" />
+<meta name="date" content="2023-10-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -127,6 +127,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 </style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -145,7 +167,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1" data-path="frequentist-statistics.html"><a href="frequentist-statistics.html"><i class="fa fa-check"></i><b>1</b> Frequentist Statistics</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="central-tendancy-and-dispersion.html"><a href="central-tendancy-and-dispersion.html"><i class="fa fa-check"></i><b>1.1</b> Central Tendancy and Dispersion</a></li>
-<li class="chapter" data-level="1.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>1.2</b> Hypothesis Testing</a></li>
+<li class="chapter" data-level="1.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>1.2</b> Hypothesis Testing</a>
+<ul>
+<li class="chapter" data-level="" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#type-i-and-ii-errors"><i class="fa fa-check"></i>Type I and II Errors</a></li>
+<li class="chapter" data-level="" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#statistical-power"><i class="fa fa-check"></i>Statistical Power</a></li>
+<li class="chapter" data-level="" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#what-p-values-would-you-expect"><i class="fa fa-check"></i>What p-values would you expect?</a></li>
+<li class="chapter" data-level="1.2.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#further-reading"><i class="fa fa-check"></i><b>1.2.1</b> Further Reading</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="likelihood-statistics.html"><a href="likelihood-statistics.html"><i class="fa fa-check"></i><b>2</b> Likelihood Statistics</a>
 <ul>
@@ -155,13 +183,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="3.1" data-path="bayes-theorem.html"><a href="bayes-theorem.html"><i class="fa fa-check"></i><b>3.1</b> Bayes’ Theorem</a></li>
 <li class="chapter" data-level="3.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html"><i class="fa fa-check"></i><b>3.2</b> Bayesian Inference</a></li>
-<li class="chapter" data-level="3.3" data-path="bayes-factors.html"><a href="bayes-factors.html"><i class="fa fa-check"></i><b>3.3</b> Bayes Factors</a></li>
-<li class="chapter" data-level="3.4" data-path="gamma-poisson.html"><a href="gamma-poisson.html"><i class="fa fa-check"></i><b>3.4</b> Gamma Poisson</a></li>
-<li class="chapter" data-level="3.5" data-path="normal.html"><a href="normal.html"><i class="fa fa-check"></i><b>3.5</b> Normal</a></li>
-<li class="chapter" data-level="3.6" data-path="proportions-and-the-beta-binomial.html"><a href="proportions-and-the-beta-binomial.html"><i class="fa fa-check"></i><b>3.6</b> Proportions and the Beta Binomial</a></li>
+<li class="chapter" data-level="3.3" data-path="gamma-poisson-and-estimating-counts.html"><a href="gamma-poisson-and-estimating-counts.html"><i class="fa fa-check"></i><b>3.3</b> Gamma Poisson and Estimating Counts</a></li>
+<li class="chapter" data-level="3.4" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html"><i class="fa fa-check"></i><b>3.4</b> Normal and Estimating Means</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#population-estimate"><i class="fa fa-check"></i><b>3.4.1</b> Population Estimate</a></li>
+<li class="chapter" data-level="3.4.2" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#regression"><i class="fa fa-check"></i><b>3.4.2</b> Regression</a></li>
+<li class="chapter" data-level="3.4.3" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#change-point-regression"><i class="fa fa-check"></i><b>3.4.3</b> Change Point Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="beta-binomial-and-estimating-proportions.html"><a href="beta-binomial-and-estimating-proportions.html"><i class="fa fa-check"></i><b>3.5</b> Beta Binomial and Estimating Proportions</a></li>
+<li class="chapter" data-level="3.6" data-path="zero-inflation-and-latent-variables.html"><a href="zero-inflation-and-latent-variables.html"><i class="fa fa-check"></i><b>3.6</b> Zero-Inflation and Latent Variables</a></li>
 <li class="chapter" data-level="3.7" data-path="dic.html"><a href="dic.html"><i class="fa fa-check"></i><b>3.7</b> DIC</a></li>
-<li class="chapter" data-level="3.8" data-path="appendix-gentle-introduction.html"><a href="appendix-gentle-introduction.html"><i class="fa fa-check"></i><b>3.8</b> Appendix: Gentle Introduction</a></li>
-<li class="chapter" data-level="3.9" data-path="further-reading-1.html"><a href="further-reading-1.html"><i class="fa fa-check"></i><b>3.9</b> Further Reading</a></li>
+<li class="chapter" data-level="3.8" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html"><i class="fa fa-check"></i><b>3.8</b> Monte Carlo Integration</a>
+<ul>
+<li class="chapter" data-level="3.8.1" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html#inverse-sampling"><i class="fa fa-check"></i><b>3.8.1</b> Inverse Sampling</a></li>
+<li class="chapter" data-level="3.8.2" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html#rejection-sampling"><i class="fa fa-check"></i><b>3.8.2</b> Rejection Sampling</a></li>
+<li class="chapter" data-level="3.8.3" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html#importance-sampling"><i class="fa fa-check"></i><b>3.8.3</b> Importance Sampling</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="metropolis-hastings.html"><a href="metropolis-hastings.html"><i class="fa fa-check"></i><b>3.9</b> Metropolis-Hastings</a></li>
+<li class="chapter" data-level="3.10" data-path="appendix-gentle-introduction.html"><a href="appendix-gentle-introduction.html"><i class="fa fa-check"></i><b>3.10</b> Appendix: Gentle Introduction</a></li>
+<li class="chapter" data-level="3.11" data-path="appendix-bayes-factors.html"><a href="appendix-bayes-factors.html"><i class="fa fa-check"></i><b>3.11</b> Appendix: Bayes Factors</a></li>
+<li class="chapter" data-level="3.12" data-path="further-reading-1.html"><a href="further-reading-1.html"><i class="fa fa-check"></i><b>3.12</b> Further Reading</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="one-sample.html"><a href="one-sample.html"><i class="fa fa-check"></i><b>4</b> One-Sample</a>
 <ul>
@@ -183,16 +224,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2" data-path="wilcoxonranksum.html"><a href="wilcoxonranksum.html"><i class="fa fa-check"></i><b>5.2</b> Wilcoxon Rank Sum Test</a></li>
 <li class="chapter" data-level="" data-path="case-study-1.html"><a href="case-study-1.html"><i class="fa fa-check"></i>Case Study 1</a></li>
 <li class="chapter" data-level="5.3" data-path="pairedttest.html"><a href="pairedttest.html"><i class="fa fa-check"></i><b>5.3</b> Paired Samples t-Test</a></li>
-<li class="chapter" data-level="5.4" data-path="wilcoxonsignedrank.html"><a href="wilcoxonsignedrank.html"><i class="fa fa-check"></i><b>5.4</b> Wilcoxon Signed-Rank Test</a></li>
+<li class="chapter" data-level="5.4" data-path="wilcoxonsignedrank.html"><a href="wilcoxonsignedrank.html"><i class="fa fa-check"></i><b>5.4</b> Wilcoxon Signed-Rank Test</a>
+<ul>
+<li class="chapter" data-level="" data-path="wilcoxonsignedrank.html"><a href="wilcoxonsignedrank.html#sign-test"><i class="fa fa-check"></i>Sign Test</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="case-study-2.html"><a href="case-study-2.html"><i class="fa fa-check"></i>Case Study 2</a></li>
 <li class="chapter" data-level="5.5" data-path="onewayanova.html"><a href="onewayanova.html"><i class="fa fa-check"></i><b>5.5</b> One-way ANOVA</a></li>
 <li class="chapter" data-level="5.6" data-path="kw.html"><a href="kw.html"><i class="fa fa-check"></i><b>5.6</b> Kruskal–Wallis Test</a></li>
-<li class="chapter" data-level="" data-path="groupdiffscs3.html"><a href="groupdiffscs3.html"><i class="fa fa-check"></i>Case Study 3</a></li>
+<li class="chapter" data-level="" data-path="groupdiffscs3.html"><a href="groupdiffscs3.html"><i class="fa fa-check"></i>Case Study 3</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="groupdiffscs3.html"><a href="groupdiffscs3.html#assumptions"><i class="fa fa-check"></i><b>5.6.1</b> Assumptions</a></li>
+<li class="chapter" data-level="5.6.2" data-path="groupdiffscs3.html"><a href="groupdiffscs3.html#anova"><i class="fa fa-check"></i><b>5.6.2</b> ANOVA</a></li>
+<li class="chapter" data-level="5.6.3" data-path="groupdiffscs3.html"><a href="groupdiffscs3.html#kruskal-wallis-test"><i class="fa fa-check"></i><b>5.6.3</b> Kruskal-Wallis Test</a></li>
+</ul></li>
 <li class="chapter" data-level="5.7" data-path="chisqhomogeneity.html"><a href="chisqhomogeneity.html"><i class="fa fa-check"></i><b>5.7</b> Chi-Square Test of Homogeneity</a></li>
 <li class="chapter" data-level="5.8" data-path="fisherexact.html"><a href="fisherexact.html"><i class="fa fa-check"></i><b>5.8</b> Fisher’s Exact Test</a></li>
 <li class="chapter" data-level="" data-path="case-study-4.html"><a href="case-study-4.html"><i class="fa fa-check"></i>Case Study 4</a></li>
 <li class="chapter" data-level="5.9" data-path="pairwiseproptest.html"><a href="pairwiseproptest.html"><i class="fa fa-check"></i><b>5.9</b> Pairwise Prop Test</a></li>
-<li class="chapter" data-level="5.10" data-path="mcnemar.html"><a href="mcnemar.html"><i class="fa fa-check"></i><b>5.10</b> McNemar’s Test</a></li>
+<li class="chapter" data-level="5.10" data-path="mcnemar.html"><a href="mcnemar.html"><i class="fa fa-check"></i><b>5.10</b> McNemar’s Test</a>
+<ul>
+<li class="chapter" data-level="5.10.1" data-path="mcnemar.html"><a href="mcnemar.html#manova"><i class="fa fa-check"></i><b>5.10.1</b> MANOVA</a></li>
+<li class="chapter" data-level="5.10.2" data-path="mcnemar.html"><a href="mcnemar.html#multiple-variance-comparison-f-test"><i class="fa fa-check"></i><b>5.10.2</b> Multiple Variance Comparison F Test</a></li>
+<li class="chapter" data-level="5.10.3" data-path="mcnemar.html"><a href="mcnemar.html#example-5"><i class="fa fa-check"></i><b>5.10.3</b> Example</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="association.html"><a href="association.html"><i class="fa fa-check"></i><b>6</b> Association</a>
 <ul>
@@ -244,7 +298,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4>Example<a href="exact-binomial-test.html#example-3" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>A pharmaceutical company claims its drug reduces fever in &gt;60% of cases. In a random sample of <em>n</em> = 40 cases the drug reduces fever in 20 cases. Do you reject the claim?</p>
 <p>You are testing <span class="math inline">\(P(x \le 20)\)</span> in <em>n</em> = 40 trials when <em>p</em> = 60%, a one-tail test. The sample is a random assignment experiment with 20&gt;5 successes and 20&gt;5 failures, so it meets the conditions for the exact binomial test.</p>
-<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="exact-binomial-test.html#cb168-1" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="dv">20</span>, <span class="dv">40</span>, <span class="at">p =</span> <span class="fl">0.6</span>, <span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="exact-binomial-test.html#cb208-1" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="dv">20</span>, <span class="dv">40</span>, <span class="at">p =</span> <span class="fl">0.6</span>, <span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Exact binomial test
 ## 
@@ -257,10 +311,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## probability of success 
 ##                    0.5</code></pre>
 <p>The exact binomial test uses the “method of small <em>p</em>-values”, in which the probability of observing a proportion <span class="math inline">\(p\)</span> as far or further from <span class="math inline">\(\pi_0\)</span> is the sum of all <span class="math inline">\(P(X=p_i)\)</span> where <span class="math inline">\(p_i &lt;= p\)</span>.</p>
-<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="exact-binomial-test.html#cb170-1" tabindex="-1"></a><span class="fu">map_dbl</span>(<span class="fu">dbinom</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">20</span>, <span class="dv">40</span>, <span class="fl">0.6</span>), <span class="sc">~</span><span class="fu">if_else</span>(. <span class="sc">&lt;=</span> <span class="fl">0.5</span>, ., <span class="dv">0</span>)) <span class="sc">%&gt;%</span> <span class="fu">sum</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="exact-binomial-test.html#cb210-1" tabindex="-1"></a><span class="fu">map_dbl</span>(<span class="fu">dbinom</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">20</span>, <span class="dv">40</span>, <span class="fl">0.6</span>), <span class="sc">~</span><span class="fu">if_else</span>(. <span class="sc">&lt;=</span> <span class="fl">0.5</span>, ., <span class="dv">0</span>)) <span class="sc">%&gt;%</span> <span class="fu">sum</span>()</span></code></pre></div>
 <pre><code>## [1] 0.1297657</code></pre>
 <p>That is what <code>pbinom()</code> does.</p>
-<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="exact-binomial-test.html#cb172-1" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">20</span>, <span class="at">size =</span> <span class="dv">40</span>, <span class="at">p =</span> <span class="fl">0.6</span>, <span class="at">lower.tail =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="exact-binomial-test.html#cb212-1" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">20</span>, <span class="at">size =</span> <span class="dv">40</span>, <span class="at">p =</span> <span class="fl">0.6</span>, <span class="at">lower.tail =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## [1] 0.1297657</code></pre>
 <p>A 95% confidence interval means 95% of confidence intervals constructed from a random sample of the population will contain the true population proportion. There are several methods to calculate a binomial confidence interval<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a> <code>binom.test()</code> uses the Clopper-Pearson interval. This method calculates lower (<span class="math inline">\(P_L\)</span>) and upper (<span class="math inline">\(P_U\)</span>) limits that satisfy</p>
 <p><span class="math display">\[
@@ -270,7 +324,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 \end{eqnarray}
 \]</span></p>
 <p>where <span class="math inline">\(n_i\)</span> is the measured successes in <span class="math inline">\(n\)</span> trials. For a one-tail test, the confidence interval is calculated with the right side equaling 0 and <span class="math inline">\(/alpha\)</span> instead of <span class="math inline">\(\alpha/2\)</span>. A right-tailed 95% confidence interval means 95% of confidence intervals will contain a lower limit that is less than the true population proportion. If you wanted to construct a confidence interval around the population proportion, use a two-sided test.</p>
-<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="exact-binomial-test.html#cb174-1" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="dv">20</span>, <span class="dv">40</span>, <span class="at">p =</span> <span class="fl">0.6</span>, <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="exact-binomial-test.html#cb214-1" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="dv">20</span>, <span class="dv">40</span>, <span class="at">p =</span> <span class="fl">0.6</span>, <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Exact binomial test
 ## 
@@ -283,7 +337,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## probability of success 
 ##                    0.5</code></pre>
 <p>If you just wanted to know whether 20 successes in 40 trials is compatible with a population proportion of 60%, then you could use the chi-squared goodness-of-fit test.</p>
-<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="exact-binomial-test.html#cb176-1" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">20</span>), <span class="at">p =</span> <span class="fu">c</span>(<span class="fl">0.6</span>, <span class="fl">0.4</span>), <span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="exact-binomial-test.html#cb216-1" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">20</span>), <span class="at">p =</span> <span class="fu">c</span>(<span class="fl">0.6</span>, <span class="fl">0.4</span>), <span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Chi-squared test for given probabilities
 ## 

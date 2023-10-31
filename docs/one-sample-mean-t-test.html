@@ -23,7 +23,7 @@
 <meta name="author" content="Michael Foley" />
 
 
-<meta name="date" content="2023-10-14" />
+<meta name="date" content="2023-10-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -127,6 +127,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 </style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -145,7 +167,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1" data-path="frequentist-statistics.html"><a href="frequentist-statistics.html"><i class="fa fa-check"></i><b>1</b> Frequentist Statistics</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="central-tendancy-and-dispersion.html"><a href="central-tendancy-and-dispersion.html"><i class="fa fa-check"></i><b>1.1</b> Central Tendancy and Dispersion</a></li>
-<li class="chapter" data-level="1.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>1.2</b> Hypothesis Testing</a></li>
+<li class="chapter" data-level="1.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>1.2</b> Hypothesis Testing</a>
+<ul>
+<li class="chapter" data-level="" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#type-i-and-ii-errors"><i class="fa fa-check"></i>Type I and II Errors</a></li>
+<li class="chapter" data-level="" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#statistical-power"><i class="fa fa-check"></i>Statistical Power</a></li>
+<li class="chapter" data-level="" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#what-p-values-would-you-expect"><i class="fa fa-check"></i>What p-values would you expect?</a></li>
+<li class="chapter" data-level="1.2.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#further-reading"><i class="fa fa-check"></i><b>1.2.1</b> Further Reading</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="likelihood-statistics.html"><a href="likelihood-statistics.html"><i class="fa fa-check"></i><b>2</b> Likelihood Statistics</a>
 <ul>
@@ -155,13 +183,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="3.1" data-path="bayes-theorem.html"><a href="bayes-theorem.html"><i class="fa fa-check"></i><b>3.1</b> Bayes’ Theorem</a></li>
 <li class="chapter" data-level="3.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html"><i class="fa fa-check"></i><b>3.2</b> Bayesian Inference</a></li>
-<li class="chapter" data-level="3.3" data-path="bayes-factors.html"><a href="bayes-factors.html"><i class="fa fa-check"></i><b>3.3</b> Bayes Factors</a></li>
-<li class="chapter" data-level="3.4" data-path="gamma-poisson.html"><a href="gamma-poisson.html"><i class="fa fa-check"></i><b>3.4</b> Gamma Poisson</a></li>
-<li class="chapter" data-level="3.5" data-path="normal.html"><a href="normal.html"><i class="fa fa-check"></i><b>3.5</b> Normal</a></li>
-<li class="chapter" data-level="3.6" data-path="proportions-and-the-beta-binomial.html"><a href="proportions-and-the-beta-binomial.html"><i class="fa fa-check"></i><b>3.6</b> Proportions and the Beta Binomial</a></li>
+<li class="chapter" data-level="3.3" data-path="gamma-poisson-and-estimating-counts.html"><a href="gamma-poisson-and-estimating-counts.html"><i class="fa fa-check"></i><b>3.3</b> Gamma Poisson and Estimating Counts</a></li>
+<li class="chapter" data-level="3.4" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html"><i class="fa fa-check"></i><b>3.4</b> Normal and Estimating Means</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#population-estimate"><i class="fa fa-check"></i><b>3.4.1</b> Population Estimate</a></li>
+<li class="chapter" data-level="3.4.2" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#regression"><i class="fa fa-check"></i><b>3.4.2</b> Regression</a></li>
+<li class="chapter" data-level="3.4.3" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#change-point-regression"><i class="fa fa-check"></i><b>3.4.3</b> Change Point Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="beta-binomial-and-estimating-proportions.html"><a href="beta-binomial-and-estimating-proportions.html"><i class="fa fa-check"></i><b>3.5</b> Beta Binomial and Estimating Proportions</a></li>
+<li class="chapter" data-level="3.6" data-path="zero-inflation-and-latent-variables.html"><a href="zero-inflation-and-latent-variables.html"><i class="fa fa-check"></i><b>3.6</b> Zero-Inflation and Latent Variables</a></li>
 <li class="chapter" data-level="3.7" data-path="dic.html"><a href="dic.html"><i class="fa fa-check"></i><b>3.7</b> DIC</a></li>
-<li class="chapter" data-level="3.8" data-path="appendix-gentle-introduction.html"><a href="appendix-gentle-introduction.html"><i class="fa fa-check"></i><b>3.8</b> Appendix: Gentle Introduction</a></li>
-<li class="chapter" data-level="3.9" data-path="further-reading-1.html"><a href="further-reading-1.html"><i class="fa fa-check"></i><b>3.9</b> Further Reading</a></li>
+<li class="chapter" data-level="3.8" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html"><i class="fa fa-check"></i><b>3.8</b> Monte Carlo Integration</a>
+<ul>
+<li class="chapter" data-level="3.8.1" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html#inverse-sampling"><i class="fa fa-check"></i><b>3.8.1</b> Inverse Sampling</a></li>
+<li class="chapter" data-level="3.8.2" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html#rejection-sampling"><i class="fa fa-check"></i><b>3.8.2</b> Rejection Sampling</a></li>
+<li class="chapter" data-level="3.8.3" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html#importance-sampling"><i class="fa fa-check"></i><b>3.8.3</b> Importance Sampling</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="metropolis-hastings.html"><a href="metropolis-hastings.html"><i class="fa fa-check"></i><b>3.9</b> Metropolis-Hastings</a></li>
+<li class="chapter" data-level="3.10" data-path="appendix-gentle-introduction.html"><a href="appendix-gentle-introduction.html"><i class="fa fa-check"></i><b>3.10</b> Appendix: Gentle Introduction</a></li>
+<li class="chapter" data-level="3.11" data-path="appendix-bayes-factors.html"><a href="appendix-bayes-factors.html"><i class="fa fa-check"></i><b>3.11</b> Appendix: Bayes Factors</a></li>
+<li class="chapter" data-level="3.12" data-path="further-reading-1.html"><a href="further-reading-1.html"><i class="fa fa-check"></i><b>3.12</b> Further Reading</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="one-sample.html"><a href="one-sample.html"><i class="fa fa-check"></i><b>4</b> One-Sample</a>
 <ul>
@@ -183,16 +224,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2" data-path="wilcoxonranksum.html"><a href="wilcoxonranksum.html"><i class="fa fa-check"></i><b>5.2</b> Wilcoxon Rank Sum Test</a></li>
 <li class="chapter" data-level="" data-path="case-study-1.html"><a href="case-study-1.html"><i class="fa fa-check"></i>Case Study 1</a></li>
 <li class="chapter" data-level="5.3" data-path="pairedttest.html"><a href="pairedttest.html"><i class="fa fa-check"></i><b>5.3</b> Paired Samples t-Test</a></li>
-<li class="chapter" data-level="5.4" data-path="wilcoxonsignedrank.html"><a href="wilcoxonsignedrank.html"><i class="fa fa-check"></i><b>5.4</b> Wilcoxon Signed-Rank Test</a></li>
+<li class="chapter" data-level="5.4" data-path="wilcoxonsignedrank.html"><a href="wilcoxonsignedrank.html"><i class="fa fa-check"></i><b>5.4</b> Wilcoxon Signed-Rank Test</a>
+<ul>
+<li class="chapter" data-level="" data-path="wilcoxonsignedrank.html"><a href="wilcoxonsignedrank.html#sign-test"><i class="fa fa-check"></i>Sign Test</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="case-study-2.html"><a href="case-study-2.html"><i class="fa fa-check"></i>Case Study 2</a></li>
 <li class="chapter" data-level="5.5" data-path="onewayanova.html"><a href="onewayanova.html"><i class="fa fa-check"></i><b>5.5</b> One-way ANOVA</a></li>
 <li class="chapter" data-level="5.6" data-path="kw.html"><a href="kw.html"><i class="fa fa-check"></i><b>5.6</b> Kruskal–Wallis Test</a></li>
-<li class="chapter" data-level="" data-path="groupdiffscs3.html"><a href="groupdiffscs3.html"><i class="fa fa-check"></i>Case Study 3</a></li>
+<li class="chapter" data-level="" data-path="groupdiffscs3.html"><a href="groupdiffscs3.html"><i class="fa fa-check"></i>Case Study 3</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="groupdiffscs3.html"><a href="groupdiffscs3.html#assumptions"><i class="fa fa-check"></i><b>5.6.1</b> Assumptions</a></li>
+<li class="chapter" data-level="5.6.2" data-path="groupdiffscs3.html"><a href="groupdiffscs3.html#anova"><i class="fa fa-check"></i><b>5.6.2</b> ANOVA</a></li>
+<li class="chapter" data-level="5.6.3" data-path="groupdiffscs3.html"><a href="groupdiffscs3.html#kruskal-wallis-test"><i class="fa fa-check"></i><b>5.6.3</b> Kruskal-Wallis Test</a></li>
+</ul></li>
 <li class="chapter" data-level="5.7" data-path="chisqhomogeneity.html"><a href="chisqhomogeneity.html"><i class="fa fa-check"></i><b>5.7</b> Chi-Square Test of Homogeneity</a></li>
 <li class="chapter" data-level="5.8" data-path="fisherexact.html"><a href="fisherexact.html"><i class="fa fa-check"></i><b>5.8</b> Fisher’s Exact Test</a></li>
 <li class="chapter" data-level="" data-path="case-study-4.html"><a href="case-study-4.html"><i class="fa fa-check"></i>Case Study 4</a></li>
 <li class="chapter" data-level="5.9" data-path="pairwiseproptest.html"><a href="pairwiseproptest.html"><i class="fa fa-check"></i><b>5.9</b> Pairwise Prop Test</a></li>
-<li class="chapter" data-level="5.10" data-path="mcnemar.html"><a href="mcnemar.html"><i class="fa fa-check"></i><b>5.10</b> McNemar’s Test</a></li>
+<li class="chapter" data-level="5.10" data-path="mcnemar.html"><a href="mcnemar.html"><i class="fa fa-check"></i><b>5.10</b> McNemar’s Test</a>
+<ul>
+<li class="chapter" data-level="5.10.1" data-path="mcnemar.html"><a href="mcnemar.html#manova"><i class="fa fa-check"></i><b>5.10.1</b> MANOVA</a></li>
+<li class="chapter" data-level="5.10.2" data-path="mcnemar.html"><a href="mcnemar.html#multiple-variance-comparison-f-test"><i class="fa fa-check"></i><b>5.10.2</b> Multiple Variance Comparison F Test</a></li>
+<li class="chapter" data-level="5.10.3" data-path="mcnemar.html"><a href="mcnemar.html#example-5"><i class="fa fa-check"></i><b>5.10.3</b> Example</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="association.html"><a href="association.html"><i class="fa fa-check"></i><b>6</b> Association</a>
 <ul>
@@ -239,24 +293,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="example-1" class="section level4 unnumbered hasAnchor">
 <h4>Example<a href="one-sample-mean-t-test.html#example-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>A researcher recruits a random sample of <em>n</em> = 40 people to participate in a study about depression intervention. The researcher measures the participants’ depression level prior to the study. The mean depression score (3.72 <span class="math inline">\(\pm\)</span> 0.74) was lower than the population ‘normal’ depression score of 4.0. The null hypothesis is that the sample is representative of the overall population. Should you reject <span class="math inline">\(H_0\)</span>?</p>
-<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="one-sample-mean-t-test.html#cb135-1" tabindex="-1"></a>dep <span class="sc">%&gt;%</span> gtsummary<span class="sc">::</span><span class="fu">tbl_summary</span>(<span class="at">statistic =</span> <span class="fu">list</span>(<span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="st">&quot;{mean} ({sd})&quot;</span>))</span></code></pre></div>
-<div id="nefxdrnsrb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#nefxdrnsrb table {
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="one-sample-mean-t-test.html#cb175-1" tabindex="-1"></a>dep <span class="sc">%&gt;%</span> gtsummary<span class="sc">::</span><span class="fu">tbl_summary</span>(<span class="at">statistic =</span> <span class="fu">list</span>(<span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="st">&quot;{mean} ({sd})&quot;</span>))</span></code></pre></div>
+<div id="jlrhdbiqtq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#jlrhdbiqtq table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#nefxdrnsrb thead, #nefxdrnsrb tbody, #nefxdrnsrb tfoot, #nefxdrnsrb tr, #nefxdrnsrb td, #nefxdrnsrb th {
+#jlrhdbiqtq thead, #jlrhdbiqtq tbody, #jlrhdbiqtq tfoot, #jlrhdbiqtq tr, #jlrhdbiqtq td, #jlrhdbiqtq th {
   border-style: none;
 }
 
-#nefxdrnsrb p {
+#jlrhdbiqtq p {
   margin: 0;
   padding: 0;
 }
 
-#nefxdrnsrb .gt_table {
+#jlrhdbiqtq .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -282,12 +336,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-left-color: #D3D3D3;
 }
 
-#nefxdrnsrb .gt_caption {
+#jlrhdbiqtq .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#nefxdrnsrb .gt_title {
+#jlrhdbiqtq .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -299,7 +353,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-width: 0;
 }
 
-#nefxdrnsrb .gt_subtitle {
+#jlrhdbiqtq .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -311,7 +365,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-width: 0;
 }
 
-#nefxdrnsrb .gt_heading {
+#jlrhdbiqtq .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -323,13 +377,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#nefxdrnsrb .gt_bottom_border {
+#jlrhdbiqtq .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#nefxdrnsrb .gt_col_headings {
+#jlrhdbiqtq .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -344,7 +398,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#nefxdrnsrb .gt_col_heading {
+#jlrhdbiqtq .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -364,7 +418,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#nefxdrnsrb .gt_column_spanner_outer {
+#jlrhdbiqtq .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -376,15 +430,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 4px;
 }
 
-#nefxdrnsrb .gt_column_spanner_outer:first-child {
+#jlrhdbiqtq .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#nefxdrnsrb .gt_column_spanner_outer:last-child {
+#jlrhdbiqtq .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#nefxdrnsrb .gt_column_spanner {
+#jlrhdbiqtq .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -396,11 +450,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   width: 100%;
 }
 
-#nefxdrnsrb .gt_spanner_row {
+#jlrhdbiqtq .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#nefxdrnsrb .gt_group_heading {
+#jlrhdbiqtq .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -426,7 +480,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   text-align: left;
 }
 
-#nefxdrnsrb .gt_empty_group_heading {
+#jlrhdbiqtq .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -441,15 +495,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: middle;
 }
 
-#nefxdrnsrb .gt_from_md > :first-child {
+#jlrhdbiqtq .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#nefxdrnsrb .gt_from_md > :last-child {
+#jlrhdbiqtq .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#nefxdrnsrb .gt_row {
+#jlrhdbiqtq .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -468,7 +522,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#nefxdrnsrb .gt_stub {
+#jlrhdbiqtq .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -481,7 +535,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#nefxdrnsrb .gt_stub_row_group {
+#jlrhdbiqtq .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -495,15 +549,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: top;
 }
 
-#nefxdrnsrb .gt_row_group_first td {
+#jlrhdbiqtq .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#nefxdrnsrb .gt_row_group_first th {
+#jlrhdbiqtq .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#nefxdrnsrb .gt_summary_row {
+#jlrhdbiqtq .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -513,16 +567,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#nefxdrnsrb .gt_first_summary_row {
+#jlrhdbiqtq .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#nefxdrnsrb .gt_first_summary_row.thick {
+#jlrhdbiqtq .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#nefxdrnsrb .gt_last_summary_row {
+#jlrhdbiqtq .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -532,7 +586,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#nefxdrnsrb .gt_grand_summary_row {
+#jlrhdbiqtq .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -542,7 +596,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#nefxdrnsrb .gt_first_grand_summary_row {
+#jlrhdbiqtq .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -552,7 +606,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-color: #D3D3D3;
 }
 
-#nefxdrnsrb .gt_last_grand_summary_row_top {
+#jlrhdbiqtq .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -562,11 +616,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#nefxdrnsrb .gt_striped {
+#jlrhdbiqtq .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#nefxdrnsrb .gt_table_body {
+#jlrhdbiqtq .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -575,7 +629,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#nefxdrnsrb .gt_footnotes {
+#jlrhdbiqtq .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -589,7 +643,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#nefxdrnsrb .gt_footnote {
+#jlrhdbiqtq .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -598,7 +652,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#nefxdrnsrb .gt_sourcenotes {
+#jlrhdbiqtq .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -612,7 +666,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#nefxdrnsrb .gt_sourcenote {
+#jlrhdbiqtq .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -620,63 +674,63 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#nefxdrnsrb .gt_left {
+#jlrhdbiqtq .gt_left {
   text-align: left;
 }
 
-#nefxdrnsrb .gt_center {
+#jlrhdbiqtq .gt_center {
   text-align: center;
 }
 
-#nefxdrnsrb .gt_right {
+#jlrhdbiqtq .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#nefxdrnsrb .gt_font_normal {
+#jlrhdbiqtq .gt_font_normal {
   font-weight: normal;
 }
 
-#nefxdrnsrb .gt_font_bold {
+#jlrhdbiqtq .gt_font_bold {
   font-weight: bold;
 }
 
-#nefxdrnsrb .gt_font_italic {
+#jlrhdbiqtq .gt_font_italic {
   font-style: italic;
 }
 
-#nefxdrnsrb .gt_super {
+#jlrhdbiqtq .gt_super {
   font-size: 65%;
 }
 
-#nefxdrnsrb .gt_footnote_marks {
+#jlrhdbiqtq .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#nefxdrnsrb .gt_asterisk {
+#jlrhdbiqtq .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#nefxdrnsrb .gt_indent_1 {
+#jlrhdbiqtq .gt_indent_1 {
   text-indent: 5px;
 }
 
-#nefxdrnsrb .gt_indent_2 {
+#jlrhdbiqtq .gt_indent_2 {
   text-indent: 10px;
 }
 
-#nefxdrnsrb .gt_indent_3 {
+#jlrhdbiqtq .gt_indent_3 {
   text-indent: 15px;
 }
 
-#nefxdrnsrb .gt_indent_4 {
+#jlrhdbiqtq .gt_indent_4 {
   text-indent: 20px;
 }
 
-#nefxdrnsrb .gt_indent_5 {
+#jlrhdbiqtq .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -711,7 +765,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="outliers" class="section level5 unnumbered hasAnchor">
 <h5>Outliers<a href="one-sample-mean-t-test.html#outliers" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>Assess outliers with a box plot. Box plot whiskers extend up to 1.5*IQR from the upper and lower hinges and outliers (beyond the whiskers) are are plotted individually. The boxplot shows no outliers.</p>
-<p><img src="statistics_files/figure-html/unnamed-chunk-80-1.png" width="672" /></p>
+<p><img src="statistics_files/figure-html/unnamed-chunk-100-1.png" width="672" /></p>
 <p>If the outliers might are data entry errors or measurement errors, fix them or discard them. If the outliers are genuine, you have a couple options before reverting to Wilcoxon.</p>
 <ul>
 <li>Transform the variable. Don’t do this unless the variable is also non-normal. Transformation also has the downside of making interpretation more difficult.</li>
@@ -722,15 +776,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h5>Normality<a href="one-sample-mean-t-test.html#normality" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>Assume the population is normally distributed if <em>n</em> <span class="math inline">\(\ge\)</span> 30. Otherwise, asses a Q-Q plot, skewness and kurtosis values, or a histogram. If you still don’t feel confident about normality, run a [Shapiro-Wilk Test].</p>
 <p>The data set has <em>n</em> = 40 observations, so you can assume normality. Here is a QQ plot anyway. The QQ plot indicates normality.</p>
-<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="one-sample-mean-t-test.html#cb136-1" tabindex="-1"></a>dep <span class="sc">%&gt;%</span></span>
-<span id="cb136-2"><a href="one-sample-mean-t-test.html#cb136-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample =</span> dep_score)) <span class="sc">+</span></span>
-<span id="cb136-3"><a href="one-sample-mean-t-test.html#cb136-3" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span></span>
-<span id="cb136-4"><a href="one-sample-mean-t-test.html#cb136-4" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>(<span class="at">col =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
-<span id="cb136-5"><a href="one-sample-mean-t-test.html#cb136-5" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb136-6"><a href="one-sample-mean-t-test.html#cb136-6" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Normal Q-Q Plot&quot;</span>)</span></code></pre></div>
-<p><img src="statistics_files/figure-html/unnamed-chunk-81-1.png" width="672" /></p>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="one-sample-mean-t-test.html#cb176-1" tabindex="-1"></a>dep <span class="sc">%&gt;%</span></span>
+<span id="cb176-2"><a href="one-sample-mean-t-test.html#cb176-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample =</span> dep_score)) <span class="sc">+</span></span>
+<span id="cb176-3"><a href="one-sample-mean-t-test.html#cb176-3" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span></span>
+<span id="cb176-4"><a href="one-sample-mean-t-test.html#cb176-4" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>(<span class="at">col =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
+<span id="cb176-5"><a href="one-sample-mean-t-test.html#cb176-5" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb176-6"><a href="one-sample-mean-t-test.html#cb176-6" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Normal Q-Q Plot&quot;</span>)</span></code></pre></div>
+<p><img src="statistics_files/figure-html/unnamed-chunk-101-1.png" width="672" /></p>
 <p>Here is the Shapiro-Wilk normality test. It fails to reject the null hypothesis of a normally distributed population.</p>
-<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="one-sample-mean-t-test.html#cb137-1" tabindex="-1"></a><span class="fu">shapiro.test</span>(dep<span class="sc">$</span>dep_score)</span></code></pre></div>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="one-sample-mean-t-test.html#cb177-1" tabindex="-1"></a><span class="fu">shapiro.test</span>(dep<span class="sc">$</span>dep_score)</span></code></pre></div>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -746,7 +800,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="results" class="section level4 unnumbered hasAnchor">
 <h4>Results<a href="one-sample-mean-t-test.html#results" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Conduct the <em>t</em>-test. To get a 95% CI around the <em>difference</em> (instead of around the estimate), run the test using the difference, <span class="math inline">\(\mu_0 - \bar{x}\)</span>, and leave <code>mu</code> at its default of 0.</p>
-<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="one-sample-mean-t-test.html#cb139-1" tabindex="-1"></a>(dep_95ci <span class="ot">&lt;-</span> <span class="fu">t.test</span>(<span class="at">x =</span> mu_0 <span class="sc">-</span> dep<span class="sc">$</span>dep_score, <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>, <span class="at">conf.level =</span> .<span class="dv">95</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="one-sample-mean-t-test.html#cb179-1" tabindex="-1"></a>(dep_95ci <span class="ot">&lt;-</span> <span class="fu">t.test</span>(<span class="at">x =</span> mu_0 <span class="sc">-</span> dep<span class="sc">$</span>dep_score, <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>, <span class="at">conf.level =</span> .<span class="dv">95</span>))</span></code></pre></div>
 <pre><code>## 
 ##  One Sample t-test
 ## 
@@ -759,12 +813,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## mean of x 
 ##    0.2775</code></pre>
 <p>The difference is statistically different from 0 at the <em>p</em> = .05 level. The effect size, called Cohen’s <em>d</em>, is defined as <span class="math inline">\(d = |M_D| / s\)</span>, where <span class="math inline">\(|M_D| = \bar{x} - \mu_0\)</span>, and <span class="math inline">\(s\)</span> is the sample standard deviation. <span class="math inline">\(d &lt;.2\)</span> is considered trivial, <span class="math inline">\(.2 \le d &lt; .5\)</span> small, and <span class="math inline">\(.5 \le d &lt; .8\)</span> large.</p>
-<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="one-sample-mean-t-test.html#cb141-1" tabindex="-1"></a>(d <span class="ot">&lt;-</span> rstatix<span class="sc">::</span><span class="fu">cohens_d</span>(dep, dep_score <span class="sc">~</span> <span class="dv">1</span>, <span class="at">mu =</span> <span class="dv">4</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(effsize) <span class="sc">%&gt;%</span> <span class="fu">abs</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="one-sample-mean-t-test.html#cb181-1" tabindex="-1"></a>(d <span class="ot">&lt;-</span> rstatix<span class="sc">::</span><span class="fu">cohens_d</span>(dep, dep_score <span class="sc">~</span> <span class="dv">1</span>, <span class="at">mu =</span> <span class="dv">4</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(effsize) <span class="sc">%&gt;%</span> <span class="fu">abs</span>())</span></code></pre></div>
 <pre><code>## Cohen&#39;s d 
 ## 0.3764788</code></pre>
 <p>Cohen’s <em>d</em> is 0.38, a small effect.</p>
 <p>Make a habit of constructing a plot, just to make sure your head is on straight.</p>
-<p><img src="statistics_files/figure-html/unnamed-chunk-85-1.png" width="624" /></p>
+<p><img src="statistics_files/figure-html/unnamed-chunk-105-1.png" width="624" /></p>
 <p>Now you are ready to report the results.</p>
 <blockquote>
 <p>A one-sample <em>t</em>-test was run to determine whether depression score in recruited subjects was different from normal, as defined as a depression score of 4.0. Depression scores were normally distributed, as assessed by Shapiro-Wilk’s test (<em>p</em> &gt; .05) and there were no outliers in the data, as assessed by inspection of a boxplot. Data are mean <span class="math inline">\(\pm\)</span> standard deviation, unless otherwise stated. Mean depression score (3.72 <span class="math inline">\(\pm\)</span> 0.74) was lower than the population “normal” depression score of 4.00, a statistically significant difference of 0.28 (95% CI, 0.04 to 0.51), t(39) = 2.38, <em>p</em> = 0.022, <em>d</em> = 0.38.</p>
@@ -774,7 +828,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4>Appendix: Deciding Sample Size<a href="one-sample-mean-t-test.html#appendix-deciding-sample-size" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Determine the sample size required for a maximum error <span class="math inline">\(\epsilon\)</span> in the estimate by solving the confidence interval equation, <span class="math inline">\(\bar{x} \pm t_{(1 - \alpha){/}2} \frac{s}{\sqrt{n}}\)</span> for <span class="math inline">\(n=\frac{{t_{\alpha/2,n-1}^2se^2}}{{\epsilon^2}}\)</span> . Unfortunately, <span class="math inline">\(t_{\alpha/2,n-1}^2\)</span> is dependent on <span class="math inline">\(n\)</span>, so replace it with <span class="math inline">\(z_{\alpha/2}^2\)</span>. What about <span class="math inline">\(s^2\)</span>? Estimate it from the literature, a pilot study, or using the empirical rule that 95% of the range falls within two standard deviations, <span class="math inline">\(s=range / 4\)</span>.</p>
 <p>For example, if the maximum tolerable error is* <span class="math inline">\(\epsilon\)</span> = 3, and <span class="math inline">\(s\)</span> is approximately 10, what sample size produces an <span class="math inline">\(\alpha\)</span> =0.05 confidence level?</p>
-<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="one-sample-mean-t-test.html#cb143-1" tabindex="-1"></a><span class="fu">ceiling</span>(<span class="fu">qnorm</span>(.<span class="dv">975</span>)<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> <span class="dv">10</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> <span class="dv">3</span><span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="one-sample-mean-t-test.html#cb183-1" tabindex="-1"></a><span class="fu">ceiling</span>(<span class="fu">qnorm</span>(.<span class="dv">975</span>)<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> <span class="dv">10</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> <span class="dv">3</span><span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 43</code></pre>
 </div>
 </div>

@@ -71,89 +71,11 @@ $$
 f(\theta | D) = \frac{f(D|\theta) f(\theta)}{\int_\Theta f(D|\theta) f(\theta) d\theta}
 $$
 
-This formula expresses the posterior distribution of $\theta$ as a function of the prior distribution and new information. Let $\Pi(\theta)$ be the prior probability function. $\Pi(\theta)$ has a PMF or PDF $f(\theta)$, and a set of conditional distributions, $\{P=f(D|\theta), \theta \in \Omega\}$, called the *generative model*. $f_\theta(D)$ is the *likelihood* of observing $D$ given $\theta$. The *posterior* probability distribution of $\theta$, conditioned on the observance of $D$, is the joint distribution of $D$ and $\theta$ (aka *joint density*, the product of the likelihood and the prior) divided by the *marginal distribution* of $D$ (aka *marginal density* or *prior predictive distribution*). For discrete cases, replace the integral with a sum. The numerator makes the posterior proportional to the prior. The denominator is a normalizing constant that scales the likelihood into a proper density function (whose values sum to 1).
+This formula expresses the posterior distribution of $\theta$ as a function of the prior distribution and new information. Let $\Pi(\theta)$ be the prior probability function. $\Pi(\theta)$ has a PMF or PDF $f(\theta)$, and a set of conditional distributions, $f(D|\theta)$, called the *generative model* that express the *likelihood* of observing $D$ given $\theta$. The *posterior* probability distribution of $\theta$, conditioned on the observance of $D$, is the joint distribution of $D$ and $\theta$ (aka *joint density*, the product of the likelihood and the prior) divided by the *marginal distribution* of $D$ (aka *marginal density* or *prior predictive distribution*). For discrete cases, replace the integral with a sum. The numerator makes the posterior proportional to the prior. The denominator is a normalizing constant that scales the likelihood into a proper density function (whose values sum to 1).
 
 It is easier to see how observed evidence shifts the probabilities of the priors into their posterior probabilities by working with discrete priors first. From there it is straight-forward to grasp the more abstract case of continuous prior and posterior distributions.
 
-## Bayes Factors
-
-The Bayes Factor (BF) is a measure of the relative evidence of one model over another. Take another look at Bayes' formula:
-
-$$P(\theta|D) = \frac{P(D|\theta)P(\theta)}{P(D)}.$$
-
-Suppose you want to compare how two models explain and observed data outcome, $D$. Model $M_1:f_1(D|\theta_1)$ says the observed data $D$ was produced by a generative model with pdf $f_1$ parameterized by $\theta_2$. Model $M_2:f_2(D|\theta_2)$ says it was produced by a generative model with pdf $f_2$ parameterized by $\theta_2$. In each model you specify a prior probability distribution for the parameter
-
-If you take the ratio of the posterior probabilities, the posterior odds, the $P(D)$ terms cancel and you have
-
-$$\frac{P(\theta_1|D)}{P(\theta_2|D)} = \frac{P(D|\theta_1)}{P(D|\theta_2)} \cdot \frac{P(\theta_1)}{P(\theta_2)}$$
-
-The posterior odds equals the ratio of the likelihoods multiplied by the prior odds. That likelihood ratio is the Bayes Factor (BF). Rearranging, BF is the odds ratio of the posterior and prior odds.
-
-$$BF = \frac{P(D|\theta_1)}{P(D|\theta_2)} = \mathrm{\frac{Posterior Odds}{Prior Odds}}$$
-
-Return to the example of observing $D$ = 7 ones and 3 zeros. You can compare an hypothesized $\theta$ of .5 to a completely agnostic model where $\theta$ is uniform over [0, 1]. The likelihood of observing $D$ when $\theta$ = .5 is $P(D|\theta_1) = 5^7(1-.5)^3$ = `r scales::number(dbinom(7, 10, .5), accuracy = .001)`. The likelihood of observing $D$ where $\theta$ is uniform on [0, 1] is $P(D|\theta_2) = \int_0^1 \binom{10}{3}q^7(1-q)^3dq$
-
-```{r}
-.5^1 * .5^1
-dbinom(1, 1, .5)
-dbinom(11, 11, .5)
-beta(11, 11)
-```
-
-
-
-with a uniform Beta(1, 1) prior (i.e., complete agnosticism). 
-
-
-The Bayes factor at $\theta$ = .7 quantifies how much the odds of H0: $\theta$ = .7 over H1: $\hat{\theta}$ = .7.
-
-```{r}
-prior <- function(theta, alpha, beta) {
-  (1 / beta(alpha, beta)) * theta^(alpha-1) * (1-theta)^(beta-1)
-}
-posterior <- function(theta, alpha, beta, a, b) {
-  (1 / beta(alpha + a, beta + b)) * theta^(alpha-1+a) * (1-theta)^(beta-1+b)
-}
-
-prior(.5, 115, 85) 
-posterior(.5, 1, 1, 10, 10)
-
-posterior(.5, 1, 1, 10, 10) / prior(.5, 1, 1) 
-
-1 / beta(115, 85)
-
-# Posterior Distribution 
-1/beta(1+10, 1+10) * .5^(1-1+10) * (1-.5)^(1-1+10)
-dbeta(.5, 11, 11)
-
-# Prior Beta Distributions
-1/beta(1, 1) * .5^(1-1) * (1-.5)^(1-1)
-dbeta(.5, 1, 1)
-
-
-dbeta(.5, 115, 85)
-```
-
-
-The Bayes factor measures how much your prior belief is altered by the evidence. It is the ratio of the likelihoods at some hypothesized value before and after observing the data. In this case, our confidence increased by a factor of...
-
-```{r collapse=TRUE}
-theta <- 0.5
-
-alpha <- 1
-beta <- 1
-a <- 10
-b <- 10
-
-(prior_likelihood <- (1 / beta(alpha, beta)) * theta^(alpha-1) * (1-theta)^(beta-1))
-(posterior_likelihood <- (1 / beta(alpha + a, beta + b)) * theta^(alpha-1+a) * (1-theta)^(beta-1+b))
-(bayes_factor <- posterior_likelihood / prior_likelihood)
-
-# 3.7 on alpha = beta = 1
-# 1.91 on alpha = beta = 4
-```
-
-## Gamma Poisson
+## Gamma Poisson and Estimating Counts
 
 The gamma and Poisson distributions are used to model count data. Consider the following counts of weekday sandwich sales. What is the expected value of sales? 
 
@@ -414,7 +336,7 @@ ll_group <-
 
 The DIC for the weekday specific model is `r DIC` and for the one common group model it is `r DIC_group`. The DIC for one common group model is smaller, so we do not have enough statistical evidence for two groups. 
 
-## Normal
+## Normal and Estimating Means
 
 ### Population Estimate
 
@@ -677,6 +599,270 @@ mdl_1$DIC
 mdl_3$DIC
 ```
 
+### Change Point Regression
+
+Let's try another example. The `Nile` data set contains Nile flow by year. We want to ask whether the trend changed after 1897. Compare an intercept-only model, $y_t \sim N(\mu_t, \tau)$ where $\mu_t = \alpha$ is a constant, to a linear time trend model where $\mu_t = \alpha + \beta \text{Year}$. Use conjugate non-informative priors, $\alpha \sim N(0, 10^{-10})$ and $\tau \sim \text{Gamma}(.01, .01)$.
+
+```{r collapse=TRUE}
+data("Nile")
+
+my_nile <- tibble(year = time(Nile), flow = Nile, after = as.numeric(year>1897))
+
+# intercept-only
+m0 <- MCMCglmm(flow ~ 1, data = my_nile, 
+               nitt = 1500, burnin = 500, thin = 1,
+               prior = list(B = list(mu = 0, V = 10^10)),
+               verbose = FALSE)
+
+# Trend
+m1 <- MCMCglmm(flow ~ year, data = my_nile, 
+               nitt = 1500, burnin = 500, thin = 1,
+               prior = list(B = list(mu = c(0, 0), V = diag(2)*10^10)),
+               verbose = FALSE)
+
+# flow has been decreasing by 2.7 per year (95% CI, 1.6 - 3.7)
+summary(m1)$solutions
+
+# posterior probability of negative trend
+mean(m1$Sol[, 2] < 0)
+
+# Change Point
+m2 <- MCMCglmm(flow ~ after, data = my_nile, 
+               nitt = 1500, burnin = 500, thin = 1,
+               prior = list(B = list(mu = c(0, 0), V = diag(2)*10^10)),
+               verbose = FALSE)
+
+# Flow fell 244 from 1098.
+summary(m2)$solutions
+
+# Compare the DIC. m2 has smallest DIC.
+m0$DIC
+m1$DIC
+m2$DIC
+```
+
+This isn't quite how you would want to do it, however. Instead, you'd like to determine which year the change point occurred. Define $\mu_t = \alpha_0$ for $t<t^*$, and $\alpha_1$ for $t \ge t^*$. Use conjugate non-informative priors for both, $\alpha_0 = \alpha_1 \sim N(0, 10^{-8})$ and $\tau \sim \text{Gamma}(.01, .01)$ and a uniform prior for $t^* \sim U(1871.5, 1969.5$.
+
+The posterior conditional distributions for $\alpha_0$ and $\alpha_1$ are from Eqns \@ref(eq:mu-posterior).
+
+$$
+\begin{align}
+\alpha_0 | y,t^*,\tau & \sim N \left( \frac{\sum_{t<t^*} y_t \tau}{\sum_{t<t^*} 1 \tau + 10^{-8}}, \sum_{t<t^*} 1 \tau + 10^{-8} \right) \\
+\alpha_1 | y,t^*,\tau & \sim N \left( \frac{\sum_{t\ge t^*} y_t \tau}{\sum_{t\ge t^*} 1 \tau + 10^{-8}}, \sum_{t\ge t^*} 1 \tau + 10^{-8} \right) 
+\end{align}
+$$
+
+The posterior conditional distribution for $\tau$ needs to be derived from Bayes' formula.
+
+$$
+\tau|x, t^*, \alpha_0, \alpha_1 \sim \text{Gamma} \left( .01 + \frac{n}{2}, .01 + .5 \sum_{t<t^*} (x_t - \alpha_0)^2 + .5 \sum_{t \ge t^*} (x_t - \alpha_1)^2 \right)
+$$
+
+It is not possible to derive a posterior conditional distribution for $t^*$, so use the Metropolis-Hastings algorithm. Given $\alpha_0$, $\alpha_1$, $\tau$, and $t^*$, propose a new value from the normal distribution centered at $t^*$: $t^{*'} \sim N(t^*, \delta)$ and accept the new value with probability $min{1, R}$, 
+
+$$
+R = \frac{f(y|\alpha_0, \alpha_1, t^{*'})f(t^{*'})}{f(y|\alpha_0, \alpha_1, t^*)} \frac{q(t^*|t^{*'})}{q(t^{*'}|t^*)}
+$$
+
+The proposal distribution is symmetric, so you can drop the $q()$ functions from the ratio (Metropolis algorithm).
+
+Let's start with a toy example to check the code.
+
+```{r collapse=TRUE}
+# Create toy data set.
+set.seed(12345)
+ALPHA_0 <- 0
+ALPHA_1 <- 1
+TAU <- 1 / .1^2
+CHGPT <- 25.5
+dat <- tibble(t = 1:100, y = rnorm(100, ALPHA_0 + ALPHA_1*(t>CHGPT), 1 / sqrt(TAU)))
+
+# Quick look at the data. A clear change point!
+dat %>% ggplot(aes(x = t, y = y)) + geom_line()
+
+# Set up a 1,500 iteration MCMC
+ITER <- 1500
+chgpt_delta <- .5
+
+# Create monitors for each of the posterior distributions
+mon_alpha_0 <- mon_alpha_1 <- mon_tau <- mon_chgpt <- numeric(ITER)
+
+# Set initial values
+n <- nrow(dat)
+alpha_0 <- alpha_1 <- mean(dat$y); tau <- 1 / var(dat$y); chgpt <- median(dat$t)
+
+for(iter in 1:ITER) {
+  # Gibbs step
+  alpha_0 <- rnorm(1, sum(dat$y[dat$t <  chgpt]) * tau / (sum(dat$t <  chgpt) * tau + 10^(-8)),
+                   1 / sqrt(sum(dat$t <  chgpt) * tau + 10^(-8)))
+  alpha_1 <- rnorm(1, sum(dat$y[dat$t >= chgpt]) * tau / (sum(dat$t >= chgpt) * tau + 10^(-8)),
+                   1 / sqrt(sum(dat$t >= chgpt) * tau + 10^(-8)))
+  tau <- rgamma(1, .01 + n/2, 
+                .01 + 
+                  .5 * sum(((dat$y - alpha_0)^2)[dat$t <  chgpt]) +
+                  .5 * sum(((dat$y - alpha_1)^2)[dat$t >= chgpt]))
+  # c(alpha_0, alpha_1, tau, chgpt)
+  # Metropolis step
+  chgpt_new <- rnorm(1, chgpt, sd = chgpt_delta)
+  log_R <- # difference in log-likelihoods =
+    # log-likelihood of new
+    (sum(dnorm(dat$y[dat$t <  chgpt_new], alpha_0, 1 / sqrt(tau), log = TRUE)) +
+     sum(dnorm(dat$y[dat$t >= chgpt_new], alpha_1, 1 / sqrt(tau), log = TRUE))) -
+    # log-likelihood of curr
+    (sum(dnorm(dat$y[dat$t <  chgpt],     alpha_0, 1 / sqrt(tau), log = TRUE)) +
+     sum(dnorm(dat$y[dat$t >= chgpt],     alpha_1, 1 / sqrt(tau), log = TRUE))) 
+  log_U <- log(runif(1, 0, 1))
+  if(log_U < log_R) { chgpt <- chgpt_new}
+  # update monitors
+  mon_alpha_0[iter] <- alpha_0 
+  mon_alpha_1[iter] <- alpha_1
+  mon_tau[iter] <- tau
+  mon_chgpt[iter] <- chgpt
+}
+# mine <- c(alpha_0, alpha_1, tau, chgpt, chgpt_new, log_R, log_U)
+
+# Check for convergence
+mon_tibble <- tibble(index = 1:ITER, alpha_0 = mon_alpha_0, alpha_1 = mon_alpha_1, 
+       tau = mon_tau, chgpt = mon_chgpt) 
+mon_tibble_longer <-
+  mon_tibble %>%
+  pivot_longer(cols = -index)
+
+mon_tibble_longer %>% 
+  ggplot(aes(x = index, y = value)) + 
+  geom_line() + 
+  labs(y = NULL) +
+  facet_wrap(facets = vars(name), scales = "free_y")
+
+# Convergence after 500 iterations, so throw them out.
+# Posterior distributions
+mon_tibble_longer %>% 
+  filter(index > 500) %>%
+  mutate(name = if_else(name == "tau", "sigma", name),
+         value = if_else(name == "sigma", 1 / sqrt(value), value)) %>%
+  summarize(
+    .by = name,
+    M = mean(value),
+    SD = sd(value),
+    LCI = quantile(value, .025),
+    UCI = quantile(value, .975)
+  )
+
+# You can summarize the values by t to average the models.
+# Recall the model is mu_t = alpha + beta*Year where alpha = alpha_0 or alpha_1
+mon_tibble %>%
+  head(-500) %>%
+  mutate(
+    series = pmap(list(alpha_0, alpha_1, chgpt), function(a0, a1, c) {
+      t <- 1:100
+      y <- if_else(t < c, a0, a1)
+      rs <- tibble(t, y)
+      rs
+    })
+  ) %>%
+  select(series) %>%
+  unnest(series) %>%
+  summarize(.by = t, y = mean(y), lci = quantile(y, .025), uci = quantile(y, .975)) %>%
+  ggplot(aes(x = t)) +
+  geom_line(aes(y = y)) +
+  geom_ribbon(aes(ymin = lci, ymax = uci))
+```
+
+Now let's apply what we've learned to the Nile data set. I'll set the initial change point value at 1900 since that is around where the change seems to have occurred. 
+
+```{r collapse=TRUE}
+dat <- my_nile %>% rename(t = year, y = flow)
+
+# Quick look at the data. A clear change point!
+dat %>% ggplot(aes(x = t, y = y)) + geom_line()
+
+# Set up a 1,500 iteration MCMC
+ITER <- 1500
+chgpt_delta <- .5
+
+# Create monitors for each of the posterior distributions
+mon_alpha_0 <- mon_alpha_1 <- mon_tau <- mon_chgpt <- numeric(ITER)
+
+# Set initial values
+n <- nrow(dat)
+alpha_0 <- alpha_1 <- mean(dat$y); tau <- 1 / var(dat$y); chgpt <- 1900
+
+for(iter in 1:ITER) {
+  # Gibbs step
+  alpha_0 <- rnorm(1, sum(dat$y[dat$t <  chgpt]) * tau / (sum(dat$t <  chgpt) * tau + 10^(-8)),
+                   1 / sqrt(sum(dat$t <  chgpt) * tau + 10^(-8)))
+  alpha_1 <- rnorm(1, sum(dat$y[dat$t >= chgpt]) * tau / (sum(dat$t >= chgpt) * tau + 10^(-8)),
+                   1 / sqrt(sum(dat$t >= chgpt) * tau + 10^(-8)))
+  tau <- rgamma(1, .01 + n/2, 
+                .01 + 
+                  .5 * sum(((dat$y - alpha_0)^2)[dat$t <  chgpt]) +
+                  .5 * sum(((dat$y - alpha_1)^2)[dat$t >= chgpt]))
+  # c(alpha_0, alpha_1, tau, chgpt)
+  # Metropolis step
+  chgpt_new <- rnorm(1, chgpt, sd = chgpt_delta)
+  log_R <- # difference in log-likelihoods =
+    # log-likelihood of new
+    (sum(dnorm(dat$y[dat$t <  chgpt_new], alpha_0, 1 / sqrt(tau), log = TRUE)) +
+     sum(dnorm(dat$y[dat$t >= chgpt_new], alpha_1, 1 / sqrt(tau), log = TRUE))) -
+    # log-likelihood of curr
+    (sum(dnorm(dat$y[dat$t <  chgpt],     alpha_0, 1 / sqrt(tau), log = TRUE)) +
+     sum(dnorm(dat$y[dat$t >= chgpt],     alpha_1, 1 / sqrt(tau), log = TRUE))) 
+  log_U <- log(runif(1, 0, 1))
+  if(log_U < log_R) { chgpt <- chgpt_new}
+  # update monitors
+  mon_alpha_0[iter] <- alpha_0 
+  mon_alpha_1[iter] <- alpha_1
+  mon_tau[iter] <- tau
+  mon_chgpt[iter] <- chgpt
+}
+# mine <- c(alpha_0, alpha_1, tau, chgpt, chgpt_new, log_R, log_U)
+
+# Check for convergence
+mon_tibble <- tibble(index = 1:ITER, alpha_0 = mon_alpha_0, alpha_1 = mon_alpha_1, 
+       tau = mon_tau, chgpt = mon_chgpt) 
+mon_tibble_longer <-
+  mon_tibble %>%
+  pivot_longer(cols = -index)
+
+mon_tibble_longer %>% 
+  ggplot(aes(x = index, y = value)) + 
+  geom_line() + 
+  labs(y = NULL) +
+  facet_wrap(facets = vars(name), scales = "free_y")
+
+# Convergence after 500 iterations, so throw them out.
+# Posterior distributions
+mon_tibble_longer %>% 
+  filter(index > 500) %>%
+  mutate(name = if_else(name == "tau", "sigma", name),
+         value = if_else(name == "sigma", 1 / sqrt(value), value)) %>%
+  summarize(
+    .by = name,
+    M = mean(value),
+    SD = sd(value),
+    LCI = quantile(value, .025),
+    UCI = quantile(value, .975)
+  )
+
+# You can summarize the values by t to average the models.
+# Recall the model is mu_t = alpha + beta*Year where alpha = alpha_0 or alpha_1
+mon_tibble %>%
+  head(-500) %>%
+  mutate(
+    series = pmap(list(alpha_0, alpha_1, chgpt), function(a0, a1, c) {
+      t <- 1:100
+      y <- if_else(t < c, a0, a1)
+      rs <- tibble(t, y)
+      rs
+    })
+  ) %>%
+  select(series) %>%
+  unnest(series) %>%
+  summarize(.by = t, y = mean(y), lci = quantile(y, .025), uci = quantile(y, .975)) %>%
+  ggplot(aes(x = t)) +
+  geom_line(aes(y = y)) +
+  geom_ribbon(aes(ymin = lci, ymax = uci))
+```
 ### Cluster Analysis
 
 You can use Bayes for mixtures. Suppose you have a mixture of $z_i \in [1, 2, 3]$ types of grains with mean diameters of 3.8, 5, and 8mm. Given a grain of diameter $x_i$, what is its class, $z_i$?
@@ -728,9 +914,9 @@ NMixPredDensMarg(mdl_mix[[1]], lgrid = 150) %>% plot()
 
 In this case we new how many classes were in the data. If that was unknown, you could use reversible-jump MCMC which produces a posterior distribution for the number of components.
 
-## Proportions and the Beta Binomial
+## Beta Binomial and Estimating Proportions
 
-Suppose $y = 35$ of $n = 50$ seeds germinate within 72hrs. What is the expected germination probability, $p$, of a single seed? Seed germination can be modeled as a Bernoulli data generating process where events occur with probability, $p$, and the observed $y = \sum_i^n y_i$ is the sum of $n$ Bernoulli trials. The question becomes what $p$ was used in the Bernoulli function?
+Suppose $y = 35$ of $n = 50$ seeds germinate within 72hrs. What is the expected germination probability of a single seed? Seed germination can be modeled as $n$ Bernoulli trials where events occur with probability, $p$, and the number of observed events is $y = \sum_i^n y_i$. The question is estimating the $p$ parameter in the Bernoulli generating process.
 
 The classical approach is to construct a 95% CI around $p$ with a [one-sample proportion test](https://mpfoley73.github.io/statistics/one-sample-proportion-z-test.html).
 
@@ -747,7 +933,7 @@ $$
 f(y|p) = {n \choose y} p^y (1-p)^{n-y}
 $$
 
-With no prior expectations, take a uniform prior - all values of $p$ are equally likely. To get a feel for the approach, try this with *discrete* $p$ values first.
+Start with a uniform prior - all values of $p$ are equally likely. To get a feel for the approach, try this with *discrete* $p$ values first.
 
 ```{r collapse=TRUE, warning=FALSE}
 # Explore the parameter space [0,1] in discrete .01 increments.
@@ -919,56 +1105,44 @@ tibble(p, prior, update, posterior) %>%
 
 ## Zero-Inflation and Latent Variables
 
-Suppose 100 persons report the number of days per week they consume alcohol (0 - 7). What is the posterior estimated probability of a person having a drink on any given day? The figure below shows a likely distribution. The number of drinking days will fall into binomial distribution _if_ they drink at all. However, many will be non-drinkers. This phenomena is common and is called zero-inflation.
-
-```{r}
-days <- 0:7
-respondents <- c(22, 6, 18, 23, 18, 10, 3, 0)
-
-tibble(days, respondents) %>%
-  ggplot(aes(x = days, y = respondents)) +
-  geom_col() +
-  labs(title = "Drinking Days Have Binomial Dist., Except for Zero Days")
-```
-
-Use the data to estimate the binomial $p$ parameter. Using the $\text{Beta}(1, 1)$ prior, the posterior would be $\text{Beta}(252, 450)$.
+Suppose 100 persons report the number of days per week they consume alcohol (0 - 7). What is the posterior estimated probability of a person having a drink on any given day? Drinking days _should_ follow a binomial distribution, so you _should_ be able to estimate $p$ using a $\text{Beta}(1, 1)$ prior. The beta posterior would be $\text{Beta}(252, 450)$.
 
 ```{r collapse=TRUE}
-# Actual drinking days per week
-(drinking_days <- sum(days * respondents))
+days <- 0:7
+respondents <- c(22, 6, 18, 23, 18, 10, 3, 0)
+y <- rep(days, respondents)
 
-# Possible drinking days per week
+# Total events
+(drinking_days <- sum(y))
+
+# Possible events
 (n <- 7 * 100)
 
 # Beta posterior
-a <- 1 + drinking_days
-b <- 1 + (n - drinking_days)
+(a <- 1 + drinking_days)
+(b <- 1 + (n - drinking_days))
 
 # Posterior mean and 95% CI.
 a / (a + b)
 qbeta(c(.025, .975), a, b)
 ```
-
-Calculate the predicted count for each day level (0 - 7). The predictive distribution of $\tilde{y}$ is $f(\tilde{y}|y) = \int f(\tilde{y}|p) f(p|y) dp$. Instead of integrating for the solution, run a simulation. Sample a thousand $p$'s from the posterior beta distribution, then use them sample a thousand event counts from the binomial distribution. 
+The predictive distribution of $\tilde{y}$ is $f(\tilde{y}|y) = \int f(\tilde{y}|p) f(p|y) dp$. The way you would normally solve this is to run a simulation. Sample a thousand $p$'s from the posterior beta distribution, then use them to sample 100 respondents from the binomial distribution.
 
 ```{r collapse=TRUE}
 set.seed(12345)
 
-sampled_p <- rbeta(10^3, a, b)
+p_given_y <- rbeta(10^3, a, b)
 
-# mean and 95% CI predicted number of drinking days.
-y_tilde <- rbinom(10^3, 7, sampled_p)
-mean(y_tilde)
-quantile(y_tilde, c(.025, .975))
+# For each p, simulate 7 draws from binomial distribution for the 100 respondents.
+sims <- map(p_given_y, ~rbinom(100, 7, .))
 
-# Mean and 95% CI for predicted number of respondents having [0,7] drinking days.
-# For the 10^3 p's, simulate event count for 100 respondents drawing 7 items from 
-# a binomial distribution.
-sims <- map(sampled_p, ~rbinom(100, 7, .))
-# Count the number of times [0,7] comes up. Average this across the 10^3 experiments. 
-means <- map_dbl(days, function(x) map_int(sims, ~sum(. == x)) %>% mean())
-lcl <- map_dbl(days, function(x) map_int(sims, ~sum(. == x)) %>% quantile(.025))
-ucl <- map_dbl(days, function(x) map_int(sims, ~sum(. == x)) %>% quantile(.975))
+# Count the number of times y == [0,7]. Start by converting the 10^3 sims x 100 
+# participants list into an 8 days x 10^3 sims list. The three metrics are 
+# vectors of length 8.
+sim_y_per_days <- map(days, function(x) map_int(sims, ~sum(. == x)))
+means <- map_dbl(sim_y_per_days, mean)
+lcl <- map_dbl(sim_y_per_days, ~quantile(.x, .025))
+ucl <- map_dbl(sim_y_per_days, ~quantile(.x, .975))
 
 tibble(days, respondents, means, lcl, ucl) %>%
   ggplot(aes(x = days)) +
@@ -978,48 +1152,47 @@ tibble(days, respondents, means, lcl, ucl) %>%
   scale_x_continuous(breaks = 0:7)
 ```
 
-This is obviously not good, but there is a way to deal with zero inflation. Let $z_i = 1$ if respondent $i$ drinks alcohol at all. Then $(x_i|z_i = 1, p) \sim \text{Bin}(7, p)$, otherwise $P(x_i =0|z_i = 0) = 1$. Model the probability of $z_i = 0$ with the Bernoulli distribution, $z_i|\omega \sim \text{Bern}(\omega)$ where $\omega \sim \text{Beta}(a_\omega, b_\omega)$. $z_i$ is a latent variable, an unobserved attribute.
+Uh oh! The problem is that the number of drinking days only follows a binomial distribution for drinkers - abstainers have $p$ = 0. This phenomena is called zero-inflation. The solution is to model $p$ conditional on the probability the person drinks, $\omega$. Let $z_i = 1$ if respondent $i$ drinks alcohol at all. Then $(y_i|z_i = 1, p) \sim \text{Bin}(7, p)$, otherwise $P(y_i =0|z_i = 0) = 1$. Model the probability of $z_i = 0$ with the Bernoulli distribution, $z_i|\omega \sim \text{Bern}(\omega)$ where $\omega \sim \text{Beta}(a_\omega, b_\omega)$.
 
-Implement a Gibbs Sampler with uniform priors for $p \sim \text{Beta}(a = 1, b = 1)$ and $\omega \sim \text{Beta}(a_\omega = 1, b_\omega = 1)$. Start with the assumption that if $x_i = 0$ then $z_i = 0$. For each respondent, if $x_i > 0$ then $z_i = 1$, otherwise 
+Implement a Gibbs sampler with uniform priors for $p \sim \text{Beta}(a = 1, b = 1)$ and $\omega \sim \text{Beta}(a_\omega = 1, b_\omega = 1)$. Start with the assumption that if $y_i = 0$ then $z_i = 0$, so for each respondent
 
 $$
-P(z_i = 1| x_i = 0, p, \omega) = \frac{(1-p)^7 \omega}{(1-\omega) + (1-p)^7 \omega}
+\begin{align}
+P(z_i = 1| y_i > 0, p, \omega) &= 1 \\
+P(z_i = 1| y_i = 0, p, \omega) &= \frac{(1-p)^7 \omega}{(1-\omega) + (1-p)^7 \omega}
+\end{align}
 $$
 
-```{r}
+```{r collapse=TRUE}
 set.seed(12345)
 
-# Days consuming alcohol last week [0-7] for 100 respondents.
-x <- rep(0:7, respondents)
+# Start with assumption that if they reported 0, they _never_ drink (y_i=0 -> z_i=0).
+z <- as.numeric(y >= 1)
 
-# Start with assumption that if they reported 0, they _never_ drink (x_i=0 -> z_i=0).
-z <- as.numeric(x >= 1)
-
-# Run 1,000 iterations.
+# Run 1,000 iterations, updating p, omega, and z each time.
 ITER <- 10^3
 
+# Create monitors to track convergence.
 sim_p <- numeric(ITER)
 sim_omega <- numeric(ITER)
-sim_z <- matrix(nrow = length(x), ncol = ITER)
+sim_z <- matrix(nrow = length(y), ncol = ITER)
 
 # Gibbs sampler.
 for(iter in 1:ITER) {
-  # Use uniform Beta(1,1) prior for whether or not the person is a drinker. Sample 
-  # omega given the count of non-zero z's.
+  # Uniform Beta(1,1) prior for probability the person is a drinker. Posterior 
+  # is based on count of non-zero z's.
   omega <- rbeta(1, 1 + sum(z), 1 + (length(z) - sum(z)))
   
-  # Sample p from beta distribution given the respondent count _when z=1_.
-  # Use vague Beta(1,1) prior for probability of drinking on any given day.
-  # Sample p given reported drinking days and number of people who are drinkers
-  # on each day.
-  p <- rbeta(1, 1 + sum(x), 1 + (7 * sum(z) - sum(x)))
+  # Uniform Beta(1,1) prior for probability of drinking on any given day. Posterior
+  # is based on reported drinking days and number of people who are drinkers.
+  p <- rbeta(1, 1 + sum(y), 1 + (7 * sum(z) - sum(y)))
   
   # Updated probability that respondent is a drinker. 
-  # P(z=1|x>0) = 1 or P(z=1|x=0, p, omega).
-  prob_z_eq_1 <- 
-    as.numeric(x >= 1) * 1.0 + 
-    as.numeric(x == 0) * ((1 - p)^7 * omega) / ((1 - omega) + ((1 - p)^7 * omega))
+  # P(z=1|y>0) = 1 or P(z=1|y=0, p, omega).
+  prob_z_eq_1 <- if_else(y >= 1, 1, 
+                         ((1 - p)^7 * omega) / ((1 - omega) + ((1 - p)^7 * omega)))
 
+  # Update z.
   z <- rbinom(100, 1, prob_z_eq_1)
   
   # update monitors
@@ -1054,21 +1227,15 @@ tibble(days, respondents, means, lcl, ucl) %>%
   scale_x_continuous(breaks = 0:7)
 ```
 
-Let's try another example of modeling with zero inflation. 94 tourists report how many fish they caught during their visit. Estimate the distribution of fish caught. Start with a vague prior, $\lambda \sim \text{Gamma}(a = .1, b = .1)$. The posterior distribution of $\lambda|y \sim \text{Gamma}(a + \sum_i{y_i}, b + n)$
+Much better. Let's try another example of modeling with zero inflation. 94 tourists report how many fish they caught during their visit. Estimate the distribution of fish caught. Start with a vague prior, $\lambda \sim \text{Gamma}(a = .1, b = .1)$. The posterior distribution of $\lambda|y \sim \text{Gamma}(a + \sum_i{y_i}, b + n)$
 
-```{r}
-fish <- readr::read_csv("input/fish.csv", col_types = "i") %>%
-  filter(!is.na(catch))
-
-y <- tibble(catch = 0:max(fish$catch)) %>% 
-  left_join(fish %>% count(catch), by = join_by(catch)) %>% 
-  replace_na(list(n = 0)) %>%
-  pull(n)
+```{r collapse=TRUE}
+fish <- readr::read_csv("input/fish.csv", col_types = "i") %>% filter(!is.na(catch))
 
 # Simulate 10^3 samples.
 set.seed(12345)
 
-# Vague priors for gamma(a, b).
+# Uniform gamma(a, b) prior.
 a <- .01
 b <- .01
 
@@ -1089,13 +1256,14 @@ means <- map_dbl(catch, function(x) map_int(sims, ~sum(. == x)) %>% mean())
 lcl <- map_dbl(catch, function(x) map_int(sims, ~sum(. == x)) %>% quantile(.025))
 ucl <- map_dbl(catch, function(x) map_int(sims, ~sum(. == x)) %>% quantile(.975))
 
-tibble(catch, y, means, lcl, ucl) %>%
+tibble(catch, means, lcl, ucl) %>%
+  left_join(fish %>% count(catch, name = "y"), by = join_by(catch)) %>%
   ggplot(aes(x = catch)) +
   geom_col(aes(y = y)) +
   geom_point(aes(y = means)) +
   geom_errorbar(aes(ymin = lcl, ymax = ucl), width = .2) +
   scale_x_continuous(breaks = 0:10) +
-  labs(title = "Zero inflation of fish caught.")
+  labs(title = "Zero inflation in fish caught.")
 ```
 
 This doesn't look good. The probability of 27 people catching 0 fish when the expected number of fish is 2.9 is less than .001.
@@ -1110,40 +1278,41 @@ Add a binary latent variable to the model describing whether or not the person w
 Assign a uniform prior to the probability that the person was fishing
 Derive posterior conditional distributions and construct a Gibbs sampler to estimate your model
 
-```{r eval=FALSE}
+```{r collapse=TRUE}
 set.seed(12345)
 
 # Reported number of fish caught by 94 respondents.
-x <- fish$catch
+y <- fish$catch
 
-# Start with assumption that if they caught 0, they did not fish (x_i=0 -> z_i=0).
-z <- as.numeric(x >= 1)
+# Start with assumption that if they caught 0, they did not fish (y_i=0 -> z_i=0).
+z <- as.numeric(y >= 1)
 
-# Iterations to run.
+# Run 1,000 iterations, updating p, omega, and z each time.
 ITER <- 10^3
 
+# Create monitors to track convergence.
 sim_lambda <- numeric(ITER)
 sim_omega <- numeric(ITER)
-sim_z <- matrix(nrow = length(x), ncol = ITER)
+sim_z <- matrix(nrow = length(y), ncol = ITER)
 
 # Gibbs sampler.
 for(iter in 1:ITER) {
-  # Use uniform Beta(1,1) prior for whether or not the person fished. Sample 
-  # omega given the count of non-zero z's.
-  omega <- rbeta(1, 1 + sum(z), 1 + (94 - sum(z)))
+  # Uniform Beta(1,1) prior probability the person fished. Posterior is based on
+  # count of non-zero z's.
+  omega <- rbeta(1, 1 + sum(z), 1 + (length(y) - sum(z)))
   
-  # Use vague Gamma(.01,.01) prior for number of fish caught. Sample lambda 
-  # given reported catches and number of people who fished.
-  lambda <- rgamma(1, .01 + sum(x), .01 + sum(z))
+  # Vague Gamma(.01,.01) prior for number of fish caught. Posterior is based on
+  # reported catch and number of believed fishers.
+  lambda <- rgamma(1, .01 + sum(y), .01 + sum(z))
   
   # Updated probability that respondent fishes.
   # E(z=1|x) = 1 or P(1|x=0, p, omega).
-  prob_x_eq_0 <- exp(-lambda) * lambda^0 / factorial(0)
-  prob_z_eq_1 <- 
-    as.numeric(x >= 1) * 1.0 + 
-    as.numeric(x == 0) * (prob_x_eq_0 * omega) / ((1 - omega) + (prob_x_eq_0 * omega))
+  prob_y_eq_0 <- exp(-lambda) * lambda^0 / factorial(0)
+  prob_z_eq_1 <- if_else(y >= 1, 1,
+                         (prob_y_eq_0 * omega) / ((1 - omega) + (prob_y_eq_0 * omega)))
 
-  z <- rbinom(length(x), 1, prob_z_eq_1)
+  # Update z.
+  z <- rbinom(length(y), 1, prob_z_eq_1)
 
   # update monitors
   sim_lambda[iter] <- lambda
@@ -1151,33 +1320,36 @@ for(iter in 1:ITER) {
   sim_z[, iter] <- z
 }
 
-# Estimate of tourists who fished.
-mean(sim_omega)
-quantile(sim_omega, c(.025, .975))
+# Estimate of tourists who fished. Throw out first 100 as burn-in.
+mean(sim_omega[-c(1:100)])
+quantile(sim_omega[-c(1:100)], c(.025, .975))
 
-# Of those who fished, the expected number caught.
-mean(sim_lambda)
-quantile(sim_lambda, c(.025, .975))
+# Of those who fished, the expected number caught. Throw out burn-in again.
+# tibble(x = 1:1000, y = sim_lambda) %>% ggplot(aes(x = x, y = y)) + geom_point()
+mean(sim_lambda[-c(1:100)])
+quantile(sim_lambda[-c(1:100)], c(.025, .975))
 # or is it this (E(X) = a/b? Not this either.
-(.01 + sum(x)) / (.01 + sum(z))
-
-# P(x>=94|lambda,omega)
-# probability of catch = 27 given lambda = 2.9 is <.001
-(lambda_est <- (a + sum(fish$catch)) / (b + 94))
-ppois(sum(fish$catch == 0), lambda = means[1], lower.tail = FALSE)
+(.01 + sum(y)) / (.01 + sum(z))
 
 # mean and 95% CI predicted number of [0,9] fish caught.
 z_post_pred <- map(1:ITER, ~rbinom(length(z), 1, sim_omega))
-x_post_pred <- map(1:ITER, ~rpois(length(x), sim_lambda))
+y_post_pred <- map(1:ITER, ~rpois(length(y), sim_lambda))
 # Override the count with zero when z == 0.
-x_post_pred <- map2(x_post_pred, z_post_pred, ~ if_else(.y == 0, 0, .x))
+y_post_pred <- map2(y_post_pred, z_post_pred, ~ if_else(.y == 0, 0, .x))
 # Count the number of times [0,9] comes up. Average this across the 10^3 experiments.
-means <- map_dbl(0:9, function(x) map_int(x_post_pred, ~sum(. == x)) %>% mean())
-lcl <- map_dbl(0:9, function(x) map_int(x_post_pred, ~sum(. == x)) %>% quantile(.025))
-ucl <- map_dbl(0:9, function(x) map_int(x_post_pred, ~sum(. == x)) %>% quantile(.975))
+means <- map_dbl(0:9, function(x) map_int(y_post_pred, ~sum(. == x)) %>% mean())
+lcl <- map_dbl(0:9, function(x) map_int(y_post_pred, ~sum(. == x)) %>% quantile(.025))
+ucl <- map_dbl(0:9, function(x) map_int(y_post_pred, ~sum(. == x)) %>% quantile(.975))
 
-tibble(fish = 0:9, y, means, lcl, ucl) %>%
-  ggplot(aes(x = fish)) +
+# Probability of 27 of 94 people with a catch of 0. Sample the posterior 
+# predictive distribution.
+posterior_pred <- matrix(rpois(ITER * length(y), rep(sim_lambda, length(y))), ncol = ITER) * sim_z
+posterior_zeros <- map_int(1:ITER, ~sum(posterior_pred[, .] == 0))
+mean(posterior_zeros[100:ITER] >= sum(y==0))
+
+tibble(catch = 0:9, means, lcl, ucl) %>%
+  left_join(fish %>% count(catch, name = "y"), by = join_by(catch)) %>%
+  ggplot(aes(x = catch)) +
   geom_col(aes(y = y)) +
   geom_point(aes(y = means)) +
   geom_errorbar(aes(ymin = lcl, ymax = ucl), width = .2) +
@@ -1244,6 +1416,363 @@ ll_group <-
 ```
 
 The DIC for the two group model is `r DIC` and for the one common group model it is `r DIC_group`. The DIC for one common group model is smaller, so we do not have enough statistical evidence for two groups. If the DIC for the group-specific model is at least 3 units smaller than that for the common model, there is sufficient statistical evidence for difference between groups.
+
+## Monte Carlo Integration
+
+Monte Carlo integration is an empirical way to solve the integrals related to the posterior mean and variance. The population expectation, $E[X] = \int_{-\infty}^\infty x f(x) dx$, and variance $Var(X) = E(X-EX)^2 = \int_{-\infty}^\infty (x - EX)^2f(x)dx$, are both integrals.
+
+You can use Monte Carlo to evaluate an integral such as $A=\int_0^1 20x(1-x)^3dx$. If you randomly select $n$ points from a defined space $D$, the number $z$ enclosed by the integral will follow a binomial distribution, $Z \sim \text{Bin} (n, p)$ with $E[Z] = np = n \frac{A}{D}$ and variance $Var[Z] = np(1-p) = n \frac{A}{D} \left(1-\frac{A}{D}\right)$. If you know the enclosing area, then you can infer the integral area, 
+
+$$
+\begin{equation}
+\hat{A} = \frac{z}{n} D
+(\#eq:monte-carlo-est)
+\end{equation}
+$$
+
+The variance of $Var(\hat{A}) = Var\left(\frac{z}{n} D\right) = Var(Z) \left(\frac{z}{n}\right)^2 = \frac{A(D-A)}{n}$. Of course, you do not know $A$, so you replace it with $\hat{A}$. Solve this for the Monte Carlo standard error.
+
+$$
+\begin{equation}
+\widehat{s.e.} = \frac{D}{\sqrt{n}} \sqrt{\frac{z}{n}\left(1 - \frac{z}{n} \right)}
+(\#eq:monte-carlo-se)
+\end{equation}
+$$
+
+Notice how the Monte Carlo standard error increases with D and decreases with $n$. Let's try it. Generate 1,000 points uniformly in the domain [0,1] x [0, 3], then check whether they are below the `f()` curve.
+
+```{r collapse=TRUE}
+set.seed(12345) 
+
+f <- function(x) {20*x*(1 - x)^3}
+
+# Defined area
+D <- 1 * 3
+
+# n random points in defined area.
+n <- 1000
+x <- runif(n, 0, 1)
+y <- runif(n, 0, 3)
+
+is_under <- y <= f(x)
+z <- sum(is_under)
+
+# Area is percent of points under the curve
+(A_hat <- z / n * D)
+(se <- D / sqrt(n) * sqrt(z/n * (1 - z/n)))
+
+tibble(x, f = f(x), rand_y = y, is_under) %>% 
+  ggplot(aes(x = x)) + 
+  geom_area(aes(y = f)) + 
+  geom_point(aes(y = rand_y, color = is_under), show.legend = FALSE)
+```
+
+### Inverse Sampling
+
+In Bayesian analysis, you do not always have a pre-defined distribution to sample from. In these cases, you may be able to use *inverse sampling*. Given $f(x)$, the corresponding CDF is $F(x) = \int_0^x f(x)dx$. Derive its inverse by solving $F(x)$ for $x$. To inverse sample, sample from $U(0,1)$ and evaluate $x = F^{-1}(u)$. 
+
+Here is an example. Suppose $f(x) = 2x$ on $x \in [0,1]$ and 0 otherwise. Then $F(x) = x^2 = u$ and solving $F(x)$ for $x$, $F^{-1}(u) = \sqrt{u}$.
+
+```{r}
+set.seed(12345)
+
+u <- runif(10^4)
+x <- sqrt(u)
+
+tibble(x, c = 2*x) %>% ggplot(aes(x = x)) + geom_density(color = "salmon") + geom_line(aes(y = c))
+```
+
+Suppose $f(x) = \lambda e^{-\lambda x}$ on $x \in [0,1]$ and 0 otherwise. Then $F(x) = 1 - e^{-\lambda x} = u$ and $F^{-1}(u) = - \frac{1}{\lambda} \ln [1-u]$.
+
+```{r}
+set.seed(12345)
+
+u <- runif(10^4)
+
+lambda <- 2
+
+x <- - (1 / lambda) * log(1 - u)
+
+tibble(x, c = 2 * exp(-2*x)) %>% ggplot(aes(x = x)) + geom_density(color = "salmon") + 
+  geom_line(aes(y = c))
+```
+
+### Rejection Sampling
+
+The problem is that inverse sampling only works when $F(x)$ is invertible. Another option is rejection sampling. Suppose you cannot sample from $f_X(x)$ but you can from $g_X(x)$ and the importance ratio $\frac{f_X(x)}{g_X(x)} <= M$ for all $x$. Then you can sample $x$ from $g_X(x)$, then draw from $u \sim U(0,1)$ and accept $y = x$ with probability $\frac{f_X(x)}{M g_X(x)}$, i.e., if accepts if $u \ge \frac{f_X(x)}{M g_X(x)}$.
+
+Return to the example where $f(x) = 2x$ on $x \in [0,1]$. Consider $g(x) = 1$ on $x \in [0,1]$, the pdf of uniform distribution. The ratio ${f(x)}{g(x)} = 2x \le 2$ for $x \in [0,1]$. So it is bounded by $M = 2$. Accept $x$ with probability $\frac{f_X(x)}{M g_X(x)} = \frac{2x}{2 \cdot 1} = x$.
+
+```{r}
+set.seed(12345)
+
+# g(x) is uniform dist
+x <- runif(10^4)
+
+# probability of acceptance = x
+p_acc <- x
+
+# Draw from u
+u <- runif(10^4)
+is_in <- u < p_acc
+
+# Keep the accepted ones
+my_sample <- x[is_in]
+
+# Only kept a little more than half - no very efficient.
+length(my_sample)
+```
+
+Suppose $f(x) = 6x(1-x)$ on $x \in [0,1]$. Consider $g(x) = 1$ on $x \in [0,1]$, the pdf of uniform distribution. The ratio ${f(x)}{g(x)} = 6x(1-x) \le 1.5$ for $x \in [0,1]$. So it is bounded by $M = 1.5$. Accept $x$ with probability $\frac{f_X(x)}{M g_X(x)} = \frac{6x(1-x)}{1.5 \cdot 1} = 4x(1 - x)$.
+
+```{r}
+set.seed(12345)
+
+# g(x) is uniform dist
+x <- runif(10^4)
+
+# probability of acceptance = 
+p_acc <- 4 * x * (1 - x)
+
+# Draw from u
+u <- runif(10^4)
+is_in <- u < p_acc
+
+# The overall acceptance probability 
+mean(is_in)
+
+# Keep the accepted ones
+my_sample <- x[is_in]
+
+# Only kept a little more than half - no very efficient.
+length(my_sample)
+```
+
+### Importance Sampling
+
+Importance sampling allows to substitute sampling from a “difficult” distribution with sampling from an “easy” one. Suppose you have a random variable $x$ with PDF $f(x)$. The expected value of a function of $x$, $h(x)$ is defined by $E(h(x)) = \int h(x)f(x)dx$. Using the law of large numbers, you can approximate $E(h(x))$ by its average value, $\frac{1}{n} \sum_i h(x_i)$. So you would sample from $f(x)$, multiply by $h(x)$, and take the average.
+
+What would you do if you did not know how to sample from $f(x)$? Instead you could identify a function you could sample from, and evaluate the integral of the ratio, $E(h(x)) = \int\left[ h(x) \frac{f(x)}{g(x)}\right] g(x) dx$. With the law of large numbers, $E(h(x)) = \frac{1}{n}\sum_i\left[h(x_i) \frac{f(x_i)}{g(x_i)} \right]$. The ratios $w(x_i) = \frac{f(x_i)}{g(x_i)}$ are called importance weights. Importance weights tell you how useful each observation is. 
+
+Suppose you have a random variable $x$ with PDF $f(x) = 25xe^{-5x} = \text{Gamma}(2,5)$ for $X>0$. If you wanted to know the expected value of $h(x) = x$ could sample straight from `rgamma()` and take the average.
+
+```{r}
+mean(rgamma(10^5, 2, 5))
+```
+
+Great, if `rgamma()` wasn't an option, how would you evaluate $\int_0^\infty x f(x)dx = \int_0^\infty 25x^2e^{-5x}dx$? Let $g(x) = 5e^{-5x}$. Then $E(h(x)) = \frac{1}{n}\sum_i\left[x \frac{25xe^{-5x}}{5e^{-5x}} \right] = \frac{1}{n}\sum_i 5x_i^2$
+
+```{r}
+set.seed(12345)
+
+g <- rexp(10^5, 5)
+
+mean(5*g^2)
+```
+
+Great, if `rgamma()` wasn't an option, how would you evaluate $\int_0^\infty x f(x)dx = \int_0^\infty 25x^2e^{-5x}dx$? Let $g(x) = 5e^{-5x}$. Then $E(h(x)) = \frac{1}{n}\sum_i\left[x \frac{25xe^{-5x}}{5e^{-5x}} \right] = \frac{1}{n}\sum_i 5x_i^2$
+
+```{r}
+set.seed(12345)
+
+g <- rexp(10^5, 5)
+
+mean(5*g^2)
+```
+
+Let's try another one. Suppose you want to empirically estimate $\int_0^1 x^5(1-x)^5dx$. First, use the simple Monte Carlo method to estimate the integral.
+
+```{r}
+set.seed(12345)
+
+f <- function(x) {x^5*(1 - x)^5}
+
+# Set the defined area. Plot f(x) over the range of x to set the appropriate limits.
+x_lim <- c(0, 1)
+y_lim <- c(0, 10^-3)
+D <- (x_lim[2] - x_lim[1]) * (y_lim[2] - y_lim[1])
+
+# Sample from D.
+n <- 10^3
+x <- runif(n, x_lim[1], x_lim[2])
+y <- runif(n, y_lim[1], y_lim[2])
+
+# Area is percent of points under the curve
+is_under <- y <= f(x)
+z <- sum(is_under)
+(A_hat <- z / n * D)
+(se <- D / sqrt(n) * sqrt(z/n * (1 - z/n)))
+
+tibble(x, f = f(x), rand_y = y, is_under) %>% 
+  ggplot(aes(x = x)) + 
+  geom_area(aes(y = f)) + 
+  geom_point(aes(y = rand_y, color = is_under), show.legend = FALSE)
+```
+
+Now let's do it with direct sampling. $x^5(1-x)^5$ is almost like the beta function. $\int_0^1 x^5(1-x)^5dx = \int_0^1 \frac{x}{1260} 1260x^4(1-x)^5dx = \int_0^1 \frac{x}{1250} g(x)dx$.
+
+```{r}
+set.seed(12345)
+(A_hat <- mean(rbeta(n, 5, 6) / 1260))
+```
+
+Now let's do it with importance sampling. Just define $\int_0^1 x^5(1-x)^5dx = \int_0^1 x^5(1-x)^5g(x)dx$ where $g(x) = 1$ is the uniform pdf.
+
+```{r}
+set.seed(12345)
+
+g <- runif(10^3)
+
+mean(g^5*(1-g)^5)
+```
+
+## Metropolis-Hastings
+
+For any model with likelihood $f(y|\theta)$ and prior $f(\theta)$, you can use the Metropolis-Hastings step to estimate $\theta$. Start with an initial $\theta = \theta_0$. Propose a new $\theta^'$ from a proposed distribution $q(\theta'|\theta)$ and evaluate the acceptance ratio, 
+
+$$
+R = \frac{f(y|\theta')f(\theta')}{f(y|\theta)f(\theta)} \frac{q(\theta|\theta')}{q(\theta'|\theta)}
+$$
+
+Accept the new value with probability $\min(R, 1)$, then repeat until convergence. Notice that if the proposed distribution is symmetric, then the second term drops out and $R$ is just the ratio of posterior distributions. The symmetric version is called *Metrolopolis* instead of *Metropolis-Hastings*.
+
+If $\theta \in \mathbb{R}$ then the normal is a good proposal distribution, $\theta'|\theta \sim N(\theta, \delta^{-2})$. The normal distribution is symmetric, so the Metropolis acceptance ratio will work.
+
+Suppose you have a normal data generating process with unknown mean $\mu$ and precision $\tau$. Your conjugate priors are $y_i \sim N(\mu, \tau)$, $\mu \sim N(\mu_0, \tau_0)$, and $\tau \sim \text{Gamma}(a, b)$. The conditional distributions are those in Eqns \@ref(eq:mu-posterior) and \@ref(eq:tau-posterior).
+
+$$
+\begin{align}
+\mu|y & \sim N\left(\frac{n\tau\bar{y} + \tau_0\mu_0}{n\tau + \tau_0}, n\tau + \tau_0 \right) \\
+\tau|y & \sim \text{Gamma}\left(a + n/2, b + \frac{1}{2} \sum_i(y_i - \mu)^2 \right)
+\end{align}
+$$
+
+Let's replace the Gibbs step for $\mu$ with the Metropolis step. Propose a new value $\mu^*$ from the normal distribution centered around the current $\mu$, $\mu' \sim N(\mu, \delta^{-2})$ and evaluate the acceptance ratio as 
+
+$$
+R = \frac{f(y|\mu', \tau) f(\mu'|\mu_0, \tau_0)}{f(y|\mu, \tau) f(\mu|\mu_0, \tau_0)}
+$$
+
+accepting the new value with probability $\min (R, 1)$.
+
+Suppose your data is $n = 100$ values from a $N(\mu = 2, \tau = 1/4)$ distribution.
+
+```{r}
+set.seed(123)
+
+n <- 100
+y <- rnorm(n, 2, 2)
+
+# Use vague priors
+mu_0 <- 0
+tau_0 <- 10^(-4)
+a <- .01
+b <- .01
+
+# Here we go: Metropolis for mu, Gibbs for tau
+ITER <- 10^3
+
+# monitors
+mon_mu <- numeric(ITER)
+mon_tau <- numeric(ITER)
+
+# initialize the algorithm
+mu <- mean(y)
+tau <- 1 / var(y)
+
+# width of proposal distribution for mu
+delta <- .01
+
+for(i in 1:ITER) {
+  # Mu step.
+  mu_new <- rnorm(1, mu, sd = delta)
+  
+  # log of the acceptance ratio
+  logR <- sum(dnorm(y, mu_new, 1/sqrt(tau), log = T)) - # new likelihood
+          sum(dnorm(y, mu    , 1/sqrt(tau), log = T)) + # old likelihood
+          dnorm(mu_new,mu_0, 1/sqrt(tau_0), log = T)  - # new prior
+          dnorm(mu    ,mu_0, 1/sqrt(tau_0), log = T)    # old prior
+  
+  # accept with probability min(R,1)
+  # draw U from uniform(0,1) and accept if logU < logR
+  # Note: larger delta results in algorithm proposes candidates outside the main
+  # support of the posterior and acceptance rate will be low.
+  logU <- log(runif(1,0,1))
+  if(logU < logR){mu <- mu_new}
+  
+  #### STEP for TAU
+  tau <- rgamma(1, a + n / 2, b + .5 * sum((y - mu)^2))
+  
+  #### UPDATING THE MONITORS:
+  mon_mu[i] <- mu
+  mon_tau[i] <- tau
+}
+
+# Note that if you set delta to .01, there was a lot of autocorrelation in mu
+# and it did not converge. But if you set it to .1 it does a little better.
+tibble(mon_mu, x = 1:ITER) %>% ggplot(aes(x = x, y = mon_mu)) + geom_point()
+```
+
+Suppose a study estimates the sex-ratio of bird chicks. From prior studies, you settle on a beta prior $p \sim \text{Beta}(20, 20)$ that a chick is female. From a batch of eggs, 5 are male and 1 is female. The number of expected females is $x|p \sim \text{Bin}(n, p)$. Using the simple beta-binomial model, the posterior mean for $p = \frac{(a + y)}{(a+y) + (b + (n - y))} = .456$.
+
+```{r}
+(20 + 1) / ((20 + 1) + (20 + (6 - 1)))
+```
+
+In this case, the $n$ is also uncertain since some eggs may have been lost. From prior studies you expect $n \sim \text{Pois}(12)$. Use MCMC to estimate posterior distributions of $p$ and $n$.
+
+```{r collapse=TRUE}
+set.seed(12345)
+
+# Data: 5 males and 1 female
+y <- 1
+n <- 6
+
+# Prior distributions: beta(20, 20) for p; derived for n.
+a <- 20
+b <- 20
+lambda <- 12
+
+# MCMC algorithm
+ITER <- 10^3
+p_monitor <- numeric(ITER)
+n_monitor <- numeric(ITER)
+
+for(i in 1:ITER) {
+  # Sample p.
+  p <- rbeta(1, a + y, b + (n - y))
+  
+  # Sample n
+  n_vals <- 6:25
+  # This distribution was derived for me.
+  n_prob <- (lambda * (1 - p))^n_vals / (factorial(n_vals - 1))
+  n <- sample(n_vals, size = 1, replace = TRUE, n_prob)
+  
+  # Update priors
+  p_monitor[i] <- p
+  n_monitor[i] <- n
+}
+
+# Drop the first 500 observations as burn-in.
+# Posterior mean for n
+table(n_monitor[501:ITER]) %>% which.max()
+max(table(n_monitor[501:ITER])) / (ITER-501)
+# Posterior mean for p
+mean(p_monitor)
+
+# Check for convergence.
+# p
+p1 <- tibble(index = 1:ITER, p = p_monitor) %>% ggplot(aes(x = index, y = p)) + geom_line()
+p2 <- tibble(p = p_monitor) %>% ggplot(aes(x = p)) + geom_density()
+# n
+p3 <- tibble(index = 1:ITER, n = n_monitor) %>% ggplot(aes(x = index, y = n)) + geom_line()
+p4 <- tibble(p = n_monitor) %>% ggplot(aes(x = p)) + geom_histogram(binwidth = 1)
+
+(p1+p2)/(p3+p4)
+
+```
+
+
 
 ## Appendix: Gentle Introduction
 
@@ -1473,11 +2002,84 @@ pred_temp <- rnorm(1000, mean = sampling_vals$mu, sampling_vals$sigma)
 scales::percent(sum(pred_temp >= 18) / length(pred_temp))
 ```
 
+## Appendix: Bayes Factors
+
+The Bayes Factor (BF) is a measure of the relative evidence of one model over another. Take another look at Bayes' formula:
+
+$$P(\theta|D) = \frac{P(D|\theta)P(\theta)}{P(D)}.$$
+
+Suppose you want to compare how two models explain and observed data outcome, $D$. Model $M_1:f_1(D|\theta_1)$ says the observed data $D$ was produced by a generative model with pdf $f_1$ parameterized by $\theta_2$. Model $M_2:f_2(D|\theta_2)$ says it was produced by a generative model with pdf $f_2$ parameterized by $\theta_2$. In each model you specify a prior probability distribution for the parameter
+
+If you take the ratio of the posterior probabilities, the posterior odds, the $P(D)$ terms cancel and you have
+
+$$\frac{P(\theta_1|D)}{P(\theta_2|D)} = \frac{P(D|\theta_1)}{P(D|\theta_2)} \cdot \frac{P(\theta_1)}{P(\theta_2)}$$
+
+The posterior odds equals the ratio of the likelihoods multiplied by the prior odds. That likelihood ratio is the Bayes Factor (BF). Rearranging, BF is the odds ratio of the posterior and prior odds.
+
+$$BF = \frac{P(D|\theta_1)}{P(D|\theta_2)} = \mathrm{\frac{Posterior Odds}{Prior Odds}}$$
+
+Return to the example of observing $D$ = 7 ones and 3 zeros. You can compare an hypothesized $\theta$ of .5 to a completely agnostic model where $\theta$ is uniform over [0, 1]. The likelihood of observing $D$ when $\theta$ = .5 is $P(D|\theta_1) = 5^7(1-.5)^3$ = `r scales::number(dbinom(7, 10, .5), accuracy = .001)`. The likelihood of observing $D$ where $\theta$ is uniform on [0, 1] is $P(D|\theta_2) = \int_0^1 \binom{10}{3}q^7(1-q)^3dq$
+
+```{r}
+.5^1 * .5^1
+dbinom(1, 1, .5)
+dbinom(11, 11, .5)
+beta(11, 11)
+```
+
+
+
+with a uniform Beta(1, 1) prior (i.e., complete agnosticism). 
+
+
+The Bayes factor at $\theta$ = .7 quantifies how much the odds of H0: $\theta$ = .7 over H1: $\hat{\theta}$ = .7.
+
+```{r}
+prior <- function(theta, alpha, beta) {
+  (1 / beta(alpha, beta)) * theta^(alpha-1) * (1-theta)^(beta-1)
+}
+posterior <- function(theta, alpha, beta, a, b) {
+  (1 / beta(alpha + a, beta + b)) * theta^(alpha-1+a) * (1-theta)^(beta-1+b)
+}
+
+prior(.5, 115, 85) 
+posterior(.5, 1, 1, 10, 10)
+
+posterior(.5, 1, 1, 10, 10) / prior(.5, 1, 1) 
+
+1 / beta(115, 85)
+
+# Posterior Distribution 
+1/beta(1+10, 1+10) * .5^(1-1+10) * (1-.5)^(1-1+10)
+dbeta(.5, 11, 11)
+
+# Prior Beta Distributions
+1/beta(1, 1) * .5^(1-1) * (1-.5)^(1-1)
+dbeta(.5, 1, 1)
+
+
+dbeta(.5, 115, 85)
+```
+
+
+The Bayes factor measures how much your prior belief is altered by the evidence. It is the ratio of the likelihoods at some hypothesized value before and after observing the data. In this case, our confidence increased by a factor of...
+
+```{r collapse=TRUE}
+theta <- 0.5
+
+alpha <- 1
+beta <- 1
+a <- 10
+b <- 10
+
+(prior_likelihood <- (1 / beta(alpha, beta)) * theta^(alpha-1) * (1-theta)^(beta-1))
+(posterior_likelihood <- (1 / beta(alpha + a, beta + b)) * theta^(alpha-1+a) * (1-theta)^(beta-1+b))
+(bayes_factor <- posterior_likelihood / prior_likelihood)
+
+# 3.7 on alpha = beta = 1
+# 1.91 on alpha = beta = 4
+```
+
 ## Further Reading
 
-Gelman A, Carlin JB, Stern HS, Dunson DB, Vehtari A, Rubin DB. Bayesian data analysis. CRC press. The book any Bayesian statistician should have read at least once. Considered the definitive textbook on the topic.
-
-McElreath R. Statistical rethinking: A Bayesian course with examples in R and Stan. Chapman and Hall/CRC A somewhat more friendly introduction to Bayesian statistics.
-
-
-
+Most of my notes are from the two course [Bayesian Statistics Using R](https://www.edx.org/certificates/professional-certificate/ucx-bayesian-statistics-using-r) certificate program instructed by Elena Moltchanova. Elena recommends two books as standard reading material for serious Bayesian students. *Bayesian Data Analysis* [@Gelman2013] is considered the definitive textbook on the topic. *Statistical rethinking: A Bayesian course with examples in R and Stan* [@McElreath2020] is a more friendly introduction to Bayesian statistics.

@@ -23,7 +23,7 @@
 <meta name="author" content="Michael Foley" />
 
 
-<meta name="date" content="2023-10-14" />
+<meta name="date" content="2023-10-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -127,6 +127,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 </style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -145,7 +167,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1" data-path="frequentist-statistics.html"><a href="frequentist-statistics.html"><i class="fa fa-check"></i><b>1</b> Frequentist Statistics</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="central-tendancy-and-dispersion.html"><a href="central-tendancy-and-dispersion.html"><i class="fa fa-check"></i><b>1.1</b> Central Tendancy and Dispersion</a></li>
-<li class="chapter" data-level="1.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>1.2</b> Hypothesis Testing</a></li>
+<li class="chapter" data-level="1.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>1.2</b> Hypothesis Testing</a>
+<ul>
+<li class="chapter" data-level="" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#type-i-and-ii-errors"><i class="fa fa-check"></i>Type I and II Errors</a></li>
+<li class="chapter" data-level="" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#statistical-power"><i class="fa fa-check"></i>Statistical Power</a></li>
+<li class="chapter" data-level="" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#what-p-values-would-you-expect"><i class="fa fa-check"></i>What p-values would you expect?</a></li>
+<li class="chapter" data-level="1.2.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#further-reading"><i class="fa fa-check"></i><b>1.2.1</b> Further Reading</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="likelihood-statistics.html"><a href="likelihood-statistics.html"><i class="fa fa-check"></i><b>2</b> Likelihood Statistics</a>
 <ul>
@@ -155,13 +183,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="3.1" data-path="bayes-theorem.html"><a href="bayes-theorem.html"><i class="fa fa-check"></i><b>3.1</b> Bayes’ Theorem</a></li>
 <li class="chapter" data-level="3.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html"><i class="fa fa-check"></i><b>3.2</b> Bayesian Inference</a></li>
-<li class="chapter" data-level="3.3" data-path="bayes-factors.html"><a href="bayes-factors.html"><i class="fa fa-check"></i><b>3.3</b> Bayes Factors</a></li>
-<li class="chapter" data-level="3.4" data-path="gamma-poisson.html"><a href="gamma-poisson.html"><i class="fa fa-check"></i><b>3.4</b> Gamma Poisson</a></li>
-<li class="chapter" data-level="3.5" data-path="normal.html"><a href="normal.html"><i class="fa fa-check"></i><b>3.5</b> Normal</a></li>
-<li class="chapter" data-level="3.6" data-path="proportions-and-the-beta-binomial.html"><a href="proportions-and-the-beta-binomial.html"><i class="fa fa-check"></i><b>3.6</b> Proportions and the Beta Binomial</a></li>
+<li class="chapter" data-level="3.3" data-path="gamma-poisson-and-estimating-counts.html"><a href="gamma-poisson-and-estimating-counts.html"><i class="fa fa-check"></i><b>3.3</b> Gamma Poisson and Estimating Counts</a></li>
+<li class="chapter" data-level="3.4" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html"><i class="fa fa-check"></i><b>3.4</b> Normal and Estimating Means</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#population-estimate"><i class="fa fa-check"></i><b>3.4.1</b> Population Estimate</a></li>
+<li class="chapter" data-level="3.4.2" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#regression"><i class="fa fa-check"></i><b>3.4.2</b> Regression</a></li>
+<li class="chapter" data-level="3.4.3" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#change-point-regression"><i class="fa fa-check"></i><b>3.4.3</b> Change Point Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="beta-binomial-and-estimating-proportions.html"><a href="beta-binomial-and-estimating-proportions.html"><i class="fa fa-check"></i><b>3.5</b> Beta Binomial and Estimating Proportions</a></li>
+<li class="chapter" data-level="3.6" data-path="zero-inflation-and-latent-variables.html"><a href="zero-inflation-and-latent-variables.html"><i class="fa fa-check"></i><b>3.6</b> Zero-Inflation and Latent Variables</a></li>
 <li class="chapter" data-level="3.7" data-path="dic.html"><a href="dic.html"><i class="fa fa-check"></i><b>3.7</b> DIC</a></li>
-<li class="chapter" data-level="3.8" data-path="appendix-gentle-introduction.html"><a href="appendix-gentle-introduction.html"><i class="fa fa-check"></i><b>3.8</b> Appendix: Gentle Introduction</a></li>
-<li class="chapter" data-level="3.9" data-path="further-reading-1.html"><a href="further-reading-1.html"><i class="fa fa-check"></i><b>3.9</b> Further Reading</a></li>
+<li class="chapter" data-level="3.8" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html"><i class="fa fa-check"></i><b>3.8</b> Monte Carlo Integration</a>
+<ul>
+<li class="chapter" data-level="3.8.1" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html#inverse-sampling"><i class="fa fa-check"></i><b>3.8.1</b> Inverse Sampling</a></li>
+<li class="chapter" data-level="3.8.2" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html#rejection-sampling"><i class="fa fa-check"></i><b>3.8.2</b> Rejection Sampling</a></li>
+<li class="chapter" data-level="3.8.3" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html#importance-sampling"><i class="fa fa-check"></i><b>3.8.3</b> Importance Sampling</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="metropolis-hastings.html"><a href="metropolis-hastings.html"><i class="fa fa-check"></i><b>3.9</b> Metropolis-Hastings</a></li>
+<li class="chapter" data-level="3.10" data-path="appendix-gentle-introduction.html"><a href="appendix-gentle-introduction.html"><i class="fa fa-check"></i><b>3.10</b> Appendix: Gentle Introduction</a></li>
+<li class="chapter" data-level="3.11" data-path="appendix-bayes-factors.html"><a href="appendix-bayes-factors.html"><i class="fa fa-check"></i><b>3.11</b> Appendix: Bayes Factors</a></li>
+<li class="chapter" data-level="3.12" data-path="further-reading-1.html"><a href="further-reading-1.html"><i class="fa fa-check"></i><b>3.12</b> Further Reading</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="one-sample.html"><a href="one-sample.html"><i class="fa fa-check"></i><b>4</b> One-Sample</a>
 <ul>
@@ -183,16 +224,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2" data-path="wilcoxonranksum.html"><a href="wilcoxonranksum.html"><i class="fa fa-check"></i><b>5.2</b> Wilcoxon Rank Sum Test</a></li>
 <li class="chapter" data-level="" data-path="case-study-1.html"><a href="case-study-1.html"><i class="fa fa-check"></i>Case Study 1</a></li>
 <li class="chapter" data-level="5.3" data-path="pairedttest.html"><a href="pairedttest.html"><i class="fa fa-check"></i><b>5.3</b> Paired Samples t-Test</a></li>
-<li class="chapter" data-level="5.4" data-path="wilcoxonsignedrank.html"><a href="wilcoxonsignedrank.html"><i class="fa fa-check"></i><b>5.4</b> Wilcoxon Signed-Rank Test</a></li>
+<li class="chapter" data-level="5.4" data-path="wilcoxonsignedrank.html"><a href="wilcoxonsignedrank.html"><i class="fa fa-check"></i><b>5.4</b> Wilcoxon Signed-Rank Test</a>
+<ul>
+<li class="chapter" data-level="" data-path="wilcoxonsignedrank.html"><a href="wilcoxonsignedrank.html#sign-test"><i class="fa fa-check"></i>Sign Test</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="case-study-2.html"><a href="case-study-2.html"><i class="fa fa-check"></i>Case Study 2</a></li>
 <li class="chapter" data-level="5.5" data-path="onewayanova.html"><a href="onewayanova.html"><i class="fa fa-check"></i><b>5.5</b> One-way ANOVA</a></li>
 <li class="chapter" data-level="5.6" data-path="kw.html"><a href="kw.html"><i class="fa fa-check"></i><b>5.6</b> Kruskal–Wallis Test</a></li>
-<li class="chapter" data-level="" data-path="groupdiffscs3.html"><a href="groupdiffscs3.html"><i class="fa fa-check"></i>Case Study 3</a></li>
+<li class="chapter" data-level="" data-path="groupdiffscs3.html"><a href="groupdiffscs3.html"><i class="fa fa-check"></i>Case Study 3</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="groupdiffscs3.html"><a href="groupdiffscs3.html#assumptions"><i class="fa fa-check"></i><b>5.6.1</b> Assumptions</a></li>
+<li class="chapter" data-level="5.6.2" data-path="groupdiffscs3.html"><a href="groupdiffscs3.html#anova"><i class="fa fa-check"></i><b>5.6.2</b> ANOVA</a></li>
+<li class="chapter" data-level="5.6.3" data-path="groupdiffscs3.html"><a href="groupdiffscs3.html#kruskal-wallis-test"><i class="fa fa-check"></i><b>5.6.3</b> Kruskal-Wallis Test</a></li>
+</ul></li>
 <li class="chapter" data-level="5.7" data-path="chisqhomogeneity.html"><a href="chisqhomogeneity.html"><i class="fa fa-check"></i><b>5.7</b> Chi-Square Test of Homogeneity</a></li>
 <li class="chapter" data-level="5.8" data-path="fisherexact.html"><a href="fisherexact.html"><i class="fa fa-check"></i><b>5.8</b> Fisher’s Exact Test</a></li>
 <li class="chapter" data-level="" data-path="case-study-4.html"><a href="case-study-4.html"><i class="fa fa-check"></i>Case Study 4</a></li>
 <li class="chapter" data-level="5.9" data-path="pairwiseproptest.html"><a href="pairwiseproptest.html"><i class="fa fa-check"></i><b>5.9</b> Pairwise Prop Test</a></li>
-<li class="chapter" data-level="5.10" data-path="mcnemar.html"><a href="mcnemar.html"><i class="fa fa-check"></i><b>5.10</b> McNemar’s Test</a></li>
+<li class="chapter" data-level="5.10" data-path="mcnemar.html"><a href="mcnemar.html"><i class="fa fa-check"></i><b>5.10</b> McNemar’s Test</a>
+<ul>
+<li class="chapter" data-level="5.10.1" data-path="mcnemar.html"><a href="mcnemar.html#manova"><i class="fa fa-check"></i><b>5.10.1</b> MANOVA</a></li>
+<li class="chapter" data-level="5.10.2" data-path="mcnemar.html"><a href="mcnemar.html#multiple-variance-comparison-f-test"><i class="fa fa-check"></i><b>5.10.2</b> Multiple Variance Comparison F Test</a></li>
+<li class="chapter" data-level="5.10.3" data-path="mcnemar.html"><a href="mcnemar.html#example-5"><i class="fa fa-check"></i><b>5.10.3</b> Example</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="association.html"><a href="association.html"><i class="fa fa-check"></i><b>6</b> Association</a>
 <ul>
@@ -235,55 +289,55 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="groupdiffscs3" class="section level2 unnumbered hasAnchor">
 <h2>Case Study 3<a href="groupdiffscs3.html#groupdiffscs3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>This case study uses the <a href="https://statistics.laerd.com/premium/spss/owa/one-way-anova-in-spss-6.php">data set</a> from Laerd Statistics for ANOVA.</p>
-<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="groupdiffscs3.html#cb235-1" tabindex="-1"></a>cs3 <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb235-2"><a href="groupdiffscs3.html#cb235-2" tabindex="-1"></a></span>
-<span id="cb235-3"><a href="groupdiffscs3.html#cb235-3" tabindex="-1"></a><span class="co"># Data sets are the same, so just use one.</span></span>
-<span id="cb235-4"><a href="groupdiffscs3.html#cb235-4" tabindex="-1"></a><span class="co"># cs3$kw_dat &lt;- read.spss(&quot;./input/kruskal-wallis-h-test.sav&quot;, to.data.frame = TRUE)</span></span>
-<span id="cb235-5"><a href="groupdiffscs3.html#cb235-5" tabindex="-1"></a><span class="co"># cs3$anova_dat &lt;- read.spss(&quot;./input/one-way-anova.sav&quot;, to.data.frame = TRUE)</span></span>
-<span id="cb235-6"><a href="groupdiffscs3.html#cb235-6" tabindex="-1"></a>cs3<span class="sc">$</span>dat <span class="ot">&lt;-</span> <span class="fu">read.spss</span>(<span class="st">&quot;./input/kruskal-wallis-h-test.sav&quot;</span>, <span class="at">to.data.frame =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="groupdiffscs3.html#cb275-1" tabindex="-1"></a>cs3 <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb275-2"><a href="groupdiffscs3.html#cb275-2" tabindex="-1"></a></span>
+<span id="cb275-3"><a href="groupdiffscs3.html#cb275-3" tabindex="-1"></a><span class="co"># Data sets are the same, so just use one.</span></span>
+<span id="cb275-4"><a href="groupdiffscs3.html#cb275-4" tabindex="-1"></a><span class="co"># cs3$kw_dat &lt;- read.spss(&quot;./input/kruskal-wallis-h-test.sav&quot;, to.data.frame = TRUE)</span></span>
+<span id="cb275-5"><a href="groupdiffscs3.html#cb275-5" tabindex="-1"></a><span class="co"># cs3$anova_dat &lt;- read.spss(&quot;./input/one-way-anova.sav&quot;, to.data.frame = TRUE)</span></span>
+<span id="cb275-6"><a href="groupdiffscs3.html#cb275-6" tabindex="-1"></a>cs3<span class="sc">$</span>dat <span class="ot">&lt;-</span> <span class="fu">read.spss</span>(<span class="st">&quot;./input/kruskal-wallis-h-test.sav&quot;</span>, <span class="at">to.data.frame =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>A study tests whether physically active individuals are better able to cope with workplace stress. The study categorizes <span class="math inline">\(n\)</span> = 31 participants by physical activity level (“Sedentary”, “Low”, “Moderate”, and “High”) and measures their ability to cope with workplace-related stress (CWWS) as the average score of a series of Likert items on a questionnaire (higher scores indicating a greater CWWS ability). The means plot<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a> and summary table are an initial look at the data.</p>
-<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="groupdiffscs3.html#cb236-1" tabindex="-1"></a>cs3<span class="sc">$</span>dat <span class="sc">%&gt;%</span></span>
-<span id="cb236-2"><a href="groupdiffscs3.html#cb236-2" tabindex="-1"></a>  <span class="fu">group_by</span>(group) <span class="sc">%&gt;%</span></span>
-<span id="cb236-3"><a href="groupdiffscs3.html#cb236-3" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb236-4"><a href="groupdiffscs3.html#cb236-4" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span>,</span>
-<span id="cb236-5"><a href="groupdiffscs3.html#cb236-5" tabindex="-1"></a>    <span class="at">mean_coping_stress =</span> <span class="fu">mean</span>(coping_stress),</span>
-<span id="cb236-6"><a href="groupdiffscs3.html#cb236-6" tabindex="-1"></a>    <span class="at">cl_025 =</span> mean_coping_stress <span class="sc">+</span> <span class="fu">qnorm</span>(.<span class="dv">025</span>) <span class="sc">*</span> <span class="fu">sd</span>(coping_stress) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">n</span>()),</span>
-<span id="cb236-7"><a href="groupdiffscs3.html#cb236-7" tabindex="-1"></a>    <span class="at">cl_975 =</span> mean_coping_stress <span class="sc">+</span> <span class="fu">qnorm</span>(.<span class="dv">975</span>) <span class="sc">*</span> <span class="fu">sd</span>(coping_stress) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">n</span>()),</span>
-<span id="cb236-8"><a href="groupdiffscs3.html#cb236-8" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>()</span>
-<span id="cb236-9"><a href="groupdiffscs3.html#cb236-9" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb236-10"><a href="groupdiffscs3.html#cb236-10" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> group, <span class="at">y =</span> mean_coping_stress)) <span class="sc">+</span></span>
-<span id="cb236-11"><a href="groupdiffscs3.html#cb236-11" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">shape =</span> <span class="dv">21</span>, <span class="at">fill =</span> <span class="st">&quot;gray80&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb236-12"><a href="groupdiffscs3.html#cb236-12" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> cl_025, <span class="at">ymax =</span> cl_975, <span class="at">width =</span> <span class="fl">0.1</span>)) <span class="sc">+</span></span>
-<span id="cb236-13"><a href="groupdiffscs3.html#cb236-13" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="dv">2</span>, <span class="at">label =</span> <span class="fu">glue</span>(<span class="st">&quot;n = {n}&quot;</span>)), <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb236-14"><a href="groupdiffscs3.html#cb236-14" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribution of CWWS by Physical Activity Level Group&quot;</span>,</span>
-<span id="cb236-15"><a href="groupdiffscs3.html#cb236-15" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">&quot;Score&quot;</span>,</span>
-<span id="cb236-16"><a href="groupdiffscs3.html#cb236-16" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&quot;Means plot with 95% CI&quot;</span>)</span></code></pre></div>
-<p><img src="statistics_files/figure-html/unnamed-chunk-164-1.png" width="672" /></p>
-<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="groupdiffscs3.html#cb237-1" tabindex="-1"></a>(cs3<span class="sc">$</span>gt <span class="ot">&lt;-</span> cs3<span class="sc">$</span>dat <span class="sc">%&gt;%</span> </span>
-<span id="cb237-2"><a href="groupdiffscs3.html#cb237-2" tabindex="-1"></a>  <span class="fu">tbl_summary</span>(</span>
-<span id="cb237-3"><a href="groupdiffscs3.html#cb237-3" tabindex="-1"></a>    <span class="at">by =</span> group, </span>
-<span id="cb237-4"><a href="groupdiffscs3.html#cb237-4" tabindex="-1"></a>    <span class="at">label =</span> <span class="fu">list</span>(<span class="at">coping_stress =</span> <span class="st">&quot;CWWR&quot;</span>),</span>
-<span id="cb237-5"><a href="groupdiffscs3.html#cb237-5" tabindex="-1"></a>    <span class="at">type =</span> coping_stress <span class="sc">~</span> <span class="st">&quot;continuous2&quot;</span>,</span>
-<span id="cb237-6"><a href="groupdiffscs3.html#cb237-6" tabindex="-1"></a>    <span class="at">statistic =</span> coping_stress <span class="sc">~</span> <span class="fu">c</span>(<span class="st">&quot;{median} ({p25}, {p75})&quot;</span>, <span class="st">&quot;{mean}, {sd}&quot;</span>)</span>
-<span id="cb237-7"><a href="groupdiffscs3.html#cb237-7" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb237-8"><a href="groupdiffscs3.html#cb237-8" tabindex="-1"></a>  <span class="fu">add_n</span>())</span></code></pre></div>
-<div id="owlydbebtw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#owlydbebtw table {
+<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="groupdiffscs3.html#cb276-1" tabindex="-1"></a>cs3<span class="sc">$</span>dat <span class="sc">%&gt;%</span></span>
+<span id="cb276-2"><a href="groupdiffscs3.html#cb276-2" tabindex="-1"></a>  <span class="fu">group_by</span>(group) <span class="sc">%&gt;%</span></span>
+<span id="cb276-3"><a href="groupdiffscs3.html#cb276-3" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb276-4"><a href="groupdiffscs3.html#cb276-4" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span>,</span>
+<span id="cb276-5"><a href="groupdiffscs3.html#cb276-5" tabindex="-1"></a>    <span class="at">mean_coping_stress =</span> <span class="fu">mean</span>(coping_stress),</span>
+<span id="cb276-6"><a href="groupdiffscs3.html#cb276-6" tabindex="-1"></a>    <span class="at">cl_025 =</span> mean_coping_stress <span class="sc">+</span> <span class="fu">qnorm</span>(.<span class="dv">025</span>) <span class="sc">*</span> <span class="fu">sd</span>(coping_stress) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">n</span>()),</span>
+<span id="cb276-7"><a href="groupdiffscs3.html#cb276-7" tabindex="-1"></a>    <span class="at">cl_975 =</span> mean_coping_stress <span class="sc">+</span> <span class="fu">qnorm</span>(.<span class="dv">975</span>) <span class="sc">*</span> <span class="fu">sd</span>(coping_stress) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">n</span>()),</span>
+<span id="cb276-8"><a href="groupdiffscs3.html#cb276-8" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>()</span>
+<span id="cb276-9"><a href="groupdiffscs3.html#cb276-9" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb276-10"><a href="groupdiffscs3.html#cb276-10" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> group, <span class="at">y =</span> mean_coping_stress)) <span class="sc">+</span></span>
+<span id="cb276-11"><a href="groupdiffscs3.html#cb276-11" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">shape =</span> <span class="dv">21</span>, <span class="at">fill =</span> <span class="st">&quot;gray80&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb276-12"><a href="groupdiffscs3.html#cb276-12" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> cl_025, <span class="at">ymax =</span> cl_975, <span class="at">width =</span> <span class="fl">0.1</span>)) <span class="sc">+</span></span>
+<span id="cb276-13"><a href="groupdiffscs3.html#cb276-13" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="dv">2</span>, <span class="at">label =</span> <span class="fu">glue</span>(<span class="st">&quot;n = {n}&quot;</span>)), <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb276-14"><a href="groupdiffscs3.html#cb276-14" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribution of CWWS by Physical Activity Level Group&quot;</span>,</span>
+<span id="cb276-15"><a href="groupdiffscs3.html#cb276-15" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">&quot;Score&quot;</span>,</span>
+<span id="cb276-16"><a href="groupdiffscs3.html#cb276-16" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&quot;Means plot with 95% CI&quot;</span>)</span></code></pre></div>
+<p><img src="statistics_files/figure-html/unnamed-chunk-184-1.png" width="672" /></p>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="groupdiffscs3.html#cb277-1" tabindex="-1"></a>(cs3<span class="sc">$</span>gt <span class="ot">&lt;-</span> cs3<span class="sc">$</span>dat <span class="sc">%&gt;%</span> </span>
+<span id="cb277-2"><a href="groupdiffscs3.html#cb277-2" tabindex="-1"></a>  <span class="fu">tbl_summary</span>(</span>
+<span id="cb277-3"><a href="groupdiffscs3.html#cb277-3" tabindex="-1"></a>    <span class="at">by =</span> group, </span>
+<span id="cb277-4"><a href="groupdiffscs3.html#cb277-4" tabindex="-1"></a>    <span class="at">label =</span> <span class="fu">list</span>(<span class="at">coping_stress =</span> <span class="st">&quot;CWWR&quot;</span>),</span>
+<span id="cb277-5"><a href="groupdiffscs3.html#cb277-5" tabindex="-1"></a>    <span class="at">type =</span> coping_stress <span class="sc">~</span> <span class="st">&quot;continuous2&quot;</span>,</span>
+<span id="cb277-6"><a href="groupdiffscs3.html#cb277-6" tabindex="-1"></a>    <span class="at">statistic =</span> coping_stress <span class="sc">~</span> <span class="fu">c</span>(<span class="st">&quot;{median} ({p25}, {p75})&quot;</span>, <span class="st">&quot;{mean}, {sd}&quot;</span>)</span>
+<span id="cb277-7"><a href="groupdiffscs3.html#cb277-7" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb277-8"><a href="groupdiffscs3.html#cb277-8" tabindex="-1"></a>  <span class="fu">add_n</span>())</span></code></pre></div>
+<div id="wsrjoibdef" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#wsrjoibdef table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#owlydbebtw thead, #owlydbebtw tbody, #owlydbebtw tfoot, #owlydbebtw tr, #owlydbebtw td, #owlydbebtw th {
+#wsrjoibdef thead, #wsrjoibdef tbody, #wsrjoibdef tfoot, #wsrjoibdef tr, #wsrjoibdef td, #wsrjoibdef th {
   border-style: none;
 }
 
-#owlydbebtw p {
+#wsrjoibdef p {
   margin: 0;
   padding: 0;
 }
 
-#owlydbebtw .gt_table {
+#wsrjoibdef .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -309,12 +363,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-left-color: #D3D3D3;
 }
 
-#owlydbebtw .gt_caption {
+#wsrjoibdef .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#owlydbebtw .gt_title {
+#wsrjoibdef .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -326,7 +380,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-width: 0;
 }
 
-#owlydbebtw .gt_subtitle {
+#wsrjoibdef .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -338,7 +392,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-width: 0;
 }
 
-#owlydbebtw .gt_heading {
+#wsrjoibdef .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -350,13 +404,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#owlydbebtw .gt_bottom_border {
+#wsrjoibdef .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#owlydbebtw .gt_col_headings {
+#wsrjoibdef .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -371,7 +425,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#owlydbebtw .gt_col_heading {
+#wsrjoibdef .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -391,7 +445,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#owlydbebtw .gt_column_spanner_outer {
+#wsrjoibdef .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -403,15 +457,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 4px;
 }
 
-#owlydbebtw .gt_column_spanner_outer:first-child {
+#wsrjoibdef .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#owlydbebtw .gt_column_spanner_outer:last-child {
+#wsrjoibdef .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#owlydbebtw .gt_column_spanner {
+#wsrjoibdef .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -423,11 +477,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   width: 100%;
 }
 
-#owlydbebtw .gt_spanner_row {
+#wsrjoibdef .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#owlydbebtw .gt_group_heading {
+#wsrjoibdef .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -453,7 +507,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   text-align: left;
 }
 
-#owlydbebtw .gt_empty_group_heading {
+#wsrjoibdef .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -468,15 +522,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: middle;
 }
 
-#owlydbebtw .gt_from_md > :first-child {
+#wsrjoibdef .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#owlydbebtw .gt_from_md > :last-child {
+#wsrjoibdef .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#owlydbebtw .gt_row {
+#wsrjoibdef .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -495,7 +549,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#owlydbebtw .gt_stub {
+#wsrjoibdef .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -508,7 +562,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#owlydbebtw .gt_stub_row_group {
+#wsrjoibdef .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -522,15 +576,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: top;
 }
 
-#owlydbebtw .gt_row_group_first td {
+#wsrjoibdef .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#owlydbebtw .gt_row_group_first th {
+#wsrjoibdef .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#owlydbebtw .gt_summary_row {
+#wsrjoibdef .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -540,16 +594,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#owlydbebtw .gt_first_summary_row {
+#wsrjoibdef .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#owlydbebtw .gt_first_summary_row.thick {
+#wsrjoibdef .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#owlydbebtw .gt_last_summary_row {
+#wsrjoibdef .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -559,7 +613,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#owlydbebtw .gt_grand_summary_row {
+#wsrjoibdef .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -569,7 +623,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#owlydbebtw .gt_first_grand_summary_row {
+#wsrjoibdef .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -579,7 +633,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-color: #D3D3D3;
 }
 
-#owlydbebtw .gt_last_grand_summary_row_top {
+#wsrjoibdef .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -589,11 +643,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#owlydbebtw .gt_striped {
+#wsrjoibdef .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#owlydbebtw .gt_table_body {
+#wsrjoibdef .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -602,7 +656,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#owlydbebtw .gt_footnotes {
+#wsrjoibdef .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -616,7 +670,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#owlydbebtw .gt_footnote {
+#wsrjoibdef .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -625,7 +679,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#owlydbebtw .gt_sourcenotes {
+#wsrjoibdef .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -639,7 +693,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#owlydbebtw .gt_sourcenote {
+#wsrjoibdef .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -647,63 +701,63 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#owlydbebtw .gt_left {
+#wsrjoibdef .gt_left {
   text-align: left;
 }
 
-#owlydbebtw .gt_center {
+#wsrjoibdef .gt_center {
   text-align: center;
 }
 
-#owlydbebtw .gt_right {
+#wsrjoibdef .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#owlydbebtw .gt_font_normal {
+#wsrjoibdef .gt_font_normal {
   font-weight: normal;
 }
 
-#owlydbebtw .gt_font_bold {
+#wsrjoibdef .gt_font_bold {
   font-weight: bold;
 }
 
-#owlydbebtw .gt_font_italic {
+#wsrjoibdef .gt_font_italic {
   font-style: italic;
 }
 
-#owlydbebtw .gt_super {
+#wsrjoibdef .gt_super {
   font-size: 65%;
 }
 
-#owlydbebtw .gt_footnote_marks {
+#wsrjoibdef .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#owlydbebtw .gt_asterisk {
+#wsrjoibdef .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#owlydbebtw .gt_indent_1 {
+#wsrjoibdef .gt_indent_1 {
   text-indent: 5px;
 }
 
-#owlydbebtw .gt_indent_2 {
+#wsrjoibdef .gt_indent_2 {
   text-indent: 10px;
 }
 
-#owlydbebtw .gt_indent_3 {
+#wsrjoibdef .gt_indent_3 {
   text-indent: 15px;
 }
 
-#owlydbebtw .gt_indent_4 {
+#wsrjoibdef .gt_indent_4 {
   text-indent: 20px;
 }
 
-#owlydbebtw .gt_indent_5 {
+#wsrjoibdef .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -750,24 +804,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Recall that the one-way ANOVA test is valid under three assumptions. One, there are no significant outliers that influence the group mean. Two, the dependent variable is at least <em>approximately</em> (ANOVA is robust to this assumption) normally distributed for each group if the sample size is small (for large sample sizes the Central Limit Theorem shows normality is unnecessary). Three, the dependent variable should have equal variances across groups. ANOVA is only sensitive to this condition if the group sample sizes are not similar.</p>
 <p>Kruskal-Wallis has no assumptions per se, but the interpretation of its results depend on the distribution of the dependent variable. If the distributions are similar, then the test results tell you whether the medians differ. Otherwise, the test results tell you whether the distributions differ.</p>
 <p>Use a boxplot to assess outliers for ANOVA and the data distribution (if you revert to Kruskal-Wallis). Values greater than 1.5 IQR from the hinges (values beyond the whiskers) are outliers. Outliers might occur from data entry errors or measurement errors, so investigate and fix or throw them out. If the outlier is a genuinely extreme, you still have a couple options before reverting to Kruskal-Wallis. You can transform the dependent variable, but don’t do this unless the data is also non-normal. Transforming the variable also has the downside of making interpretation more difficult. You can also leave the outlier(s) in if it doesn’t affect the conclusion. There are no outliers here.</p>
-<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="groupdiffscs3.html#cb238-1" tabindex="-1"></a>cs3<span class="sc">$</span>dat <span class="sc">%&gt;%</span></span>
-<span id="cb238-2"><a href="groupdiffscs3.html#cb238-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> group, <span class="at">y =</span> coping_stress)) <span class="sc">+</span></span>
-<span id="cb238-3"><a href="groupdiffscs3.html#cb238-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.color =</span> <span class="st">&quot;goldenrod&quot;</span>, <span class="at">outlier.size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb238-4"><a href="groupdiffscs3.html#cb238-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Boxplot of CWWR vs Group&quot;</span>,</span>
-<span id="cb238-5"><a href="groupdiffscs3.html#cb238-5" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Score&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Group&quot;</span>)</span></code></pre></div>
-<p><img src="statistics_files/figure-html/unnamed-chunk-166-1.png" width="672" /></p>
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="groupdiffscs3.html#cb278-1" tabindex="-1"></a>cs3<span class="sc">$</span>dat <span class="sc">%&gt;%</span></span>
+<span id="cb278-2"><a href="groupdiffscs3.html#cb278-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> group, <span class="at">y =</span> coping_stress)) <span class="sc">+</span></span>
+<span id="cb278-3"><a href="groupdiffscs3.html#cb278-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.color =</span> <span class="st">&quot;goldenrod&quot;</span>, <span class="at">outlier.size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb278-4"><a href="groupdiffscs3.html#cb278-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Boxplot of CWWR vs Group&quot;</span>,</span>
+<span id="cb278-5"><a href="groupdiffscs3.html#cb278-5" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Score&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Group&quot;</span>)</span></code></pre></div>
+<p><img src="statistics_files/figure-html/unnamed-chunk-186-1.png" width="672" /></p>
 <p>There is no accepted practice for determining whether distributions are similar. The boxplot reveals a wider range of values for “Low” group, but this is close enough to conclude the distributions are similar.</p>
 <p>You can assume the populations are normally distributed if <span class="math inline">\(n_j &gt;= 30\)</span>. Otherwise, try the Q-Q plot, or skewness and kurtosis values, or histograms. If you still don’t feel confident about normality, run the Shapiro-Wilk test of normality or the Kolmogorov-Smirnov test. Definitely do not use Shapiro-Wilk for <span class="math inline">\(n_j &gt;= 30\)</span> because it is too sensitive. The Normal Q-Q plot below looks good for all groups except perhaps the “Low” group. The Shapiro-Wilk test confirms this, with all <em>p</em>-values over .05.</p>
-<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="groupdiffscs3.html#cb239-1" tabindex="-1"></a>cs3<span class="sc">$</span>dat <span class="sc">%&gt;%</span> </span>
-<span id="cb239-2"><a href="groupdiffscs3.html#cb239-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample =</span> coping_stress)) <span class="sc">+</span></span>
-<span id="cb239-3"><a href="groupdiffscs3.html#cb239-3" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span></span>
-<span id="cb239-4"><a href="groupdiffscs3.html#cb239-4" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>(<span class="at">col =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
-<span id="cb239-5"><a href="groupdiffscs3.html#cb239-5" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="at">facets =</span> <span class="fu">vars</span>(group)) <span class="sc">+</span></span>
-<span id="cb239-6"><a href="groupdiffscs3.html#cb239-6" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Q-Q Plot&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Theoretical&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Sample&quot;</span>)</span></code></pre></div>
-<p><img src="statistics_files/figure-html/unnamed-chunk-167-1.png" width="672" /></p>
-<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="groupdiffscs3.html#cb240-1" tabindex="-1"></a><span class="fu">with</span>(cs3<span class="sc">$</span>dat, <span class="fu">by</span>(coping_stress, group, shapiro.test)) <span class="sc">%&gt;%</span> </span>
-<span id="cb240-2"><a href="groupdiffscs3.html#cb240-2" tabindex="-1"></a>  <span class="fu">map</span>(tidy) <span class="sc">%&gt;%</span></span>
-<span id="cb240-3"><a href="groupdiffscs3.html#cb240-3" tabindex="-1"></a>  <span class="fu">bind_rows</span>(<span class="at">.id =</span> <span class="st">&quot;group&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="groupdiffscs3.html#cb279-1" tabindex="-1"></a>cs3<span class="sc">$</span>dat <span class="sc">%&gt;%</span> </span>
+<span id="cb279-2"><a href="groupdiffscs3.html#cb279-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample =</span> coping_stress)) <span class="sc">+</span></span>
+<span id="cb279-3"><a href="groupdiffscs3.html#cb279-3" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span></span>
+<span id="cb279-4"><a href="groupdiffscs3.html#cb279-4" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>(<span class="at">col =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="sc">+</span></span>
+<span id="cb279-5"><a href="groupdiffscs3.html#cb279-5" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="at">facets =</span> <span class="fu">vars</span>(group)) <span class="sc">+</span></span>
+<span id="cb279-6"><a href="groupdiffscs3.html#cb279-6" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Q-Q Plot&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Theoretical&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Sample&quot;</span>)</span></code></pre></div>
+<p><img src="statistics_files/figure-html/unnamed-chunk-187-1.png" width="672" /></p>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="groupdiffscs3.html#cb280-1" tabindex="-1"></a><span class="fu">with</span>(cs3<span class="sc">$</span>dat, <span class="fu">by</span>(coping_stress, group, shapiro.test)) <span class="sc">%&gt;%</span> </span>
+<span id="cb280-2"><a href="groupdiffscs3.html#cb280-2" tabindex="-1"></a>  <span class="fu">map</span>(tidy) <span class="sc">%&gt;%</span></span>
+<span id="cb280-3"><a href="groupdiffscs3.html#cb280-3" tabindex="-1"></a>  <span class="fu">bind_rows</span>(<span class="at">.id =</span> <span class="st">&quot;group&quot;</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 4 × 4
 ##   group     statistic p.value method                     
 ##   &lt;chr&gt;         &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;                      
@@ -785,20 +839,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 3 Moderate      8 1.57      2.04
 ## 4 Low           9 1.69      2.19</code></pre>
 <p>There are two common tests, Bartlett and Levene<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a>. Levene is less sensitive to departures from normality. Neither test rejects the null hypothesis of equality of variance here.</p>
-<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="groupdiffscs3.html#cb243-1" tabindex="-1"></a>(cs3<span class="sc">$</span>levene <span class="ot">&lt;-</span> car<span class="sc">::</span><span class="fu">leveneTest</span>(coping_stress <span class="sc">~</span> group, <span class="at">data =</span> cs3<span class="sc">$</span>dat, <span class="at">center =</span> <span class="st">&quot;mean&quot;</span>))</span>
-<span id="cb243-2"><a href="groupdiffscs3.html#cb243-2" tabindex="-1"></a><span class="do">## Levene&#39;s Test for Homogeneity of Variance (center = &quot;mean&quot;)</span></span>
-<span id="cb243-3"><a href="groupdiffscs3.html#cb243-3" tabindex="-1"></a><span class="do">##       Df F value Pr(&gt;F)</span></span>
-<span id="cb243-4"><a href="groupdiffscs3.html#cb243-4" tabindex="-1"></a><span class="do">## group  3   2.129 0.1199</span></span>
-<span id="cb243-5"><a href="groupdiffscs3.html#cb243-5" tabindex="-1"></a><span class="do">##       27</span></span>
-<span id="cb243-6"><a href="groupdiffscs3.html#cb243-6" tabindex="-1"></a>(cs3<span class="sc">$</span>bartlet <span class="ot">&lt;-</span> <span class="fu">bartlett.test</span>(coping_stress <span class="sc">~</span> group, <span class="at">data =</span> cs3<span class="sc">$</span>dat))</span>
-<span id="cb243-7"><a href="groupdiffscs3.html#cb243-7" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb243-8"><a href="groupdiffscs3.html#cb243-8" tabindex="-1"></a><span class="do">##  Bartlett test of homogeneity of variances</span></span>
-<span id="cb243-9"><a href="groupdiffscs3.html#cb243-9" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb243-10"><a href="groupdiffscs3.html#cb243-10" tabindex="-1"></a><span class="do">## data:  coping_stress by group</span></span>
-<span id="cb243-11"><a href="groupdiffscs3.html#cb243-11" tabindex="-1"></a><span class="do">## Bartlett&#39;s K-squared = 3.7489, df = 3, p-value = 0.2899</span></span></code></pre></div>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="groupdiffscs3.html#cb283-1" tabindex="-1"></a>(cs3<span class="sc">$</span>levene <span class="ot">&lt;-</span> car<span class="sc">::</span><span class="fu">leveneTest</span>(coping_stress <span class="sc">~</span> group, <span class="at">data =</span> cs3<span class="sc">$</span>dat, <span class="at">center =</span> <span class="st">&quot;mean&quot;</span>))</span>
+<span id="cb283-2"><a href="groupdiffscs3.html#cb283-2" tabindex="-1"></a><span class="do">## Levene&#39;s Test for Homogeneity of Variance (center = &quot;mean&quot;)</span></span>
+<span id="cb283-3"><a href="groupdiffscs3.html#cb283-3" tabindex="-1"></a><span class="do">##       Df F value Pr(&gt;F)</span></span>
+<span id="cb283-4"><a href="groupdiffscs3.html#cb283-4" tabindex="-1"></a><span class="do">## group  3   2.129 0.1199</span></span>
+<span id="cb283-5"><a href="groupdiffscs3.html#cb283-5" tabindex="-1"></a><span class="do">##       27</span></span>
+<span id="cb283-6"><a href="groupdiffscs3.html#cb283-6" tabindex="-1"></a>(cs3<span class="sc">$</span>bartlet <span class="ot">&lt;-</span> <span class="fu">bartlett.test</span>(coping_stress <span class="sc">~</span> group, <span class="at">data =</span> cs3<span class="sc">$</span>dat))</span>
+<span id="cb283-7"><a href="groupdiffscs3.html#cb283-7" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb283-8"><a href="groupdiffscs3.html#cb283-8" tabindex="-1"></a><span class="do">##  Bartlett test of homogeneity of variances</span></span>
+<span id="cb283-9"><a href="groupdiffscs3.html#cb283-9" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb283-10"><a href="groupdiffscs3.html#cb283-10" tabindex="-1"></a><span class="do">## data:  coping_stress by group</span></span>
+<span id="cb283-11"><a href="groupdiffscs3.html#cb283-11" tabindex="-1"></a><span class="do">## Bartlett&#39;s K-squared = 3.7489, df = 3, p-value = 0.2899</span></span></code></pre></div>
 <p>The residuals vs fitted values plot is included in the set of diagnostic plots that are produced in the base R <code>plot.lm()</code> function.</p>
-<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="groupdiffscs3.html#cb244-1" tabindex="-1"></a><span class="fu">aov</span>(coping_stress <span class="sc">~</span> group, <span class="at">data =</span> cs3<span class="sc">$</span>dat) <span class="sc">%&gt;%</span> <span class="fu">plot</span>(<span class="at">which =</span> <span class="dv">1</span>)</span></code></pre></div>
-<p><img src="statistics_files/figure-html/unnamed-chunk-171-1.png" width="672" /></p>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="groupdiffscs3.html#cb284-1" tabindex="-1"></a><span class="fu">aov</span>(coping_stress <span class="sc">~</span> group, <span class="at">data =</span> cs3<span class="sc">$</span>dat) <span class="sc">%&gt;%</span> <span class="fu">plot</span>(<span class="at">which =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="statistics_files/figure-html/unnamed-chunk-191-1.png" width="672" /></p>
 <p>Heterogeneity of variances is a common problem in ANOVA. The Box-Cox procedure can help find a good transformation to remove heterogeneity. <code>MASS::boxcox()</code> calculates a profile of log-likelihoods for a power transformation of the dependent variable <span class="math inline">\(Y^\lambda\)</span>.</p>
 <table>
 <thead>
@@ -842,161 +896,161 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <p>The Box-Cox procedure does not recommend any particular transformation of the data in this case.</p>
-<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="groupdiffscs3.html#cb245-1" tabindex="-1"></a>MASS<span class="sc">::</span><span class="fu">boxcox</span>(<span class="fu">aov</span>(coping_stress <span class="sc">~</span> group, <span class="at">data =</span> cs3<span class="sc">$</span>dat), <span class="at">plotit =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<p><img src="statistics_files/figure-html/unnamed-chunk-172-1.png" width="672" /></p>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="groupdiffscs3.html#cb285-1" tabindex="-1"></a>MASS<span class="sc">::</span><span class="fu">boxcox</span>(<span class="fu">aov</span>(coping_stress <span class="sc">~</span> group, <span class="at">data =</span> cs3<span class="sc">$</span>dat), <span class="at">plotit =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="statistics_files/figure-html/unnamed-chunk-192-1.png" width="672" /></p>
 <p>Had the data failed the homogeneity assumption, you could use a modified version of ANOVA called Welch’s ANOVA and the Games-Howell post hoc test, or you could revert to the nonparametric Kruskal-Wallis test.</p>
 </div>
 <div id="anova" class="section level3 hasAnchor" number="5.6.2">
 <h3><span class="header-section-number">5.6.2</span> ANOVA<a href="groupdiffscs3.html#anova" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>If the dependent variable conforms to the three ANOVA assumptions of no outliers, normality, and homogeneity, then you can run a one-way ANOVA with <code>aov()</code>. If the dependent variable only violates the homegeneity assumption, you can run Welch’s ANOVA with <code>oneway.test(..., var.equal = FALSE)</code></p>
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="groupdiffscs3.html#cb246-1" tabindex="-1"></a>cs3<span class="sc">$</span>aov <span class="ot">&lt;-</span> <span class="fu">aov</span>(coping_stress <span class="sc">~</span> group, <span class="at">data =</span> cs3<span class="sc">$</span>dat)</span>
-<span id="cb246-2"><a href="groupdiffscs3.html#cb246-2" tabindex="-1"></a>(cs3<span class="sc">$</span>anova <span class="ot">&lt;-</span> <span class="fu">anova</span>(cs3<span class="sc">$</span>aov))</span>
-<span id="cb246-3"><a href="groupdiffscs3.html#cb246-3" tabindex="-1"></a><span class="do">## Analysis of Variance Table</span></span>
-<span id="cb246-4"><a href="groupdiffscs3.html#cb246-4" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb246-5"><a href="groupdiffscs3.html#cb246-5" tabindex="-1"></a><span class="do">## Response: coping_stress</span></span>
-<span id="cb246-6"><a href="groupdiffscs3.html#cb246-6" tabindex="-1"></a><span class="do">##           Df Sum Sq Mean Sq F value    Pr(&gt;F)    </span></span>
-<span id="cb246-7"><a href="groupdiffscs3.html#cb246-7" tabindex="-1"></a><span class="do">## group      3 49.033 16.3443   8.316 0.0004454 ***</span></span>
-<span id="cb246-8"><a href="groupdiffscs3.html#cb246-8" tabindex="-1"></a><span class="do">## Residuals 27 53.066  1.9654                      </span></span>
-<span id="cb246-9"><a href="groupdiffscs3.html#cb246-9" tabindex="-1"></a><span class="do">## ---</span></span>
-<span id="cb246-10"><a href="groupdiffscs3.html#cb246-10" tabindex="-1"></a><span class="do">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
-<span id="cb246-11"><a href="groupdiffscs3.html#cb246-11" tabindex="-1"></a>(cs3<span class="sc">$</span>welch <span class="ot">&lt;-</span> <span class="fu">oneway.test</span>(coping_stress <span class="sc">~</span> group, <span class="at">data =</span> cs3<span class="sc">$</span>dat, <span class="at">var.equal =</span> <span class="cn">FALSE</span>))</span>
-<span id="cb246-12"><a href="groupdiffscs3.html#cb246-12" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb246-13"><a href="groupdiffscs3.html#cb246-13" tabindex="-1"></a><span class="do">##  One-way analysis of means (not assuming equal variances)</span></span>
-<span id="cb246-14"><a href="groupdiffscs3.html#cb246-14" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb246-15"><a href="groupdiffscs3.html#cb246-15" tabindex="-1"></a><span class="do">## data:  coping_stress and group</span></span>
-<span id="cb246-16"><a href="groupdiffscs3.html#cb246-16" tabindex="-1"></a><span class="do">## F = 14.821, num df = 3.000, denom df = 14.574, p-value = 0.0001058</span></span></code></pre></div>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="groupdiffscs3.html#cb286-1" tabindex="-1"></a>cs3<span class="sc">$</span>aov <span class="ot">&lt;-</span> <span class="fu">aov</span>(coping_stress <span class="sc">~</span> group, <span class="at">data =</span> cs3<span class="sc">$</span>dat)</span>
+<span id="cb286-2"><a href="groupdiffscs3.html#cb286-2" tabindex="-1"></a>(cs3<span class="sc">$</span>anova <span class="ot">&lt;-</span> <span class="fu">anova</span>(cs3<span class="sc">$</span>aov))</span>
+<span id="cb286-3"><a href="groupdiffscs3.html#cb286-3" tabindex="-1"></a><span class="do">## Analysis of Variance Table</span></span>
+<span id="cb286-4"><a href="groupdiffscs3.html#cb286-4" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb286-5"><a href="groupdiffscs3.html#cb286-5" tabindex="-1"></a><span class="do">## Response: coping_stress</span></span>
+<span id="cb286-6"><a href="groupdiffscs3.html#cb286-6" tabindex="-1"></a><span class="do">##           Df Sum Sq Mean Sq F value    Pr(&gt;F)    </span></span>
+<span id="cb286-7"><a href="groupdiffscs3.html#cb286-7" tabindex="-1"></a><span class="do">## group      3 49.033 16.3443   8.316 0.0004454 ***</span></span>
+<span id="cb286-8"><a href="groupdiffscs3.html#cb286-8" tabindex="-1"></a><span class="do">## Residuals 27 53.066  1.9654                      </span></span>
+<span id="cb286-9"><a href="groupdiffscs3.html#cb286-9" tabindex="-1"></a><span class="do">## ---</span></span>
+<span id="cb286-10"><a href="groupdiffscs3.html#cb286-10" tabindex="-1"></a><span class="do">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb286-11"><a href="groupdiffscs3.html#cb286-11" tabindex="-1"></a>(cs3<span class="sc">$</span>welch <span class="ot">&lt;-</span> <span class="fu">oneway.test</span>(coping_stress <span class="sc">~</span> group, <span class="at">data =</span> cs3<span class="sc">$</span>dat, <span class="at">var.equal =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb286-12"><a href="groupdiffscs3.html#cb286-12" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb286-13"><a href="groupdiffscs3.html#cb286-13" tabindex="-1"></a><span class="do">##  One-way analysis of means (not assuming equal variances)</span></span>
+<span id="cb286-14"><a href="groupdiffscs3.html#cb286-14" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb286-15"><a href="groupdiffscs3.html#cb286-15" tabindex="-1"></a><span class="do">## data:  coping_stress and group</span></span>
+<span id="cb286-16"><a href="groupdiffscs3.html#cb286-16" tabindex="-1"></a><span class="do">## F = 14.821, num df = 3.000, denom df = 14.574, p-value = 0.0001058</span></span></code></pre></div>
 <p>The ability to cope with workplace-related stress (CWWS score) was statistically significantly different for different levels of physical activity group, <em>F</em>(3, 27) = 8.3, <em>p</em> = 0.0004.</p>
-<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="groupdiffscs3.html#cb247-1" tabindex="-1"></a><span class="fu">tibble</span>(</span>
-<span id="cb247-2"><a href="groupdiffscs3.html#cb247-2" tabindex="-1"></a>  <span class="at">f_stat =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, .<span class="dv">01</span>), </span>
-<span id="cb247-3"><a href="groupdiffscs3.html#cb247-3" tabindex="-1"></a>  <span class="at">d_val =</span> <span class="fu">df</span>(f_stat, <span class="dv">3</span>, <span class="fl">14.574</span>),</span>
-<span id="cb247-4"><a href="groupdiffscs3.html#cb247-4" tabindex="-1"></a>  <span class="at">p_f =</span> <span class="fu">pf</span>(f_stat, cs3<span class="sc">$</span>anova<span class="sc">$</span>Df[<span class="dv">1</span>], cs3<span class="sc">$</span>anova<span class="sc">$</span>Df[<span class="dv">2</span>], <span class="at">lower.tail =</span> <span class="cn">FALSE</span>),</span>
-<span id="cb247-5"><a href="groupdiffscs3.html#cb247-5" tabindex="-1"></a>  <span class="at">region =</span> <span class="fu">if_else</span>(p_f <span class="sc">&lt;</span> .<span class="dv">05</span>, <span class="st">&quot;reject&quot;</span>, <span class="st">&quot;accept&quot;</span>)</span>
-<span id="cb247-6"><a href="groupdiffscs3.html#cb247-6" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb247-7"><a href="groupdiffscs3.html#cb247-7" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> f_stat, <span class="at">y =</span> d_val)) <span class="sc">+</span></span>
-<span id="cb247-8"><a href="groupdiffscs3.html#cb247-8" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="fu">aes</span>(<span class="at">fill =</span> region), <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb247-9"><a href="groupdiffscs3.html#cb247-9" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb247-10"><a href="groupdiffscs3.html#cb247-10" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> cs3<span class="sc">$</span>anova<span class="sc">$</span><span class="st">&quot;F value&quot;</span>[<span class="dv">1</span>], <span class="at">linetype =</span> <span class="dv">2</span>, <span class="at">color =</span> <span class="st">&quot;firebrick&quot;</span>) <span class="sc">+</span></span>
-<span id="cb247-11"><a href="groupdiffscs3.html#cb247-11" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">reject =</span> <span class="st">&quot;firebrick&quot;</span>, <span class="at">accept =</span> <span class="st">&quot;white&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb247-12"><a href="groupdiffscs3.html#cb247-12" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb247-13"><a href="groupdiffscs3.html#cb247-13" tabindex="-1"></a>    <span class="at">title =</span> glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">&quot;F({paste(cs3$anova$Df, collapse = &#39;, &#39;)}) = &quot;</span>,</span>
-<span id="cb247-14"><a href="groupdiffscs3.html#cb247-14" tabindex="-1"></a>                       <span class="st">&quot;{comma(cs3$anova$&#39;F value&#39;[1], .1)}, p = &quot;</span>,</span>
-<span id="cb247-15"><a href="groupdiffscs3.html#cb247-15" tabindex="-1"></a>                       <span class="st">&quot;{comma(cs3$anova$&#39;Pr(&gt;F)&#39;[1], .0001)}&quot;</span>),</span>
-<span id="cb247-16"><a href="groupdiffscs3.html#cb247-16" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;F&quot;</span>, <span class="at">y =</span> <span class="st">&quot;P(F)&quot;</span></span>
-<span id="cb247-17"><a href="groupdiffscs3.html#cb247-17" tabindex="-1"></a>  )</span></code></pre></div>
-<p><img src="statistics_files/figure-html/unnamed-chunk-174-1.png" width="672" /></p>
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="groupdiffscs3.html#cb287-1" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb287-2"><a href="groupdiffscs3.html#cb287-2" tabindex="-1"></a>  <span class="at">f_stat =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, .<span class="dv">01</span>), </span>
+<span id="cb287-3"><a href="groupdiffscs3.html#cb287-3" tabindex="-1"></a>  <span class="at">d_val =</span> <span class="fu">df</span>(f_stat, <span class="dv">3</span>, <span class="fl">14.574</span>),</span>
+<span id="cb287-4"><a href="groupdiffscs3.html#cb287-4" tabindex="-1"></a>  <span class="at">p_f =</span> <span class="fu">pf</span>(f_stat, cs3<span class="sc">$</span>anova<span class="sc">$</span>Df[<span class="dv">1</span>], cs3<span class="sc">$</span>anova<span class="sc">$</span>Df[<span class="dv">2</span>], <span class="at">lower.tail =</span> <span class="cn">FALSE</span>),</span>
+<span id="cb287-5"><a href="groupdiffscs3.html#cb287-5" tabindex="-1"></a>  <span class="at">region =</span> <span class="fu">if_else</span>(p_f <span class="sc">&lt;</span> .<span class="dv">05</span>, <span class="st">&quot;reject&quot;</span>, <span class="st">&quot;accept&quot;</span>)</span>
+<span id="cb287-6"><a href="groupdiffscs3.html#cb287-6" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb287-7"><a href="groupdiffscs3.html#cb287-7" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> f_stat, <span class="at">y =</span> d_val)) <span class="sc">+</span></span>
+<span id="cb287-8"><a href="groupdiffscs3.html#cb287-8" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="fu">aes</span>(<span class="at">fill =</span> region), <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb287-9"><a href="groupdiffscs3.html#cb287-9" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb287-10"><a href="groupdiffscs3.html#cb287-10" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> cs3<span class="sc">$</span>anova<span class="sc">$</span><span class="st">&quot;F value&quot;</span>[<span class="dv">1</span>], <span class="at">linetype =</span> <span class="dv">2</span>, <span class="at">color =</span> <span class="st">&quot;firebrick&quot;</span>) <span class="sc">+</span></span>
+<span id="cb287-11"><a href="groupdiffscs3.html#cb287-11" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">reject =</span> <span class="st">&quot;firebrick&quot;</span>, <span class="at">accept =</span> <span class="st">&quot;white&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb287-12"><a href="groupdiffscs3.html#cb287-12" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb287-13"><a href="groupdiffscs3.html#cb287-13" tabindex="-1"></a>    <span class="at">title =</span> glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">&quot;F({paste(cs3$anova$Df, collapse = &#39;, &#39;)}) = &quot;</span>,</span>
+<span id="cb287-14"><a href="groupdiffscs3.html#cb287-14" tabindex="-1"></a>                       <span class="st">&quot;{comma(cs3$anova$&#39;F value&#39;[1], .1)}, p = &quot;</span>,</span>
+<span id="cb287-15"><a href="groupdiffscs3.html#cb287-15" tabindex="-1"></a>                       <span class="st">&quot;{comma(cs3$anova$&#39;Pr(&gt;F)&#39;[1], .0001)}&quot;</span>),</span>
+<span id="cb287-16"><a href="groupdiffscs3.html#cb287-16" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;F&quot;</span>, <span class="at">y =</span> <span class="st">&quot;P(F)&quot;</span></span>
+<span id="cb287-17"><a href="groupdiffscs3.html#cb287-17" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="statistics_files/figure-html/unnamed-chunk-194-1.png" width="672" /></p>
 <p>The <em>F</em> test does not indicate which populations cause the rejection of <span class="math inline">\(H_0\)</span>. Conduct a Tukey post hoc test if you have no specific hypothesis about two groups differing or want to see all group differences.<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a> If you want to compare two groups or set of groups, then use a custom contrast. Tukey is valid for <em>balanced</em> designs. If you have different sample sizes per group, use the Tukey-Kramer post hoc test. If the dependent variable failed the homogeneity of variances assumption, you would run the Games-Howell post hoc test instead.</p>
-<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="groupdiffscs3.html#cb248-1" tabindex="-1"></a>(cs3<span class="sc">$</span>tukey <span class="ot">&lt;-</span> <span class="fu">TukeyHSD</span>(cs3<span class="sc">$</span>aov))</span>
-<span id="cb248-2"><a href="groupdiffscs3.html#cb248-2" tabindex="-1"></a><span class="do">##   Tukey multiple comparisons of means</span></span>
-<span id="cb248-3"><a href="groupdiffscs3.html#cb248-3" tabindex="-1"></a><span class="do">##     95% family-wise confidence level</span></span>
-<span id="cb248-4"><a href="groupdiffscs3.html#cb248-4" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb248-5"><a href="groupdiffscs3.html#cb248-5" tabindex="-1"></a><span class="do">## Fit: aov(formula = coping_stress ~ group, data = cs3$dat)</span></span>
-<span id="cb248-6"><a href="groupdiffscs3.html#cb248-6" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb248-7"><a href="groupdiffscs3.html#cb248-7" tabindex="-1"></a><span class="do">## $group</span></span>
-<span id="cb248-8"><a href="groupdiffscs3.html#cb248-8" tabindex="-1"></a><span class="do">##                         diff        lwr      upr     p adj</span></span>
-<span id="cb248-9"><a href="groupdiffscs3.html#cb248-9" tabindex="-1"></a><span class="do">## Low-Sedentary      1.7276175 -0.2057757 3.661011 0.0923527</span></span>
-<span id="cb248-10"><a href="groupdiffscs3.html#cb248-10" tabindex="-1"></a><span class="do">## Moderate-Sedentary 2.9715262  0.9859704 4.957082 0.0018413</span></span>
-<span id="cb248-11"><a href="groupdiffscs3.html#cb248-11" tabindex="-1"></a><span class="do">## High-Sedentary     3.3540854  1.3034122 5.404759 0.0006806</span></span>
-<span id="cb248-12"><a href="groupdiffscs3.html#cb248-12" tabindex="-1"></a><span class="do">## Moderate-Low       1.2439086 -0.6202750 3.108092 0.2835038</span></span>
-<span id="cb248-13"><a href="groupdiffscs3.html#cb248-13" tabindex="-1"></a><span class="do">## High-Low           1.6264679 -0.3069254 3.559861 0.1226045</span></span>
-<span id="cb248-14"><a href="groupdiffscs3.html#cb248-14" tabindex="-1"></a><span class="do">## High-Moderate      0.3825593 -1.6029965 2.368115 0.9517285</span></span>
-<span id="cb248-15"><a href="groupdiffscs3.html#cb248-15" tabindex="-1"></a>(cs3<span class="sc">$</span>games_howell <span class="ot">&lt;-</span> rstatix<span class="sc">::</span><span class="fu">games_howell_test</span>(cs3<span class="sc">$</span>dat, coping_stress <span class="sc">~</span> group))</span>
-<span id="cb248-16"><a href="groupdiffscs3.html#cb248-16" tabindex="-1"></a><span class="do">## # A tibble: 6 × 8</span></span>
-<span id="cb248-17"><a href="groupdiffscs3.html#cb248-17" tabindex="-1"></a><span class="do">##   .y.           group1   group2 estimate conf.low conf.high   p.adj p.adj.signif</span></span>
-<span id="cb248-18"><a href="groupdiffscs3.html#cb248-18" tabindex="-1"></a><span class="do">## * &lt;chr&gt;         &lt;chr&gt;    &lt;chr&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;       </span></span>
-<span id="cb248-19"><a href="groupdiffscs3.html#cb248-19" tabindex="-1"></a><span class="do">## 1 coping_stress Sedenta… Low       1.73    -0.163      3.62 7.7 e-2 ns          </span></span>
-<span id="cb248-20"><a href="groupdiffscs3.html#cb248-20" tabindex="-1"></a><span class="do">## 2 coping_stress Sedenta… Moder…    2.97     1.07       4.88 3   e-3 **          </span></span>
-<span id="cb248-21"><a href="groupdiffscs3.html#cb248-21" tabindex="-1"></a><span class="do">## 3 coping_stress Sedenta… High      3.35     1.66       5.05 5.84e-4 ***         </span></span>
-<span id="cb248-22"><a href="groupdiffscs3.html#cb248-22" tabindex="-1"></a><span class="do">## 4 coping_stress Low      Moder…    1.24    -1.04       3.53 4.23e-1 ns          </span></span>
-<span id="cb248-23"><a href="groupdiffscs3.html#cb248-23" tabindex="-1"></a><span class="do">## 5 coping_stress Low      High      1.63    -0.508      3.76 1.67e-1 ns          </span></span>
-<span id="cb248-24"><a href="groupdiffscs3.html#cb248-24" tabindex="-1"></a><span class="do">## 6 coping_stress Moderate High      0.383   -1.76       2.52 9.51e-1 ns</span></span></code></pre></div>
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="groupdiffscs3.html#cb288-1" tabindex="-1"></a>(cs3<span class="sc">$</span>tukey <span class="ot">&lt;-</span> <span class="fu">TukeyHSD</span>(cs3<span class="sc">$</span>aov))</span>
+<span id="cb288-2"><a href="groupdiffscs3.html#cb288-2" tabindex="-1"></a><span class="do">##   Tukey multiple comparisons of means</span></span>
+<span id="cb288-3"><a href="groupdiffscs3.html#cb288-3" tabindex="-1"></a><span class="do">##     95% family-wise confidence level</span></span>
+<span id="cb288-4"><a href="groupdiffscs3.html#cb288-4" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb288-5"><a href="groupdiffscs3.html#cb288-5" tabindex="-1"></a><span class="do">## Fit: aov(formula = coping_stress ~ group, data = cs3$dat)</span></span>
+<span id="cb288-6"><a href="groupdiffscs3.html#cb288-6" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb288-7"><a href="groupdiffscs3.html#cb288-7" tabindex="-1"></a><span class="do">## $group</span></span>
+<span id="cb288-8"><a href="groupdiffscs3.html#cb288-8" tabindex="-1"></a><span class="do">##                         diff        lwr      upr     p adj</span></span>
+<span id="cb288-9"><a href="groupdiffscs3.html#cb288-9" tabindex="-1"></a><span class="do">## Low-Sedentary      1.7276175 -0.2057757 3.661011 0.0923527</span></span>
+<span id="cb288-10"><a href="groupdiffscs3.html#cb288-10" tabindex="-1"></a><span class="do">## Moderate-Sedentary 2.9715262  0.9859704 4.957082 0.0018413</span></span>
+<span id="cb288-11"><a href="groupdiffscs3.html#cb288-11" tabindex="-1"></a><span class="do">## High-Sedentary     3.3540854  1.3034122 5.404759 0.0006806</span></span>
+<span id="cb288-12"><a href="groupdiffscs3.html#cb288-12" tabindex="-1"></a><span class="do">## Moderate-Low       1.2439086 -0.6202750 3.108092 0.2835038</span></span>
+<span id="cb288-13"><a href="groupdiffscs3.html#cb288-13" tabindex="-1"></a><span class="do">## High-Low           1.6264679 -0.3069254 3.559861 0.1226045</span></span>
+<span id="cb288-14"><a href="groupdiffscs3.html#cb288-14" tabindex="-1"></a><span class="do">## High-Moderate      0.3825593 -1.6029965 2.368115 0.9517285</span></span>
+<span id="cb288-15"><a href="groupdiffscs3.html#cb288-15" tabindex="-1"></a>(cs3<span class="sc">$</span>games_howell <span class="ot">&lt;-</span> rstatix<span class="sc">::</span><span class="fu">games_howell_test</span>(cs3<span class="sc">$</span>dat, coping_stress <span class="sc">~</span> group))</span>
+<span id="cb288-16"><a href="groupdiffscs3.html#cb288-16" tabindex="-1"></a><span class="do">## # A tibble: 6 × 8</span></span>
+<span id="cb288-17"><a href="groupdiffscs3.html#cb288-17" tabindex="-1"></a><span class="do">##   .y.           group1   group2 estimate conf.low conf.high   p.adj p.adj.signif</span></span>
+<span id="cb288-18"><a href="groupdiffscs3.html#cb288-18" tabindex="-1"></a><span class="do">## * &lt;chr&gt;         &lt;chr&gt;    &lt;chr&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;       </span></span>
+<span id="cb288-19"><a href="groupdiffscs3.html#cb288-19" tabindex="-1"></a><span class="do">## 1 coping_stress Sedenta… Low       1.73    -0.163      3.62 7.7 e-2 ns          </span></span>
+<span id="cb288-20"><a href="groupdiffscs3.html#cb288-20" tabindex="-1"></a><span class="do">## 2 coping_stress Sedenta… Moder…    2.97     1.07       4.88 3   e-3 **          </span></span>
+<span id="cb288-21"><a href="groupdiffscs3.html#cb288-21" tabindex="-1"></a><span class="do">## 3 coping_stress Sedenta… High      3.35     1.66       5.05 5.84e-4 ***         </span></span>
+<span id="cb288-22"><a href="groupdiffscs3.html#cb288-22" tabindex="-1"></a><span class="do">## 4 coping_stress Low      Moder…    1.24    -1.04       3.53 4.23e-1 ns          </span></span>
+<span id="cb288-23"><a href="groupdiffscs3.html#cb288-23" tabindex="-1"></a><span class="do">## 5 coping_stress Low      High      1.63    -0.508      3.76 1.67e-1 ns          </span></span>
+<span id="cb288-24"><a href="groupdiffscs3.html#cb288-24" tabindex="-1"></a><span class="do">## 6 coping_stress Moderate High      0.383   -1.76       2.52 9.51e-1 ns</span></span></code></pre></div>
 <p>Tukey post hoc analysis revealed that the increase from sedentary to moderate (2.97, 95% CI (0.99 to 4.96)) was statistically significant (<em>p</em> = 0.002), as well as the increase from sedentary to high (3.35, 95% CI (1.30 to 5.40)) was statistically significant (<em>p</em> = 0.001), but no other group differences were statistically significant.</p>
-<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="groupdiffscs3.html#cb249-1" tabindex="-1"></a>cs3<span class="sc">$</span>tukey <span class="sc">%&gt;%</span> </span>
-<span id="cb249-2"><a href="groupdiffscs3.html#cb249-2" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb249-3"><a href="groupdiffscs3.html#cb249-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> contrast, <span class="at">x =</span> estimate)) <span class="sc">+</span></span>
-<span id="cb249-4"><a href="groupdiffscs3.html#cb249-4" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">shape =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb249-5"><a href="groupdiffscs3.html#cb249-5" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> conf.low, <span class="at">xmax =</span> conf.high), <span class="at">width =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb249-6"><a href="groupdiffscs3.html#cb249-6" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="dv">0</span>), <span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb249-7"><a href="groupdiffscs3.html#cb249-7" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">title =</span> <span class="st">&quot;95% family-wise confidence level&quot;</span>)</span></code></pre></div>
-<p><img src="statistics_files/figure-html/unnamed-chunk-176-1.png" width="672" /></p>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="groupdiffscs3.html#cb289-1" tabindex="-1"></a>cs3<span class="sc">$</span>tukey <span class="sc">%&gt;%</span> </span>
+<span id="cb289-2"><a href="groupdiffscs3.html#cb289-2" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb289-3"><a href="groupdiffscs3.html#cb289-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> contrast, <span class="at">x =</span> estimate)) <span class="sc">+</span></span>
+<span id="cb289-4"><a href="groupdiffscs3.html#cb289-4" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">shape =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb289-5"><a href="groupdiffscs3.html#cb289-5" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> conf.low, <span class="at">xmax =</span> conf.high), <span class="at">width =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb289-6"><a href="groupdiffscs3.html#cb289-6" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="dv">0</span>), <span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb289-7"><a href="groupdiffscs3.html#cb289-7" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">title =</span> <span class="st">&quot;95% family-wise confidence level&quot;</span>)</span></code></pre></div>
+<p><img src="statistics_files/figure-html/unnamed-chunk-196-1.png" width="672" /></p>
 <p>Games-Howell post hoc analysis revealed that the increase from sedentary to moderate (2.97, 95% CI (1.07 to 4.88)) was statistically significant (<em>p</em> =0.003), as well as the increase from sedentary to high (3.35, 95% CI (1.66 to 5.05, <em>p</em> = 0.001).</p>
 <p>If you have specific hypotheses about the differences between the groups of your independent variable, e.g., whether the mean CWWS differs between the “Low” and “Sedentary” groups, <span class="math inline">\(H_0: \sum_i^K{c_i u_i} = 0\)</span> where <span class="math inline">\(c_i = (1, -1, 0, 0)\)</span> or “Sedentary” and average of all others, <span class="math inline">\(c_i = (1, -1/3, -1/3, -1/3)\)</span>, set up a contrast using the <strong>multcomp</strong> package.</p>
-<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="groupdiffscs3.html#cb250-1" tabindex="-1"></a>cs3<span class="sc">$</span>glht_1 <span class="ot">&lt;-</span> multcomp<span class="sc">::</span><span class="fu">glht</span>(cs3<span class="sc">$</span>aov, <span class="at">linfct =</span> multcomp<span class="sc">::</span><span class="fu">mcp</span>(<span class="at">group =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>)))</span>
-<span id="cb250-2"><a href="groupdiffscs3.html#cb250-2" tabindex="-1"></a><span class="fu">summary</span>(cs3<span class="sc">$</span>glht_1)</span>
-<span id="cb250-3"><a href="groupdiffscs3.html#cb250-3" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb250-4"><a href="groupdiffscs3.html#cb250-4" tabindex="-1"></a><span class="do">##   Simultaneous Tests for General Linear Hypotheses</span></span>
-<span id="cb250-5"><a href="groupdiffscs3.html#cb250-5" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb250-6"><a href="groupdiffscs3.html#cb250-6" tabindex="-1"></a><span class="do">## Multiple Comparisons of Means: User-defined Contrasts</span></span>
-<span id="cb250-7"><a href="groupdiffscs3.html#cb250-7" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb250-8"><a href="groupdiffscs3.html#cb250-8" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb250-9"><a href="groupdiffscs3.html#cb250-9" tabindex="-1"></a><span class="do">## Fit: aov(formula = coping_stress ~ group, data = cs3$dat)</span></span>
-<span id="cb250-10"><a href="groupdiffscs3.html#cb250-10" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb250-11"><a href="groupdiffscs3.html#cb250-11" tabindex="-1"></a><span class="do">## Linear Hypotheses:</span></span>
-<span id="cb250-12"><a href="groupdiffscs3.html#cb250-12" tabindex="-1"></a><span class="do">##        Estimate Std. Error t value Pr(&gt;|t|)  </span></span>
-<span id="cb250-13"><a href="groupdiffscs3.html#cb250-13" tabindex="-1"></a><span class="do">## 1 == 0   1.7276     0.7065   2.445   0.0213 *</span></span>
-<span id="cb250-14"><a href="groupdiffscs3.html#cb250-14" tabindex="-1"></a><span class="do">## ---</span></span>
-<span id="cb250-15"><a href="groupdiffscs3.html#cb250-15" tabindex="-1"></a><span class="do">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
-<span id="cb250-16"><a href="groupdiffscs3.html#cb250-16" tabindex="-1"></a><span class="do">## (Adjusted p values reported -- single-step method)</span></span>
-<span id="cb250-17"><a href="groupdiffscs3.html#cb250-17" tabindex="-1"></a>cs3<span class="sc">$</span>glht_2 <span class="ot">&lt;-</span> multcomp<span class="sc">::</span><span class="fu">glht</span>(cs3<span class="sc">$</span>aov, <span class="at">linfct =</span> multcomp<span class="sc">::</span><span class="fu">mcp</span>(<span class="at">group =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>)))</span>
-<span id="cb250-18"><a href="groupdiffscs3.html#cb250-18" tabindex="-1"></a><span class="fu">summary</span>(cs3<span class="sc">$</span>glht_2)</span>
-<span id="cb250-19"><a href="groupdiffscs3.html#cb250-19" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb250-20"><a href="groupdiffscs3.html#cb250-20" tabindex="-1"></a><span class="do">##   Simultaneous Tests for General Linear Hypotheses</span></span>
-<span id="cb250-21"><a href="groupdiffscs3.html#cb250-21" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb250-22"><a href="groupdiffscs3.html#cb250-22" tabindex="-1"></a><span class="do">## Multiple Comparisons of Means: User-defined Contrasts</span></span>
-<span id="cb250-23"><a href="groupdiffscs3.html#cb250-23" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb250-24"><a href="groupdiffscs3.html#cb250-24" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb250-25"><a href="groupdiffscs3.html#cb250-25" tabindex="-1"></a><span class="do">## Fit: aov(formula = coping_stress ~ group, data = cs3$dat)</span></span>
-<span id="cb250-26"><a href="groupdiffscs3.html#cb250-26" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb250-27"><a href="groupdiffscs3.html#cb250-27" tabindex="-1"></a><span class="do">## Linear Hypotheses:</span></span>
-<span id="cb250-28"><a href="groupdiffscs3.html#cb250-28" tabindex="-1"></a><span class="do">##        Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
-<span id="cb250-29"><a href="groupdiffscs3.html#cb250-29" tabindex="-1"></a><span class="do">## 1 == 0   2.6844     0.6029   4.452 0.000133 ***</span></span>
-<span id="cb250-30"><a href="groupdiffscs3.html#cb250-30" tabindex="-1"></a><span class="do">## ---</span></span>
-<span id="cb250-31"><a href="groupdiffscs3.html#cb250-31" tabindex="-1"></a><span class="do">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
-<span id="cb250-32"><a href="groupdiffscs3.html#cb250-32" tabindex="-1"></a><span class="do">## (Adjusted p values reported -- single-step method)</span></span></code></pre></div>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="groupdiffscs3.html#cb290-1" tabindex="-1"></a>cs3<span class="sc">$</span>glht_1 <span class="ot">&lt;-</span> multcomp<span class="sc">::</span><span class="fu">glht</span>(cs3<span class="sc">$</span>aov, <span class="at">linfct =</span> multcomp<span class="sc">::</span><span class="fu">mcp</span>(<span class="at">group =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>)))</span>
+<span id="cb290-2"><a href="groupdiffscs3.html#cb290-2" tabindex="-1"></a><span class="fu">summary</span>(cs3<span class="sc">$</span>glht_1)</span>
+<span id="cb290-3"><a href="groupdiffscs3.html#cb290-3" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb290-4"><a href="groupdiffscs3.html#cb290-4" tabindex="-1"></a><span class="do">##   Simultaneous Tests for General Linear Hypotheses</span></span>
+<span id="cb290-5"><a href="groupdiffscs3.html#cb290-5" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb290-6"><a href="groupdiffscs3.html#cb290-6" tabindex="-1"></a><span class="do">## Multiple Comparisons of Means: User-defined Contrasts</span></span>
+<span id="cb290-7"><a href="groupdiffscs3.html#cb290-7" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb290-8"><a href="groupdiffscs3.html#cb290-8" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb290-9"><a href="groupdiffscs3.html#cb290-9" tabindex="-1"></a><span class="do">## Fit: aov(formula = coping_stress ~ group, data = cs3$dat)</span></span>
+<span id="cb290-10"><a href="groupdiffscs3.html#cb290-10" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb290-11"><a href="groupdiffscs3.html#cb290-11" tabindex="-1"></a><span class="do">## Linear Hypotheses:</span></span>
+<span id="cb290-12"><a href="groupdiffscs3.html#cb290-12" tabindex="-1"></a><span class="do">##        Estimate Std. Error t value Pr(&gt;|t|)  </span></span>
+<span id="cb290-13"><a href="groupdiffscs3.html#cb290-13" tabindex="-1"></a><span class="do">## 1 == 0   1.7276     0.7065   2.445   0.0213 *</span></span>
+<span id="cb290-14"><a href="groupdiffscs3.html#cb290-14" tabindex="-1"></a><span class="do">## ---</span></span>
+<span id="cb290-15"><a href="groupdiffscs3.html#cb290-15" tabindex="-1"></a><span class="do">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb290-16"><a href="groupdiffscs3.html#cb290-16" tabindex="-1"></a><span class="do">## (Adjusted p values reported -- single-step method)</span></span>
+<span id="cb290-17"><a href="groupdiffscs3.html#cb290-17" tabindex="-1"></a>cs3<span class="sc">$</span>glht_2 <span class="ot">&lt;-</span> multcomp<span class="sc">::</span><span class="fu">glht</span>(cs3<span class="sc">$</span>aov, <span class="at">linfct =</span> multcomp<span class="sc">::</span><span class="fu">mcp</span>(<span class="at">group =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>)))</span>
+<span id="cb290-18"><a href="groupdiffscs3.html#cb290-18" tabindex="-1"></a><span class="fu">summary</span>(cs3<span class="sc">$</span>glht_2)</span>
+<span id="cb290-19"><a href="groupdiffscs3.html#cb290-19" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb290-20"><a href="groupdiffscs3.html#cb290-20" tabindex="-1"></a><span class="do">##   Simultaneous Tests for General Linear Hypotheses</span></span>
+<span id="cb290-21"><a href="groupdiffscs3.html#cb290-21" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb290-22"><a href="groupdiffscs3.html#cb290-22" tabindex="-1"></a><span class="do">## Multiple Comparisons of Means: User-defined Contrasts</span></span>
+<span id="cb290-23"><a href="groupdiffscs3.html#cb290-23" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb290-24"><a href="groupdiffscs3.html#cb290-24" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb290-25"><a href="groupdiffscs3.html#cb290-25" tabindex="-1"></a><span class="do">## Fit: aov(formula = coping_stress ~ group, data = cs3$dat)</span></span>
+<span id="cb290-26"><a href="groupdiffscs3.html#cb290-26" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb290-27"><a href="groupdiffscs3.html#cb290-27" tabindex="-1"></a><span class="do">## Linear Hypotheses:</span></span>
+<span id="cb290-28"><a href="groupdiffscs3.html#cb290-28" tabindex="-1"></a><span class="do">##        Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb290-29"><a href="groupdiffscs3.html#cb290-29" tabindex="-1"></a><span class="do">## 1 == 0   2.6844     0.6029   4.452 0.000133 ***</span></span>
+<span id="cb290-30"><a href="groupdiffscs3.html#cb290-30" tabindex="-1"></a><span class="do">## ---</span></span>
+<span id="cb290-31"><a href="groupdiffscs3.html#cb290-31" tabindex="-1"></a><span class="do">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb290-32"><a href="groupdiffscs3.html#cb290-32" tabindex="-1"></a><span class="do">## (Adjusted p values reported -- single-step method)</span></span></code></pre></div>
 <p>There are three groups, so you need to adjust the <em>p</em>-value and 95% CI for them.</p>
-<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="groupdiffscs3.html#cb251-1" tabindex="-1"></a><span class="fu">confint</span>(cs3<span class="sc">$</span>glht_1, <span class="at">level =</span> <span class="dv">1</span><span class="fl">-.05</span><span class="sc">/</span><span class="dv">3</span>)</span>
-<span id="cb251-2"><a href="groupdiffscs3.html#cb251-2" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb251-3"><a href="groupdiffscs3.html#cb251-3" tabindex="-1"></a><span class="do">##   Simultaneous Confidence Intervals</span></span>
-<span id="cb251-4"><a href="groupdiffscs3.html#cb251-4" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb251-5"><a href="groupdiffscs3.html#cb251-5" tabindex="-1"></a><span class="do">## Multiple Comparisons of Means: User-defined Contrasts</span></span>
-<span id="cb251-6"><a href="groupdiffscs3.html#cb251-6" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb251-7"><a href="groupdiffscs3.html#cb251-7" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb251-8"><a href="groupdiffscs3.html#cb251-8" tabindex="-1"></a><span class="do">## Fit: aov(formula = coping_stress ~ group, data = cs3$dat)</span></span>
-<span id="cb251-9"><a href="groupdiffscs3.html#cb251-9" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb251-10"><a href="groupdiffscs3.html#cb251-10" tabindex="-1"></a><span class="do">## Quantile = 2.5525</span></span>
-<span id="cb251-11"><a href="groupdiffscs3.html#cb251-11" tabindex="-1"></a><span class="do">## 98.3333333333333% family-wise confidence level</span></span>
-<span id="cb251-12"><a href="groupdiffscs3.html#cb251-12" tabindex="-1"></a><span class="do">##  </span></span>
-<span id="cb251-13"><a href="groupdiffscs3.html#cb251-13" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb251-14"><a href="groupdiffscs3.html#cb251-14" tabindex="-1"></a><span class="do">## Linear Hypotheses:</span></span>
-<span id="cb251-15"><a href="groupdiffscs3.html#cb251-15" tabindex="-1"></a><span class="do">##        Estimate lwr     upr    </span></span>
-<span id="cb251-16"><a href="groupdiffscs3.html#cb251-16" tabindex="-1"></a><span class="do">## 1 == 0  1.7276  -0.0757  3.5309</span></span>
-<span id="cb251-17"><a href="groupdiffscs3.html#cb251-17" tabindex="-1"></a><span class="fu">confint</span>(cs3<span class="sc">$</span>glht_2, <span class="at">level =</span> <span class="dv">1</span><span class="fl">-.05</span><span class="sc">/</span><span class="dv">3</span>)</span>
-<span id="cb251-18"><a href="groupdiffscs3.html#cb251-18" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb251-19"><a href="groupdiffscs3.html#cb251-19" tabindex="-1"></a><span class="do">##   Simultaneous Confidence Intervals</span></span>
-<span id="cb251-20"><a href="groupdiffscs3.html#cb251-20" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb251-21"><a href="groupdiffscs3.html#cb251-21" tabindex="-1"></a><span class="do">## Multiple Comparisons of Means: User-defined Contrasts</span></span>
-<span id="cb251-22"><a href="groupdiffscs3.html#cb251-22" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb251-23"><a href="groupdiffscs3.html#cb251-23" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb251-24"><a href="groupdiffscs3.html#cb251-24" tabindex="-1"></a><span class="do">## Fit: aov(formula = coping_stress ~ group, data = cs3$dat)</span></span>
-<span id="cb251-25"><a href="groupdiffscs3.html#cb251-25" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb251-26"><a href="groupdiffscs3.html#cb251-26" tabindex="-1"></a><span class="do">## Quantile = 2.5525</span></span>
-<span id="cb251-27"><a href="groupdiffscs3.html#cb251-27" tabindex="-1"></a><span class="do">## 98.3333333333333% family-wise confidence level</span></span>
-<span id="cb251-28"><a href="groupdiffscs3.html#cb251-28" tabindex="-1"></a><span class="do">##  </span></span>
-<span id="cb251-29"><a href="groupdiffscs3.html#cb251-29" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb251-30"><a href="groupdiffscs3.html#cb251-30" tabindex="-1"></a><span class="do">## Linear Hypotheses:</span></span>
-<span id="cb251-31"><a href="groupdiffscs3.html#cb251-31" tabindex="-1"></a><span class="do">##        Estimate lwr    upr   </span></span>
-<span id="cb251-32"><a href="groupdiffscs3.html#cb251-32" tabindex="-1"></a><span class="do">## 1 == 0 2.6844   1.1454 4.2234</span></span></code></pre></div>
+<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="groupdiffscs3.html#cb291-1" tabindex="-1"></a><span class="fu">confint</span>(cs3<span class="sc">$</span>glht_1, <span class="at">level =</span> <span class="dv">1</span><span class="fl">-.05</span><span class="sc">/</span><span class="dv">3</span>)</span>
+<span id="cb291-2"><a href="groupdiffscs3.html#cb291-2" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb291-3"><a href="groupdiffscs3.html#cb291-3" tabindex="-1"></a><span class="do">##   Simultaneous Confidence Intervals</span></span>
+<span id="cb291-4"><a href="groupdiffscs3.html#cb291-4" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb291-5"><a href="groupdiffscs3.html#cb291-5" tabindex="-1"></a><span class="do">## Multiple Comparisons of Means: User-defined Contrasts</span></span>
+<span id="cb291-6"><a href="groupdiffscs3.html#cb291-6" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb291-7"><a href="groupdiffscs3.html#cb291-7" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb291-8"><a href="groupdiffscs3.html#cb291-8" tabindex="-1"></a><span class="do">## Fit: aov(formula = coping_stress ~ group, data = cs3$dat)</span></span>
+<span id="cb291-9"><a href="groupdiffscs3.html#cb291-9" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb291-10"><a href="groupdiffscs3.html#cb291-10" tabindex="-1"></a><span class="do">## Quantile = 2.5525</span></span>
+<span id="cb291-11"><a href="groupdiffscs3.html#cb291-11" tabindex="-1"></a><span class="do">## 98.3333333333333% family-wise confidence level</span></span>
+<span id="cb291-12"><a href="groupdiffscs3.html#cb291-12" tabindex="-1"></a><span class="do">##  </span></span>
+<span id="cb291-13"><a href="groupdiffscs3.html#cb291-13" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb291-14"><a href="groupdiffscs3.html#cb291-14" tabindex="-1"></a><span class="do">## Linear Hypotheses:</span></span>
+<span id="cb291-15"><a href="groupdiffscs3.html#cb291-15" tabindex="-1"></a><span class="do">##        Estimate lwr     upr    </span></span>
+<span id="cb291-16"><a href="groupdiffscs3.html#cb291-16" tabindex="-1"></a><span class="do">## 1 == 0  1.7276  -0.0757  3.5309</span></span>
+<span id="cb291-17"><a href="groupdiffscs3.html#cb291-17" tabindex="-1"></a><span class="fu">confint</span>(cs3<span class="sc">$</span>glht_2, <span class="at">level =</span> <span class="dv">1</span><span class="fl">-.05</span><span class="sc">/</span><span class="dv">3</span>)</span>
+<span id="cb291-18"><a href="groupdiffscs3.html#cb291-18" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb291-19"><a href="groupdiffscs3.html#cb291-19" tabindex="-1"></a><span class="do">##   Simultaneous Confidence Intervals</span></span>
+<span id="cb291-20"><a href="groupdiffscs3.html#cb291-20" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb291-21"><a href="groupdiffscs3.html#cb291-21" tabindex="-1"></a><span class="do">## Multiple Comparisons of Means: User-defined Contrasts</span></span>
+<span id="cb291-22"><a href="groupdiffscs3.html#cb291-22" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb291-23"><a href="groupdiffscs3.html#cb291-23" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb291-24"><a href="groupdiffscs3.html#cb291-24" tabindex="-1"></a><span class="do">## Fit: aov(formula = coping_stress ~ group, data = cs3$dat)</span></span>
+<span id="cb291-25"><a href="groupdiffscs3.html#cb291-25" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb291-26"><a href="groupdiffscs3.html#cb291-26" tabindex="-1"></a><span class="do">## Quantile = 2.5525</span></span>
+<span id="cb291-27"><a href="groupdiffscs3.html#cb291-27" tabindex="-1"></a><span class="do">## 98.3333333333333% family-wise confidence level</span></span>
+<span id="cb291-28"><a href="groupdiffscs3.html#cb291-28" tabindex="-1"></a><span class="do">##  </span></span>
+<span id="cb291-29"><a href="groupdiffscs3.html#cb291-29" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb291-30"><a href="groupdiffscs3.html#cb291-30" tabindex="-1"></a><span class="do">## Linear Hypotheses:</span></span>
+<span id="cb291-31"><a href="groupdiffscs3.html#cb291-31" tabindex="-1"></a><span class="do">##        Estimate lwr    upr   </span></span>
+<span id="cb291-32"><a href="groupdiffscs3.html#cb291-32" tabindex="-1"></a><span class="do">## 1 == 0 2.6844   1.1454 4.2234</span></span></code></pre></div>
 <p>There was no statistically significant increase in CWWS score from the sedentary group (4.15, 0.77) to the group performing a low level of physical activity (5.88, 1.69), a mean increase of 1.7 (95% CI, -0.08, 3.53), <em>p</em> = 0.021.</p>
 <p>CWWS score was statistically significantly higher in the non-sedentary groups (M = 6.8) compared to the sedentary group (4.15, 0.77), a mean increase of 1.7 (95% CI, 1.15, 4.22), <em>p</em> = 0.000.</p>
 <p>You may also want to report the <span class="math inline">\(\omega^2\)</span> effect size,</p>
 <p><span class="math display">\[\omega^2 = \frac{SSR - df_R \cdot MSE}{MSE + SST}\]</span></p>
 <p>where SSR is the between groups sum of squares, 49.0, MSE is the within groups mean square, 1.97, and SST is the total sum of squares, 102.1.</p>
-<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="groupdiffscs3.html#cb252-1" tabindex="-1"></a>(cs3<span class="sc">$</span>anova_stats <span class="ot">&lt;-</span> sjstats<span class="sc">::</span><span class="fu">anova_stats</span>(cs3<span class="sc">$</span>aov))</span></code></pre></div>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="groupdiffscs3.html#cb292-1" tabindex="-1"></a>(cs3<span class="sc">$</span>anova_stats <span class="ot">&lt;-</span> sjstats<span class="sc">::</span><span class="fu">anova_stats</span>(cs3<span class="sc">$</span>aov))</span></code></pre></div>
 <pre><code>## term      | df |  sumsq | meansq | statistic | p.value | etasq | partial.etasq | omegasq | partial.omegasq | epsilonsq | cohens.f | power
 ## -----------------------------------------------------------------------------------------------------------------------------------------
 ## group     |  3 | 49.033 | 16.344 |     8.316 |  &lt; .001 | 0.480 |         0.480 |   0.415 |           0.415 |     0.423 |    0.961 | 0.993
 ## Residuals | 27 | 53.066 |  1.965 |           |         |       |               |         |                 |           |          |</code></pre>
 <p><span class="math inline">\(\omega^2\)</span> estimates the population effect size. It <span class="math inline">\(\omega^2\)</span> ranges from -1 to +1. Here, <span class="math inline">\(\omega^2\)</span> is 0.415.</p>
-<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="groupdiffscs3.html#cb254-1" tabindex="-1"></a><span class="fu">comma</span>(cs3<span class="sc">$</span>anova<span class="sc">$</span><span class="st">`</span><span class="at">Sum Sq</span><span class="st">`</span>[<span class="dv">1</span>], .<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="groupdiffscs3.html#cb294-1" tabindex="-1"></a><span class="fu">comma</span>(cs3<span class="sc">$</span>anova<span class="sc">$</span><span class="st">`</span><span class="at">Sum Sq</span><span class="st">`</span>[<span class="dv">1</span>], .<span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;49.0&quot;</code></pre>
 <p>Alternatively, the partial eta squared statistic, <span class="math inline">\(\eta^2\)</span>, measures the effect size in the sample. Here <span class="math inline">\(\eta^2\)</span> is 0.48.</p>
 <p>Now you can report your results.</p>
@@ -1013,14 +1067,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </blockquote>
 <p><strong>Power Analysis</strong></p>
 <p>If you run an ANOVA and do not reject the null hypothesis, you may want to run a power analysis to make sure the power of the test was not very low. Power is the ability to reject the null when the null is really false. Power is affected by sample size, effect size, variability of the experiment, and the significance of the type 1 error. You typically want power to be at 80%, meaning 80% of the time your test rejects the null when it should, and 20% of the time your test does not reject the null when it should.</p>
-<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="groupdiffscs3.html#cb256-1" tabindex="-1"></a><span class="fu">power.anova.test</span>(</span>
-<span id="cb256-2"><a href="groupdiffscs3.html#cb256-2" tabindex="-1"></a>  <span class="at">groups =</span> cs3<span class="sc">$</span>aov<span class="sc">$</span>rank,</span>
-<span id="cb256-3"><a href="groupdiffscs3.html#cb256-3" tabindex="-1"></a>  <span class="at">n =</span> cs3<span class="sc">$</span>aov<span class="sc">$</span>model <span class="sc">%&gt;%</span> <span class="fu">count</span>(group) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(n) <span class="sc">%&gt;%</span> <span class="fu">min</span>(),</span>
-<span id="cb256-4"><a href="groupdiffscs3.html#cb256-4" tabindex="-1"></a>  <span class="at">between.var =</span> cs3<span class="sc">$</span>dat <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(group) <span class="sc">%&gt;%</span> </span>
-<span id="cb256-5"><a href="groupdiffscs3.html#cb256-5" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">M =</span> <span class="fu">mean</span>(coping_stress)) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(M) <span class="sc">%&gt;%</span> <span class="fu">var</span>(),</span>
-<span id="cb256-6"><a href="groupdiffscs3.html#cb256-6" tabindex="-1"></a>  <span class="at">within.var=</span> cs3<span class="sc">$</span>anova<span class="sc">$</span><span class="st">`</span><span class="at">Mean Sq</span><span class="st">`</span>[<span class="dv">2</span>],</span>
-<span id="cb256-7"><a href="groupdiffscs3.html#cb256-7" tabindex="-1"></a>  <span class="at">sig.level =</span> <span class="fl">0.05</span></span>
-<span id="cb256-8"><a href="groupdiffscs3.html#cb256-8" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="groupdiffscs3.html#cb296-1" tabindex="-1"></a><span class="fu">power.anova.test</span>(</span>
+<span id="cb296-2"><a href="groupdiffscs3.html#cb296-2" tabindex="-1"></a>  <span class="at">groups =</span> cs3<span class="sc">$</span>aov<span class="sc">$</span>rank,</span>
+<span id="cb296-3"><a href="groupdiffscs3.html#cb296-3" tabindex="-1"></a>  <span class="at">n =</span> cs3<span class="sc">$</span>aov<span class="sc">$</span>model <span class="sc">%&gt;%</span> <span class="fu">count</span>(group) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(n) <span class="sc">%&gt;%</span> <span class="fu">min</span>(),</span>
+<span id="cb296-4"><a href="groupdiffscs3.html#cb296-4" tabindex="-1"></a>  <span class="at">between.var =</span> cs3<span class="sc">$</span>dat <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(group) <span class="sc">%&gt;%</span> </span>
+<span id="cb296-5"><a href="groupdiffscs3.html#cb296-5" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">M =</span> <span class="fu">mean</span>(coping_stress)) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(M) <span class="sc">%&gt;%</span> <span class="fu">var</span>(),</span>
+<span id="cb296-6"><a href="groupdiffscs3.html#cb296-6" tabindex="-1"></a>  <span class="at">within.var=</span> cs3<span class="sc">$</span>anova<span class="sc">$</span><span class="st">`</span><span class="at">Mean Sq</span><span class="st">`</span>[<span class="dv">2</span>],</span>
+<span id="cb296-7"><a href="groupdiffscs3.html#cb296-7" tabindex="-1"></a>  <span class="at">sig.level =</span> <span class="fl">0.05</span></span>
+<span id="cb296-8"><a href="groupdiffscs3.html#cb296-8" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## 
 ##      Balanced one-way analysis of variance power calculation 
 ## 
@@ -1036,14 +1090,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="kruskal-wallis-test" class="section level3 hasAnchor" number="5.6.3">
 <h3><span class="header-section-number">5.6.3</span> Kruskal-Wallis Test<a href="groupdiffscs3.html#kruskal-wallis-test" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Run a Kruskal-Wallis H test with <code>kruskal.test()</code>.</p>
-<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="groupdiffscs3.html#cb258-1" tabindex="-1"></a>(cs3<span class="sc">$</span>kruskal <span class="ot">&lt;-</span> <span class="fu">kruskal.test</span>(coping_stress <span class="sc">~</span> group, <span class="at">data =</span> cs3<span class="sc">$</span>dat))</span></code></pre></div>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="groupdiffscs3.html#cb298-1" tabindex="-1"></a>(cs3<span class="sc">$</span>kruskal <span class="ot">&lt;-</span> <span class="fu">kruskal.test</span>(coping_stress <span class="sc">~</span> group, <span class="at">data =</span> cs3<span class="sc">$</span>dat))</span></code></pre></div>
 <pre><code>## 
 ##  Kruskal-Wallis rank sum test
 ## 
 ## data:  coping_stress by group
 ## Kruskal-Wallis chi-squared = 14.468, df = 3, p-value = 0.002332</code></pre>
 <p>The dependent variable has similarly shaped distributions for all groups of the independent variable, so you can conclude the median CWWS scores were statistically significantly different between groups, <span class="math inline">\(\chi^2\)</span>(3) = 14.5, <em>p</em> = 0.0023. Otherwise you would conclude the <em>distributions</em> differ. You rejected the null hypothesis, so continue on with a post hoc test to determine which medians (similar distributions) or mean ranks (dissimilar distributions) differ with the Dunn procedure using a Bonferroni correction for multiple comparisons.</p>
-<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="groupdiffscs3.html#cb260-1" tabindex="-1"></a>(cs3<span class="sc">$</span>dunn <span class="ot">&lt;-</span> FSA<span class="sc">::</span><span class="fu">dunnTest</span>(coping_stress <span class="sc">~</span> group, <span class="at">data =</span> cs3<span class="sc">$</span>dat, <span class="at">method =</span> <span class="st">&quot;bonferroni&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="groupdiffscs3.html#cb300-1" tabindex="-1"></a>(cs3<span class="sc">$</span>dunn <span class="ot">&lt;-</span> FSA<span class="sc">::</span><span class="fu">dunnTest</span>(coping_stress <span class="sc">~</span> group, <span class="at">data =</span> cs3<span class="sc">$</span>dat, <span class="at">method =</span> <span class="st">&quot;bonferroni&quot;</span>))</span></code></pre></div>
 <pre><code>## Registered S3 methods overwritten by &#39;FSA&#39;:
 ##   method       from
 ##   confint.boot car 

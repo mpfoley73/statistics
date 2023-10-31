@@ -23,7 +23,7 @@
 <meta name="author" content="Michael Foley" />
 
 
-<meta name="date" content="2023-10-14" />
+<meta name="date" content="2023-10-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -127,6 +127,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 </style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -145,7 +167,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1" data-path="frequentist-statistics.html"><a href="frequentist-statistics.html"><i class="fa fa-check"></i><b>1</b> Frequentist Statistics</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="central-tendancy-and-dispersion.html"><a href="central-tendancy-and-dispersion.html"><i class="fa fa-check"></i><b>1.1</b> Central Tendancy and Dispersion</a></li>
-<li class="chapter" data-level="1.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>1.2</b> Hypothesis Testing</a></li>
+<li class="chapter" data-level="1.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>1.2</b> Hypothesis Testing</a>
+<ul>
+<li class="chapter" data-level="" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#type-i-and-ii-errors"><i class="fa fa-check"></i>Type I and II Errors</a></li>
+<li class="chapter" data-level="" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#statistical-power"><i class="fa fa-check"></i>Statistical Power</a></li>
+<li class="chapter" data-level="" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#what-p-values-would-you-expect"><i class="fa fa-check"></i>What p-values would you expect?</a></li>
+<li class="chapter" data-level="1.2.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#further-reading"><i class="fa fa-check"></i><b>1.2.1</b> Further Reading</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="likelihood-statistics.html"><a href="likelihood-statistics.html"><i class="fa fa-check"></i><b>2</b> Likelihood Statistics</a>
 <ul>
@@ -155,13 +183,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="3.1" data-path="bayes-theorem.html"><a href="bayes-theorem.html"><i class="fa fa-check"></i><b>3.1</b> Bayes’ Theorem</a></li>
 <li class="chapter" data-level="3.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html"><i class="fa fa-check"></i><b>3.2</b> Bayesian Inference</a></li>
-<li class="chapter" data-level="3.3" data-path="bayes-factors.html"><a href="bayes-factors.html"><i class="fa fa-check"></i><b>3.3</b> Bayes Factors</a></li>
-<li class="chapter" data-level="3.4" data-path="gamma-poisson.html"><a href="gamma-poisson.html"><i class="fa fa-check"></i><b>3.4</b> Gamma Poisson</a></li>
-<li class="chapter" data-level="3.5" data-path="normal.html"><a href="normal.html"><i class="fa fa-check"></i><b>3.5</b> Normal</a></li>
-<li class="chapter" data-level="3.6" data-path="proportions-and-the-beta-binomial.html"><a href="proportions-and-the-beta-binomial.html"><i class="fa fa-check"></i><b>3.6</b> Proportions and the Beta Binomial</a></li>
+<li class="chapter" data-level="3.3" data-path="gamma-poisson-and-estimating-counts.html"><a href="gamma-poisson-and-estimating-counts.html"><i class="fa fa-check"></i><b>3.3</b> Gamma Poisson and Estimating Counts</a></li>
+<li class="chapter" data-level="3.4" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html"><i class="fa fa-check"></i><b>3.4</b> Normal and Estimating Means</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#population-estimate"><i class="fa fa-check"></i><b>3.4.1</b> Population Estimate</a></li>
+<li class="chapter" data-level="3.4.2" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#regression"><i class="fa fa-check"></i><b>3.4.2</b> Regression</a></li>
+<li class="chapter" data-level="3.4.3" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#change-point-regression"><i class="fa fa-check"></i><b>3.4.3</b> Change Point Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="beta-binomial-and-estimating-proportions.html"><a href="beta-binomial-and-estimating-proportions.html"><i class="fa fa-check"></i><b>3.5</b> Beta Binomial and Estimating Proportions</a></li>
+<li class="chapter" data-level="3.6" data-path="zero-inflation-and-latent-variables.html"><a href="zero-inflation-and-latent-variables.html"><i class="fa fa-check"></i><b>3.6</b> Zero-Inflation and Latent Variables</a></li>
 <li class="chapter" data-level="3.7" data-path="dic.html"><a href="dic.html"><i class="fa fa-check"></i><b>3.7</b> DIC</a></li>
-<li class="chapter" data-level="3.8" data-path="appendix-gentle-introduction.html"><a href="appendix-gentle-introduction.html"><i class="fa fa-check"></i><b>3.8</b> Appendix: Gentle Introduction</a></li>
-<li class="chapter" data-level="3.9" data-path="further-reading-1.html"><a href="further-reading-1.html"><i class="fa fa-check"></i><b>3.9</b> Further Reading</a></li>
+<li class="chapter" data-level="3.8" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html"><i class="fa fa-check"></i><b>3.8</b> Monte Carlo Integration</a>
+<ul>
+<li class="chapter" data-level="3.8.1" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html#inverse-sampling"><i class="fa fa-check"></i><b>3.8.1</b> Inverse Sampling</a></li>
+<li class="chapter" data-level="3.8.2" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html#rejection-sampling"><i class="fa fa-check"></i><b>3.8.2</b> Rejection Sampling</a></li>
+<li class="chapter" data-level="3.8.3" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html#importance-sampling"><i class="fa fa-check"></i><b>3.8.3</b> Importance Sampling</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="metropolis-hastings.html"><a href="metropolis-hastings.html"><i class="fa fa-check"></i><b>3.9</b> Metropolis-Hastings</a></li>
+<li class="chapter" data-level="3.10" data-path="appendix-gentle-introduction.html"><a href="appendix-gentle-introduction.html"><i class="fa fa-check"></i><b>3.10</b> Appendix: Gentle Introduction</a></li>
+<li class="chapter" data-level="3.11" data-path="appendix-bayes-factors.html"><a href="appendix-bayes-factors.html"><i class="fa fa-check"></i><b>3.11</b> Appendix: Bayes Factors</a></li>
+<li class="chapter" data-level="3.12" data-path="further-reading-1.html"><a href="further-reading-1.html"><i class="fa fa-check"></i><b>3.12</b> Further Reading</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="one-sample.html"><a href="one-sample.html"><i class="fa fa-check"></i><b>4</b> One-Sample</a>
 <ul>
@@ -183,16 +224,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2" data-path="wilcoxonranksum.html"><a href="wilcoxonranksum.html"><i class="fa fa-check"></i><b>5.2</b> Wilcoxon Rank Sum Test</a></li>
 <li class="chapter" data-level="" data-path="case-study-1.html"><a href="case-study-1.html"><i class="fa fa-check"></i>Case Study 1</a></li>
 <li class="chapter" data-level="5.3" data-path="pairedttest.html"><a href="pairedttest.html"><i class="fa fa-check"></i><b>5.3</b> Paired Samples t-Test</a></li>
-<li class="chapter" data-level="5.4" data-path="wilcoxonsignedrank.html"><a href="wilcoxonsignedrank.html"><i class="fa fa-check"></i><b>5.4</b> Wilcoxon Signed-Rank Test</a></li>
+<li class="chapter" data-level="5.4" data-path="wilcoxonsignedrank.html"><a href="wilcoxonsignedrank.html"><i class="fa fa-check"></i><b>5.4</b> Wilcoxon Signed-Rank Test</a>
+<ul>
+<li class="chapter" data-level="" data-path="wilcoxonsignedrank.html"><a href="wilcoxonsignedrank.html#sign-test"><i class="fa fa-check"></i>Sign Test</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="case-study-2.html"><a href="case-study-2.html"><i class="fa fa-check"></i>Case Study 2</a></li>
 <li class="chapter" data-level="5.5" data-path="onewayanova.html"><a href="onewayanova.html"><i class="fa fa-check"></i><b>5.5</b> One-way ANOVA</a></li>
 <li class="chapter" data-level="5.6" data-path="kw.html"><a href="kw.html"><i class="fa fa-check"></i><b>5.6</b> Kruskal–Wallis Test</a></li>
-<li class="chapter" data-level="" data-path="groupdiffscs3.html"><a href="groupdiffscs3.html"><i class="fa fa-check"></i>Case Study 3</a></li>
+<li class="chapter" data-level="" data-path="groupdiffscs3.html"><a href="groupdiffscs3.html"><i class="fa fa-check"></i>Case Study 3</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="groupdiffscs3.html"><a href="groupdiffscs3.html#assumptions"><i class="fa fa-check"></i><b>5.6.1</b> Assumptions</a></li>
+<li class="chapter" data-level="5.6.2" data-path="groupdiffscs3.html"><a href="groupdiffscs3.html#anova"><i class="fa fa-check"></i><b>5.6.2</b> ANOVA</a></li>
+<li class="chapter" data-level="5.6.3" data-path="groupdiffscs3.html"><a href="groupdiffscs3.html#kruskal-wallis-test"><i class="fa fa-check"></i><b>5.6.3</b> Kruskal-Wallis Test</a></li>
+</ul></li>
 <li class="chapter" data-level="5.7" data-path="chisqhomogeneity.html"><a href="chisqhomogeneity.html"><i class="fa fa-check"></i><b>5.7</b> Chi-Square Test of Homogeneity</a></li>
 <li class="chapter" data-level="5.8" data-path="fisherexact.html"><a href="fisherexact.html"><i class="fa fa-check"></i><b>5.8</b> Fisher’s Exact Test</a></li>
 <li class="chapter" data-level="" data-path="case-study-4.html"><a href="case-study-4.html"><i class="fa fa-check"></i>Case Study 4</a></li>
 <li class="chapter" data-level="5.9" data-path="pairwiseproptest.html"><a href="pairwiseproptest.html"><i class="fa fa-check"></i><b>5.9</b> Pairwise Prop Test</a></li>
-<li class="chapter" data-level="5.10" data-path="mcnemar.html"><a href="mcnemar.html"><i class="fa fa-check"></i><b>5.10</b> McNemar’s Test</a></li>
+<li class="chapter" data-level="5.10" data-path="mcnemar.html"><a href="mcnemar.html"><i class="fa fa-check"></i><b>5.10</b> McNemar’s Test</a>
+<ul>
+<li class="chapter" data-level="5.10.1" data-path="mcnemar.html"><a href="mcnemar.html#manova"><i class="fa fa-check"></i><b>5.10.1</b> MANOVA</a></li>
+<li class="chapter" data-level="5.10.2" data-path="mcnemar.html"><a href="mcnemar.html#multiple-variance-comparison-f-test"><i class="fa fa-check"></i><b>5.10.2</b> Multiple Variance Comparison F Test</a></li>
+<li class="chapter" data-level="5.10.3" data-path="mcnemar.html"><a href="mcnemar.html#example-5"><i class="fa fa-check"></i><b>5.10.3</b> Example</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="association.html"><a href="association.html"><i class="fa fa-check"></i><b>6</b> Association</a>
 <ul>
@@ -238,26 +292,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><a href="https://statistics.laerd.com/">Laerd</a> has three data sets for this example. One meets the conditions for a t-test. The second fails the normality condition, but is symmetric and meets the conditions for the Wilcoxon test. The third fails the symmetry condition and requires the sign test.</p>
 <div id="t-test-data-set" class="section level5 unnumbered hasAnchor">
 <h5>t-test data set<a href="case-study-2.html#t-test-data-set" class="anchor-section" aria-label="Anchor link to header"></a></h5>
-<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="case-study-2.html#cb218-1" tabindex="-1"></a>(drink<span class="sc">$</span>t_gt <span class="ot">&lt;-</span> drink<span class="sc">$</span>t_dat <span class="sc">%&gt;%</span> </span>
-<span id="cb218-2"><a href="case-study-2.html#cb218-2" tabindex="-1"></a>  gtsummary<span class="sc">::</span><span class="fu">tbl_summary</span>(<span class="at">statistic =</span> <span class="fu">list</span>(<span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="st">&quot;{mean} ({sd})&quot;</span>))</span>
-<span id="cb218-3"><a href="case-study-2.html#cb218-3" tabindex="-1"></a>)</span></code></pre></div>
-<div id="jhejjozutr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#jhejjozutr table {
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="case-study-2.html#cb258-1" tabindex="-1"></a>(drink<span class="sc">$</span>t_gt <span class="ot">&lt;-</span> drink<span class="sc">$</span>t_dat <span class="sc">%&gt;%</span> </span>
+<span id="cb258-2"><a href="case-study-2.html#cb258-2" tabindex="-1"></a>  gtsummary<span class="sc">::</span><span class="fu">tbl_summary</span>(<span class="at">statistic =</span> <span class="fu">list</span>(<span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="st">&quot;{mean} ({sd})&quot;</span>))</span>
+<span id="cb258-3"><a href="case-study-2.html#cb258-3" tabindex="-1"></a>)</span></code></pre></div>
+<div id="ismnptfjjf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ismnptfjjf table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#jhejjozutr thead, #jhejjozutr tbody, #jhejjozutr tfoot, #jhejjozutr tr, #jhejjozutr td, #jhejjozutr th {
+#ismnptfjjf thead, #ismnptfjjf tbody, #ismnptfjjf tfoot, #ismnptfjjf tr, #ismnptfjjf td, #ismnptfjjf th {
   border-style: none;
 }
 
-#jhejjozutr p {
+#ismnptfjjf p {
   margin: 0;
   padding: 0;
 }
 
-#jhejjozutr .gt_table {
+#ismnptfjjf .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -283,12 +337,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-left-color: #D3D3D3;
 }
 
-#jhejjozutr .gt_caption {
+#ismnptfjjf .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#jhejjozutr .gt_title {
+#ismnptfjjf .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -300,7 +354,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-width: 0;
 }
 
-#jhejjozutr .gt_subtitle {
+#ismnptfjjf .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -312,7 +366,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-width: 0;
 }
 
-#jhejjozutr .gt_heading {
+#ismnptfjjf .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -324,13 +378,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#jhejjozutr .gt_bottom_border {
+#ismnptfjjf .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#jhejjozutr .gt_col_headings {
+#ismnptfjjf .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -345,7 +399,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#jhejjozutr .gt_col_heading {
+#ismnptfjjf .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -365,7 +419,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#jhejjozutr .gt_column_spanner_outer {
+#ismnptfjjf .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -377,15 +431,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 4px;
 }
 
-#jhejjozutr .gt_column_spanner_outer:first-child {
+#ismnptfjjf .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#jhejjozutr .gt_column_spanner_outer:last-child {
+#ismnptfjjf .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#jhejjozutr .gt_column_spanner {
+#ismnptfjjf .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -397,11 +451,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   width: 100%;
 }
 
-#jhejjozutr .gt_spanner_row {
+#ismnptfjjf .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#jhejjozutr .gt_group_heading {
+#ismnptfjjf .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -427,7 +481,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   text-align: left;
 }
 
-#jhejjozutr .gt_empty_group_heading {
+#ismnptfjjf .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -442,15 +496,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: middle;
 }
 
-#jhejjozutr .gt_from_md > :first-child {
+#ismnptfjjf .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#jhejjozutr .gt_from_md > :last-child {
+#ismnptfjjf .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#jhejjozutr .gt_row {
+#ismnptfjjf .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -469,7 +523,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#jhejjozutr .gt_stub {
+#ismnptfjjf .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -482,7 +536,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#jhejjozutr .gt_stub_row_group {
+#ismnptfjjf .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -496,15 +550,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: top;
 }
 
-#jhejjozutr .gt_row_group_first td {
+#ismnptfjjf .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#jhejjozutr .gt_row_group_first th {
+#ismnptfjjf .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#jhejjozutr .gt_summary_row {
+#ismnptfjjf .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -514,16 +568,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#jhejjozutr .gt_first_summary_row {
+#ismnptfjjf .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#jhejjozutr .gt_first_summary_row.thick {
+#ismnptfjjf .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#jhejjozutr .gt_last_summary_row {
+#ismnptfjjf .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -533,7 +587,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#jhejjozutr .gt_grand_summary_row {
+#ismnptfjjf .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -543,7 +597,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#jhejjozutr .gt_first_grand_summary_row {
+#ismnptfjjf .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -553,7 +607,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-color: #D3D3D3;
 }
 
-#jhejjozutr .gt_last_grand_summary_row_top {
+#ismnptfjjf .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -563,11 +617,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#jhejjozutr .gt_striped {
+#ismnptfjjf .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#jhejjozutr .gt_table_body {
+#ismnptfjjf .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -576,7 +630,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#jhejjozutr .gt_footnotes {
+#ismnptfjjf .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -590,7 +644,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#jhejjozutr .gt_footnote {
+#ismnptfjjf .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -599,7 +653,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#jhejjozutr .gt_sourcenotes {
+#ismnptfjjf .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -613,7 +667,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#jhejjozutr .gt_sourcenote {
+#ismnptfjjf .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -621,63 +675,63 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#jhejjozutr .gt_left {
+#ismnptfjjf .gt_left {
   text-align: left;
 }
 
-#jhejjozutr .gt_center {
+#ismnptfjjf .gt_center {
   text-align: center;
 }
 
-#jhejjozutr .gt_right {
+#ismnptfjjf .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#jhejjozutr .gt_font_normal {
+#ismnptfjjf .gt_font_normal {
   font-weight: normal;
 }
 
-#jhejjozutr .gt_font_bold {
+#ismnptfjjf .gt_font_bold {
   font-weight: bold;
 }
 
-#jhejjozutr .gt_font_italic {
+#ismnptfjjf .gt_font_italic {
   font-style: italic;
 }
 
-#jhejjozutr .gt_super {
+#ismnptfjjf .gt_super {
   font-size: 65%;
 }
 
-#jhejjozutr .gt_footnote_marks {
+#ismnptfjjf .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#jhejjozutr .gt_asterisk {
+#ismnptfjjf .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#jhejjozutr .gt_indent_1 {
+#ismnptfjjf .gt_indent_1 {
   text-indent: 5px;
 }
 
-#jhejjozutr .gt_indent_2 {
+#ismnptfjjf .gt_indent_2 {
   text-indent: 10px;
 }
 
-#jhejjozutr .gt_indent_3 {
+#ismnptfjjf .gt_indent_3 {
   text-indent: 15px;
 }
 
-#jhejjozutr .gt_indent_4 {
+#ismnptfjjf .gt_indent_4 {
   text-indent: 20px;
 }
 
-#jhejjozutr .gt_indent_5 {
+#ismnptfjjf .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -712,26 +766,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="wilcoxon-data-set" class="section level5 unnumbered hasAnchor">
 <h5>Wilcoxon data set<a href="case-study-2.html#wilcoxon-data-set" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>Once you learn you need Wilcoxon or the sign-test, show the median and IQR summary statistics instead.</p>
-<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="case-study-2.html#cb219-1" tabindex="-1"></a>(drink<span class="sc">$</span>wilcoxon_gt <span class="ot">&lt;-</span> drink<span class="sc">$</span>wilcoxon_dat <span class="sc">%&gt;%</span> </span>
-<span id="cb219-2"><a href="case-study-2.html#cb219-2" tabindex="-1"></a>  gtsummary<span class="sc">::</span><span class="fu">tbl_summary</span>()</span>
-<span id="cb219-3"><a href="case-study-2.html#cb219-3" tabindex="-1"></a>)</span></code></pre></div>
-<div id="tqbketkfaf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#tqbketkfaf table {
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="case-study-2.html#cb259-1" tabindex="-1"></a>(drink<span class="sc">$</span>wilcoxon_gt <span class="ot">&lt;-</span> drink<span class="sc">$</span>wilcoxon_dat <span class="sc">%&gt;%</span> </span>
+<span id="cb259-2"><a href="case-study-2.html#cb259-2" tabindex="-1"></a>  gtsummary<span class="sc">::</span><span class="fu">tbl_summary</span>()</span>
+<span id="cb259-3"><a href="case-study-2.html#cb259-3" tabindex="-1"></a>)</span></code></pre></div>
+<div id="iwnxporfwp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#iwnxporfwp table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#tqbketkfaf thead, #tqbketkfaf tbody, #tqbketkfaf tfoot, #tqbketkfaf tr, #tqbketkfaf td, #tqbketkfaf th {
+#iwnxporfwp thead, #iwnxporfwp tbody, #iwnxporfwp tfoot, #iwnxporfwp tr, #iwnxporfwp td, #iwnxporfwp th {
   border-style: none;
 }
 
-#tqbketkfaf p {
+#iwnxporfwp p {
   margin: 0;
   padding: 0;
 }
 
-#tqbketkfaf .gt_table {
+#iwnxporfwp .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -757,12 +811,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-left-color: #D3D3D3;
 }
 
-#tqbketkfaf .gt_caption {
+#iwnxporfwp .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#tqbketkfaf .gt_title {
+#iwnxporfwp .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -774,7 +828,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-width: 0;
 }
 
-#tqbketkfaf .gt_subtitle {
+#iwnxporfwp .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -786,7 +840,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-width: 0;
 }
 
-#tqbketkfaf .gt_heading {
+#iwnxporfwp .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -798,13 +852,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#tqbketkfaf .gt_bottom_border {
+#iwnxporfwp .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#tqbketkfaf .gt_col_headings {
+#iwnxporfwp .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -819,7 +873,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#tqbketkfaf .gt_col_heading {
+#iwnxporfwp .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -839,7 +893,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#tqbketkfaf .gt_column_spanner_outer {
+#iwnxporfwp .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -851,15 +905,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 4px;
 }
 
-#tqbketkfaf .gt_column_spanner_outer:first-child {
+#iwnxporfwp .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#tqbketkfaf .gt_column_spanner_outer:last-child {
+#iwnxporfwp .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#tqbketkfaf .gt_column_spanner {
+#iwnxporfwp .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -871,11 +925,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   width: 100%;
 }
 
-#tqbketkfaf .gt_spanner_row {
+#iwnxporfwp .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#tqbketkfaf .gt_group_heading {
+#iwnxporfwp .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -901,7 +955,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   text-align: left;
 }
 
-#tqbketkfaf .gt_empty_group_heading {
+#iwnxporfwp .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -916,15 +970,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: middle;
 }
 
-#tqbketkfaf .gt_from_md > :first-child {
+#iwnxporfwp .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#tqbketkfaf .gt_from_md > :last-child {
+#iwnxporfwp .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#tqbketkfaf .gt_row {
+#iwnxporfwp .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -943,7 +997,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#tqbketkfaf .gt_stub {
+#iwnxporfwp .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -956,7 +1010,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#tqbketkfaf .gt_stub_row_group {
+#iwnxporfwp .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -970,15 +1024,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: top;
 }
 
-#tqbketkfaf .gt_row_group_first td {
+#iwnxporfwp .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#tqbketkfaf .gt_row_group_first th {
+#iwnxporfwp .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#tqbketkfaf .gt_summary_row {
+#iwnxporfwp .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -988,16 +1042,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#tqbketkfaf .gt_first_summary_row {
+#iwnxporfwp .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#tqbketkfaf .gt_first_summary_row.thick {
+#iwnxporfwp .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#tqbketkfaf .gt_last_summary_row {
+#iwnxporfwp .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1007,7 +1061,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#tqbketkfaf .gt_grand_summary_row {
+#iwnxporfwp .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1017,7 +1071,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#tqbketkfaf .gt_first_grand_summary_row {
+#iwnxporfwp .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1027,7 +1081,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-color: #D3D3D3;
 }
 
-#tqbketkfaf .gt_last_grand_summary_row_top {
+#iwnxporfwp .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1037,11 +1091,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#tqbketkfaf .gt_striped {
+#iwnxporfwp .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#tqbketkfaf .gt_table_body {
+#iwnxporfwp .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1050,7 +1104,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#tqbketkfaf .gt_footnotes {
+#iwnxporfwp .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1064,7 +1118,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#tqbketkfaf .gt_footnote {
+#iwnxporfwp .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1073,7 +1127,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#tqbketkfaf .gt_sourcenotes {
+#iwnxporfwp .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1087,7 +1141,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#tqbketkfaf .gt_sourcenote {
+#iwnxporfwp .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1095,63 +1149,63 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#tqbketkfaf .gt_left {
+#iwnxporfwp .gt_left {
   text-align: left;
 }
 
-#tqbketkfaf .gt_center {
+#iwnxporfwp .gt_center {
   text-align: center;
 }
 
-#tqbketkfaf .gt_right {
+#iwnxporfwp .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#tqbketkfaf .gt_font_normal {
+#iwnxporfwp .gt_font_normal {
   font-weight: normal;
 }
 
-#tqbketkfaf .gt_font_bold {
+#iwnxporfwp .gt_font_bold {
   font-weight: bold;
 }
 
-#tqbketkfaf .gt_font_italic {
+#iwnxporfwp .gt_font_italic {
   font-style: italic;
 }
 
-#tqbketkfaf .gt_super {
+#iwnxporfwp .gt_super {
   font-size: 65%;
 }
 
-#tqbketkfaf .gt_footnote_marks {
+#iwnxporfwp .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#tqbketkfaf .gt_asterisk {
+#iwnxporfwp .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#tqbketkfaf .gt_indent_1 {
+#iwnxporfwp .gt_indent_1 {
   text-indent: 5px;
 }
 
-#tqbketkfaf .gt_indent_2 {
+#iwnxporfwp .gt_indent_2 {
   text-indent: 10px;
 }
 
-#tqbketkfaf .gt_indent_3 {
+#iwnxporfwp .gt_indent_3 {
   text-indent: 15px;
 }
 
-#tqbketkfaf .gt_indent_4 {
+#iwnxporfwp .gt_indent_4 {
   text-indent: 20px;
 }
 
-#tqbketkfaf .gt_indent_5 {
+#iwnxporfwp .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1185,26 +1239,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="sign-data-set" class="section level5 unnumbered hasAnchor">
 <h5>Sign data set<a href="case-study-2.html#sign-data-set" class="anchor-section" aria-label="Anchor link to header"></a></h5>
-<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="case-study-2.html#cb220-1" tabindex="-1"></a>(drink<span class="sc">$</span>sign_gt <span class="ot">&lt;-</span> drink<span class="sc">$</span>sign_dat <span class="sc">%&gt;%</span> </span>
-<span id="cb220-2"><a href="case-study-2.html#cb220-2" tabindex="-1"></a>  gtsummary<span class="sc">::</span><span class="fu">tbl_summary</span>()</span>
-<span id="cb220-3"><a href="case-study-2.html#cb220-3" tabindex="-1"></a>)</span></code></pre></div>
-<div id="xtfznwjxll" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#xtfznwjxll table {
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="case-study-2.html#cb260-1" tabindex="-1"></a>(drink<span class="sc">$</span>sign_gt <span class="ot">&lt;-</span> drink<span class="sc">$</span>sign_dat <span class="sc">%&gt;%</span> </span>
+<span id="cb260-2"><a href="case-study-2.html#cb260-2" tabindex="-1"></a>  gtsummary<span class="sc">::</span><span class="fu">tbl_summary</span>()</span>
+<span id="cb260-3"><a href="case-study-2.html#cb260-3" tabindex="-1"></a>)</span></code></pre></div>
+<div id="vbeegizffa" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#vbeegizffa table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#xtfznwjxll thead, #xtfznwjxll tbody, #xtfznwjxll tfoot, #xtfznwjxll tr, #xtfznwjxll td, #xtfznwjxll th {
+#vbeegizffa thead, #vbeegizffa tbody, #vbeegizffa tfoot, #vbeegizffa tr, #vbeegizffa td, #vbeegizffa th {
   border-style: none;
 }
 
-#xtfznwjxll p {
+#vbeegizffa p {
   margin: 0;
   padding: 0;
 }
 
-#xtfznwjxll .gt_table {
+#vbeegizffa .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1230,12 +1284,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-left-color: #D3D3D3;
 }
 
-#xtfznwjxll .gt_caption {
+#vbeegizffa .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#xtfznwjxll .gt_title {
+#vbeegizffa .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1247,7 +1301,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-width: 0;
 }
 
-#xtfznwjxll .gt_subtitle {
+#vbeegizffa .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1259,7 +1313,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-width: 0;
 }
 
-#xtfznwjxll .gt_heading {
+#vbeegizffa .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1271,13 +1325,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#xtfznwjxll .gt_bottom_border {
+#vbeegizffa .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#xtfznwjxll .gt_col_headings {
+#vbeegizffa .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1292,7 +1346,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#xtfznwjxll .gt_col_heading {
+#vbeegizffa .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1312,7 +1366,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#xtfznwjxll .gt_column_spanner_outer {
+#vbeegizffa .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1324,15 +1378,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 4px;
 }
 
-#xtfznwjxll .gt_column_spanner_outer:first-child {
+#vbeegizffa .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#xtfznwjxll .gt_column_spanner_outer:last-child {
+#vbeegizffa .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#xtfznwjxll .gt_column_spanner {
+#vbeegizffa .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1344,11 +1398,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   width: 100%;
 }
 
-#xtfznwjxll .gt_spanner_row {
+#vbeegizffa .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#xtfznwjxll .gt_group_heading {
+#vbeegizffa .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1374,7 +1428,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   text-align: left;
 }
 
-#xtfznwjxll .gt_empty_group_heading {
+#vbeegizffa .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1389,15 +1443,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: middle;
 }
 
-#xtfznwjxll .gt_from_md > :first-child {
+#vbeegizffa .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#xtfznwjxll .gt_from_md > :last-child {
+#vbeegizffa .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#xtfznwjxll .gt_row {
+#vbeegizffa .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1416,7 +1470,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#xtfznwjxll .gt_stub {
+#vbeegizffa .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1429,7 +1483,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#xtfznwjxll .gt_stub_row_group {
+#vbeegizffa .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1443,15 +1497,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: top;
 }
 
-#xtfznwjxll .gt_row_group_first td {
+#vbeegizffa .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#xtfznwjxll .gt_row_group_first th {
+#vbeegizffa .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#xtfznwjxll .gt_summary_row {
+#vbeegizffa .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1461,16 +1515,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#xtfznwjxll .gt_first_summary_row {
+#vbeegizffa .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#xtfznwjxll .gt_first_summary_row.thick {
+#vbeegizffa .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#xtfznwjxll .gt_last_summary_row {
+#vbeegizffa .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1480,7 +1534,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#xtfznwjxll .gt_grand_summary_row {
+#vbeegizffa .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1490,7 +1544,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#xtfznwjxll .gt_first_grand_summary_row {
+#vbeegizffa .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1500,7 +1554,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-color: #D3D3D3;
 }
 
-#xtfznwjxll .gt_last_grand_summary_row_top {
+#vbeegizffa .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1510,11 +1564,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#xtfznwjxll .gt_striped {
+#vbeegizffa .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#xtfznwjxll .gt_table_body {
+#vbeegizffa .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1523,7 +1577,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#xtfznwjxll .gt_footnotes {
+#vbeegizffa .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1537,7 +1591,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#xtfznwjxll .gt_footnote {
+#vbeegizffa .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1546,7 +1600,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#xtfznwjxll .gt_sourcenotes {
+#vbeegizffa .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1560,7 +1614,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#xtfznwjxll .gt_sourcenote {
+#vbeegizffa .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1568,63 +1622,63 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#xtfznwjxll .gt_left {
+#vbeegizffa .gt_left {
   text-align: left;
 }
 
-#xtfznwjxll .gt_center {
+#vbeegizffa .gt_center {
   text-align: center;
 }
 
-#xtfznwjxll .gt_right {
+#vbeegizffa .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#xtfznwjxll .gt_font_normal {
+#vbeegizffa .gt_font_normal {
   font-weight: normal;
 }
 
-#xtfznwjxll .gt_font_bold {
+#vbeegizffa .gt_font_bold {
   font-weight: bold;
 }
 
-#xtfznwjxll .gt_font_italic {
+#vbeegizffa .gt_font_italic {
   font-style: italic;
 }
 
-#xtfznwjxll .gt_super {
+#vbeegizffa .gt_super {
   font-size: 65%;
 }
 
-#xtfznwjxll .gt_footnote_marks {
+#vbeegizffa .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#xtfznwjxll .gt_asterisk {
+#vbeegizffa .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#xtfznwjxll .gt_indent_1 {
+#vbeegizffa .gt_indent_1 {
   text-indent: 5px;
 }
 
-#xtfznwjxll .gt_indent_2 {
+#vbeegizffa .gt_indent_2 {
   text-indent: 10px;
 }
 
-#xtfznwjxll .gt_indent_3 {
+#vbeegizffa .gt_indent_3 {
   text-indent: 15px;
 }
 
-#xtfznwjxll .gt_indent_4 {
+#vbeegizffa .gt_indent_4 {
   text-indent: 20px;
 }
 
-#xtfznwjxll .gt_indent_5 {
+#vbeegizffa .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1666,7 +1720,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="outliers-1" class="section level5 unnumbered hasAnchor">
 <h5>Outliers<a href="case-study-2.html#outliers-1" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>Assess outliers with a box plot. Box plot whiskers extend up to 1.5*IQR from the upper and lower hinges and outliers (beyond the whiskers) are are plotted individually.</p>
-<p><img src="statistics_files/figure-html/unnamed-chunk-151-1.png" width="720" /></p>
+<p><img src="statistics_files/figure-html/unnamed-chunk-171-1.png" width="720" /></p>
 <blockquote>
 <p>There were no outliers in the data, as assessed by inspection of a boxplot.</p>
 </blockquote>
@@ -1679,9 +1733,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="normality-1" class="section level5 unnumbered hasAnchor">
 <h5>Normality<a href="case-study-2.html#normality-1" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>Assume the population is normally distributed if <em>n</em> <span class="math inline">\(\ge\)</span> 30. These data sets have <em>n</em> = 20 observations, so you cannot assume normality. Asses a Q-Q plot, skewness and kurtosis values, histogram, or Shapiro-Wilk test.</p>
-<p><img src="statistics_files/figure-html/unnamed-chunk-152-1.png" width="720" /></p>
+<p><img src="statistics_files/figure-html/unnamed-chunk-172-1.png" width="720" /></p>
 <p>For the t-test data set,</p>
-<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="case-study-2.html#cb221-1" tabindex="-1"></a>(drink<span class="sc">$</span>t_shapiro <span class="ot">&lt;-</span> <span class="fu">shapiro.test</span>(drink<span class="sc">$</span>t_dat<span class="sc">$</span>diff))</span></code></pre></div>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="case-study-2.html#cb261-1" tabindex="-1"></a>(drink<span class="sc">$</span>t_shapiro <span class="ot">&lt;-</span> <span class="fu">shapiro.test</span>(drink<span class="sc">$</span>t_dat<span class="sc">$</span>diff))</span></code></pre></div>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -1691,7 +1745,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The differences between the distance ran in the carbohydrate-only and carbohydrate-protein trial were normally distributed, as assessed by Shapiro-Wilk’s test (<em>p</em> = 0.780).</p>
 </blockquote>
 <p>For the Wilcoxon data set,</p>
-<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="case-study-2.html#cb223-1" tabindex="-1"></a>(drink<span class="sc">$</span>wilcoxon_shapiro <span class="ot">&lt;-</span> <span class="fu">shapiro.test</span>(drink<span class="sc">$</span>wilcoxon_dat<span class="sc">$</span>diff))</span></code></pre></div>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="case-study-2.html#cb263-1" tabindex="-1"></a>(drink<span class="sc">$</span>wilcoxon_shapiro <span class="ot">&lt;-</span> <span class="fu">shapiro.test</span>(drink<span class="sc">$</span>wilcoxon_dat<span class="sc">$</span>diff))</span></code></pre></div>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -1701,7 +1755,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The differences between the distance ran in the carbohydrate-only and carbohydrate-protein trial were <em>not</em> normally distributed, as assessed by Shapiro-Wilk’s test (<em>p</em> = 0.012).</p>
 </blockquote>
 <p>For the sign-test data set,</p>
-<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="case-study-2.html#cb225-1" tabindex="-1"></a>(drink<span class="sc">$</span>sign_shapiro <span class="ot">&lt;-</span> <span class="fu">shapiro.test</span>(drink<span class="sc">$</span>sign_dat<span class="sc">$</span>diff))</span></code></pre></div>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="case-study-2.html#cb265-1" tabindex="-1"></a>(drink<span class="sc">$</span>sign_shapiro <span class="ot">&lt;-</span> <span class="fu">shapiro.test</span>(drink<span class="sc">$</span>sign_dat<span class="sc">$</span>diff))</span></code></pre></div>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -1715,7 +1769,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="symmetric-distribution" class="section level5 unnumbered hasAnchor">
 <h5>Symmetric Distribution<a href="case-study-2.html#symmetric-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>If the data passed the outliers test, but failed the normality test, as the Wilcoxon and sign test data sets above did, you will use the Wilcoxon signed-rank test or sign test. Now you need to test the distribution to determine which test. If the distribution is symmetric, use Wilcoxon; otherwise use the sign test.</p>
-<p><img src="statistics_files/figure-html/unnamed-chunk-156-1.png" width="720" /></p>
+<p><img src="statistics_files/figure-html/unnamed-chunk-176-1.png" width="720" /></p>
 <p>For the Wilcoxon data set,</p>
 <blockquote>
 <p>The distribution of the differences between the carbohydrate-protein drink and the carbohydrate-only was symmetric, as assessed by visual inspection.</p>
@@ -1730,8 +1784,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4>Test<a href="case-study-2.html#test-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <div id="t-test-1" class="section level5 unnumbered hasAnchor">
 <h5>t-test<a href="case-study-2.html#t-test-1" class="anchor-section" aria-label="Anchor link to header"></a></h5>
-<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="case-study-2.html#cb227-1" tabindex="-1"></a>(drink<span class="sc">$</span>t_t <span class="ot">&lt;-</span> <span class="fu">t.test</span>(<span class="at">x =</span> drink<span class="sc">$</span>t_dat<span class="sc">$</span>carb_protein, <span class="at">y =</span> drink<span class="sc">$</span>t_dat<span class="sc">$</span>carb, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb227-2"><a href="case-study-2.html#cb227-2" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="case-study-2.html#cb267-1" tabindex="-1"></a>(drink<span class="sc">$</span>t_t <span class="ot">&lt;-</span> <span class="fu">t.test</span>(<span class="at">x =</span> drink<span class="sc">$</span>t_dat<span class="sc">$</span>carb_protein, <span class="at">y =</span> drink<span class="sc">$</span>t_dat<span class="sc">$</span>carb, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb267-2"><a href="case-study-2.html#cb267-2" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## 
 ##  Paired t-test
 ## 
@@ -1747,12 +1801,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The carbohydrate-protein drink elicited an increase of 0.135 (95% CI, 0.091 to 0.180) km in the distance run in two hours compared to a carbohydrate-only drink.</p>
 </blockquote>
 <p>The effect size, called Cohen’s <em>d</em>, is the number of standard deviations the measured mean difference is from the hypothesized difference, <span class="math inline">\((\bar{d}-d_0) / s\)</span>, where <span class="math inline">\(s\)</span> is the sample standard deviation. .2 is small, .5 is medium, and .8 is large. This one is large.</p>
-<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="case-study-2.html#cb229-1" tabindex="-1"></a>(drink<span class="sc">$</span>t_d <span class="ot">&lt;-</span> effectsize<span class="sc">::</span><span class="fu">cohens_d</span>(drink<span class="sc">$</span>t_dat<span class="sc">$</span>diff))</span></code></pre></div>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="case-study-2.html#cb269-1" tabindex="-1"></a>(drink<span class="sc">$</span>t_d <span class="ot">&lt;-</span> effectsize<span class="sc">::</span><span class="fu">cohens_d</span>(drink<span class="sc">$</span>t_dat<span class="sc">$</span>diff))</span></code></pre></div>
 <pre><code>## Cohen&#39;s d |       95% CI
 ## ------------------------
 ## 1.42      | [0.78, 2.04]</code></pre>
 <p>You are about to reject the null hypothesis. Construct a plot as a sanity check on your reasoning.</p>
-<p><img src="statistics_files/figure-html/unnamed-chunk-159-1.png" width="624" /></p>
+<p><img src="statistics_files/figure-html/unnamed-chunk-179-1.png" width="624" /></p>
 <p>Report the results.</p>
 <blockquote>
 <p>A paired-samples t-test was used to determine the effect of a new formula of sports drink on running performance. Instead of the regular, carbohydrate-only drink, the new sports drink contains a new carbohydrate-protein mixture. Twenty participants were recruited to the study who each performed two trials in which they had to run as far as possible in two hours on a treadmill. In one of the trials they drank the carbohydrate-only drink and in the other trial they drank the carbohydrate-protein drink. The order of the trials was counterbalanced and the distance they ran in both trials was recorded.</p>
@@ -1763,9 +1817,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="wilcoxon-signed-rank-test" class="section level5 unnumbered hasAnchor">
 <h5>Wilcoxon Signed-Rank Test<a href="case-study-2.html#wilcoxon-signed-rank-test" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>From the distribution plot, you can see that most of the signs were positive, and the largest absolute difference values were among the positives, so expect a pretty large test statistic.</p>
-<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="case-study-2.html#cb231-1" tabindex="-1"></a>(drink<span class="sc">$</span>wilcoxon_test <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(drink<span class="sc">$</span>wilcoxon_dat<span class="sc">$</span>carb_protein,</span>
-<span id="cb231-2"><a href="case-study-2.html#cb231-2" tabindex="-1"></a>                                    drink<span class="sc">$</span>wilcoxon_dat<span class="sc">$</span>carb, </span>
-<span id="cb231-3"><a href="case-study-2.html#cb231-3" tabindex="-1"></a>                                    <span class="at">paired =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="case-study-2.html#cb271-1" tabindex="-1"></a>(drink<span class="sc">$</span>wilcoxon_test <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(drink<span class="sc">$</span>wilcoxon_dat<span class="sc">$</span>carb_protein,</span>
+<span id="cb271-2"><a href="case-study-2.html#cb271-2" tabindex="-1"></a>                                    drink<span class="sc">$</span>wilcoxon_dat<span class="sc">$</span>carb, </span>
+<span id="cb271-3"><a href="case-study-2.html#cb271-3" tabindex="-1"></a>                                    <span class="at">paired =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
 <pre><code>## 
 ##  Wilcoxon signed rank exact test
 ## 
@@ -1785,8 +1839,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="sign-signed-rank-test" class="section level5 unnumbered hasAnchor">
 <h5>Sign Signed-Rank Test<a href="case-study-2.html#sign-signed-rank-test" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>Conduct the exact sign test since the n-size is not so large that we need the normal approximation to the binomial. Notice <code>n</code> is the count of <em>non-zero</em> differences.</p>
-<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="case-study-2.html#cb233-1" tabindex="-1"></a>(drink<span class="sc">$</span>sign_test <span class="ot">&lt;-</span> <span class="fu">binom.test</span>(<span class="fu">sum</span>(drink<span class="sc">$</span>sign_dat<span class="sc">$</span>diff <span class="sc">&gt;</span> <span class="dv">0</span>), </span>
-<span id="cb233-2"><a href="case-study-2.html#cb233-2" tabindex="-1"></a>                               <span class="at">n =</span> <span class="fu">sum</span>(drink<span class="sc">$</span>sign_dat<span class="sc">$</span>diff <span class="sc">!=</span> <span class="dv">0</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="case-study-2.html#cb273-1" tabindex="-1"></a>(drink<span class="sc">$</span>sign_test <span class="ot">&lt;-</span> <span class="fu">binom.test</span>(<span class="fu">sum</span>(drink<span class="sc">$</span>sign_dat<span class="sc">$</span>diff <span class="sc">&gt;</span> <span class="dv">0</span>), </span>
+<span id="cb273-2"><a href="case-study-2.html#cb273-2" tabindex="-1"></a>                               <span class="at">n =</span> <span class="fu">sum</span>(drink<span class="sc">$</span>sign_dat<span class="sc">$</span>diff <span class="sc">!=</span> <span class="dv">0</span>)))</span></code></pre></div>
 <pre><code>## 
 ##  Exact binomial test
 ## 
