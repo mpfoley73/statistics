@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3.8 Monte Carlo Integration | Statistical Inference</title>
+  <title>3.9 Monte Carlo Integration | Statistical Inference</title>
   <meta name="description" content="Notes cobbled together from books, online classes, etc. to be used as quick reference for common work projects." />
   <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3.8 Monte Carlo Integration | Statistical Inference" />
+  <meta property="og:title" content="3.9 Monte Carlo Integration | Statistical Inference" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Notes cobbled together from books, online classes, etc. to be used as quick reference for common work projects." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3.8 Monte Carlo Integration | Statistical Inference" />
+  <meta name="twitter:title" content="3.9 Monte Carlo Integration | Statistical Inference" />
   
   <meta name="twitter:description" content="Notes cobbled together from books, online classes, etc. to be used as quick reference for common work projects." />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Michael Foley" />
 
 
-<meta name="date" content="2023-10-31" />
+<meta name="date" content="2023-11-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="dic.html"/>
-<link rel="next" href="metropolis-hastings.html"/>
+<link rel="next" href="metropolis-hastings-1.html"/>
 <script src="assets/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="assets/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -54,8 +54,6 @@
 <script src="assets/anchor-sections-1.1.0/anchor-sections.js"></script>
 <link href="assets/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
 <script src="assets/tabwid-1.1.3/tabwid.js"></script>
-<script src="assets/kePrint-0.0.1/kePrint.js"></script>
-<link href="assets/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -183,26 +181,37 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="3.1" data-path="bayes-theorem.html"><a href="bayes-theorem.html"><i class="fa fa-check"></i><b>3.1</b> Bayes’ Theorem</a></li>
 <li class="chapter" data-level="3.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html"><i class="fa fa-check"></i><b>3.2</b> Bayesian Inference</a></li>
-<li class="chapter" data-level="3.3" data-path="gamma-poisson-and-estimating-counts.html"><a href="gamma-poisson-and-estimating-counts.html"><i class="fa fa-check"></i><b>3.3</b> Gamma Poisson and Estimating Counts</a></li>
-<li class="chapter" data-level="3.4" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html"><i class="fa fa-check"></i><b>3.4</b> Normal and Estimating Means</a>
+<li class="chapter" data-level="3.3" data-path="markov-chain-monte-carlo-mcmc.html"><a href="markov-chain-monte-carlo-mcmc.html"><i class="fa fa-check"></i><b>3.3</b> Markov Chain Monte Carlo (MCMC)</a>
 <ul>
-<li class="chapter" data-level="3.4.1" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#population-estimate"><i class="fa fa-check"></i><b>3.4.1</b> Population Estimate</a></li>
-<li class="chapter" data-level="3.4.2" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#regression"><i class="fa fa-check"></i><b>3.4.2</b> Regression</a></li>
-<li class="chapter" data-level="3.4.3" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#change-point-regression"><i class="fa fa-check"></i><b>3.4.3</b> Change Point Regression</a></li>
+<li class="chapter" data-level="3.3.1" data-path="markov-chain-monte-carlo-mcmc.html"><a href="markov-chain-monte-carlo-mcmc.html#the-classical-approach"><i class="fa fa-check"></i><b>3.3.1</b> The Classical Approach</a></li>
+<li class="chapter" data-level="3.3.2" data-path="markov-chain-monte-carlo-mcmc.html"><a href="markov-chain-monte-carlo-mcmc.html#rejection-sampling"><i class="fa fa-check"></i><b>3.3.2</b> Rejection Sampling</a></li>
+<li class="chapter" data-level="3.3.3" data-path="markov-chain-monte-carlo-mcmc.html"><a href="markov-chain-monte-carlo-mcmc.html#gibbs-sampler"><i class="fa fa-check"></i><b>3.3.3</b> Gibbs Sampler</a></li>
+<li class="chapter" data-level="3.3.4" data-path="markov-chain-monte-carlo-mcmc.html"><a href="markov-chain-monte-carlo-mcmc.html#metropolis-hastings"><i class="fa fa-check"></i><b>3.3.4</b> Metropolis-Hastings</a></li>
+<li class="chapter" data-level="3.3.5" data-path="markov-chain-monte-carlo-mcmc.html"><a href="markov-chain-monte-carlo-mcmc.html#other-notes"><i class="fa fa-check"></i><b>3.3.5</b> Other Notes</a></li>
 </ul></li>
-<li class="chapter" data-level="3.5" data-path="beta-binomial-and-estimating-proportions.html"><a href="beta-binomial-and-estimating-proportions.html"><i class="fa fa-check"></i><b>3.5</b> Beta Binomial and Estimating Proportions</a></li>
-<li class="chapter" data-level="3.6" data-path="zero-inflation-and-latent-variables.html"><a href="zero-inflation-and-latent-variables.html"><i class="fa fa-check"></i><b>3.6</b> Zero-Inflation and Latent Variables</a></li>
-<li class="chapter" data-level="3.7" data-path="dic.html"><a href="dic.html"><i class="fa fa-check"></i><b>3.7</b> DIC</a></li>
-<li class="chapter" data-level="3.8" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html"><i class="fa fa-check"></i><b>3.8</b> Monte Carlo Integration</a>
+<li class="chapter" data-level="3.4" data-path="gamma-poisson-and-estimating-counts.html"><a href="gamma-poisson-and-estimating-counts.html"><i class="fa fa-check"></i><b>3.4</b> Gamma Poisson and Estimating Counts</a></li>
+<li class="chapter" data-level="3.5" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html"><i class="fa fa-check"></i><b>3.5</b> Normal and Estimating Means</a>
 <ul>
-<li class="chapter" data-level="3.8.1" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html#inverse-sampling"><i class="fa fa-check"></i><b>3.8.1</b> Inverse Sampling</a></li>
-<li class="chapter" data-level="3.8.2" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html#rejection-sampling"><i class="fa fa-check"></i><b>3.8.2</b> Rejection Sampling</a></li>
-<li class="chapter" data-level="3.8.3" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html#importance-sampling"><i class="fa fa-check"></i><b>3.8.3</b> Importance Sampling</a></li>
+<li class="chapter" data-level="3.5.1" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#normal-pop-est"><i class="fa fa-check"></i><b>3.5.1</b> Population Estimate</a></li>
+<li class="chapter" data-level="3.5.2" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#regression"><i class="fa fa-check"></i><b>3.5.2</b> Regression</a></li>
+<li class="chapter" data-level="3.5.3" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#generalized-linear-models"><i class="fa fa-check"></i><b>3.5.3</b> Generalized Linear Models</a></li>
+<li class="chapter" data-level="3.5.4" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#missing-data"><i class="fa fa-check"></i><b>3.5.4</b> Missing Data</a></li>
+<li class="chapter" data-level="3.5.5" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#change-point-regression"><i class="fa fa-check"></i><b>3.5.5</b> Change Point Regression</a></li>
+<li class="chapter" data-level="3.5.6" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#cluster-analysis"><i class="fa fa-check"></i><b>3.5.6</b> Cluster Analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="3.9" data-path="metropolis-hastings.html"><a href="metropolis-hastings.html"><i class="fa fa-check"></i><b>3.9</b> Metropolis-Hastings</a></li>
-<li class="chapter" data-level="3.10" data-path="appendix-gentle-introduction.html"><a href="appendix-gentle-introduction.html"><i class="fa fa-check"></i><b>3.10</b> Appendix: Gentle Introduction</a></li>
-<li class="chapter" data-level="3.11" data-path="appendix-bayes-factors.html"><a href="appendix-bayes-factors.html"><i class="fa fa-check"></i><b>3.11</b> Appendix: Bayes Factors</a></li>
-<li class="chapter" data-level="3.12" data-path="further-reading-1.html"><a href="further-reading-1.html"><i class="fa fa-check"></i><b>3.12</b> Further Reading</a></li>
+<li class="chapter" data-level="3.6" data-path="beta-binomial-and-estimating-proportions.html"><a href="beta-binomial-and-estimating-proportions.html"><i class="fa fa-check"></i><b>3.6</b> Beta Binomial and Estimating Proportions</a></li>
+<li class="chapter" data-level="3.7" data-path="zero-inflation-and-latent-variables.html"><a href="zero-inflation-and-latent-variables.html"><i class="fa fa-check"></i><b>3.7</b> Zero-Inflation and Latent Variables</a></li>
+<li class="chapter" data-level="3.8" data-path="dic.html"><a href="dic.html"><i class="fa fa-check"></i><b>3.8</b> DIC</a></li>
+<li class="chapter" data-level="3.9" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html"><i class="fa fa-check"></i><b>3.9</b> Monte Carlo Integration</a>
+<ul>
+<li class="chapter" data-level="3.9.1" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html#inverse-sampling"><i class="fa fa-check"></i><b>3.9.1</b> Inverse Sampling</a></li>
+<li class="chapter" data-level="3.9.2" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html#rejection-sampling-1"><i class="fa fa-check"></i><b>3.9.2</b> Rejection Sampling</a></li>
+<li class="chapter" data-level="3.9.3" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html#importance-sampling"><i class="fa fa-check"></i><b>3.9.3</b> Importance Sampling</a></li>
+</ul></li>
+<li class="chapter" data-level="3.10" data-path="metropolis-hastings-1.html"><a href="metropolis-hastings-1.html"><i class="fa fa-check"></i><b>3.10</b> Metropolis-Hastings</a></li>
+<li class="chapter" data-level="3.11" data-path="mixed-effects-linear-regression.html"><a href="mixed-effects-linear-regression.html"><i class="fa fa-check"></i><b>3.11</b> Mixed Effects Linear Regression</a></li>
+<li class="chapter" data-level="3.12" data-path="appendix-bayes-factors.html"><a href="appendix-bayes-factors.html"><i class="fa fa-check"></i><b>3.12</b> Appendix: Bayes Factors</a></li>
+<li class="chapter" data-level="3.13" data-path="further-reading-1.html"><a href="further-reading-1.html"><i class="fa fa-check"></i><b>3.13</b> Further Reading</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="one-sample.html"><a href="one-sample.html"><i class="fa fa-check"></i><b>4</b> One-Sample</a>
 <ul>
@@ -286,8 +295,8 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="monte-carlo-integration" class="section level2 hasAnchor" number="3.8">
-<h2><span class="header-section-number">3.8</span> Monte Carlo Integration<a href="monte-carlo-integration.html#monte-carlo-integration" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="monte-carlo-integration" class="section level2 hasAnchor" number="3.9">
+<h2><span class="header-section-number">3.9</span> Monte Carlo Integration<a href="monte-carlo-integration.html#monte-carlo-integration" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Monte Carlo integration is an empirical way to solve the integrals related to the posterior mean and variance. The population expectation, <span class="math inline">\(E[X] = \int_{-\infty}^\infty x f(x) dx\)</span>, and variance <span class="math inline">\(Var(X) = E(X-EX)^2 = \int_{-\infty}^\infty (x - EX)^2f(x)dx\)</span>, are both integrals.</p>
 <p>You can use Monte Carlo to evaluate an integral such as <span class="math inline">\(A=\int_0^1 20x(1-x)^3dx\)</span>. If you randomly select <span class="math inline">\(n\)</span> points from a defined space <span class="math inline">\(D\)</span>, the number <span class="math inline">\(z\)</span> enclosed by the integral will follow a binomial distribution, <span class="math inline">\(Z \sim \text{Bin} (n, p)\)</span> with <span class="math inline">\(E[Z] = np = n \frac{A}{D}\)</span> and variance <span class="math inline">\(Var[Z] = np(1-p) = n \frac{A}{D} \left(1-\frac{A}{D}\right)\)</span>. If you know the enclosing area, then you can infer the integral area,</p>
 <p><span class="math display" id="eq:monte-carlo-est">\[
@@ -304,159 +313,159 @@ div.csl-indent {
 \end{equation}
 \]</span></p>
 <p>Notice how the Monte Carlo standard error increases with D and decreases with <span class="math inline">\(n\)</span>. Let’s try it. Generate 1,000 points uniformly in the domain [0,1] x [0, 3], then check whether they are below the <code>f()</code> curve.</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="monte-carlo-integration.html#cb103-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>) </span>
-<span id="cb103-2"><a href="monte-carlo-integration.html#cb103-2" tabindex="-1"></a></span>
-<span id="cb103-3"><a href="monte-carlo-integration.html#cb103-3" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {<span class="dv">20</span><span class="sc">*</span>x<span class="sc">*</span>(<span class="dv">1</span> <span class="sc">-</span> x)<span class="sc">^</span><span class="dv">3</span>}</span>
-<span id="cb103-4"><a href="monte-carlo-integration.html#cb103-4" tabindex="-1"></a></span>
-<span id="cb103-5"><a href="monte-carlo-integration.html#cb103-5" tabindex="-1"></a><span class="co"># Defined area</span></span>
-<span id="cb103-6"><a href="monte-carlo-integration.html#cb103-6" tabindex="-1"></a>D <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">*</span> <span class="dv">3</span></span>
-<span id="cb103-7"><a href="monte-carlo-integration.html#cb103-7" tabindex="-1"></a></span>
-<span id="cb103-8"><a href="monte-carlo-integration.html#cb103-8" tabindex="-1"></a><span class="co"># n random points in defined area.</span></span>
-<span id="cb103-9"><a href="monte-carlo-integration.html#cb103-9" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
-<span id="cb103-10"><a href="monte-carlo-integration.html#cb103-10" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb103-11"><a href="monte-carlo-integration.html#cb103-11" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">3</span>)</span>
-<span id="cb103-12"><a href="monte-carlo-integration.html#cb103-12" tabindex="-1"></a></span>
-<span id="cb103-13"><a href="monte-carlo-integration.html#cb103-13" tabindex="-1"></a>is_under <span class="ot">&lt;-</span> y <span class="sc">&lt;=</span> <span class="fu">f</span>(x)</span>
-<span id="cb103-14"><a href="monte-carlo-integration.html#cb103-14" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">sum</span>(is_under)</span>
-<span id="cb103-15"><a href="monte-carlo-integration.html#cb103-15" tabindex="-1"></a></span>
-<span id="cb103-16"><a href="monte-carlo-integration.html#cb103-16" tabindex="-1"></a><span class="co"># Area is percent of points under the curve</span></span>
-<span id="cb103-17"><a href="monte-carlo-integration.html#cb103-17" tabindex="-1"></a>(A_hat <span class="ot">&lt;-</span> z <span class="sc">/</span> n <span class="sc">*</span> D)</span>
-<span id="cb103-18"><a href="monte-carlo-integration.html#cb103-18" tabindex="-1"></a><span class="do">## [1] 0.918</span></span>
-<span id="cb103-19"><a href="monte-carlo-integration.html#cb103-19" tabindex="-1"></a>(se <span class="ot">&lt;-</span> D <span class="sc">/</span> <span class="fu">sqrt</span>(n) <span class="sc">*</span> <span class="fu">sqrt</span>(z<span class="sc">/</span>n <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> z<span class="sc">/</span>n)))</span>
-<span id="cb103-20"><a href="monte-carlo-integration.html#cb103-20" tabindex="-1"></a><span class="do">## [1] 0.04371814</span></span>
-<span id="cb103-21"><a href="monte-carlo-integration.html#cb103-21" tabindex="-1"></a></span>
-<span id="cb103-22"><a href="monte-carlo-integration.html#cb103-22" tabindex="-1"></a><span class="fu">tibble</span>(x, <span class="at">f =</span> <span class="fu">f</span>(x), <span class="at">rand_y =</span> y, is_under) <span class="sc">%&gt;%</span> </span>
-<span id="cb103-23"><a href="monte-carlo-integration.html#cb103-23" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span> </span>
-<span id="cb103-24"><a href="monte-carlo-integration.html#cb103-24" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="fu">aes</span>(<span class="at">y =</span> f)) <span class="sc">+</span> </span>
-<span id="cb103-25"><a href="monte-carlo-integration.html#cb103-25" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> rand_y, <span class="at">color =</span> is_under), <span class="at">show.legend =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<p><img src="statistics_files/figure-html/unnamed-chunk-61-1.png" width="672" /></p>
-<div id="inverse-sampling" class="section level3 hasAnchor" number="3.8.1">
-<h3><span class="header-section-number">3.8.1</span> Inverse Sampling<a href="monte-carlo-integration.html#inverse-sampling" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="monte-carlo-integration.html#cb149-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>) </span>
+<span id="cb149-2"><a href="monte-carlo-integration.html#cb149-2" tabindex="-1"></a></span>
+<span id="cb149-3"><a href="monte-carlo-integration.html#cb149-3" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {<span class="dv">20</span><span class="sc">*</span>x<span class="sc">*</span>(<span class="dv">1</span> <span class="sc">-</span> x)<span class="sc">^</span><span class="dv">3</span>}</span>
+<span id="cb149-4"><a href="monte-carlo-integration.html#cb149-4" tabindex="-1"></a></span>
+<span id="cb149-5"><a href="monte-carlo-integration.html#cb149-5" tabindex="-1"></a><span class="co"># Defined area</span></span>
+<span id="cb149-6"><a href="monte-carlo-integration.html#cb149-6" tabindex="-1"></a>D <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">*</span> <span class="dv">3</span></span>
+<span id="cb149-7"><a href="monte-carlo-integration.html#cb149-7" tabindex="-1"></a></span>
+<span id="cb149-8"><a href="monte-carlo-integration.html#cb149-8" tabindex="-1"></a><span class="co"># n random points in defined area.</span></span>
+<span id="cb149-9"><a href="monte-carlo-integration.html#cb149-9" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb149-10"><a href="monte-carlo-integration.html#cb149-10" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb149-11"><a href="monte-carlo-integration.html#cb149-11" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">3</span>)</span>
+<span id="cb149-12"><a href="monte-carlo-integration.html#cb149-12" tabindex="-1"></a></span>
+<span id="cb149-13"><a href="monte-carlo-integration.html#cb149-13" tabindex="-1"></a>is_under <span class="ot">&lt;-</span> y <span class="sc">&lt;=</span> <span class="fu">f</span>(x)</span>
+<span id="cb149-14"><a href="monte-carlo-integration.html#cb149-14" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">sum</span>(is_under)</span>
+<span id="cb149-15"><a href="monte-carlo-integration.html#cb149-15" tabindex="-1"></a></span>
+<span id="cb149-16"><a href="monte-carlo-integration.html#cb149-16" tabindex="-1"></a><span class="co"># Area is percent of points under the curve</span></span>
+<span id="cb149-17"><a href="monte-carlo-integration.html#cb149-17" tabindex="-1"></a>(A_hat <span class="ot">&lt;-</span> z <span class="sc">/</span> n <span class="sc">*</span> D)</span>
+<span id="cb149-18"><a href="monte-carlo-integration.html#cb149-18" tabindex="-1"></a><span class="do">## [1] 0.918</span></span>
+<span id="cb149-19"><a href="monte-carlo-integration.html#cb149-19" tabindex="-1"></a>(se <span class="ot">&lt;-</span> D <span class="sc">/</span> <span class="fu">sqrt</span>(n) <span class="sc">*</span> <span class="fu">sqrt</span>(z<span class="sc">/</span>n <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> z<span class="sc">/</span>n)))</span>
+<span id="cb149-20"><a href="monte-carlo-integration.html#cb149-20" tabindex="-1"></a><span class="do">## [1] 0.04371814</span></span>
+<span id="cb149-21"><a href="monte-carlo-integration.html#cb149-21" tabindex="-1"></a></span>
+<span id="cb149-22"><a href="monte-carlo-integration.html#cb149-22" tabindex="-1"></a><span class="fu">tibble</span>(x, <span class="at">f =</span> <span class="fu">f</span>(x), <span class="at">rand_y =</span> y, is_under) <span class="sc">%&gt;%</span> </span>
+<span id="cb149-23"><a href="monte-carlo-integration.html#cb149-23" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span> </span>
+<span id="cb149-24"><a href="monte-carlo-integration.html#cb149-24" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="fu">aes</span>(<span class="at">y =</span> f)) <span class="sc">+</span> </span>
+<span id="cb149-25"><a href="monte-carlo-integration.html#cb149-25" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> rand_y, <span class="at">color =</span> is_under), <span class="at">show.legend =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p><img src="statistics_files/figure-html/unnamed-chunk-68-1.png" width="672" /></p>
+<div id="inverse-sampling" class="section level3 hasAnchor" number="3.9.1">
+<h3><span class="header-section-number">3.9.1</span> Inverse Sampling<a href="monte-carlo-integration.html#inverse-sampling" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In Bayesian analysis, you do not always have a pre-defined distribution to sample from. In these cases, you may be able to use <em>inverse sampling</em>. Given <span class="math inline">\(f(x)\)</span>, the corresponding CDF is <span class="math inline">\(F(x) = \int_0^x f(x)dx\)</span>. Derive its inverse by solving <span class="math inline">\(F(x)\)</span> for <span class="math inline">\(x\)</span>. To inverse sample, sample from <span class="math inline">\(U(0,1)\)</span> and evaluate <span class="math inline">\(x = F^{-1}(u)\)</span>.</p>
 <p>Here is an example. Suppose <span class="math inline">\(f(x) = 2x\)</span> on <span class="math inline">\(x \in [0,1]\)</span> and 0 otherwise. Then <span class="math inline">\(F(x) = x^2 = u\)</span> and solving <span class="math inline">\(F(x)\)</span> for <span class="math inline">\(x\)</span>, <span class="math inline">\(F^{-1}(u) = \sqrt{u}\)</span>.</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="monte-carlo-integration.html#cb104-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
-<span id="cb104-2"><a href="monte-carlo-integration.html#cb104-2" tabindex="-1"></a></span>
-<span id="cb104-3"><a href="monte-carlo-integration.html#cb104-3" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">10</span><span class="sc">^</span><span class="dv">4</span>)</span>
-<span id="cb104-4"><a href="monte-carlo-integration.html#cb104-4" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(u)</span>
-<span id="cb104-5"><a href="monte-carlo-integration.html#cb104-5" tabindex="-1"></a></span>
-<span id="cb104-6"><a href="monte-carlo-integration.html#cb104-6" tabindex="-1"></a><span class="fu">tibble</span>(x, <span class="at">c =</span> <span class="dv">2</span><span class="sc">*</span>x) <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span> <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">&quot;salmon&quot;</span>) <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> c))</span></code></pre></div>
-<p><img src="statistics_files/figure-html/unnamed-chunk-62-1.png" width="672" /></p>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="monte-carlo-integration.html#cb150-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
+<span id="cb150-2"><a href="monte-carlo-integration.html#cb150-2" tabindex="-1"></a></span>
+<span id="cb150-3"><a href="monte-carlo-integration.html#cb150-3" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">10</span><span class="sc">^</span><span class="dv">4</span>)</span>
+<span id="cb150-4"><a href="monte-carlo-integration.html#cb150-4" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(u)</span>
+<span id="cb150-5"><a href="monte-carlo-integration.html#cb150-5" tabindex="-1"></a></span>
+<span id="cb150-6"><a href="monte-carlo-integration.html#cb150-6" tabindex="-1"></a><span class="fu">tibble</span>(x, <span class="at">c =</span> <span class="dv">2</span><span class="sc">*</span>x) <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span> <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">&quot;salmon&quot;</span>) <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> c))</span></code></pre></div>
+<p><img src="statistics_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
 <p>Suppose <span class="math inline">\(f(x) = \lambda e^{-\lambda x}\)</span> on <span class="math inline">\(x \in [0,1]\)</span> and 0 otherwise. Then <span class="math inline">\(F(x) = 1 - e^{-\lambda x} = u\)</span> and <span class="math inline">\(F^{-1}(u) = - \frac{1}{\lambda} \ln [1-u]\)</span>.</p>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="monte-carlo-integration.html#cb105-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
-<span id="cb105-2"><a href="monte-carlo-integration.html#cb105-2" tabindex="-1"></a></span>
-<span id="cb105-3"><a href="monte-carlo-integration.html#cb105-3" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">10</span><span class="sc">^</span><span class="dv">4</span>)</span>
-<span id="cb105-4"><a href="monte-carlo-integration.html#cb105-4" tabindex="-1"></a></span>
-<span id="cb105-5"><a href="monte-carlo-integration.html#cb105-5" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb105-6"><a href="monte-carlo-integration.html#cb105-6" tabindex="-1"></a></span>
-<span id="cb105-7"><a href="monte-carlo-integration.html#cb105-7" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="sc">-</span> (<span class="dv">1</span> <span class="sc">/</span> lambda) <span class="sc">*</span> <span class="fu">log</span>(<span class="dv">1</span> <span class="sc">-</span> u)</span>
-<span id="cb105-8"><a href="monte-carlo-integration.html#cb105-8" tabindex="-1"></a></span>
-<span id="cb105-9"><a href="monte-carlo-integration.html#cb105-9" tabindex="-1"></a><span class="fu">tibble</span>(x, <span class="at">c =</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">2</span><span class="sc">*</span>x)) <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span> <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">&quot;salmon&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb105-10"><a href="monte-carlo-integration.html#cb105-10" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> c))</span></code></pre></div>
-<p><img src="statistics_files/figure-html/unnamed-chunk-63-1.png" width="672" /></p>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="monte-carlo-integration.html#cb151-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
+<span id="cb151-2"><a href="monte-carlo-integration.html#cb151-2" tabindex="-1"></a></span>
+<span id="cb151-3"><a href="monte-carlo-integration.html#cb151-3" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">10</span><span class="sc">^</span><span class="dv">4</span>)</span>
+<span id="cb151-4"><a href="monte-carlo-integration.html#cb151-4" tabindex="-1"></a></span>
+<span id="cb151-5"><a href="monte-carlo-integration.html#cb151-5" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb151-6"><a href="monte-carlo-integration.html#cb151-6" tabindex="-1"></a></span>
+<span id="cb151-7"><a href="monte-carlo-integration.html#cb151-7" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="sc">-</span> (<span class="dv">1</span> <span class="sc">/</span> lambda) <span class="sc">*</span> <span class="fu">log</span>(<span class="dv">1</span> <span class="sc">-</span> u)</span>
+<span id="cb151-8"><a href="monte-carlo-integration.html#cb151-8" tabindex="-1"></a></span>
+<span id="cb151-9"><a href="monte-carlo-integration.html#cb151-9" tabindex="-1"></a><span class="fu">tibble</span>(x, <span class="at">c =</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">2</span><span class="sc">*</span>x)) <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span> <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">&quot;salmon&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb151-10"><a href="monte-carlo-integration.html#cb151-10" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> c))</span></code></pre></div>
+<p><img src="statistics_files/figure-html/unnamed-chunk-70-1.png" width="672" /></p>
 </div>
-<div id="rejection-sampling" class="section level3 hasAnchor" number="3.8.2">
-<h3><span class="header-section-number">3.8.2</span> Rejection Sampling<a href="monte-carlo-integration.html#rejection-sampling" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="rejection-sampling-1" class="section level3 hasAnchor" number="3.9.2">
+<h3><span class="header-section-number">3.9.2</span> Rejection Sampling<a href="monte-carlo-integration.html#rejection-sampling-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The problem is that inverse sampling only works when <span class="math inline">\(F(x)\)</span> is invertible. Another option is rejection sampling. Suppose you cannot sample from <span class="math inline">\(f_X(x)\)</span> but you can from <span class="math inline">\(g_X(x)\)</span> and the importance ratio <span class="math inline">\(\frac{f_X(x)}{g_X(x)} &lt;= M\)</span> for all <span class="math inline">\(x\)</span>. Then you can sample <span class="math inline">\(x\)</span> from <span class="math inline">\(g_X(x)\)</span>, then draw from <span class="math inline">\(u \sim U(0,1)\)</span> and accept <span class="math inline">\(y = x\)</span> with probability <span class="math inline">\(\frac{f_X(x)}{M g_X(x)}\)</span>, i.e., if accepts if <span class="math inline">\(u \ge \frac{f_X(x)}{M g_X(x)}\)</span>.</p>
 <p>Return to the example where <span class="math inline">\(f(x) = 2x\)</span> on <span class="math inline">\(x \in [0,1]\)</span>. Consider <span class="math inline">\(g(x) = 1\)</span> on <span class="math inline">\(x \in [0,1]\)</span>, the pdf of uniform distribution. The ratio <span class="math inline">\({f(x)}{g(x)} = 2x \le 2\)</span> for <span class="math inline">\(x \in [0,1]\)</span>. So it is bounded by <span class="math inline">\(M = 2\)</span>. Accept <span class="math inline">\(x\)</span> with probability <span class="math inline">\(\frac{f_X(x)}{M g_X(x)} = \frac{2x}{2 \cdot 1} = x\)</span>.</p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="monte-carlo-integration.html#cb106-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
-<span id="cb106-2"><a href="monte-carlo-integration.html#cb106-2" tabindex="-1"></a></span>
-<span id="cb106-3"><a href="monte-carlo-integration.html#cb106-3" tabindex="-1"></a><span class="co"># g(x) is uniform dist</span></span>
-<span id="cb106-4"><a href="monte-carlo-integration.html#cb106-4" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">10</span><span class="sc">^</span><span class="dv">4</span>)</span>
-<span id="cb106-5"><a href="monte-carlo-integration.html#cb106-5" tabindex="-1"></a></span>
-<span id="cb106-6"><a href="monte-carlo-integration.html#cb106-6" tabindex="-1"></a><span class="co"># probability of acceptance = x</span></span>
-<span id="cb106-7"><a href="monte-carlo-integration.html#cb106-7" tabindex="-1"></a>p_acc <span class="ot">&lt;-</span> x</span>
-<span id="cb106-8"><a href="monte-carlo-integration.html#cb106-8" tabindex="-1"></a></span>
-<span id="cb106-9"><a href="monte-carlo-integration.html#cb106-9" tabindex="-1"></a><span class="co"># Draw from u</span></span>
-<span id="cb106-10"><a href="monte-carlo-integration.html#cb106-10" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">10</span><span class="sc">^</span><span class="dv">4</span>)</span>
-<span id="cb106-11"><a href="monte-carlo-integration.html#cb106-11" tabindex="-1"></a>is_in <span class="ot">&lt;-</span> u <span class="sc">&lt;</span> p_acc</span>
-<span id="cb106-12"><a href="monte-carlo-integration.html#cb106-12" tabindex="-1"></a></span>
-<span id="cb106-13"><a href="monte-carlo-integration.html#cb106-13" tabindex="-1"></a><span class="co"># Keep the accepted ones</span></span>
-<span id="cb106-14"><a href="monte-carlo-integration.html#cb106-14" tabindex="-1"></a>my_sample <span class="ot">&lt;-</span> x[is_in]</span>
-<span id="cb106-15"><a href="monte-carlo-integration.html#cb106-15" tabindex="-1"></a></span>
-<span id="cb106-16"><a href="monte-carlo-integration.html#cb106-16" tabindex="-1"></a><span class="co"># Only kept a little more than half - no very efficient.</span></span>
-<span id="cb106-17"><a href="monte-carlo-integration.html#cb106-17" tabindex="-1"></a><span class="fu">length</span>(my_sample)</span></code></pre></div>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="monte-carlo-integration.html#cb152-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
+<span id="cb152-2"><a href="monte-carlo-integration.html#cb152-2" tabindex="-1"></a></span>
+<span id="cb152-3"><a href="monte-carlo-integration.html#cb152-3" tabindex="-1"></a><span class="co"># g(x) is uniform dist</span></span>
+<span id="cb152-4"><a href="monte-carlo-integration.html#cb152-4" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">10</span><span class="sc">^</span><span class="dv">4</span>)</span>
+<span id="cb152-5"><a href="monte-carlo-integration.html#cb152-5" tabindex="-1"></a></span>
+<span id="cb152-6"><a href="monte-carlo-integration.html#cb152-6" tabindex="-1"></a><span class="co"># probability of acceptance = x</span></span>
+<span id="cb152-7"><a href="monte-carlo-integration.html#cb152-7" tabindex="-1"></a>p_acc <span class="ot">&lt;-</span> x</span>
+<span id="cb152-8"><a href="monte-carlo-integration.html#cb152-8" tabindex="-1"></a></span>
+<span id="cb152-9"><a href="monte-carlo-integration.html#cb152-9" tabindex="-1"></a><span class="co"># Draw from u</span></span>
+<span id="cb152-10"><a href="monte-carlo-integration.html#cb152-10" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">10</span><span class="sc">^</span><span class="dv">4</span>)</span>
+<span id="cb152-11"><a href="monte-carlo-integration.html#cb152-11" tabindex="-1"></a>is_in <span class="ot">&lt;-</span> u <span class="sc">&lt;</span> p_acc</span>
+<span id="cb152-12"><a href="monte-carlo-integration.html#cb152-12" tabindex="-1"></a></span>
+<span id="cb152-13"><a href="monte-carlo-integration.html#cb152-13" tabindex="-1"></a><span class="co"># Keep the accepted ones</span></span>
+<span id="cb152-14"><a href="monte-carlo-integration.html#cb152-14" tabindex="-1"></a>my_sample <span class="ot">&lt;-</span> x[is_in]</span>
+<span id="cb152-15"><a href="monte-carlo-integration.html#cb152-15" tabindex="-1"></a></span>
+<span id="cb152-16"><a href="monte-carlo-integration.html#cb152-16" tabindex="-1"></a><span class="co"># Only kept a little more than half - no very efficient.</span></span>
+<span id="cb152-17"><a href="monte-carlo-integration.html#cb152-17" tabindex="-1"></a><span class="fu">length</span>(my_sample)</span></code></pre></div>
 <pre><code>## [1] 5017</code></pre>
 <p>Suppose <span class="math inline">\(f(x) = 6x(1-x)\)</span> on <span class="math inline">\(x \in [0,1]\)</span>. Consider <span class="math inline">\(g(x) = 1\)</span> on <span class="math inline">\(x \in [0,1]\)</span>, the pdf of uniform distribution. The ratio <span class="math inline">\({f(x)}{g(x)} = 6x(1-x) \le 1.5\)</span> for <span class="math inline">\(x \in [0,1]\)</span>. So it is bounded by <span class="math inline">\(M = 1.5\)</span>. Accept <span class="math inline">\(x\)</span> with probability <span class="math inline">\(\frac{f_X(x)}{M g_X(x)} = \frac{6x(1-x)}{1.5 \cdot 1} = 4x(1 - x)\)</span>.</p>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="monte-carlo-integration.html#cb108-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
-<span id="cb108-2"><a href="monte-carlo-integration.html#cb108-2" tabindex="-1"></a></span>
-<span id="cb108-3"><a href="monte-carlo-integration.html#cb108-3" tabindex="-1"></a><span class="co"># g(x) is uniform dist</span></span>
-<span id="cb108-4"><a href="monte-carlo-integration.html#cb108-4" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">10</span><span class="sc">^</span><span class="dv">4</span>)</span>
-<span id="cb108-5"><a href="monte-carlo-integration.html#cb108-5" tabindex="-1"></a></span>
-<span id="cb108-6"><a href="monte-carlo-integration.html#cb108-6" tabindex="-1"></a><span class="co"># probability of acceptance = </span></span>
-<span id="cb108-7"><a href="monte-carlo-integration.html#cb108-7" tabindex="-1"></a>p_acc <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="sc">*</span> x <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> x)</span>
-<span id="cb108-8"><a href="monte-carlo-integration.html#cb108-8" tabindex="-1"></a></span>
-<span id="cb108-9"><a href="monte-carlo-integration.html#cb108-9" tabindex="-1"></a><span class="co"># Draw from u</span></span>
-<span id="cb108-10"><a href="monte-carlo-integration.html#cb108-10" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">10</span><span class="sc">^</span><span class="dv">4</span>)</span>
-<span id="cb108-11"><a href="monte-carlo-integration.html#cb108-11" tabindex="-1"></a>is_in <span class="ot">&lt;-</span> u <span class="sc">&lt;</span> p_acc</span>
-<span id="cb108-12"><a href="monte-carlo-integration.html#cb108-12" tabindex="-1"></a></span>
-<span id="cb108-13"><a href="monte-carlo-integration.html#cb108-13" tabindex="-1"></a><span class="co"># The overall acceptance probability </span></span>
-<span id="cb108-14"><a href="monte-carlo-integration.html#cb108-14" tabindex="-1"></a><span class="fu">mean</span>(is_in)</span></code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="monte-carlo-integration.html#cb154-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
+<span id="cb154-2"><a href="monte-carlo-integration.html#cb154-2" tabindex="-1"></a></span>
+<span id="cb154-3"><a href="monte-carlo-integration.html#cb154-3" tabindex="-1"></a><span class="co"># g(x) is uniform dist</span></span>
+<span id="cb154-4"><a href="monte-carlo-integration.html#cb154-4" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">10</span><span class="sc">^</span><span class="dv">4</span>)</span>
+<span id="cb154-5"><a href="monte-carlo-integration.html#cb154-5" tabindex="-1"></a></span>
+<span id="cb154-6"><a href="monte-carlo-integration.html#cb154-6" tabindex="-1"></a><span class="co"># probability of acceptance = </span></span>
+<span id="cb154-7"><a href="monte-carlo-integration.html#cb154-7" tabindex="-1"></a>p_acc <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="sc">*</span> x <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> x)</span>
+<span id="cb154-8"><a href="monte-carlo-integration.html#cb154-8" tabindex="-1"></a></span>
+<span id="cb154-9"><a href="monte-carlo-integration.html#cb154-9" tabindex="-1"></a><span class="co"># Draw from u</span></span>
+<span id="cb154-10"><a href="monte-carlo-integration.html#cb154-10" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">10</span><span class="sc">^</span><span class="dv">4</span>)</span>
+<span id="cb154-11"><a href="monte-carlo-integration.html#cb154-11" tabindex="-1"></a>is_in <span class="ot">&lt;-</span> u <span class="sc">&lt;</span> p_acc</span>
+<span id="cb154-12"><a href="monte-carlo-integration.html#cb154-12" tabindex="-1"></a></span>
+<span id="cb154-13"><a href="monte-carlo-integration.html#cb154-13" tabindex="-1"></a><span class="co"># The overall acceptance probability </span></span>
+<span id="cb154-14"><a href="monte-carlo-integration.html#cb154-14" tabindex="-1"></a><span class="fu">mean</span>(is_in)</span></code></pre></div>
 <pre><code>## [1] 0.6728</code></pre>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="monte-carlo-integration.html#cb110-1" tabindex="-1"></a><span class="co"># Keep the accepted ones</span></span>
-<span id="cb110-2"><a href="monte-carlo-integration.html#cb110-2" tabindex="-1"></a>my_sample <span class="ot">&lt;-</span> x[is_in]</span>
-<span id="cb110-3"><a href="monte-carlo-integration.html#cb110-3" tabindex="-1"></a></span>
-<span id="cb110-4"><a href="monte-carlo-integration.html#cb110-4" tabindex="-1"></a><span class="co"># Only kept a little more than half - no very efficient.</span></span>
-<span id="cb110-5"><a href="monte-carlo-integration.html#cb110-5" tabindex="-1"></a><span class="fu">length</span>(my_sample)</span></code></pre></div>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="monte-carlo-integration.html#cb156-1" tabindex="-1"></a><span class="co"># Keep the accepted ones</span></span>
+<span id="cb156-2"><a href="monte-carlo-integration.html#cb156-2" tabindex="-1"></a>my_sample <span class="ot">&lt;-</span> x[is_in]</span>
+<span id="cb156-3"><a href="monte-carlo-integration.html#cb156-3" tabindex="-1"></a></span>
+<span id="cb156-4"><a href="monte-carlo-integration.html#cb156-4" tabindex="-1"></a><span class="co"># Only kept a little more than half - no very efficient.</span></span>
+<span id="cb156-5"><a href="monte-carlo-integration.html#cb156-5" tabindex="-1"></a><span class="fu">length</span>(my_sample)</span></code></pre></div>
 <pre><code>## [1] 6728</code></pre>
 </div>
-<div id="importance-sampling" class="section level3 hasAnchor" number="3.8.3">
-<h3><span class="header-section-number">3.8.3</span> Importance Sampling<a href="monte-carlo-integration.html#importance-sampling" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="importance-sampling" class="section level3 hasAnchor" number="3.9.3">
+<h3><span class="header-section-number">3.9.3</span> Importance Sampling<a href="monte-carlo-integration.html#importance-sampling" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Importance sampling allows to substitute sampling from a “difficult” distribution with sampling from an “easy” one. Suppose you have a random variable <span class="math inline">\(x\)</span> with PDF <span class="math inline">\(f(x)\)</span>. The expected value of a function of <span class="math inline">\(x\)</span>, <span class="math inline">\(h(x)\)</span> is defined by <span class="math inline">\(E(h(x)) = \int h(x)f(x)dx\)</span>. Using the law of large numbers, you can approximate <span class="math inline">\(E(h(x))\)</span> by its average value, <span class="math inline">\(\frac{1}{n} \sum_i h(x_i)\)</span>. So you would sample from <span class="math inline">\(f(x)\)</span>, multiply by <span class="math inline">\(h(x)\)</span>, and take the average.</p>
 <p>What would you do if you did not know how to sample from <span class="math inline">\(f(x)\)</span>? Instead you could identify a function you could sample from, and evaluate the integral of the ratio, <span class="math inline">\(E(h(x)) = \int\left[ h(x) \frac{f(x)}{g(x)}\right] g(x) dx\)</span>. With the law of large numbers, <span class="math inline">\(E(h(x)) = \frac{1}{n}\sum_i\left[h(x_i) \frac{f(x_i)}{g(x_i)} \right]\)</span>. The ratios <span class="math inline">\(w(x_i) = \frac{f(x_i)}{g(x_i)}\)</span> are called importance weights. Importance weights tell you how useful each observation is.</p>
 <p>Suppose you have a random variable <span class="math inline">\(x\)</span> with PDF <span class="math inline">\(f(x) = 25xe^{-5x} = \text{Gamma}(2,5)\)</span> for <span class="math inline">\(X&gt;0\)</span>. If you wanted to know the expected value of <span class="math inline">\(h(x) = x\)</span> could sample straight from <code>rgamma()</code> and take the average.</p>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="monte-carlo-integration.html#cb112-1" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">rgamma</span>(<span class="dv">10</span><span class="sc">^</span><span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">5</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="monte-carlo-integration.html#cb158-1" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">rgamma</span>(<span class="dv">10</span><span class="sc">^</span><span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">5</span>))</span></code></pre></div>
 <pre><code>## [1] 0.4011863</code></pre>
 <p>Great, if <code>rgamma()</code> wasn’t an option, how would you evaluate <span class="math inline">\(\int_0^\infty x f(x)dx = \int_0^\infty 25x^2e^{-5x}dx\)</span>? Let <span class="math inline">\(g(x) = 5e^{-5x}\)</span>. Then <span class="math inline">\(E(h(x)) = \frac{1}{n}\sum_i\left[x \frac{25xe^{-5x}}{5e^{-5x}} \right] = \frac{1}{n}\sum_i 5x_i^2\)</span></p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="monte-carlo-integration.html#cb114-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
-<span id="cb114-2"><a href="monte-carlo-integration.html#cb114-2" tabindex="-1"></a></span>
-<span id="cb114-3"><a href="monte-carlo-integration.html#cb114-3" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">rexp</span>(<span class="dv">10</span><span class="sc">^</span><span class="dv">5</span>, <span class="dv">5</span>)</span>
-<span id="cb114-4"><a href="monte-carlo-integration.html#cb114-4" tabindex="-1"></a></span>
-<span id="cb114-5"><a href="monte-carlo-integration.html#cb114-5" tabindex="-1"></a><span class="fu">mean</span>(<span class="dv">5</span><span class="sc">*</span>g<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="monte-carlo-integration.html#cb160-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
+<span id="cb160-2"><a href="monte-carlo-integration.html#cb160-2" tabindex="-1"></a></span>
+<span id="cb160-3"><a href="monte-carlo-integration.html#cb160-3" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">rexp</span>(<span class="dv">10</span><span class="sc">^</span><span class="dv">5</span>, <span class="dv">5</span>)</span>
+<span id="cb160-4"><a href="monte-carlo-integration.html#cb160-4" tabindex="-1"></a></span>
+<span id="cb160-5"><a href="monte-carlo-integration.html#cb160-5" tabindex="-1"></a><span class="fu">mean</span>(<span class="dv">5</span><span class="sc">*</span>g<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 0.3986298</code></pre>
 <p>Great, if <code>rgamma()</code> wasn’t an option, how would you evaluate <span class="math inline">\(\int_0^\infty x f(x)dx = \int_0^\infty 25x^2e^{-5x}dx\)</span>? Let <span class="math inline">\(g(x) = 5e^{-5x}\)</span>. Then <span class="math inline">\(E(h(x)) = \frac{1}{n}\sum_i\left[x \frac{25xe^{-5x}}{5e^{-5x}} \right] = \frac{1}{n}\sum_i 5x_i^2\)</span></p>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="monte-carlo-integration.html#cb116-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
-<span id="cb116-2"><a href="monte-carlo-integration.html#cb116-2" tabindex="-1"></a></span>
-<span id="cb116-3"><a href="monte-carlo-integration.html#cb116-3" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">rexp</span>(<span class="dv">10</span><span class="sc">^</span><span class="dv">5</span>, <span class="dv">5</span>)</span>
-<span id="cb116-4"><a href="monte-carlo-integration.html#cb116-4" tabindex="-1"></a></span>
-<span id="cb116-5"><a href="monte-carlo-integration.html#cb116-5" tabindex="-1"></a><span class="fu">mean</span>(<span class="dv">5</span><span class="sc">*</span>g<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="monte-carlo-integration.html#cb162-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
+<span id="cb162-2"><a href="monte-carlo-integration.html#cb162-2" tabindex="-1"></a></span>
+<span id="cb162-3"><a href="monte-carlo-integration.html#cb162-3" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">rexp</span>(<span class="dv">10</span><span class="sc">^</span><span class="dv">5</span>, <span class="dv">5</span>)</span>
+<span id="cb162-4"><a href="monte-carlo-integration.html#cb162-4" tabindex="-1"></a></span>
+<span id="cb162-5"><a href="monte-carlo-integration.html#cb162-5" tabindex="-1"></a><span class="fu">mean</span>(<span class="dv">5</span><span class="sc">*</span>g<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 0.3986298</code></pre>
 <p>Let’s try another one. Suppose you want to empirically estimate <span class="math inline">\(\int_0^1 x^5(1-x)^5dx\)</span>. First, use the simple Monte Carlo method to estimate the integral.</p>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="monte-carlo-integration.html#cb118-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
-<span id="cb118-2"><a href="monte-carlo-integration.html#cb118-2" tabindex="-1"></a></span>
-<span id="cb118-3"><a href="monte-carlo-integration.html#cb118-3" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {x<span class="sc">^</span><span class="dv">5</span><span class="sc">*</span>(<span class="dv">1</span> <span class="sc">-</span> x)<span class="sc">^</span><span class="dv">5</span>}</span>
-<span id="cb118-4"><a href="monte-carlo-integration.html#cb118-4" tabindex="-1"></a></span>
-<span id="cb118-5"><a href="monte-carlo-integration.html#cb118-5" tabindex="-1"></a><span class="co"># Set the defined area. Plot f(x) over the range of x to set the appropriate limits.</span></span>
-<span id="cb118-6"><a href="monte-carlo-integration.html#cb118-6" tabindex="-1"></a>x_lim <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb118-7"><a href="monte-carlo-integration.html#cb118-7" tabindex="-1"></a>y_lim <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span><span class="sc">^-</span><span class="dv">3</span>)</span>
-<span id="cb118-8"><a href="monte-carlo-integration.html#cb118-8" tabindex="-1"></a>D <span class="ot">&lt;-</span> (x_lim[<span class="dv">2</span>] <span class="sc">-</span> x_lim[<span class="dv">1</span>]) <span class="sc">*</span> (y_lim[<span class="dv">2</span>] <span class="sc">-</span> y_lim[<span class="dv">1</span>])</span>
-<span id="cb118-9"><a href="monte-carlo-integration.html#cb118-9" tabindex="-1"></a></span>
-<span id="cb118-10"><a href="monte-carlo-integration.html#cb118-10" tabindex="-1"></a><span class="co"># Sample from D.</span></span>
-<span id="cb118-11"><a href="monte-carlo-integration.html#cb118-11" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span><span class="sc">^</span><span class="dv">3</span></span>
-<span id="cb118-12"><a href="monte-carlo-integration.html#cb118-12" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, x_lim[<span class="dv">1</span>], x_lim[<span class="dv">2</span>])</span>
-<span id="cb118-13"><a href="monte-carlo-integration.html#cb118-13" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, y_lim[<span class="dv">1</span>], y_lim[<span class="dv">2</span>])</span>
-<span id="cb118-14"><a href="monte-carlo-integration.html#cb118-14" tabindex="-1"></a></span>
-<span id="cb118-15"><a href="monte-carlo-integration.html#cb118-15" tabindex="-1"></a><span class="co"># Area is percent of points under the curve</span></span>
-<span id="cb118-16"><a href="monte-carlo-integration.html#cb118-16" tabindex="-1"></a>is_under <span class="ot">&lt;-</span> y <span class="sc">&lt;=</span> <span class="fu">f</span>(x)</span>
-<span id="cb118-17"><a href="monte-carlo-integration.html#cb118-17" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">sum</span>(is_under)</span>
-<span id="cb118-18"><a href="monte-carlo-integration.html#cb118-18" tabindex="-1"></a>(A_hat <span class="ot">&lt;-</span> z <span class="sc">/</span> n <span class="sc">*</span> D)</span></code></pre></div>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="monte-carlo-integration.html#cb164-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
+<span id="cb164-2"><a href="monte-carlo-integration.html#cb164-2" tabindex="-1"></a></span>
+<span id="cb164-3"><a href="monte-carlo-integration.html#cb164-3" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {x<span class="sc">^</span><span class="dv">5</span><span class="sc">*</span>(<span class="dv">1</span> <span class="sc">-</span> x)<span class="sc">^</span><span class="dv">5</span>}</span>
+<span id="cb164-4"><a href="monte-carlo-integration.html#cb164-4" tabindex="-1"></a></span>
+<span id="cb164-5"><a href="monte-carlo-integration.html#cb164-5" tabindex="-1"></a><span class="co"># Set the defined area. Plot f(x) over the range of x to set the appropriate limits.</span></span>
+<span id="cb164-6"><a href="monte-carlo-integration.html#cb164-6" tabindex="-1"></a>x_lim <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb164-7"><a href="monte-carlo-integration.html#cb164-7" tabindex="-1"></a>y_lim <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span><span class="sc">^-</span><span class="dv">3</span>)</span>
+<span id="cb164-8"><a href="monte-carlo-integration.html#cb164-8" tabindex="-1"></a>D <span class="ot">&lt;-</span> (x_lim[<span class="dv">2</span>] <span class="sc">-</span> x_lim[<span class="dv">1</span>]) <span class="sc">*</span> (y_lim[<span class="dv">2</span>] <span class="sc">-</span> y_lim[<span class="dv">1</span>])</span>
+<span id="cb164-9"><a href="monte-carlo-integration.html#cb164-9" tabindex="-1"></a></span>
+<span id="cb164-10"><a href="monte-carlo-integration.html#cb164-10" tabindex="-1"></a><span class="co"># Sample from D.</span></span>
+<span id="cb164-11"><a href="monte-carlo-integration.html#cb164-11" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span><span class="sc">^</span><span class="dv">3</span></span>
+<span id="cb164-12"><a href="monte-carlo-integration.html#cb164-12" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, x_lim[<span class="dv">1</span>], x_lim[<span class="dv">2</span>])</span>
+<span id="cb164-13"><a href="monte-carlo-integration.html#cb164-13" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, y_lim[<span class="dv">1</span>], y_lim[<span class="dv">2</span>])</span>
+<span id="cb164-14"><a href="monte-carlo-integration.html#cb164-14" tabindex="-1"></a></span>
+<span id="cb164-15"><a href="monte-carlo-integration.html#cb164-15" tabindex="-1"></a><span class="co"># Area is percent of points under the curve</span></span>
+<span id="cb164-16"><a href="monte-carlo-integration.html#cb164-16" tabindex="-1"></a>is_under <span class="ot">&lt;-</span> y <span class="sc">&lt;=</span> <span class="fu">f</span>(x)</span>
+<span id="cb164-17"><a href="monte-carlo-integration.html#cb164-17" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">sum</span>(is_under)</span>
+<span id="cb164-18"><a href="monte-carlo-integration.html#cb164-18" tabindex="-1"></a>(A_hat <span class="ot">&lt;-</span> z <span class="sc">/</span> n <span class="sc">*</span> D)</span></code></pre></div>
 <pre><code>## [1] 0.000366</code></pre>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="monte-carlo-integration.html#cb120-1" tabindex="-1"></a>(se <span class="ot">&lt;-</span> D <span class="sc">/</span> <span class="fu">sqrt</span>(n) <span class="sc">*</span> <span class="fu">sqrt</span>(z<span class="sc">/</span>n <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> z<span class="sc">/</span>n)))</span></code></pre></div>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="monte-carlo-integration.html#cb166-1" tabindex="-1"></a>(se <span class="ot">&lt;-</span> D <span class="sc">/</span> <span class="fu">sqrt</span>(n) <span class="sc">*</span> <span class="fu">sqrt</span>(z<span class="sc">/</span>n <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> z<span class="sc">/</span>n)))</span></code></pre></div>
 <pre><code>## [1] 1.523299e-05</code></pre>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="monte-carlo-integration.html#cb122-1" tabindex="-1"></a><span class="fu">tibble</span>(x, <span class="at">f =</span> <span class="fu">f</span>(x), <span class="at">rand_y =</span> y, is_under) <span class="sc">%&gt;%</span> </span>
-<span id="cb122-2"><a href="monte-carlo-integration.html#cb122-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span> </span>
-<span id="cb122-3"><a href="monte-carlo-integration.html#cb122-3" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="fu">aes</span>(<span class="at">y =</span> f)) <span class="sc">+</span> </span>
-<span id="cb122-4"><a href="monte-carlo-integration.html#cb122-4" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> rand_y, <span class="at">color =</span> is_under), <span class="at">show.legend =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<p><img src="statistics_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="monte-carlo-integration.html#cb168-1" tabindex="-1"></a><span class="fu">tibble</span>(x, <span class="at">f =</span> <span class="fu">f</span>(x), <span class="at">rand_y =</span> y, is_under) <span class="sc">%&gt;%</span> </span>
+<span id="cb168-2"><a href="monte-carlo-integration.html#cb168-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span> </span>
+<span id="cb168-3"><a href="monte-carlo-integration.html#cb168-3" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="fu">aes</span>(<span class="at">y =</span> f)) <span class="sc">+</span> </span>
+<span id="cb168-4"><a href="monte-carlo-integration.html#cb168-4" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> rand_y, <span class="at">color =</span> is_under), <span class="at">show.legend =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p><img src="statistics_files/figure-html/unnamed-chunk-76-1.png" width="672" /></p>
 <p>Now let’s do it with direct sampling. <span class="math inline">\(x^5(1-x)^5\)</span> is almost like the beta function. <span class="math inline">\(\int_0^1 x^5(1-x)^5dx = \int_0^1 \frac{x}{1260} 1260x^4(1-x)^5dx = \int_0^1 \frac{x}{1250} g(x)dx\)</span>.</p>
-<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="monte-carlo-integration.html#cb123-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
-<span id="cb123-2"><a href="monte-carlo-integration.html#cb123-2" tabindex="-1"></a>(A_hat <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">rbeta</span>(n, <span class="dv">5</span>, <span class="dv">6</span>) <span class="sc">/</span> <span class="dv">1260</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="monte-carlo-integration.html#cb169-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
+<span id="cb169-2"><a href="monte-carlo-integration.html#cb169-2" tabindex="-1"></a>(A_hat <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">rbeta</span>(n, <span class="dv">5</span>, <span class="dv">6</span>) <span class="sc">/</span> <span class="dv">1260</span>))</span></code></pre></div>
 <pre><code>## [1] 0.0003606394</code></pre>
 <p>Now let’s do it with importance sampling. Just define <span class="math inline">\(\int_0^1 x^5(1-x)^5dx = \int_0^1 x^5(1-x)^5g(x)dx\)</span> where <span class="math inline">\(g(x) = 1\)</span> is the uniform pdf.</p>
-<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="monte-carlo-integration.html#cb125-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
-<span id="cb125-2"><a href="monte-carlo-integration.html#cb125-2" tabindex="-1"></a></span>
-<span id="cb125-3"><a href="monte-carlo-integration.html#cb125-3" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">10</span><span class="sc">^</span><span class="dv">3</span>)</span>
-<span id="cb125-4"><a href="monte-carlo-integration.html#cb125-4" tabindex="-1"></a></span>
-<span id="cb125-5"><a href="monte-carlo-integration.html#cb125-5" tabindex="-1"></a><span class="fu">mean</span>(g<span class="sc">^</span><span class="dv">5</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>g)<span class="sc">^</span><span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="monte-carlo-integration.html#cb171-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
+<span id="cb171-2"><a href="monte-carlo-integration.html#cb171-2" tabindex="-1"></a></span>
+<span id="cb171-3"><a href="monte-carlo-integration.html#cb171-3" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">10</span><span class="sc">^</span><span class="dv">3</span>)</span>
+<span id="cb171-4"><a href="monte-carlo-integration.html#cb171-4" tabindex="-1"></a></span>
+<span id="cb171-5"><a href="monte-carlo-integration.html#cb171-5" tabindex="-1"></a><span class="fu">mean</span>(g<span class="sc">^</span><span class="dv">5</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>g)<span class="sc">^</span><span class="dv">5</span>)</span></code></pre></div>
 <pre><code>## [1] 0.0003651211</code></pre>
 </div>
 </div>
@@ -466,7 +475,7 @@ div.csl-indent {
         </div>
       </div>
 <a href="dic.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="metropolis-hastings.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="metropolis-hastings-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="assets/gitbook-2.6.7/js/app.min.js"></script>

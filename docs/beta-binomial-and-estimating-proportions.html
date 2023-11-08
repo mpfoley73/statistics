@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3.5 Beta Binomial and Estimating Proportions | Statistical Inference</title>
+  <title>3.6 Beta Binomial and Estimating Proportions | Statistical Inference</title>
   <meta name="description" content="Notes cobbled together from books, online classes, etc. to be used as quick reference for common work projects." />
   <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3.5 Beta Binomial and Estimating Proportions | Statistical Inference" />
+  <meta property="og:title" content="3.6 Beta Binomial and Estimating Proportions | Statistical Inference" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Notes cobbled together from books, online classes, etc. to be used as quick reference for common work projects." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3.5 Beta Binomial and Estimating Proportions | Statistical Inference" />
+  <meta name="twitter:title" content="3.6 Beta Binomial and Estimating Proportions | Statistical Inference" />
   
   <meta name="twitter:description" content="Notes cobbled together from books, online classes, etc. to be used as quick reference for common work projects." />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Michael Foley" />
 
 
-<meta name="date" content="2023-10-31" />
+<meta name="date" content="2023-11-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,8 +54,6 @@
 <script src="assets/anchor-sections-1.1.0/anchor-sections.js"></script>
 <link href="assets/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
 <script src="assets/tabwid-1.1.3/tabwid.js"></script>
-<script src="assets/kePrint-0.0.1/kePrint.js"></script>
-<link href="assets/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -183,26 +181,37 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="3.1" data-path="bayes-theorem.html"><a href="bayes-theorem.html"><i class="fa fa-check"></i><b>3.1</b> Bayes’ Theorem</a></li>
 <li class="chapter" data-level="3.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html"><i class="fa fa-check"></i><b>3.2</b> Bayesian Inference</a></li>
-<li class="chapter" data-level="3.3" data-path="gamma-poisson-and-estimating-counts.html"><a href="gamma-poisson-and-estimating-counts.html"><i class="fa fa-check"></i><b>3.3</b> Gamma Poisson and Estimating Counts</a></li>
-<li class="chapter" data-level="3.4" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html"><i class="fa fa-check"></i><b>3.4</b> Normal and Estimating Means</a>
+<li class="chapter" data-level="3.3" data-path="markov-chain-monte-carlo-mcmc.html"><a href="markov-chain-monte-carlo-mcmc.html"><i class="fa fa-check"></i><b>3.3</b> Markov Chain Monte Carlo (MCMC)</a>
 <ul>
-<li class="chapter" data-level="3.4.1" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#population-estimate"><i class="fa fa-check"></i><b>3.4.1</b> Population Estimate</a></li>
-<li class="chapter" data-level="3.4.2" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#regression"><i class="fa fa-check"></i><b>3.4.2</b> Regression</a></li>
-<li class="chapter" data-level="3.4.3" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#change-point-regression"><i class="fa fa-check"></i><b>3.4.3</b> Change Point Regression</a></li>
+<li class="chapter" data-level="3.3.1" data-path="markov-chain-monte-carlo-mcmc.html"><a href="markov-chain-monte-carlo-mcmc.html#the-classical-approach"><i class="fa fa-check"></i><b>3.3.1</b> The Classical Approach</a></li>
+<li class="chapter" data-level="3.3.2" data-path="markov-chain-monte-carlo-mcmc.html"><a href="markov-chain-monte-carlo-mcmc.html#rejection-sampling"><i class="fa fa-check"></i><b>3.3.2</b> Rejection Sampling</a></li>
+<li class="chapter" data-level="3.3.3" data-path="markov-chain-monte-carlo-mcmc.html"><a href="markov-chain-monte-carlo-mcmc.html#gibbs-sampler"><i class="fa fa-check"></i><b>3.3.3</b> Gibbs Sampler</a></li>
+<li class="chapter" data-level="3.3.4" data-path="markov-chain-monte-carlo-mcmc.html"><a href="markov-chain-monte-carlo-mcmc.html#metropolis-hastings"><i class="fa fa-check"></i><b>3.3.4</b> Metropolis-Hastings</a></li>
+<li class="chapter" data-level="3.3.5" data-path="markov-chain-monte-carlo-mcmc.html"><a href="markov-chain-monte-carlo-mcmc.html#other-notes"><i class="fa fa-check"></i><b>3.3.5</b> Other Notes</a></li>
 </ul></li>
-<li class="chapter" data-level="3.5" data-path="beta-binomial-and-estimating-proportions.html"><a href="beta-binomial-and-estimating-proportions.html"><i class="fa fa-check"></i><b>3.5</b> Beta Binomial and Estimating Proportions</a></li>
-<li class="chapter" data-level="3.6" data-path="zero-inflation-and-latent-variables.html"><a href="zero-inflation-and-latent-variables.html"><i class="fa fa-check"></i><b>3.6</b> Zero-Inflation and Latent Variables</a></li>
-<li class="chapter" data-level="3.7" data-path="dic.html"><a href="dic.html"><i class="fa fa-check"></i><b>3.7</b> DIC</a></li>
-<li class="chapter" data-level="3.8" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html"><i class="fa fa-check"></i><b>3.8</b> Monte Carlo Integration</a>
+<li class="chapter" data-level="3.4" data-path="gamma-poisson-and-estimating-counts.html"><a href="gamma-poisson-and-estimating-counts.html"><i class="fa fa-check"></i><b>3.4</b> Gamma Poisson and Estimating Counts</a></li>
+<li class="chapter" data-level="3.5" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html"><i class="fa fa-check"></i><b>3.5</b> Normal and Estimating Means</a>
 <ul>
-<li class="chapter" data-level="3.8.1" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html#inverse-sampling"><i class="fa fa-check"></i><b>3.8.1</b> Inverse Sampling</a></li>
-<li class="chapter" data-level="3.8.2" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html#rejection-sampling"><i class="fa fa-check"></i><b>3.8.2</b> Rejection Sampling</a></li>
-<li class="chapter" data-level="3.8.3" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html#importance-sampling"><i class="fa fa-check"></i><b>3.8.3</b> Importance Sampling</a></li>
+<li class="chapter" data-level="3.5.1" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#normal-pop-est"><i class="fa fa-check"></i><b>3.5.1</b> Population Estimate</a></li>
+<li class="chapter" data-level="3.5.2" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#regression"><i class="fa fa-check"></i><b>3.5.2</b> Regression</a></li>
+<li class="chapter" data-level="3.5.3" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#generalized-linear-models"><i class="fa fa-check"></i><b>3.5.3</b> Generalized Linear Models</a></li>
+<li class="chapter" data-level="3.5.4" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#missing-data"><i class="fa fa-check"></i><b>3.5.4</b> Missing Data</a></li>
+<li class="chapter" data-level="3.5.5" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#change-point-regression"><i class="fa fa-check"></i><b>3.5.5</b> Change Point Regression</a></li>
+<li class="chapter" data-level="3.5.6" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#cluster-analysis"><i class="fa fa-check"></i><b>3.5.6</b> Cluster Analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="3.9" data-path="metropolis-hastings.html"><a href="metropolis-hastings.html"><i class="fa fa-check"></i><b>3.9</b> Metropolis-Hastings</a></li>
-<li class="chapter" data-level="3.10" data-path="appendix-gentle-introduction.html"><a href="appendix-gentle-introduction.html"><i class="fa fa-check"></i><b>3.10</b> Appendix: Gentle Introduction</a></li>
-<li class="chapter" data-level="3.11" data-path="appendix-bayes-factors.html"><a href="appendix-bayes-factors.html"><i class="fa fa-check"></i><b>3.11</b> Appendix: Bayes Factors</a></li>
-<li class="chapter" data-level="3.12" data-path="further-reading-1.html"><a href="further-reading-1.html"><i class="fa fa-check"></i><b>3.12</b> Further Reading</a></li>
+<li class="chapter" data-level="3.6" data-path="beta-binomial-and-estimating-proportions.html"><a href="beta-binomial-and-estimating-proportions.html"><i class="fa fa-check"></i><b>3.6</b> Beta Binomial and Estimating Proportions</a></li>
+<li class="chapter" data-level="3.7" data-path="zero-inflation-and-latent-variables.html"><a href="zero-inflation-and-latent-variables.html"><i class="fa fa-check"></i><b>3.7</b> Zero-Inflation and Latent Variables</a></li>
+<li class="chapter" data-level="3.8" data-path="dic.html"><a href="dic.html"><i class="fa fa-check"></i><b>3.8</b> DIC</a></li>
+<li class="chapter" data-level="3.9" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html"><i class="fa fa-check"></i><b>3.9</b> Monte Carlo Integration</a>
+<ul>
+<li class="chapter" data-level="3.9.1" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html#inverse-sampling"><i class="fa fa-check"></i><b>3.9.1</b> Inverse Sampling</a></li>
+<li class="chapter" data-level="3.9.2" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html#rejection-sampling-1"><i class="fa fa-check"></i><b>3.9.2</b> Rejection Sampling</a></li>
+<li class="chapter" data-level="3.9.3" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html#importance-sampling"><i class="fa fa-check"></i><b>3.9.3</b> Importance Sampling</a></li>
+</ul></li>
+<li class="chapter" data-level="3.10" data-path="metropolis-hastings-1.html"><a href="metropolis-hastings-1.html"><i class="fa fa-check"></i><b>3.10</b> Metropolis-Hastings</a></li>
+<li class="chapter" data-level="3.11" data-path="mixed-effects-linear-regression.html"><a href="mixed-effects-linear-regression.html"><i class="fa fa-check"></i><b>3.11</b> Mixed Effects Linear Regression</a></li>
+<li class="chapter" data-level="3.12" data-path="appendix-bayes-factors.html"><a href="appendix-bayes-factors.html"><i class="fa fa-check"></i><b>3.12</b> Appendix: Bayes Factors</a></li>
+<li class="chapter" data-level="3.13" data-path="further-reading-1.html"><a href="further-reading-1.html"><i class="fa fa-check"></i><b>3.13</b> Further Reading</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="one-sample.html"><a href="one-sample.html"><i class="fa fa-check"></i><b>4</b> One-Sample</a>
 <ul>
@@ -286,14 +295,14 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="beta-binomial-and-estimating-proportions" class="section level2 hasAnchor" number="3.5">
-<h2><span class="header-section-number">3.5</span> Beta Binomial and Estimating Proportions<a href="beta-binomial-and-estimating-proportions.html#beta-binomial-and-estimating-proportions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="beta-binomial-and-estimating-proportions" class="section level2 hasAnchor" number="3.6">
+<h2><span class="header-section-number">3.6</span> Beta Binomial and Estimating Proportions<a href="beta-binomial-and-estimating-proportions.html#beta-binomial-and-estimating-proportions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Suppose <span class="math inline">\(y = 35\)</span> of <span class="math inline">\(n = 50\)</span> seeds germinate within 72hrs. What is the expected germination probability of a single seed? Seed germination can be modeled as <span class="math inline">\(n\)</span> Bernoulli trials where events occur with probability, <span class="math inline">\(p\)</span>, and the number of observed events is <span class="math inline">\(y = \sum_i^n y_i\)</span>. The question is estimating the <span class="math inline">\(p\)</span> parameter in the Bernoulli generating process.</p>
 <p>The classical approach is to construct a 95% CI around <span class="math inline">\(p\)</span> with a <a href="https://mpfoley73.github.io/statistics/one-sample-proportion-z-test.html">one-sample proportion test</a>.</p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="beta-binomial-and-estimating-proportions.html#cb74-1" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">35</span></span>
-<span id="cb74-2"><a href="beta-binomial-and-estimating-proportions.html#cb74-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">50</span></span>
-<span id="cb74-3"><a href="beta-binomial-and-estimating-proportions.html#cb74-3" tabindex="-1"></a></span>
-<span id="cb74-4"><a href="beta-binomial-and-estimating-proportions.html#cb74-4" tabindex="-1"></a><span class="fu">prop.test</span>(y, n)</span></code></pre></div>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="beta-binomial-and-estimating-proportions.html#cb120-1" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">35</span></span>
+<span id="cb120-2"><a href="beta-binomial-and-estimating-proportions.html#cb120-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb120-3"><a href="beta-binomial-and-estimating-proportions.html#cb120-3" tabindex="-1"></a></span>
+<span id="cb120-4"><a href="beta-binomial-and-estimating-proportions.html#cb120-4" tabindex="-1"></a><span class="fu">prop.test</span>(y, n)</span></code></pre></div>
 <pre><code>## 
 ##  1-sample proportions test with continuity correction
 ## 
@@ -310,41 +319,41 @@ div.csl-indent {
 f(y|p) = {n \choose y} p^y (1-p)^{n-y}
 \]</span></p>
 <p>Start with a uniform prior - all values of <span class="math inline">\(p\)</span> are equally likely. To get a feel for the approach, try this with <em>discrete</em> <span class="math inline">\(p\)</span> values first.</p>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="beta-binomial-and-estimating-proportions.html#cb76-1" tabindex="-1"></a><span class="co"># Explore the parameter space [0,1] in discrete .01 increments.</span></span>
-<span id="cb76-2"><a href="beta-binomial-and-estimating-proportions.html#cb76-2" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.01</span>)</span>
-<span id="cb76-3"><a href="beta-binomial-and-estimating-proportions.html#cb76-3" tabindex="-1"></a></span>
-<span id="cb76-4"><a href="beta-binomial-and-estimating-proportions.html#cb76-4" tabindex="-1"></a><span class="co"># Prior distribution is uniform, 1/101 for all p&#39;s.</span></span>
-<span id="cb76-5"><a href="beta-binomial-and-estimating-proportions.html#cb76-5" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">/</span><span class="fu">length</span>(p), <span class="fu">length</span>(p))</span>
-<span id="cb76-6"><a href="beta-binomial-and-estimating-proportions.html#cb76-6" tabindex="-1"></a></span>
-<span id="cb76-7"><a href="beta-binomial-and-estimating-proportions.html#cb76-7" tabindex="-1"></a><span class="co"># Binomial likelihood of each p given 35/50 successes.</span></span>
-<span id="cb76-8"><a href="beta-binomial-and-estimating-proportions.html#cb76-8" tabindex="-1"></a>likelihood <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(<span class="dv">35</span>, <span class="dv">50</span>, p)</span>
-<span id="cb76-9"><a href="beta-binomial-and-estimating-proportions.html#cb76-9" tabindex="-1"></a></span>
-<span id="cb76-10"><a href="beta-binomial-and-estimating-proportions.html#cb76-10" tabindex="-1"></a><span class="co"># Bayes&#39; Theorem: posterior = joint density / marginal density.</span></span>
-<span id="cb76-11"><a href="beta-binomial-and-estimating-proportions.html#cb76-11" tabindex="-1"></a>joint_density <span class="ot">&lt;-</span> likelihood <span class="sc">*</span> prior</span>
-<span id="cb76-12"><a href="beta-binomial-and-estimating-proportions.html#cb76-12" tabindex="-1"></a>marginal_density <span class="ot">&lt;-</span> <span class="fu">sum</span>(joint_density)</span>
-<span id="cb76-13"><a href="beta-binomial-and-estimating-proportions.html#cb76-13" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> joint_density <span class="sc">/</span> marginal_density</span>
-<span id="cb76-14"><a href="beta-binomial-and-estimating-proportions.html#cb76-14" tabindex="-1"></a></span>
-<span id="cb76-15"><a href="beta-binomial-and-estimating-proportions.html#cb76-15" tabindex="-1"></a><span class="co"># 95% credible interval</span></span>
-<span id="cb76-16"><a href="beta-binomial-and-estimating-proportions.html#cb76-16" tabindex="-1"></a>(pi <span class="ot">&lt;-</span> <span class="fu">sum</span>(posterior <span class="sc">*</span> p) <span class="sc">/</span> <span class="fu">sum</span>(posterior))</span>
-<span id="cb76-17"><a href="beta-binomial-and-estimating-proportions.html#cb76-17" tabindex="-1"></a><span class="do">## [1] 0.6923077</span></span>
-<span id="cb76-18"><a href="beta-binomial-and-estimating-proportions.html#cb76-18" tabindex="-1"></a>(ci <span class="ot">&lt;-</span> p[<span class="fu">c</span>(<span class="fu">min</span>(<span class="fu">which</span>(<span class="fu">cumsum</span>(posterior) <span class="sc">&gt;</span> .<span class="dv">025</span>)),</span>
-<span id="cb76-19"><a href="beta-binomial-and-estimating-proportions.html#cb76-19" tabindex="-1"></a>          <span class="fu">max</span>(<span class="fu">which</span>(<span class="fu">cumsum</span>(posterior) <span class="sc">&lt;</span> .<span class="dv">975</span>)))])</span>
-<span id="cb76-20"><a href="beta-binomial-and-estimating-proportions.html#cb76-20" tabindex="-1"></a><span class="do">## [1] 0.56 0.80</span></span>
-<span id="cb76-21"><a href="beta-binomial-and-estimating-proportions.html#cb76-21" tabindex="-1"></a></span>
-<span id="cb76-22"><a href="beta-binomial-and-estimating-proportions.html#cb76-22" tabindex="-1"></a><span class="fu">tibble</span>(p, prior, <span class="at">update =</span> likelihood <span class="sc">/</span> marginal_density <span class="sc">/</span> <span class="dv">101</span>, posterior) <span class="sc">%&gt;%</span></span>
-<span id="cb76-23"><a href="beta-binomial-and-estimating-proportions.html#cb76-23" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">c</span>(prior, update, posterior)) <span class="sc">%&gt;%</span></span>
-<span id="cb76-24"><a href="beta-binomial-and-estimating-proportions.html#cb76-24" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">name =</span> <span class="fu">factor</span>(name, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;prior&quot;</span>, <span class="st">&quot;update&quot;</span>, <span class="st">&quot;posterior&quot;</span>))) <span class="sc">%&gt;%</span></span>
-<span id="cb76-25"><a href="beta-binomial-and-estimating-proportions.html#cb76-25" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> p)) <span class="sc">+</span></span>
-<span id="cb76-26"><a href="beta-binomial-and-estimating-proportions.html#cb76-26" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> value, <span class="at">color =</span> name)) <span class="sc">+</span></span>
-<span id="cb76-27"><a href="beta-binomial-and-estimating-proportions.html#cb76-27" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> <span class="fu">tibble</span>(p, posterior, <span class="at">y =</span> <span class="fu">if_else</span>(p <span class="sc">&lt;=</span> ci[<span class="dv">1</span>], posterior, <span class="cn">NA_real_</span>)),</span>
-<span id="cb76-28"><a href="beta-binomial-and-estimating-proportions.html#cb76-28" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">y =</span> y), <span class="at">fill =</span> <span class="st">&quot;#619CFF&quot;</span>) <span class="sc">+</span></span>
-<span id="cb76-29"><a href="beta-binomial-and-estimating-proportions.html#cb76-29" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> <span class="fu">tibble</span>(p, posterior, <span class="at">y =</span> <span class="fu">if_else</span>(p <span class="sc">&gt;=</span> ci[<span class="dv">2</span>], posterior, <span class="cn">NA_real_</span>)),</span>
-<span id="cb76-30"><a href="beta-binomial-and-estimating-proportions.html#cb76-30" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">y =</span> y), <span class="at">fill =</span> <span class="st">&quot;#619CFF&quot;</span>) <span class="sc">+</span></span>
-<span id="cb76-31"><a href="beta-binomial-and-estimating-proportions.html#cb76-31" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> pi), <span class="at">color =</span> <span class="st">&quot;#619CFF&quot;</span>) <span class="sc">+</span></span>
-<span id="cb76-32"><a href="beta-binomial-and-estimating-proportions.html#cb76-32" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">round</span>(<span class="fu">c</span>(<span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>), ci, pi), <span class="dv">4</span>)) <span class="sc">+</span></span>
-<span id="cb76-33"><a href="beta-binomial-and-estimating-proportions.html#cb76-33" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;density&quot;</span>, <span class="at">color =</span> <span class="cn">NULL</span>, <span class="at">title =</span> <span class="st">&quot;From Prior to Posterior&quot;</span>,</span>
-<span id="cb76-34"><a href="beta-binomial-and-estimating-proportions.html#cb76-34" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Data: y=35, n=50. Posterior equals update.&quot;</span>)</span></code></pre></div>
-<p><img src="statistics_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="beta-binomial-and-estimating-proportions.html#cb122-1" tabindex="-1"></a><span class="co"># Explore the parameter space [0,1] in discrete .01 increments.</span></span>
+<span id="cb122-2"><a href="beta-binomial-and-estimating-proportions.html#cb122-2" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.01</span>)</span>
+<span id="cb122-3"><a href="beta-binomial-and-estimating-proportions.html#cb122-3" tabindex="-1"></a></span>
+<span id="cb122-4"><a href="beta-binomial-and-estimating-proportions.html#cb122-4" tabindex="-1"></a><span class="co"># Prior distribution is uniform, 1/101 for all p&#39;s.</span></span>
+<span id="cb122-5"><a href="beta-binomial-and-estimating-proportions.html#cb122-5" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">/</span><span class="fu">length</span>(p), <span class="fu">length</span>(p))</span>
+<span id="cb122-6"><a href="beta-binomial-and-estimating-proportions.html#cb122-6" tabindex="-1"></a></span>
+<span id="cb122-7"><a href="beta-binomial-and-estimating-proportions.html#cb122-7" tabindex="-1"></a><span class="co"># Binomial likelihood of each p given 35/50 successes.</span></span>
+<span id="cb122-8"><a href="beta-binomial-and-estimating-proportions.html#cb122-8" tabindex="-1"></a>likelihood <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(<span class="dv">35</span>, <span class="dv">50</span>, p)</span>
+<span id="cb122-9"><a href="beta-binomial-and-estimating-proportions.html#cb122-9" tabindex="-1"></a></span>
+<span id="cb122-10"><a href="beta-binomial-and-estimating-proportions.html#cb122-10" tabindex="-1"></a><span class="co"># Bayes&#39; Theorem: posterior = joint density / marginal density.</span></span>
+<span id="cb122-11"><a href="beta-binomial-and-estimating-proportions.html#cb122-11" tabindex="-1"></a>joint_density <span class="ot">&lt;-</span> likelihood <span class="sc">*</span> prior</span>
+<span id="cb122-12"><a href="beta-binomial-and-estimating-proportions.html#cb122-12" tabindex="-1"></a>marginal_density <span class="ot">&lt;-</span> <span class="fu">sum</span>(joint_density)</span>
+<span id="cb122-13"><a href="beta-binomial-and-estimating-proportions.html#cb122-13" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> joint_density <span class="sc">/</span> marginal_density</span>
+<span id="cb122-14"><a href="beta-binomial-and-estimating-proportions.html#cb122-14" tabindex="-1"></a></span>
+<span id="cb122-15"><a href="beta-binomial-and-estimating-proportions.html#cb122-15" tabindex="-1"></a><span class="co"># 95% credible interval</span></span>
+<span id="cb122-16"><a href="beta-binomial-and-estimating-proportions.html#cb122-16" tabindex="-1"></a>(pi <span class="ot">&lt;-</span> <span class="fu">sum</span>(posterior <span class="sc">*</span> p) <span class="sc">/</span> <span class="fu">sum</span>(posterior))</span>
+<span id="cb122-17"><a href="beta-binomial-and-estimating-proportions.html#cb122-17" tabindex="-1"></a><span class="do">## [1] 0.6923077</span></span>
+<span id="cb122-18"><a href="beta-binomial-and-estimating-proportions.html#cb122-18" tabindex="-1"></a>(ci <span class="ot">&lt;-</span> p[<span class="fu">c</span>(<span class="fu">min</span>(<span class="fu">which</span>(<span class="fu">cumsum</span>(posterior) <span class="sc">&gt;</span> .<span class="dv">025</span>)),</span>
+<span id="cb122-19"><a href="beta-binomial-and-estimating-proportions.html#cb122-19" tabindex="-1"></a>          <span class="fu">max</span>(<span class="fu">which</span>(<span class="fu">cumsum</span>(posterior) <span class="sc">&lt;</span> .<span class="dv">975</span>)))])</span>
+<span id="cb122-20"><a href="beta-binomial-and-estimating-proportions.html#cb122-20" tabindex="-1"></a><span class="do">## [1] 0.56 0.80</span></span>
+<span id="cb122-21"><a href="beta-binomial-and-estimating-proportions.html#cb122-21" tabindex="-1"></a></span>
+<span id="cb122-22"><a href="beta-binomial-and-estimating-proportions.html#cb122-22" tabindex="-1"></a><span class="fu">tibble</span>(p, prior, <span class="at">update =</span> likelihood <span class="sc">/</span> marginal_density <span class="sc">/</span> <span class="dv">101</span>, posterior) <span class="sc">%&gt;%</span></span>
+<span id="cb122-23"><a href="beta-binomial-and-estimating-proportions.html#cb122-23" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">c</span>(prior, update, posterior)) <span class="sc">%&gt;%</span></span>
+<span id="cb122-24"><a href="beta-binomial-and-estimating-proportions.html#cb122-24" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">name =</span> <span class="fu">factor</span>(name, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;prior&quot;</span>, <span class="st">&quot;update&quot;</span>, <span class="st">&quot;posterior&quot;</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb122-25"><a href="beta-binomial-and-estimating-proportions.html#cb122-25" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> p)) <span class="sc">+</span></span>
+<span id="cb122-26"><a href="beta-binomial-and-estimating-proportions.html#cb122-26" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> value, <span class="at">color =</span> name)) <span class="sc">+</span></span>
+<span id="cb122-27"><a href="beta-binomial-and-estimating-proportions.html#cb122-27" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> <span class="fu">tibble</span>(p, posterior, <span class="at">y =</span> <span class="fu">if_else</span>(p <span class="sc">&lt;=</span> ci[<span class="dv">1</span>], posterior, <span class="cn">NA_real_</span>)),</span>
+<span id="cb122-28"><a href="beta-binomial-and-estimating-proportions.html#cb122-28" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">y =</span> y), <span class="at">fill =</span> <span class="st">&quot;#619CFF&quot;</span>) <span class="sc">+</span></span>
+<span id="cb122-29"><a href="beta-binomial-and-estimating-proportions.html#cb122-29" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> <span class="fu">tibble</span>(p, posterior, <span class="at">y =</span> <span class="fu">if_else</span>(p <span class="sc">&gt;=</span> ci[<span class="dv">2</span>], posterior, <span class="cn">NA_real_</span>)),</span>
+<span id="cb122-30"><a href="beta-binomial-and-estimating-proportions.html#cb122-30" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">y =</span> y), <span class="at">fill =</span> <span class="st">&quot;#619CFF&quot;</span>) <span class="sc">+</span></span>
+<span id="cb122-31"><a href="beta-binomial-and-estimating-proportions.html#cb122-31" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> pi), <span class="at">color =</span> <span class="st">&quot;#619CFF&quot;</span>) <span class="sc">+</span></span>
+<span id="cb122-32"><a href="beta-binomial-and-estimating-proportions.html#cb122-32" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">round</span>(<span class="fu">c</span>(<span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>), ci, pi), <span class="dv">4</span>)) <span class="sc">+</span></span>
+<span id="cb122-33"><a href="beta-binomial-and-estimating-proportions.html#cb122-33" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;density&quot;</span>, <span class="at">color =</span> <span class="cn">NULL</span>, <span class="at">title =</span> <span class="st">&quot;From Prior to Posterior&quot;</span>,</span>
+<span id="cb122-34"><a href="beta-binomial-and-estimating-proportions.html#cb122-34" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Data: y=35, n=50. Posterior equals update.&quot;</span>)</span></code></pre></div>
+<p><img src="statistics_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
 <p>This was good, but we could have done better. The discrete values for the uniform prior limited the precision of the 95% CI. The better path is to model continuous values with the <a href="https://mpfoley73.github.io/probability/random-variables-and-distributions.html#beta">beta</a> distribution, <span class="math inline">\(p \sim \text{Beta}(a, b)\)</span>. The PDF of the beta distribution is</p>
 <p><span class="math display" id="eq:beta-prior">\[
 \begin{align}
@@ -384,48 +393,48 @@ f(p|y) &amp; \propto f(y|p)f(p) \\
 E(p|y) = \frac{a+y}{(a+y)+(b+(n-y))} = \frac{a + y}{a + b + n} = \frac{a + n \bar{y}}{a + b + n}
 \]</span></p>
 <p>As the sample size increases, the <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> prior parameter values become less important and <span class="math inline">\(E(p|y)\)</span> converges on the classical result of <span class="math inline">\(\bar{y}\)</span>. The code chunk below repeats the exercise above. This time that we can calculate a continuous 95% CI. Notice also that the marginal density never actually factored into the solution.</p>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="beta-binomial-and-estimating-proportions.html#cb77-1" tabindex="-1"></a><span class="co"># These discrete p&#39;s are for illustrating the distributions now.</span></span>
-<span id="cb77-2"><a href="beta-binomial-and-estimating-proportions.html#cb77-2" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.001</span>)</span>
-<span id="cb77-3"><a href="beta-binomial-and-estimating-proportions.html#cb77-3" tabindex="-1"></a></span>
-<span id="cb77-4"><a href="beta-binomial-and-estimating-proportions.html#cb77-4" tabindex="-1"></a><span class="co"># The prior distribution is uniform, Beta(1, 1).</span></span>
-<span id="cb77-5"><a href="beta-binomial-and-estimating-proportions.html#cb77-5" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb77-6"><a href="beta-binomial-and-estimating-proportions.html#cb77-6" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb77-7"><a href="beta-binomial-and-estimating-proportions.html#cb77-7" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">dbeta</span>(p, a, b)</span>
-<span id="cb77-8"><a href="beta-binomial-and-estimating-proportions.html#cb77-8" tabindex="-1"></a></span>
-<span id="cb77-9"><a href="beta-binomial-and-estimating-proportions.html#cb77-9" tabindex="-1"></a><span class="co"># Instead of calculating the likelihood, joint density, marginal density, and</span></span>
-<span id="cb77-10"><a href="beta-binomial-and-estimating-proportions.html#cb77-10" tabindex="-1"></a><span class="co"># finally the posterior, we can go straight to the posterior.</span></span>
-<span id="cb77-11"><a href="beta-binomial-and-estimating-proportions.html#cb77-11" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> <span class="fu">dbeta</span>(p, a <span class="sc">+</span> y, b <span class="sc">+</span> (n <span class="sc">-</span> y))</span>
-<span id="cb77-12"><a href="beta-binomial-and-estimating-proportions.html#cb77-12" tabindex="-1"></a></span>
-<span id="cb77-13"><a href="beta-binomial-and-estimating-proportions.html#cb77-13" tabindex="-1"></a><span class="co"># 95% credible interval. This time we don&#39;t need p - we can go straight to the soln.</span></span>
-<span id="cb77-14"><a href="beta-binomial-and-estimating-proportions.html#cb77-14" tabindex="-1"></a>(pi <span class="ot">&lt;-</span> (a <span class="sc">+</span> y) <span class="sc">/</span> ((a <span class="sc">+</span> y) <span class="sc">+</span> (b <span class="sc">+</span> (n <span class="sc">-</span> y))))</span>
-<span id="cb77-15"><a href="beta-binomial-and-estimating-proportions.html#cb77-15" tabindex="-1"></a><span class="do">## [1] 0.6923077</span></span>
-<span id="cb77-16"><a href="beta-binomial-and-estimating-proportions.html#cb77-16" tabindex="-1"></a>(ci <span class="ot">&lt;-</span> <span class="fu">qbeta</span>(<span class="fu">c</span>(.<span class="dv">025</span>, .<span class="dv">975</span>), a <span class="sc">+</span> y, b <span class="sc">+</span> (n <span class="sc">-</span> y)))</span>
-<span id="cb77-17"><a href="beta-binomial-and-estimating-proportions.html#cb77-17" tabindex="-1"></a><span class="do">## [1] 0.5617113 0.8088960</span></span>
-<span id="cb77-18"><a href="beta-binomial-and-estimating-proportions.html#cb77-18" tabindex="-1"></a></span>
-<span id="cb77-19"><a href="beta-binomial-and-estimating-proportions.html#cb77-19" tabindex="-1"></a><span class="co"># Construct the components anyway, just to graph them.</span></span>
-<span id="cb77-20"><a href="beta-binomial-and-estimating-proportions.html#cb77-20" tabindex="-1"></a>likelihood <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(y, n, p)</span>
-<span id="cb77-21"><a href="beta-binomial-and-estimating-proportions.html#cb77-21" tabindex="-1"></a>joint_density <span class="ot">&lt;-</span> likelihood <span class="sc">*</span> prior</span>
-<span id="cb77-22"><a href="beta-binomial-and-estimating-proportions.html#cb77-22" tabindex="-1"></a>marginal_density <span class="ot">&lt;-</span> <span class="fu">sum</span>(joint_density)</span>
-<span id="cb77-23"><a href="beta-binomial-and-estimating-proportions.html#cb77-23" tabindex="-1"></a><span class="co"># Trickery to get discretely calculated joint and marginal densities to sum to</span></span>
-<span id="cb77-24"><a href="beta-binomial-and-estimating-proportions.html#cb77-24" tabindex="-1"></a><span class="co"># same area as prior and posterior distributions.</span></span>
-<span id="cb77-25"><a href="beta-binomial-and-estimating-proportions.html#cb77-25" tabindex="-1"></a>update <span class="ot">&lt;-</span> likelihood <span class="sc">/</span> (<span class="fu">sum</span>(likelihood) <span class="sc">/</span> <span class="fu">sum</span>(posterior))</span>
-<span id="cb77-26"><a href="beta-binomial-and-estimating-proportions.html#cb77-26" tabindex="-1"></a></span>
-<span id="cb77-27"><a href="beta-binomial-and-estimating-proportions.html#cb77-27" tabindex="-1"></a><span class="fu">tibble</span>(p, prior, update, posterior) <span class="sc">%&gt;%</span></span>
-<span id="cb77-28"><a href="beta-binomial-and-estimating-proportions.html#cb77-28" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">c</span>(prior, update, posterior)) <span class="sc">%&gt;%</span></span>
-<span id="cb77-29"><a href="beta-binomial-and-estimating-proportions.html#cb77-29" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">name =</span> <span class="fu">factor</span>(name, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;prior&quot;</span>, <span class="st">&quot;update&quot;</span>, <span class="st">&quot;posterior&quot;</span>))) <span class="sc">%&gt;%</span></span>
-<span id="cb77-30"><a href="beta-binomial-and-estimating-proportions.html#cb77-30" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> p)) <span class="sc">+</span></span>
-<span id="cb77-31"><a href="beta-binomial-and-estimating-proportions.html#cb77-31" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> value, <span class="at">color =</span> name)) <span class="sc">+</span></span>
-<span id="cb77-32"><a href="beta-binomial-and-estimating-proportions.html#cb77-32" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> <span class="fu">tibble</span>(p, posterior, <span class="at">y =</span> <span class="fu">if_else</span>(p <span class="sc">&lt;=</span> ci[<span class="dv">1</span>], posterior, <span class="cn">NA_real_</span>)),</span>
-<span id="cb77-33"><a href="beta-binomial-and-estimating-proportions.html#cb77-33" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">y =</span> y), <span class="at">fill =</span> <span class="st">&quot;#619CFF&quot;</span>) <span class="sc">+</span></span>
-<span id="cb77-34"><a href="beta-binomial-and-estimating-proportions.html#cb77-34" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> <span class="fu">tibble</span>(p, posterior, <span class="at">y =</span> <span class="fu">if_else</span>(p <span class="sc">&gt;=</span> ci[<span class="dv">2</span>], posterior, <span class="cn">NA_real_</span>)),</span>
-<span id="cb77-35"><a href="beta-binomial-and-estimating-proportions.html#cb77-35" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">y =</span> y), <span class="at">fill =</span> <span class="st">&quot;#619CFF&quot;</span>) <span class="sc">+</span></span>
-<span id="cb77-36"><a href="beta-binomial-and-estimating-proportions.html#cb77-36" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> pi), <span class="at">color =</span> <span class="st">&quot;#619CFF&quot;</span>) <span class="sc">+</span></span>
-<span id="cb77-37"><a href="beta-binomial-and-estimating-proportions.html#cb77-37" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">round</span>(<span class="fu">c</span>(<span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>), ci, pi), <span class="dv">4</span>)) <span class="sc">+</span></span>
-<span id="cb77-38"><a href="beta-binomial-and-estimating-proportions.html#cb77-38" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;density&quot;</span>, <span class="at">color =</span> <span class="cn">NULL</span>, <span class="at">title =</span> <span class="fu">glue</span>(<span class="st">&quot;From Prior to Posterior, using Beta({a}, {b}) prior.&quot;</span>),</span>
-<span id="cb77-39"><a href="beta-binomial-and-estimating-proportions.html#cb77-39" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Data: y=35, n=50.&quot;</span>)</span></code></pre></div>
-<p><img src="statistics_files/figure-html/unnamed-chunk-52-1.png" width="672" /></p>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="beta-binomial-and-estimating-proportions.html#cb123-1" tabindex="-1"></a><span class="co"># These discrete p&#39;s are for illustrating the distributions now.</span></span>
+<span id="cb123-2"><a href="beta-binomial-and-estimating-proportions.html#cb123-2" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.001</span>)</span>
+<span id="cb123-3"><a href="beta-binomial-and-estimating-proportions.html#cb123-3" tabindex="-1"></a></span>
+<span id="cb123-4"><a href="beta-binomial-and-estimating-proportions.html#cb123-4" tabindex="-1"></a><span class="co"># The prior distribution is uniform, Beta(1, 1).</span></span>
+<span id="cb123-5"><a href="beta-binomial-and-estimating-proportions.html#cb123-5" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb123-6"><a href="beta-binomial-and-estimating-proportions.html#cb123-6" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb123-7"><a href="beta-binomial-and-estimating-proportions.html#cb123-7" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">dbeta</span>(p, a, b)</span>
+<span id="cb123-8"><a href="beta-binomial-and-estimating-proportions.html#cb123-8" tabindex="-1"></a></span>
+<span id="cb123-9"><a href="beta-binomial-and-estimating-proportions.html#cb123-9" tabindex="-1"></a><span class="co"># Instead of calculating the likelihood, joint density, marginal density, and</span></span>
+<span id="cb123-10"><a href="beta-binomial-and-estimating-proportions.html#cb123-10" tabindex="-1"></a><span class="co"># finally the posterior, we can go straight to the posterior.</span></span>
+<span id="cb123-11"><a href="beta-binomial-and-estimating-proportions.html#cb123-11" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> <span class="fu">dbeta</span>(p, a <span class="sc">+</span> y, b <span class="sc">+</span> (n <span class="sc">-</span> y))</span>
+<span id="cb123-12"><a href="beta-binomial-and-estimating-proportions.html#cb123-12" tabindex="-1"></a></span>
+<span id="cb123-13"><a href="beta-binomial-and-estimating-proportions.html#cb123-13" tabindex="-1"></a><span class="co"># 95% credible interval. This time we don&#39;t need p - we can go straight to the soln.</span></span>
+<span id="cb123-14"><a href="beta-binomial-and-estimating-proportions.html#cb123-14" tabindex="-1"></a>(pi <span class="ot">&lt;-</span> (a <span class="sc">+</span> y) <span class="sc">/</span> ((a <span class="sc">+</span> y) <span class="sc">+</span> (b <span class="sc">+</span> (n <span class="sc">-</span> y))))</span>
+<span id="cb123-15"><a href="beta-binomial-and-estimating-proportions.html#cb123-15" tabindex="-1"></a><span class="do">## [1] 0.6923077</span></span>
+<span id="cb123-16"><a href="beta-binomial-and-estimating-proportions.html#cb123-16" tabindex="-1"></a>(ci <span class="ot">&lt;-</span> <span class="fu">qbeta</span>(<span class="fu">c</span>(.<span class="dv">025</span>, .<span class="dv">975</span>), a <span class="sc">+</span> y, b <span class="sc">+</span> (n <span class="sc">-</span> y)))</span>
+<span id="cb123-17"><a href="beta-binomial-and-estimating-proportions.html#cb123-17" tabindex="-1"></a><span class="do">## [1] 0.5617113 0.8088960</span></span>
+<span id="cb123-18"><a href="beta-binomial-and-estimating-proportions.html#cb123-18" tabindex="-1"></a></span>
+<span id="cb123-19"><a href="beta-binomial-and-estimating-proportions.html#cb123-19" tabindex="-1"></a><span class="co"># Construct the components anyway, just to graph them.</span></span>
+<span id="cb123-20"><a href="beta-binomial-and-estimating-proportions.html#cb123-20" tabindex="-1"></a>likelihood <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(y, n, p)</span>
+<span id="cb123-21"><a href="beta-binomial-and-estimating-proportions.html#cb123-21" tabindex="-1"></a>joint_density <span class="ot">&lt;-</span> likelihood <span class="sc">*</span> prior</span>
+<span id="cb123-22"><a href="beta-binomial-and-estimating-proportions.html#cb123-22" tabindex="-1"></a>marginal_density <span class="ot">&lt;-</span> <span class="fu">sum</span>(joint_density)</span>
+<span id="cb123-23"><a href="beta-binomial-and-estimating-proportions.html#cb123-23" tabindex="-1"></a><span class="co"># Trickery to get discretely calculated joint and marginal densities to sum to</span></span>
+<span id="cb123-24"><a href="beta-binomial-and-estimating-proportions.html#cb123-24" tabindex="-1"></a><span class="co"># same area as prior and posterior distributions.</span></span>
+<span id="cb123-25"><a href="beta-binomial-and-estimating-proportions.html#cb123-25" tabindex="-1"></a>update <span class="ot">&lt;-</span> likelihood <span class="sc">/</span> (<span class="fu">sum</span>(likelihood) <span class="sc">/</span> <span class="fu">sum</span>(posterior))</span>
+<span id="cb123-26"><a href="beta-binomial-and-estimating-proportions.html#cb123-26" tabindex="-1"></a></span>
+<span id="cb123-27"><a href="beta-binomial-and-estimating-proportions.html#cb123-27" tabindex="-1"></a><span class="fu">tibble</span>(p, prior, update, posterior) <span class="sc">%&gt;%</span></span>
+<span id="cb123-28"><a href="beta-binomial-and-estimating-proportions.html#cb123-28" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">c</span>(prior, update, posterior)) <span class="sc">%&gt;%</span></span>
+<span id="cb123-29"><a href="beta-binomial-and-estimating-proportions.html#cb123-29" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">name =</span> <span class="fu">factor</span>(name, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;prior&quot;</span>, <span class="st">&quot;update&quot;</span>, <span class="st">&quot;posterior&quot;</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb123-30"><a href="beta-binomial-and-estimating-proportions.html#cb123-30" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> p)) <span class="sc">+</span></span>
+<span id="cb123-31"><a href="beta-binomial-and-estimating-proportions.html#cb123-31" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> value, <span class="at">color =</span> name)) <span class="sc">+</span></span>
+<span id="cb123-32"><a href="beta-binomial-and-estimating-proportions.html#cb123-32" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> <span class="fu">tibble</span>(p, posterior, <span class="at">y =</span> <span class="fu">if_else</span>(p <span class="sc">&lt;=</span> ci[<span class="dv">1</span>], posterior, <span class="cn">NA_real_</span>)),</span>
+<span id="cb123-33"><a href="beta-binomial-and-estimating-proportions.html#cb123-33" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">y =</span> y), <span class="at">fill =</span> <span class="st">&quot;#619CFF&quot;</span>) <span class="sc">+</span></span>
+<span id="cb123-34"><a href="beta-binomial-and-estimating-proportions.html#cb123-34" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> <span class="fu">tibble</span>(p, posterior, <span class="at">y =</span> <span class="fu">if_else</span>(p <span class="sc">&gt;=</span> ci[<span class="dv">2</span>], posterior, <span class="cn">NA_real_</span>)),</span>
+<span id="cb123-35"><a href="beta-binomial-and-estimating-proportions.html#cb123-35" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">y =</span> y), <span class="at">fill =</span> <span class="st">&quot;#619CFF&quot;</span>) <span class="sc">+</span></span>
+<span id="cb123-36"><a href="beta-binomial-and-estimating-proportions.html#cb123-36" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> pi), <span class="at">color =</span> <span class="st">&quot;#619CFF&quot;</span>) <span class="sc">+</span></span>
+<span id="cb123-37"><a href="beta-binomial-and-estimating-proportions.html#cb123-37" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">round</span>(<span class="fu">c</span>(<span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>), ci, pi), <span class="dv">4</span>)) <span class="sc">+</span></span>
+<span id="cb123-38"><a href="beta-binomial-and-estimating-proportions.html#cb123-38" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;density&quot;</span>, <span class="at">color =</span> <span class="cn">NULL</span>, <span class="at">title =</span> <span class="fu">glue</span>(<span class="st">&quot;From Prior to Posterior, using Beta({a}, {b}) prior.&quot;</span>),</span>
+<span id="cb123-39"><a href="beta-binomial-and-estimating-proportions.html#cb123-39" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Data: y=35, n=50.&quot;</span>)</span></code></pre></div>
+<p><img src="statistics_files/figure-html/unnamed-chunk-59-1.png" width="672" /></p>
 <p>Suppose your prior was better. You had taken a small sample of 10 and 7 seeds had germinated. The corroborating evidence centers on 70% and the credible interval tightens.</p>
-<p><img src="statistics_files/figure-html/unnamed-chunk-53-1.png" width="672" /></p>
+<p><img src="statistics_files/figure-html/unnamed-chunk-60-1.png" width="672" /></p>
 </div>
             </section>
 

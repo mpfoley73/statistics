@@ -87,3 +87,14 @@ matrix-algebra
 central-tendancy-dispersion-and-association
 linear-transformations
 multivariate-normal-distribution
+markov-chain-monte-carlo-mcmc
+the-classical-approach
+normal-pop-est
+cluster-analysis
+rejection-sampling-1
+gibbs-sampler
+other-notes
+metropolis-hastings-1
+mixed-effects-linear-regression
+generalized-linear-models
+missing-data

@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3.7 DIC | Statistical Inference</title>
+  <title>3.8 DIC | Statistical Inference</title>
   <meta name="description" content="Notes cobbled together from books, online classes, etc. to be used as quick reference for common work projects." />
   <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3.7 DIC | Statistical Inference" />
+  <meta property="og:title" content="3.8 DIC | Statistical Inference" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Notes cobbled together from books, online classes, etc. to be used as quick reference for common work projects." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3.7 DIC | Statistical Inference" />
+  <meta name="twitter:title" content="3.8 DIC | Statistical Inference" />
   
   <meta name="twitter:description" content="Notes cobbled together from books, online classes, etc. to be used as quick reference for common work projects." />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Michael Foley" />
 
 
-<meta name="date" content="2023-10-31" />
+<meta name="date" content="2023-11-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,8 +54,6 @@
 <script src="assets/anchor-sections-1.1.0/anchor-sections.js"></script>
 <link href="assets/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
 <script src="assets/tabwid-1.1.3/tabwid.js"></script>
-<script src="assets/kePrint-0.0.1/kePrint.js"></script>
-<link href="assets/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -183,26 +181,37 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="3.1" data-path="bayes-theorem.html"><a href="bayes-theorem.html"><i class="fa fa-check"></i><b>3.1</b> Bayes’ Theorem</a></li>
 <li class="chapter" data-level="3.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html"><i class="fa fa-check"></i><b>3.2</b> Bayesian Inference</a></li>
-<li class="chapter" data-level="3.3" data-path="gamma-poisson-and-estimating-counts.html"><a href="gamma-poisson-and-estimating-counts.html"><i class="fa fa-check"></i><b>3.3</b> Gamma Poisson and Estimating Counts</a></li>
-<li class="chapter" data-level="3.4" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html"><i class="fa fa-check"></i><b>3.4</b> Normal and Estimating Means</a>
+<li class="chapter" data-level="3.3" data-path="markov-chain-monte-carlo-mcmc.html"><a href="markov-chain-monte-carlo-mcmc.html"><i class="fa fa-check"></i><b>3.3</b> Markov Chain Monte Carlo (MCMC)</a>
 <ul>
-<li class="chapter" data-level="3.4.1" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#population-estimate"><i class="fa fa-check"></i><b>3.4.1</b> Population Estimate</a></li>
-<li class="chapter" data-level="3.4.2" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#regression"><i class="fa fa-check"></i><b>3.4.2</b> Regression</a></li>
-<li class="chapter" data-level="3.4.3" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#change-point-regression"><i class="fa fa-check"></i><b>3.4.3</b> Change Point Regression</a></li>
+<li class="chapter" data-level="3.3.1" data-path="markov-chain-monte-carlo-mcmc.html"><a href="markov-chain-monte-carlo-mcmc.html#the-classical-approach"><i class="fa fa-check"></i><b>3.3.1</b> The Classical Approach</a></li>
+<li class="chapter" data-level="3.3.2" data-path="markov-chain-monte-carlo-mcmc.html"><a href="markov-chain-monte-carlo-mcmc.html#rejection-sampling"><i class="fa fa-check"></i><b>3.3.2</b> Rejection Sampling</a></li>
+<li class="chapter" data-level="3.3.3" data-path="markov-chain-monte-carlo-mcmc.html"><a href="markov-chain-monte-carlo-mcmc.html#gibbs-sampler"><i class="fa fa-check"></i><b>3.3.3</b> Gibbs Sampler</a></li>
+<li class="chapter" data-level="3.3.4" data-path="markov-chain-monte-carlo-mcmc.html"><a href="markov-chain-monte-carlo-mcmc.html#metropolis-hastings"><i class="fa fa-check"></i><b>3.3.4</b> Metropolis-Hastings</a></li>
+<li class="chapter" data-level="3.3.5" data-path="markov-chain-monte-carlo-mcmc.html"><a href="markov-chain-monte-carlo-mcmc.html#other-notes"><i class="fa fa-check"></i><b>3.3.5</b> Other Notes</a></li>
 </ul></li>
-<li class="chapter" data-level="3.5" data-path="beta-binomial-and-estimating-proportions.html"><a href="beta-binomial-and-estimating-proportions.html"><i class="fa fa-check"></i><b>3.5</b> Beta Binomial and Estimating Proportions</a></li>
-<li class="chapter" data-level="3.6" data-path="zero-inflation-and-latent-variables.html"><a href="zero-inflation-and-latent-variables.html"><i class="fa fa-check"></i><b>3.6</b> Zero-Inflation and Latent Variables</a></li>
-<li class="chapter" data-level="3.7" data-path="dic.html"><a href="dic.html"><i class="fa fa-check"></i><b>3.7</b> DIC</a></li>
-<li class="chapter" data-level="3.8" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html"><i class="fa fa-check"></i><b>3.8</b> Monte Carlo Integration</a>
+<li class="chapter" data-level="3.4" data-path="gamma-poisson-and-estimating-counts.html"><a href="gamma-poisson-and-estimating-counts.html"><i class="fa fa-check"></i><b>3.4</b> Gamma Poisson and Estimating Counts</a></li>
+<li class="chapter" data-level="3.5" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html"><i class="fa fa-check"></i><b>3.5</b> Normal and Estimating Means</a>
 <ul>
-<li class="chapter" data-level="3.8.1" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html#inverse-sampling"><i class="fa fa-check"></i><b>3.8.1</b> Inverse Sampling</a></li>
-<li class="chapter" data-level="3.8.2" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html#rejection-sampling"><i class="fa fa-check"></i><b>3.8.2</b> Rejection Sampling</a></li>
-<li class="chapter" data-level="3.8.3" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html#importance-sampling"><i class="fa fa-check"></i><b>3.8.3</b> Importance Sampling</a></li>
+<li class="chapter" data-level="3.5.1" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#normal-pop-est"><i class="fa fa-check"></i><b>3.5.1</b> Population Estimate</a></li>
+<li class="chapter" data-level="3.5.2" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#regression"><i class="fa fa-check"></i><b>3.5.2</b> Regression</a></li>
+<li class="chapter" data-level="3.5.3" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#generalized-linear-models"><i class="fa fa-check"></i><b>3.5.3</b> Generalized Linear Models</a></li>
+<li class="chapter" data-level="3.5.4" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#missing-data"><i class="fa fa-check"></i><b>3.5.4</b> Missing Data</a></li>
+<li class="chapter" data-level="3.5.5" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#change-point-regression"><i class="fa fa-check"></i><b>3.5.5</b> Change Point Regression</a></li>
+<li class="chapter" data-level="3.5.6" data-path="normal-and-estimating-means.html"><a href="normal-and-estimating-means.html#cluster-analysis"><i class="fa fa-check"></i><b>3.5.6</b> Cluster Analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="3.9" data-path="metropolis-hastings.html"><a href="metropolis-hastings.html"><i class="fa fa-check"></i><b>3.9</b> Metropolis-Hastings</a></li>
-<li class="chapter" data-level="3.10" data-path="appendix-gentle-introduction.html"><a href="appendix-gentle-introduction.html"><i class="fa fa-check"></i><b>3.10</b> Appendix: Gentle Introduction</a></li>
-<li class="chapter" data-level="3.11" data-path="appendix-bayes-factors.html"><a href="appendix-bayes-factors.html"><i class="fa fa-check"></i><b>3.11</b> Appendix: Bayes Factors</a></li>
-<li class="chapter" data-level="3.12" data-path="further-reading-1.html"><a href="further-reading-1.html"><i class="fa fa-check"></i><b>3.12</b> Further Reading</a></li>
+<li class="chapter" data-level="3.6" data-path="beta-binomial-and-estimating-proportions.html"><a href="beta-binomial-and-estimating-proportions.html"><i class="fa fa-check"></i><b>3.6</b> Beta Binomial and Estimating Proportions</a></li>
+<li class="chapter" data-level="3.7" data-path="zero-inflation-and-latent-variables.html"><a href="zero-inflation-and-latent-variables.html"><i class="fa fa-check"></i><b>3.7</b> Zero-Inflation and Latent Variables</a></li>
+<li class="chapter" data-level="3.8" data-path="dic.html"><a href="dic.html"><i class="fa fa-check"></i><b>3.8</b> DIC</a></li>
+<li class="chapter" data-level="3.9" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html"><i class="fa fa-check"></i><b>3.9</b> Monte Carlo Integration</a>
+<ul>
+<li class="chapter" data-level="3.9.1" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html#inverse-sampling"><i class="fa fa-check"></i><b>3.9.1</b> Inverse Sampling</a></li>
+<li class="chapter" data-level="3.9.2" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html#rejection-sampling-1"><i class="fa fa-check"></i><b>3.9.2</b> Rejection Sampling</a></li>
+<li class="chapter" data-level="3.9.3" data-path="monte-carlo-integration.html"><a href="monte-carlo-integration.html#importance-sampling"><i class="fa fa-check"></i><b>3.9.3</b> Importance Sampling</a></li>
+</ul></li>
+<li class="chapter" data-level="3.10" data-path="metropolis-hastings-1.html"><a href="metropolis-hastings-1.html"><i class="fa fa-check"></i><b>3.10</b> Metropolis-Hastings</a></li>
+<li class="chapter" data-level="3.11" data-path="mixed-effects-linear-regression.html"><a href="mixed-effects-linear-regression.html"><i class="fa fa-check"></i><b>3.11</b> Mixed Effects Linear Regression</a></li>
+<li class="chapter" data-level="3.12" data-path="appendix-bayes-factors.html"><a href="appendix-bayes-factors.html"><i class="fa fa-check"></i><b>3.12</b> Appendix: Bayes Factors</a></li>
+<li class="chapter" data-level="3.13" data-path="further-reading-1.html"><a href="further-reading-1.html"><i class="fa fa-check"></i><b>3.13</b> Further Reading</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="one-sample.html"><a href="one-sample.html"><i class="fa fa-check"></i><b>4</b> One-Sample</a>
 <ul>
@@ -286,60 +295,60 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="dic" class="section level2 hasAnchor" number="3.7">
-<h2><span class="header-section-number">3.7</span> DIC<a href="dic.html#dic" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="dic" class="section level2 hasAnchor" number="3.8">
+<h2><span class="header-section-number">3.8</span> DIC<a href="dic.html#dic" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Use the Deviance Information Criterion (DIC) to compare group means.</p>
 <p><span class="math display">\[
 DIC = p_D + \overline{D(\theta)}
 \]</span></p>
 <p>where <span class="math inline">\(p_D = \overline{D(\theta)} - D(\hat{\theta})\)</span> and <span class="math inline">\(D(\theta) = -2 \log (f(y|\theta)) + C\)</span>.</p>
 <p>Evaluate <span class="math inline">\(\overline{D(\theta)}\)</span> by producing samples from each distribution and evaluating the likelihoods of the data based on each realization and taking the mean of -2 log-likelihood.</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="dic.html#cb87-1" tabindex="-1"></a><span class="co"># Two samples with success rates 35/50 and 15/20</span></span>
-<span id="cb87-2"><a href="dic.html#cb87-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">35</span>, <span class="dv">15</span>)</span>
-<span id="cb87-3"><a href="dic.html#cb87-3" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">20</span>)</span>
-<span id="cb87-4"><a href="dic.html#cb87-4" tabindex="-1"></a></span>
-<span id="cb87-5"><a href="dic.html#cb87-5" tabindex="-1"></a><span class="co"># Priors</span></span>
-<span id="cb87-6"><a href="dic.html#cb87-6" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb87-7"><a href="dic.html#cb87-7" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb87-8"><a href="dic.html#cb87-8" tabindex="-1"></a></span>
-<span id="cb87-9"><a href="dic.html#cb87-9" tabindex="-1"></a><span class="co"># Posteriors</span></span>
-<span id="cb87-10"><a href="dic.html#cb87-10" tabindex="-1"></a>post <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb87-11"><a href="dic.html#cb87-11" tabindex="-1"></a>  <span class="fu">rbeta</span>(<span class="dv">10</span><span class="sc">^</span><span class="dv">3</span>, a<span class="sc">+</span>y[<span class="dv">1</span>], b<span class="sc">+</span>n[<span class="dv">1</span>]<span class="sc">-</span>y[<span class="dv">1</span>]),</span>
-<span id="cb87-12"><a href="dic.html#cb87-12" tabindex="-1"></a>  <span class="fu">rbeta</span>(<span class="dv">10</span><span class="sc">^</span><span class="dv">3</span>, a<span class="sc">+</span>y[<span class="dv">2</span>], b<span class="sc">+</span>n[<span class="dv">2</span>]<span class="sc">-</span>y[<span class="dv">2</span>])</span>
-<span id="cb87-13"><a href="dic.html#cb87-13" tabindex="-1"></a>)</span>
-<span id="cb87-14"><a href="dic.html#cb87-14" tabindex="-1"></a></span>
-<span id="cb87-15"><a href="dic.html#cb87-15" tabindex="-1"></a><span class="co"># -2 * Mean log-likelihood</span></span>
-<span id="cb87-16"><a href="dic.html#cb87-16" tabindex="-1"></a>ll <span class="ot">&lt;-</span> </span>
-<span id="cb87-17"><a href="dic.html#cb87-17" tabindex="-1"></a>  <span class="fu">dbinom</span>(y[<span class="dv">1</span>], n[<span class="dv">1</span>], post[[<span class="dv">1</span>]], <span class="at">log =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb87-18"><a href="dic.html#cb87-18" tabindex="-1"></a>  <span class="fu">dbinom</span>(y[<span class="dv">2</span>], n[<span class="dv">2</span>], post[[<span class="dv">2</span>]], <span class="at">log =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb87-19"><a href="dic.html#cb87-19" tabindex="-1"></a>(mean_D <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="sc">-</span><span class="dv">2</span> <span class="sc">*</span> ll))</span></code></pre></div>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="dic.html#cb133-1" tabindex="-1"></a><span class="co"># Two samples with success rates 35/50 and 15/20</span></span>
+<span id="cb133-2"><a href="dic.html#cb133-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">35</span>, <span class="dv">15</span>)</span>
+<span id="cb133-3"><a href="dic.html#cb133-3" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">20</span>)</span>
+<span id="cb133-4"><a href="dic.html#cb133-4" tabindex="-1"></a></span>
+<span id="cb133-5"><a href="dic.html#cb133-5" tabindex="-1"></a><span class="co"># Priors</span></span>
+<span id="cb133-6"><a href="dic.html#cb133-6" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb133-7"><a href="dic.html#cb133-7" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb133-8"><a href="dic.html#cb133-8" tabindex="-1"></a></span>
+<span id="cb133-9"><a href="dic.html#cb133-9" tabindex="-1"></a><span class="co"># Posteriors</span></span>
+<span id="cb133-10"><a href="dic.html#cb133-10" tabindex="-1"></a>post <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb133-11"><a href="dic.html#cb133-11" tabindex="-1"></a>  <span class="fu">rbeta</span>(<span class="dv">10</span><span class="sc">^</span><span class="dv">3</span>, a<span class="sc">+</span>y[<span class="dv">1</span>], b<span class="sc">+</span>n[<span class="dv">1</span>]<span class="sc">-</span>y[<span class="dv">1</span>]),</span>
+<span id="cb133-12"><a href="dic.html#cb133-12" tabindex="-1"></a>  <span class="fu">rbeta</span>(<span class="dv">10</span><span class="sc">^</span><span class="dv">3</span>, a<span class="sc">+</span>y[<span class="dv">2</span>], b<span class="sc">+</span>n[<span class="dv">2</span>]<span class="sc">-</span>y[<span class="dv">2</span>])</span>
+<span id="cb133-13"><a href="dic.html#cb133-13" tabindex="-1"></a>)</span>
+<span id="cb133-14"><a href="dic.html#cb133-14" tabindex="-1"></a></span>
+<span id="cb133-15"><a href="dic.html#cb133-15" tabindex="-1"></a><span class="co"># -2 * Mean log-likelihood</span></span>
+<span id="cb133-16"><a href="dic.html#cb133-16" tabindex="-1"></a>ll <span class="ot">&lt;-</span> </span>
+<span id="cb133-17"><a href="dic.html#cb133-17" tabindex="-1"></a>  <span class="fu">dbinom</span>(y[<span class="dv">1</span>], n[<span class="dv">1</span>], post[[<span class="dv">1</span>]], <span class="at">log =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb133-18"><a href="dic.html#cb133-18" tabindex="-1"></a>  <span class="fu">dbinom</span>(y[<span class="dv">2</span>], n[<span class="dv">2</span>], post[[<span class="dv">2</span>]], <span class="at">log =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb133-19"><a href="dic.html#cb133-19" tabindex="-1"></a>(mean_D <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="sc">-</span><span class="dv">2</span> <span class="sc">*</span> ll))</span></code></pre></div>
 <pre><code>## [1] 9.287665</code></pre>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="dic.html#cb89-1" tabindex="-1"></a><span class="co"># D(theta-bar) is the likelihood of the data based on the posterior means of p.</span></span>
-<span id="cb89-2"><a href="dic.html#cb89-2" tabindex="-1"></a>(D_mean <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">2</span> <span class="sc">*</span> (</span>
-<span id="cb89-3"><a href="dic.html#cb89-3" tabindex="-1"></a>  <span class="fu">dbinom</span>(y[<span class="dv">1</span>], n[<span class="dv">1</span>], (a<span class="sc">+</span>y[<span class="dv">1</span>]) <span class="sc">/</span> (a<span class="sc">+</span>y[<span class="dv">1</span>] <span class="sc">+</span> b<span class="sc">+</span>n[<span class="dv">1</span>]<span class="sc">-</span>y[<span class="dv">1</span>]), <span class="at">log =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb89-4"><a href="dic.html#cb89-4" tabindex="-1"></a>  <span class="fu">dbinom</span>(y[<span class="dv">2</span>], n[<span class="dv">2</span>], (a<span class="sc">+</span>y[<span class="dv">2</span>]) <span class="sc">/</span> (a<span class="sc">+</span>y[<span class="dv">2</span>] <span class="sc">+</span> b<span class="sc">+</span>n[<span class="dv">2</span>]<span class="sc">-</span>y[<span class="dv">2</span>]), <span class="at">log =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb89-5"><a href="dic.html#cb89-5" tabindex="-1"></a>))</span></code></pre></div>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="dic.html#cb135-1" tabindex="-1"></a><span class="co"># D(theta-bar) is the likelihood of the data based on the posterior means of p.</span></span>
+<span id="cb135-2"><a href="dic.html#cb135-2" tabindex="-1"></a>(D_mean <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">2</span> <span class="sc">*</span> (</span>
+<span id="cb135-3"><a href="dic.html#cb135-3" tabindex="-1"></a>  <span class="fu">dbinom</span>(y[<span class="dv">1</span>], n[<span class="dv">1</span>], (a<span class="sc">+</span>y[<span class="dv">1</span>]) <span class="sc">/</span> (a<span class="sc">+</span>y[<span class="dv">1</span>] <span class="sc">+</span> b<span class="sc">+</span>n[<span class="dv">1</span>]<span class="sc">-</span>y[<span class="dv">1</span>]), <span class="at">log =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb135-4"><a href="dic.html#cb135-4" tabindex="-1"></a>  <span class="fu">dbinom</span>(y[<span class="dv">2</span>], n[<span class="dv">2</span>], (a<span class="sc">+</span>y[<span class="dv">2</span>]) <span class="sc">/</span> (a<span class="sc">+</span>y[<span class="dv">2</span>] <span class="sc">+</span> b<span class="sc">+</span>n[<span class="dv">2</span>]<span class="sc">-</span>y[<span class="dv">2</span>]), <span class="at">log =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb135-5"><a href="dic.html#cb135-5" tabindex="-1"></a>))</span></code></pre></div>
 <pre><code>## [1] 7.46448</code></pre>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="dic.html#cb91-1" tabindex="-1"></a><span class="co">#p_D and DIC from equation</span></span>
-<span id="cb91-2"><a href="dic.html#cb91-2" tabindex="-1"></a>(p_D <span class="ot">&lt;-</span> mean_D <span class="sc">-</span> D_mean)</span></code></pre></div>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="dic.html#cb137-1" tabindex="-1"></a><span class="co">#p_D and DIC from equation</span></span>
+<span id="cb137-2"><a href="dic.html#cb137-2" tabindex="-1"></a>(p_D <span class="ot">&lt;-</span> mean_D <span class="sc">-</span> D_mean)</span></code></pre></div>
 <pre><code>## [1] 1.823185</code></pre>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="dic.html#cb93-1" tabindex="-1"></a>(DIC <span class="ot">&lt;-</span> p_D <span class="sc">+</span> mean_D)</span></code></pre></div>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="dic.html#cb139-1" tabindex="-1"></a>(DIC <span class="ot">&lt;-</span> p_D <span class="sc">+</span> mean_D)</span></code></pre></div>
 <pre><code>## [1] 11.11085</code></pre>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="dic.html#cb95-1" tabindex="-1"></a><span class="co"># Repeat these steps for a single model of both groups</span></span>
-<span id="cb95-2"><a href="dic.html#cb95-2" tabindex="-1"></a>post_group <span class="ot">&lt;-</span> <span class="fu">rbeta</span>(<span class="dv">10</span><span class="sc">^</span><span class="dv">3</span>, a<span class="sc">+</span><span class="fu">sum</span>(y), b<span class="sc">+</span><span class="fu">sum</span>(n)<span class="sc">-</span><span class="fu">sum</span>(y))</span>
-<span id="cb95-3"><a href="dic.html#cb95-3" tabindex="-1"></a>ll_group <span class="ot">&lt;-</span> </span>
-<span id="cb95-4"><a href="dic.html#cb95-4" tabindex="-1"></a>  <span class="fu">dbinom</span>(y[<span class="dv">1</span>], n[<span class="dv">1</span>], post_group, <span class="at">log =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb95-5"><a href="dic.html#cb95-5" tabindex="-1"></a>  <span class="fu">dbinom</span>(y[<span class="dv">2</span>], n[<span class="dv">2</span>], post_group, <span class="at">log =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb95-6"><a href="dic.html#cb95-6" tabindex="-1"></a>(mean_D_group <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="sc">-</span><span class="dv">2</span> <span class="sc">*</span> ll_group))</span></code></pre></div>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="dic.html#cb141-1" tabindex="-1"></a><span class="co"># Repeat these steps for a single model of both groups</span></span>
+<span id="cb141-2"><a href="dic.html#cb141-2" tabindex="-1"></a>post_group <span class="ot">&lt;-</span> <span class="fu">rbeta</span>(<span class="dv">10</span><span class="sc">^</span><span class="dv">3</span>, a<span class="sc">+</span><span class="fu">sum</span>(y), b<span class="sc">+</span><span class="fu">sum</span>(n)<span class="sc">-</span><span class="fu">sum</span>(y))</span>
+<span id="cb141-3"><a href="dic.html#cb141-3" tabindex="-1"></a>ll_group <span class="ot">&lt;-</span> </span>
+<span id="cb141-4"><a href="dic.html#cb141-4" tabindex="-1"></a>  <span class="fu">dbinom</span>(y[<span class="dv">1</span>], n[<span class="dv">1</span>], post_group, <span class="at">log =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb141-5"><a href="dic.html#cb141-5" tabindex="-1"></a>  <span class="fu">dbinom</span>(y[<span class="dv">2</span>], n[<span class="dv">2</span>], post_group, <span class="at">log =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb141-6"><a href="dic.html#cb141-6" tabindex="-1"></a>(mean_D_group <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="sc">-</span><span class="dv">2</span> <span class="sc">*</span> ll_group))</span></code></pre></div>
 <pre><code>## [1] 8.576659</code></pre>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="dic.html#cb97-1" tabindex="-1"></a>(D_mean_group <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">2</span> <span class="sc">*</span> (</span>
-<span id="cb97-2"><a href="dic.html#cb97-2" tabindex="-1"></a>  <span class="fu">dbinom</span>(y[<span class="dv">1</span>], n[<span class="dv">1</span>], (a<span class="sc">+</span><span class="fu">sum</span>(y)) <span class="sc">/</span> (a<span class="sc">+</span><span class="fu">sum</span>(y) <span class="sc">+</span> b<span class="sc">+</span><span class="fu">sum</span>(n)<span class="sc">-</span><span class="fu">sum</span>(y)), <span class="at">log =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb97-3"><a href="dic.html#cb97-3" tabindex="-1"></a>  <span class="fu">dbinom</span>(y[<span class="dv">2</span>], n[<span class="dv">2</span>], (a<span class="sc">+</span><span class="fu">sum</span>(y)) <span class="sc">/</span> (a<span class="sc">+</span><span class="fu">sum</span>(y) <span class="sc">+</span> b<span class="sc">+</span><span class="fu">sum</span>(n)<span class="sc">-</span><span class="fu">sum</span>(y)), <span class="at">log =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb97-4"><a href="dic.html#cb97-4" tabindex="-1"></a>))</span></code></pre></div>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="dic.html#cb143-1" tabindex="-1"></a>(D_mean_group <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">2</span> <span class="sc">*</span> (</span>
+<span id="cb143-2"><a href="dic.html#cb143-2" tabindex="-1"></a>  <span class="fu">dbinom</span>(y[<span class="dv">1</span>], n[<span class="dv">1</span>], (a<span class="sc">+</span><span class="fu">sum</span>(y)) <span class="sc">/</span> (a<span class="sc">+</span><span class="fu">sum</span>(y) <span class="sc">+</span> b<span class="sc">+</span><span class="fu">sum</span>(n)<span class="sc">-</span><span class="fu">sum</span>(y)), <span class="at">log =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb143-3"><a href="dic.html#cb143-3" tabindex="-1"></a>  <span class="fu">dbinom</span>(y[<span class="dv">2</span>], n[<span class="dv">2</span>], (a<span class="sc">+</span><span class="fu">sum</span>(y)) <span class="sc">/</span> (a<span class="sc">+</span><span class="fu">sum</span>(y) <span class="sc">+</span> b<span class="sc">+</span><span class="fu">sum</span>(n)<span class="sc">-</span><span class="fu">sum</span>(y)), <span class="at">log =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb143-4"><a href="dic.html#cb143-4" tabindex="-1"></a>))</span></code></pre></div>
 <pre><code>## [1] 7.587449</code></pre>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="dic.html#cb99-1" tabindex="-1"></a>(p_D_group <span class="ot">&lt;-</span> mean_D_group <span class="sc">-</span> D_mean_group)</span></code></pre></div>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="dic.html#cb145-1" tabindex="-1"></a>(p_D_group <span class="ot">&lt;-</span> mean_D_group <span class="sc">-</span> D_mean_group)</span></code></pre></div>
 <pre><code>## [1] 0.9892094</code></pre>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="dic.html#cb101-1" tabindex="-1"></a>(DIC_group <span class="ot">&lt;-</span> p_D_group <span class="sc">+</span> mean_D_group)</span></code></pre></div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="dic.html#cb147-1" tabindex="-1"></a>(DIC_group <span class="ot">&lt;-</span> p_D_group <span class="sc">+</span> mean_D_group)</span></code></pre></div>
 <pre><code>## [1] 9.565868</code></pre>
 <p>The DIC for the two group model is 11.1108506 and for the one common group model it is 9.5658681. The DIC for one common group model is smaller, so we do not have enough statistical evidence for two groups. If the DIC for the group-specific model is at least 3 units smaller than that for the common model, there is sufficient statistical evidence for difference between groups.</p>
 </div>

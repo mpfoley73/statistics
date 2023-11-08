@@ -75,6 +75,401 @@ This formula expresses the posterior distribution of $\theta$ as a function of t
 
 It is easier to see how observed evidence shifts the probabilities of the priors into their posterior probabilities by working with discrete priors first. From there it is straight-forward to grasp the more abstract case of continuous prior and posterior distributions.
 
+## Markov Chain Monte Carlo (MCMC)
+
+Markov chain Monte Carlo (MCMC) methods are a class of algorithms for random sampling from high-dimensional probability distributions. Whereas Monte Carlo methods draw independent samples from a distribution, MCMC draw samples where the next value is dependent on the prior sample, creating a chain that zeros in on the target. MCMC improves on the less efficient rejection sampling, grid search, etc. methods. An example will show how Bayesian inference works with the less efficient methods, and the more sophisticated MCMC methods.^[Some of these notes are from DataCamp course [Fundamentals of Bayesian Data Analysis in R](https://learn.datacamp.com/courses/fundamentals-of-bayesian-data-analysis-in-r).]
+
+The Howell data set contains the height (cm) of 165 adult males. Human height has an $\sim N(\mu, \sigma)$ distribution. What is the expected height of an adult male?
+
+```{r}
+# downloaded this from 
+# https://github.com/rmcelreath/rethinking/blob/master/data/Howell1.csv
+howell <- 
+  read_delim("input/Howell1.csv", delim = ";", show_col_types = FALSE) %>%
+  filter(age >= 18, male == 1)
+
+howell %>% ggplot(aes(sample = height)) + stat_qq() + geom_qq_line() +
+  labs(title = "Adult heights are ~normally distributed.")
+```
+
+### The Classical Approach
+
+The classical approach is to construct a 95% CI around the mean with a [one-sample mean _t_ test](https://mpfoley73.github.io/statistics/one-sample-mean-t-test.html). The mean height is 160.4 (95% CI, 159.4 to 161.3) with standard deviation `r sd(howell$height) %>% comma(.1)`.
+
+```{r}
+t.test(howell$height)
+```
+
+### Rejection Sampling
+
+Rejection sampling samples the parameter space ($\mu$ and $\tau$), then conditions on the observed evidence ($\bar{y}$).
+
+```{r}
+ITER <- 10^5
+
+set.seed(12345)
+
+dat <- tibble(
+  mu = round(runif(ITER, 150, 170), 1),
+  tau = round(runif(ITER, .3, .6), 2),
+  sampled_height = round(rnorm(ITER, mu, 1/sqrt(tau)), 1)
+)
+
+# Condition on observed mean (160.4)
+observed_mean <- round(mean(howell$height), 1)
+dat %>% 
+  filter(sampled_height == observed_mean) %>% 
+  summarize(mu_mean = mean(mu), mu_025 = quantile(mu, .025), mu_975 = quantile(mu, .975))
+```
+
+This is rather inefficient. We generated `r comma(ITER, 1)` data points, then conditioned on just the `r dat %>% filter(sampled_height == observed_mean) %>% nrow() %>% comma(1)` that had the observed mean. Plus, we limited ourselves to one-decimal precision for the search. However, the result, 160.4 (95% CI, 157.3 to 163.4) was close to the classical estimate of 160.4 (95% CI, 159.4 to 161.3)
+
+### Gibbs Sampler
+
+Section \@ref(normal-pop-est) explains that if you have data from a normally distributed population $\sim N(\mu, \sigma)$, you can use a normal prior for $\mu \sim N(\mu_0, \tau_0)$ where $\tau = 1 / \sigma^2$, and a gamma prior for $\tau \sim \text{Gamma}(a, b)$. The posterior distributions are
+
+$$
+\begin{align}
+\mu|y & \sim N\left( \frac{n \tau \bar{y}}{n \tau + \tau_0}, n \tau + \tau_0 \right) \\
+\tau|y & \sim \text{Gamma} \left( a = \frac{n}{2}, b = \frac{1}{2} \sum_i (y_i - \mu)^2 \right)
+\end{align}
+$$
+
+The Gibbs sampler algorithm is to set priors, randomly sample from `rnorm()` and `rgamma()` to get posteriors, then make the posteriors the new priors for repeated iterations. After some burn-in period, the posteriors should stabilize. Take the mean and quantiles of the posteriors (minus the burn-in). From prior knowledge, we know average height is $\mu_0 = 175 \pm 10$. As a rule of thumb, $\pm$ is 2SD, so $\sigma_0 = 5$ and therefore $\tau_0 = 1 / 5^2$. For gamma, we can use priors $a = .01$ and $b = .01$.
+
+```{r collapse=TRUE}
+set.seed(12345)
+
+# Iterations
+ITER <- 10^3
+
+# Prior parameter values based on intuition or prior studies.
+mu_0 <- 175
+tau_0 <- 1 / 5^2
+
+# Monitors to track burn-in.
+monitor_mu <- numeric(ITER)
+monitor_tau <- numeric(ITER)
+
+# Initialize the algorithm.
+(n <- nrow(howell))
+y <- howell$height
+(y_bar <- mean(y))
+(mu <- mean(y))
+(tau <- 1 / var(y))
+a <- .01
+b <- .01
+
+for(iter in 1:ITER) {
+  # mu
+  new_mu <- (n * tau * y_bar) / (n * tau + tau_0)
+  new_tau <- n * tau + tau_0
+  monitor_mu[iter] <- rnorm(1, new_mu, 1 / sqrt(new_tau))
+  # tau
+  new_a <- a + n/2
+  new_b <- b + .5 * sum((y-mu)^2)
+  monitor_tau[iter] <- rgamma(1, new_a, new_b)
+  # update state
+  mu <- monitor_mu[iter]
+  tau <- monitor_tau[iter]
+}
+
+# Discard burn-in and estimate.
+mean(monitor_mu[-500])
+quantile(monitor_mu[-500], c(.025, .975))
+
+# Check out the burn-in. Actually looks like it took 1 iteration.
+tibble(index = 1:ITER, M = monitor_mu) %>% ggplot(aes(x = index, y = M)) + geom_line()
+```
+
+### Metropolis-Hastings
+
+The Metropolis-Hastings model is like MCMC except that the posterior is accepted with probability $\min(R, 1)$ where $R$ is 
+
+$$
+R = \frac{f(y|\theta')f(\theta')}{f(y|\theta)f(\theta)} \frac{q(\theta|\theta')}{q(\theta'|\theta)}
+$$
+
+If the proposed distribution is symmetric, the second term drops out and $R$ is just the ratio of posterior distributions. The symmetric version is called *Metropolis* instead of *Metropolis-Hastings*.
+
+Suppose your data is $n = 100$ values from a $N(\mu = 2, \tau = 1/4)$ distribution.
+
+```{r collaps=TRUE}
+set.seed(12345)
+
+# Iterations
+ITER <- 10^3
+
+# Prior parameter values based on intuition or prior studies.
+mu_0 <- 175
+tau_0 <- 1 / 5^2
+
+# Monitors to track burn-in.
+monitor_mu <- numeric(ITER)
+monitor_tau <- numeric(ITER)
+
+# Initialize the algorithm.
+(n <- nrow(howell))
+y <- howell$height
+(y_bar <- mean(y))
+(mu <- mean(y))
+(tau <- 1 / var(y))
+a <- .01
+b <- .01
+
+for(iter in 1:ITER) {
+  # mu
+  new_mu <- (n * tau * y_bar) / (n * tau + tau_0)
+  new_tau <- n * tau + tau_0
+  proposed_mu <- rnorm(1, new_mu, 1 / sqrt(new_tau)) # tentative for now!
+  # tau
+  new_a <- a + n/2
+  new_b <- b + .5 * sum((y-mu)^2)
+  monitor_tau[iter] <- rgamma(1, new_a, new_b)
+  # update state
+  # log of the acceptance ratio
+  logR <- sum(dnorm(y, proposed_mu, 1/sqrt(tau), log = T)) - # new likelihood
+          sum(dnorm(y, mu         , 1/sqrt(tau), log = T)) + # old likelihood
+          dnorm(proposed_mu, mu_0, 1/sqrt(tau_0), log = T) - # new prior
+          dnorm(mu         , mu_0, 1/sqrt(tau_0), log = T)   # old prior
+  # accept with probability min(R,1)
+  logU <- log(runif(1,0,1))
+  if(logU < logR) {mu <- new_mu}
+  monitor_mu[iter] <- mu # this is either current or the proposed.
+  tau <- monitor_tau[iter]
+}
+
+# Discard burn-in and estimate.
+mean(monitor_mu[-500])
+quantile(monitor_mu[-500], c(.025, .975))
+
+# Check out the burn-in. Actually looks like it took 1 iteration.
+tibble(index = 1:ITER, M = monitor_mu) %>% ggplot(aes(x = index, y = M)) + geom_line()
+```
+
+### Other Notes
+
+One simple Bayesian approach is to run several (we'll use 1,000) experiments that sample 100 ad impression events from an `rbinom()` generative model using a uniform prior distribution of 0-30% click probability. The resulting 1,000 row data set of click probabilities is the prior predictive distribution of $D$, the denominator of Bayes' Theorem. The subset where $D = 13$ is the likelihood, $P(D|\theta)$. The sampled $\theta$'s are the prior, $P(\theta) = \text{unif}(.0, .3)$. Their product is the joint probability distribution, $P(D|\theta)P(\theta)$, the numerator of Bayes' Theorem. This method is called *rejection sampling* because you sample across the whole parameter space, then condition on the observed evidence.
+
+```{r}
+df_sim <- tibble(
+  click_prob = runif(1000, 0.0, 0.3),
+  click_n = rbinom(1000, 100, click_prob)
+)
+
+df_sim %>% 
+  mutate(is_13 = factor(click_n == 13, levels = c(TRUE, FALSE))) %>%
+  ggplot(aes(x = click_prob, y = click_n, color = is_13)) +
+  geom_point(alpha = 0.6, show.legend = FALSE) +
+  geom_hline(yintercept = 13, color = "steelblue", linetype = 1, linewidth = .5) +
+  scale_color_manual(values = c("TRUE" = "steelblue", "FALSE" = "gray80")) +
+  scale_y_continuous(breaks = c(seq(0, 40, 10), 13)) +
+  labs(title = "Joint probability of observed clicks and click probability",
+       subtitle = "with conditioning on 13 observed clicks.",
+       y = "clicks per 100 ads",
+       x = expression(theta))
+```
+
+Condition the joint probability distribution on the `r df_sim %>% filter(click_n == 13) %>% nrow()` rows that produced 13 observed clicks to update the prior. The `quantile()` function returns the median and the .025 and .975 percentile values - the *credible interval*.
+
+```{r}
+# median and credible interval
+(sim_ci <- df_sim %>% filter(click_n == 13) %>% pull(click_prob) %>% 
+  quantile(c(.025, .5, .975)))
+```
+
+The posterior click rate likelihood is `r percent(sim_ci[2], .1)` with 95% credible interval (`r percent(sim_ci[1], .1)`, `r percent(sim_ci[3], .1)`). Here is the density plot of the `r df_sim %>% filter(click_n == 13) %>% nrow()` simulations that produced the 13 clicks. The median and 95% credible interval are marked.
+
+```{r}
+df_sim %>% 
+  filter(click_n == 13) %>%
+  ggplot(aes(x = click_prob)) +
+  geom_density() +
+  geom_vline(xintercept = sim_ci[2]) +
+  geom_vline(xintercept = sim_ci[1], linetype = 2) +
+  geom_vline(xintercept = sim_ci[3], linetype = 2) +
+  # coord_cartesian(xlim = c(0, .3)) +
+  scale_x_continuous(breaks = c(seq(0, .3, .05), sim_ci), labels = percent_format(.1)) +
+  labs(title = "Posterior click likelihood distribution", 
+       subtitle = glue("p = {percent(sim_ci[2], .1)}, 95%-CI (",
+       "{percent(sim_ci[1], .1)}, {percent(sim_ci[3], .1)})"),
+       x = expression(theta), y = "density (likelihood)")
+```
+
+That's pretty close to the classical result! Instead of sampling, you could define a discrete set of candidate click probabilities and calculate the click probability density for the 100 ad impressions. This method is called *grid approximation*.
+
+```{r}
+df_bayes <- expand.grid(
+  click_prob = seq(0.01, .30, by = .001), 
+  click_n = 0:100
+) %>%
+  mutate(
+    prior = dunif(click_prob, min = 0, max = 0.3),
+    likelihood = dbinom(click_n, 100, click_prob),
+    probability = likelihood * prior / sum(likelihood * prior)
+  )
+
+df_bayes %>% 
+  mutate(is_13 = factor(click_n == 13, levels = c(TRUE, FALSE))) %>%
+  # filter(probability > .0001) %>%
+  ggplot(aes(x = click_prob, y = click_n, color = is_13)) +
+  geom_point(aes(color = probability), show.legend = FALSE, size = 1) +
+  geom_hline(yintercept = 13, color = "steelblue", linetype = 1, linewidth = .5) +
+  coord_cartesian(ylim = c(0, 50)) +
+  scale_y_continuous(breaks = c(seq(0, 50, 10), 13)) +
+  scale_color_gradient(low = "#FFFFFF", high = "steelblue") +
+  # scale_color_manual(values = c("TRUE" = "steelblue", "FALSE" = "gray20")) +
+  labs(title = "Joint probability of clicks and click probability.",
+       subtitle = "with conditioning on 13 observed clicks.",
+       y = "clicks per 100 ads",
+       x = expression(theta))
+```
+
+Condition the joint probability distribution on the 13 observed clicks to update your prior. Resample the posterior probability to create a distribution.
+
+```{r}
+df_bayes_13 <- df_bayes %>% filter(click_n == 13) %>%
+  mutate(posterior = probability / sum(probability))
+
+sampling_idx <- sample(
+  1:nrow(df_bayes_13), 
+  size = 10000, 
+  replace = TRUE, 
+  prob = df_bayes_13$posterior
+)
+
+sampling_vals <- df_bayes_13[sampling_idx, ]
+
+(df_bayes_ci <- quantile(sampling_vals$click_prob, c(.025, .5, .975)))
+```
+
+```{r echo=FALSE, warning=FALSE}
+df_bayes %>%
+  filter(click_n == 13) %>%
+  mutate(likelihood = probability / sum(probability),
+         lcl = if_else(click_prob < df_bayes_ci[1], likelihood, NA_real_),
+         ucl = if_else(click_prob > df_bayes_ci[3], likelihood, NA_real_), 
+         ci = if_else(click_prob >= df_bayes_ci[1] & 
+                        click_prob <= df_bayes_ci[3], "Y", "N")) %>%
+  ggplot(aes(x = click_prob, y = likelihood)) +
+  geom_line() +
+  geom_area(aes(y = lcl), fill = "firebrick", alpha = .4) +
+  geom_area(aes(y = ucl), fill = "firebrick", alpha = .4) +
+  geom_vline(xintercept = df_bayes_ci[2], linetype = 2) +
+  theme_minimal() +
+  scale_x_continuous(breaks = seq(0, .3, .05)) +
+  theme(panel.grid.minor = element_blank()) +
+  labs(title = "Posterior click probability", 
+       subtitle = glue("p = {df_bayes_ci[2] %>% scales::number(accuracy = .01)}, 95%-CI (",
+       "{df_bayes_ci[1] %>% scales::number(accuracy = .01)}, ",
+       "{df_bayes_ci[3] %>% scales::number(accuracy = .01)})"),
+       x = expression(theta))
+```
+
+You can use a Bayesian model to estimate multiple parameters. Suppose you want to predict the water temperature in a lake on Jun 1 based on 5 years of prior water temperatures. 
+
+```{r}
+temp <- c(19, 23, 20, 17, 23)
+```
+
+You model the water temperature as a normal distribution, $\mathrm{N}(\mu, \sigma^2)$ with a prior distribution $\mu = \mathrm{N}(18, 5^2)$ and $\sigma = \mathrm{unif}(0, 10)$ based on past experience.
+
+Using the grid approximation approach, construct a grid of candidate $\mu$ values from 8 to 30 degrees incremented by .5 degrees, and candidate $\sigma$ values from .1 to 10 incremented by .1 - a 4,500 row data frame. 
+
+```{r}
+mdl_grid <- expand_grid(mu = seq(8, 30, by = 0.5),
+                        sigma = seq(.1, 10, by = 0.1))
+```
+
+For each combination of $\mu$ and $\sigma$, the *prior* probabilities are the densities from $\mu = \mathrm{N}(18, 5^2)$ and $\sigma = \mathrm{unif}(0, 10)$. The combined prior is their product. The *likelihoods* are the products of the probabilities of observing each `temp` given the candidate $\mu$ and $\sigma$ values.
+
+```{r}
+mdl_grid_2 <- mdl_grid %>%
+  mutate(
+    mu_prior = map_dbl(mu, ~dnorm(., mean = 18, sd = 5)),
+    sigma_prior = map_dbl(sigma, ~dunif(., 0, 10)),
+    prior = mu_prior * sigma_prior, # combined prior,
+    likelihood = map2_dbl(mu, sigma, ~dnorm(temp, .x, .y) %>% prod()),
+    posterior = likelihood * prior / sum(likelihood * prior)
+  )
+```
+
+```{r echo=FALSE}
+mdl_grid_2 %>%
+  ggplot(aes(x = mu, y = sigma, fill = posterior)) +
+  geom_tile() +
+  scale_fill_gradient(low = "white", high = "steelblue", guide = "colorbar") +
+  theme_minimal() +
+  labs(title = "Joint probability of mu and sigma.",
+       x = expression(mu), y = expression(sigma))
+```
+
+Calculate a credible interval by drawing 10,000 samples from the grid with sampling probability equal to the calculated posterior probabilities. Use the `quantile()` function to estimate the median and .025 and .975 quantile values.
+
+```{r fig.height=3}
+sampling_idx <- sample(1:nrow(mdl_grid), size = 10000, replace = TRUE, prob = mdl_grid$posterior)
+sampling_vals <- mdl_grid[sampling_idx, c("mu", "sigma")]
+mu_ci <- quantile(sampling_vals$mu, c(.025, .5, .975))
+sigma_ci <- quantile(sampling_vals$sigma, c(.025, .5, .975))
+ci <- qnorm(c(.025, .5, .975), mean = mu_ci[2], sd = sigma_ci[2])
+
+data.frame(temp = seq(0, 30, by = .1)) %>%
+  mutate(prob = map_dbl(temp, ~dnorm(., mean = ci[2], sd = sigma_ci[2])),
+         ci = if_else(temp >= ci[1] & temp <= ci[3], "Y", "N")) %>%
+  ggplot(aes(x = temp, y = prob)) +
+  geom_area(aes(y = if_else(ci == "N", prob, 0)), 
+            fill = "firebrick", show.legend = FALSE) +
+  geom_line() +
+  geom_vline(xintercept = ci[2], linetype = 2) +
+  theme_minimal() +
+  scale_x_continuous(breaks = seq(0, 30, 5)) +
+  theme(panel.grid.minor = element_blank()) +
+  labs(title = "Posterior temperature probability", 
+       subtitle = glue("mu = {ci[2] %>% scales::number(accuracy = .1)}, 95%-CI (",
+       "{ci[1] %>% scales::number(accuracy = .1)}, ",
+       "{ci[3] %>% scales::number(accuracy = .1)})"))
+```
+
+What is the probability the temperature is at least 18?
+
+```{r}
+pred_temp <- rnorm(1000, mean = sampling_vals$mu, sampling_vals$sigma)
+scales::percent(sum(pred_temp >= 18) / length(pred_temp))
+```
+
+
+
+```{r}
+gibbs_normal <- function(y, mu_0, tau_0, a, b, n_iter){
+  n <- length(y)
+  y_mean <- mean(y)
+  
+  mu_sample <- tau_sample <- numeric(n_iter)
+  
+  # starting values
+  mu_sample[1] <- mean(y)
+  tau_sample[1] <- 1 / var(y)
+
+  # Gibbs sampler
+  for(i in 2:n_iter){
+    # mu
+    tau <- tau_sample[i-1]
+    mean_mu <- (n * y_mean * tau + mu_0 * tau_0) / (n * tau + tau_0)
+    precision_mu <- n * tau + tau_0
+    mu_sample[i] <- rnorm(1, mean_mu, 1 / sqrt(precision_mu))
+    # tau
+    mu <- mu_sample[i-1]
+    tau_sample[i] <- rgamma(1, a + n/2, b + .5 * sum((y - mu)^2))
+  }
+  
+  return(list(mu = mu_sample, tau = tau_sample))
+}
+
+set.seed(12345)
+sample_m <- gibbs_normal(howell[howell$male == "men",]$height, 175, 1/5^2, .01, .01, 10^3)
+```
+
+
 ## Gamma Poisson and Estimating Counts
 
 The gamma and Poisson distributions are used to model count data. Consider the following counts of weekday sandwich sales. What is the expected value of sales? 
@@ -338,7 +733,7 @@ The DIC for the weekday specific model is `r DIC` and for the one common group m
 
 ## Normal and Estimating Means
 
-### Population Estimate
+### Population Estimate {#normal-pop-est}
 
 Suppose you have a sample, $\textbf{y}$, from a normally distribution population of unknown mean and precision, $\mu$ and $\tau$: $y_i|\mu, \tau \sim N(\mu, \tau)$.^[In Bayesian statistics, the normal distribution is parameterized with the inverse of variance, called the *precision*, $\tau = 1 / \sigma^2$.] Assume a normal prior for $\mu \sim N(\mu_0, \tau_0)$, and a gamma prior for $\tau \sim \text{Gamma}(a, b)$ since it takes only positive values. The PDF for $y_i$ is $f(y_i | \mu, \tau) = \frac{\tau^{.5}}{\sqrt{2\pi}} \exp\left(-\frac{\tau}{2} (y_i - \mu)^2 \right)$. We'll derive posterior distributions for $\mu$ and $\tau$ separately. 
 
@@ -517,6 +912,30 @@ It may take some time to converge on a solution. This convergence is called *bur
 
 ### Regression
 
+The linear model in Bayesian statistics is
+
+Likelihood:
+
+$$
+y_i | \mu_i, \tau \sim N(\mu_i, \tau)
+$$
+
+where
+
+$$
+\mu_i | x_i, \beta_0, \beta_1 = \beta_0 + \beta_1 x
+$$
+
+Priors:
+
+$$
+\begin{align}
+\beta_0 & \sim N(0, 10^{-8}) \\
+\beta_1 & \sim N(0, 10^{-8}) \\
+\tau & \sim \text{Gamma}(.01, .01)
+\end{align}
+$$
+
 Returning to the Howell data, suppose you want to fit a linear model, $\text{Weight}_i = a + b \text{Height} + \epsilon_i$. In Bayesian regression, this is expressed as $\text{Weight} | \mu_i \sim N(\mu_i, \tau)$ where $\mu_i = a + b\text{Height}$. You can construct a Gibbs sampler to estimate the model, but there is already a package for that, MCMCglmm.
 
 ```{r warning=FALSE, message=FALSE}
@@ -597,6 +1016,282 @@ mdl_3 <- MCMCglmm(
 summary(mdl_3)
 mdl_1$DIC
 mdl_3$DIC
+```
+
+### Generalized Linear Models
+
+The generalized linear model in Bayesian statistics is
+
+Likelihood:
+
+$$
+y_i | \mu_i, \tau \sim D(\mu_i)
+$$
+
+where
+
+$$
+g(\mu_i | x_i, \beta_0, \beta_1) = \beta_0 + \beta_1 x
+$$
+
+Priors:
+
+$$
+\begin{align}
+\beta_0 & \sim N(0, 10^{-8}) \\
+\beta_1 & \sim N(0, 10^{-8}) \\
+\end{align}
+$$
+
+Consider a binary response $y_i$. You would typically model this with logistic regression:
+
+$y_i | p_i \sim \text{BIN}(1, p_i)$ where $\log \left( \frac{p_i}{1 - p_i} \right) = \beta_0 + \beta_1 x_i$. In bivariate statistics, if $x_i$ perfectly predicts $y_i$, *separation of variables* has occurred. Here's an example of separation of variables. In the regression, the standard errors are huge, so the p.value is nearly 1. The classical regression framework has broken down.
+
+```{r collapse=TRUE}
+study <- read_csv("input/hours_of_study_data.csv", col_types = "dc") %>%
+  mutate(y = factor(y)) %>%
+  as.data.frame()
+
+study %>% ggplot(aes(x = HoursOfStudy, y = y)) + geom_point()
+
+summary(
+  glm(y ~ HoursOfStudy, data = study, family = "binomial")
+)
+```
+
+The Bayesian framework performs better.
+
+```{r}
+set.seed(12345)
+
+summary(
+ m.bayes <- MCMCglmm(y ~ HoursOfStudy, data = study, family = "categorical", verbose = FALSE)
+)
+```
+ 
+ Each hour of study is associated with an $\exp (1.9036) \sim 6.7$-fold increase in the odds of passing. The posterior probability that the association is positive is 
+ 
+```{r}
+mean(m.bayes$Sol[, 2] > 0)
+```
+ 
+Let's try another example. 
+
+```{r collapse=TRUE}
+chase <- read_csv("input/TheChase.txt", show_col_types = FALSE)
+
+# focus on Mark
+mark <- chase %>% filter(Chaser == "Mark")
+
+mark %>% ggplot(aes(x = TeamScore, y = Win)) + geom_jitter(width = 0)
+```
+
+Notice: most scores are between 10 and 25, winning is less common than losing, and winning is more common with higher scores. Fit the following model: $y_i \sim \text{Bin}(1, p_i)$ where $\text{logit}(p_i) = \beta_0 + \beta_1 x_i$ and $x_i$ is the mean score of game $i$. Assume non-informative normal priors: $\beta_0 \sim N(0, 10^{-8})$ and $\beta_1 \sim N(0, 10^{-8})$.
+
+```{r message=FALSE}
+library(rstanarm)
+```
+
+```{r}
+# This will take ~1 min
+m1 <- stan_glm(Win ~ TeamScore, data = mark, 
+                 family = binomial(link = "logit"), 
+                 prior = normal(location=0, scale=10^4),
+                 prior_intercept = normal(location=0, scale=10^4),
+                 chains=1, iter= 1500,
+                 seed = 12345, refresh=0)
+```
+
+```{r}
+m1post <- as.data.frame(m1)
+par(mfrow=c(2,2))
+plot(m1post[,1],ty='l',ylab=expression(beta[0]))
+plot(density(m1post[,1]),xlab=expression(beta[0]),main='')
+plot(m1post[,2],ty='l',ylab=expression(beta[1]))
+plot(density(m1post[,2]),xlab=expression(beta[1]),main='')
+```
+
+The traces look converged, and the estimated posterior densities look smooth.
+
+```{r}
+df.summary <- data.frame(
+p.means = round(apply(m1post,2,mean),4),
+p.ci.lo = round(apply(m1post,2,quantile,.025),4),
+p.ci.hi = round(apply(m1post,2,quantile,.975),4))
+
+print(df.summary)
+```
+
+There is a positive correlation between the Team Score and the odds of winning. Calculate the posterior probability.
+
+```{r}
+mean(m1post[, 2] > 0)
+```
+
+Compare this to the classical result. They are pretty close.
+
+```{r}
+summary(
+  m1c <- glm(Win ~ TeamScore, data = mark, family = "binomial")
+)
+```
+
+Let's also plot the estimated model on a grid of possible Team Score values. Recall $p = \frac{1}{1 + e^{-z}}$,
+
+```{r}
+# setting a grid of values
+TeamScoreGrid <- seq(0:30)
+
+# using posterior samples of beta0 and beta1
+# to produce a posterior sample of probabilities at each value of TeamScoreGrid
+
+p.eval <- function(Score,b0,b1){1/(1+exp(-(b0+b1*Score)))}
+
+p.sample <- sapply(TeamScoreGrid,p.eval,b0=m1post[,1],b1=m1post[,2])
+
+# evaluating posterior mean probability for each score:
+p.post.mean <- apply(p.sample,2,mean)
+
+# evaluating 95% CI for the probability for each score:
+p.post.lo <- apply(p.sample,2,quantile,.025)
+p.post.hi <- apply(p.sample,2,quantile,.975)
+
+data.post <- data.frame(TeamScore=TeamScoreGrid, p.mn=p.post.mean,
+                        p.lo=p.post.lo, p.hi=p.post.hi)
+
+ggplot(data=mark,aes(x=TeamScore,y=jitter(Win)))+
+  geom_point()+
+  geom_ribbon(data=data.post,aes(x=TeamScore,y=p.mn,ymin=p.lo,ymax=p.hi),alpha=.5,fill='salmon') +
+  geom_line(data=data.post,aes(x=TeamScore,y=p.mn),col='red', linewidth=1.5)+
+  ylab('Outcome')+
+  scale_y_continuous(name='', breaks=c(0,1), labels=c('Lose','Win'),
+                     sec.axis=sec_axis(~., breaks=seq(0,1,.2),
+                                       name='Probability of Winning'))+
+  xlim(c(0,30))
+
+data.post$TeamScore[which(data.post$ppp >= .80)][1]
+```
+
+What is the posterior probability that a team score of 25 beats Mark?
+
+```{r}
+p.eval(Score = 25, b0 = m1post[,1], b1 = m1post[,2]) %>% mean()
+```
+
+What score do you need in order to win with 80% certainty, $P(y = 1|x) \ge .8)$. For each $x$ on a grid, take the posterior sample for $p$ and generate $y = \text{Bern}(p)$. Then get $prob(y == 1)$.
+
+```{r}
+# simulating the game outcomes (y)
+y.sample <- (array(runif(prod(dim(p.sample))),dim=dim(p.sample)) < p.sample)*1
+
+# posterior predictive probabilities that y=1
+data.post$ppp <- apply(y.sample,2,mean)
+
+ggplot(data=data.post,aes(x=TeamScore,y=ppp))+
+  geom_line(col='red',size=1.5)+
+  geom_hline(aes(yintercept=0.80),col='blue',size=1.2,lty=2)+
+  geom_vline(aes(xintercept=24),col='brown',size=1.1,lty=2)+
+  geom_vline(aes(xintercept=25),col='brown',size=1.1,lty=2)+
+  ylab('Post. Pred. Prob. of Winning')+
+  xlim(c(0,30))+theme_gray(base_size=18)
+```
+
+### Missing Data
+
+Consider a situation where 20 customers are surveyed to measure satisfaction. You can model this as $x_i | p \sim \text{Bin}(1, p)$ where $p$ is the probability of satisfaction. The conjugate prior for $p$ is $p \sim \text{Beta}(a, b)$. However, some observations are missing. You can divide the respondents into $x_{obs}$ and $x_{miss}$. Then 
+
+$$
+f(x|p) = \prod_i f(x_i|p) = f(x_{obs}|p) f(x_{miss}|p)
+$$
+
+When missingness is random, you can smiply discard missing observations. So if there were 4 missing responses, and 10 of the 16 completed surveys were satisfied, $p|x_{obs} \sim \text{Beta}(1 + 10, 1 + 6)$. The Beta-bimomial conjugate model is
+
+$$
+\begin{align}
+x_i & \sim \text{Bin}(1, p) \\
+p & \sim \text{Beta}(a, b)
+\end{align}
+$$
+
+with posterior $p | x \sim \text{Beta} \left( a + \sum_i x_i, b + \sum_i (1 - x_i) \right)$
+
+But if the data are not missing at random, you need to model the probability of participating. From past experience you might infer that participation rates are 30% for satisfied and 90% for dissatisfied.
+
+$$
+\begin{align}
+P(z_i = 1 | x_i = 1) &= .3 \\
+P(z_i = 1 | x_i = 0) &= .9
+\end{align}
+$$
+
+Combining them, you have $P(x_i = 1 | z_i = 0, p) = \frac{7p}{6p + 1}$. Set up a Gibbs sampler. Step 0: assign random prior values to the missing $x$. Step 1: given $x$, sample $p$ from $\text{Beta}(a + \sum_i x_i, b + \sum_i (1 - x_i))$. Step 2: given $p$, assign the missing $x$ to 1 with probability $p|x_{obs} \sim \text{Beta}(1 + 10, 1 + 6)$.
+
+```{r}
+# prior parameters
+a <- 1; b <- 1
+# data
+x <- rep(c(1,0,NA),c(10,6,4))
+z <- rep(1:0,c(16,4))
+
+# initial values.
+x.sample <- x; x.sample[is.na(x)] <- sample(0:1,size=4,replace=T)
+
+# number of iterations
+ITER <- 10^4+500
+# and the monitor for recording the iterations of p
+mon.p <- numeric(ITER)
+# ... and one of the missing observations
+mon.x20 <- numeric(ITER)
+
+# Gibbs sampler:
+
+for(iter in 1:ITER){
+  # sampling p
+  mon.p[iter] <- p <- rbeta(1,a+sum(x.sample),b+sum(1-x.sample))
+  # sampling (missing x)
+  x.sample[is.na(x)] <- rbinom(sum(is.na(x)),1,7*p/(6*p+1))
+    mon.x20[iter] <- x.sample[20]
+}
+```
+
+```{r}
+# prior parameters
+a <- 1; b <- 1
+# data: 40 satisfied, 10 not satisfied, 50 no-responses
+x <- rep(c(1,0,NA),c(40,10,50))
+z <- rep(1:0,c(50,50))
+# what if all 50 were satisfied?
+x <- rep(c(1,0,1),c(40,10,50))
+z <- rep(1:0,c(50,50))
+# what if all 50 were like the other 50?
+x <- rep(c(1,0,1,0),c(40,10,40,10))
+z <- rep(1:0,c(50,50))
+
+# initial values.
+x.sample <- x; x.sample[is.na(x)] <- sample(0:1,size=50,replace=T)
+
+# number of iterations
+ITER <- 10^4+500
+# and the monitor for recording the iterations of p
+mon.p <- numeric(ITER)
+# ... and one of the missing observations
+mon.x20 <- numeric(ITER)
+
+# Gibbs sampler:
+
+for(iter in 1:ITER){
+  # sampling p
+  mon.p[iter] <- p <- rbeta(1,a+sum(x.sample),b+sum(1-x.sample))
+  # sampling (missing x)
+  x.sample[is.na(x)] <- rbinom(sum(is.na(x)),1,7*p/(6*p+1))
+    mon.x20[iter] <- x.sample[20]
+}
+
+# Posterior mean probability of being satisfied.
+mean(mon.p[501:10500])
+
+# 95% CI
+quantile(mon.p[501:10500], c(.025, .975))
 ```
 
 ### Change Point Regression
@@ -863,6 +1558,7 @@ mon_tibble %>%
   geom_line(aes(y = y)) +
   geom_ribbon(aes(ymin = lci, ymax = uci))
 ```
+
 ### Cluster Analysis
 
 You can use Bayes for mixtures. Suppose you have a mixture of $z_i \in [1, 2, 3]$ types of grains with mean diameters of 3.8, 5, and 8mm. Given a grain of diameter $x_i$, what is its class, $z_i$?
@@ -1126,6 +1822,7 @@ y <- rep(days, respondents)
 a / (a + b)
 qbeta(c(.025, .975), a, b)
 ```
+
 The predictive distribution of $\tilde{y}$ is $f(\tilde{y}|y) = \int f(\tilde{y}|p) f(p|y) dp$. The way you would normally solve this is to run a simulation. Sample a thousand $p$'s from the posterior beta distribution, then use them to sample 100 respondents from the binomial distribution.
 
 ```{r collapse=TRUE}
@@ -1628,7 +2325,7 @@ mean(g^5*(1-g)^5)
 
 ## Metropolis-Hastings
 
-For any model with likelihood $f(y|\theta)$ and prior $f(\theta)$, you can use the Metropolis-Hastings step to estimate $\theta$. Start with an initial $\theta = \theta_0$. Propose a new $\theta^'$ from a proposed distribution $q(\theta'|\theta)$ and evaluate the acceptance ratio, 
+For any model with likelihood $f(y|\theta)$ and prior $f(\theta)$, you can use the Metropolis-Hastings step to estimate $\theta$. Start with an initial $\theta = \theta_0$. Propose a new $\theta'$ from a proposed distribution $q(\theta'|\theta)$ and evaluate the acceptance ratio, 
 
 $$
 R = \frac{f(y|\theta')f(\theta')}{f(y|\theta)f(\theta)} \frac{q(\theta|\theta')}{q(\theta'|\theta)}
@@ -1772,235 +2469,98 @@ p4 <- tibble(p = n_monitor) %>% ggplot(aes(x = p)) + geom_histogram(binwidth = 1
 
 ```
 
-
-
-## Appendix: Gentle Introduction
-
-Suppose you purchase 100 ad impressions on a web site and receive 13 clicks. How would you describe the click rate? The classical approach is to construct a 95% CI around the click proportion with a [one-sample proportion test](https://mpfoley73.github.io/statistics/one-sample-proportion-z-test.html).^[This section is my notes from DataCamp course [Fundamentals of Bayesian Data Analysis in R](https://learn.datacamp.com/courses/fundamentals-of-bayesian-data-analysis-in-r). It is an intuitive approach to Bayesian inference.]
+## Mixed Effects Linear Regression
 
 ```{r}
-(ad_prop_test <- prop.test(13, 100))
+bp <- read_csv("./input/BP.csv", col_types = c("iicd"))
 ```
 
-```{r fig.height=3, warning=FALSE, echo=FALSE}
-mu <- ad_prop_test$estimate
-se <- sqrt(mu * (1 - mu)) / sqrt(100)
-theta <- seq(0.01, .30, by = .001)
-likelihood <- dnorm(theta, mu, se)
-# chisq test
+The basic mixed effects regression model is
+
+$$
+\text{BP}_i = \beta_0 + \beta_1 \text{G}_i + \xi_{\text{PID}_i} + \epsilon_i
+$$
+
+where $G_i$ is the before/after dummy. $\beta_0$ is the expected BP before the treatment, $\beta_1$ is the average population effect, $\xi_{\text{PID}_i}$ is the patient-specific deviation in BP from the population mean, and $\epsilon_i$ is random error. You can group the terms as $\text{BP}_i = (\beta_0 + \xi_{\text{PID}_i}) + \beta_1 \text{G}_i + \epsilon_i$. You can rewrite this in Bayesian form, $\text{BP}_i | \mu_i, \tau_i \sim N(\mu_i, \tau_i)$ where $\mu_i = \beta_0 + \xi_{\text{PID}_i} + \beta_1 \text{G}_i$.
+
+In abscense of other information, use vague priors with large variance, $\beta_0, \beta_1 \sim N(0, 10^{-8})$, and $\tau \sim \text{Gamma}(a,b)$ with $a=.01$ and $b = .01$. What about $\xi$? The deviation can be any value, positive or negative, so go with a normal distribution with zero expected value, $\xi_j \sim N(0, \tau_\xi)$ where $j$ is the patient id with $\tau_\xi \sim \text{Gamma}(a_\xi, b_\xi)$. 
+
+```{r warning=FALSE, message=FALSE}
+library(MCMCglmm)
+```
+
+```{r}
+m1 <- MCMCglmm(BP ~ Group, random = ~PID, data = bp, verbose = FALSE)
+
+summary(m1)
+```
+
+The posterior mean estimated difference in the blood pressure is 2.25 mmHg higher before the treatment than after (95% CI 1.642, 2.917). The pMCMC is not really a p-value (see documentation). Instead, you can get the posterior probability that $\beta_1 > 0$.
+
+```{r}
+mean(m1$Sol[, 2] > 0)
+```
+
+You can report *The treatment was estimated to lower the blood pressure by an average 2.25 mmHg, 95%CI: (1.642, 2.917), P>0.999.*
+
+Convergence diagnostics:
+
+```{r}
+plot(m1$Sol)
+```
+
+The random effects $\xi_{PID}$ are usually not of interest and not retained. This much was a sloppy, out-of-the-box, fit. You should be explicit about priors, iterations, burn-in, etc.
+
+```{r}
+prior<-list(
+      # mean and variance-covariance matrix for the normal prior on fixed coefficients
+      B=list(mu=c(0,0), V=matrix(c(1000,0,0,1000),2,2)),
+      # and for the residual variance tau and random effect variance tau.xi
+      # this package uses Wishart distribution (not inverse Gamma)
+      R=list(V=1, nu=0.002), G=list(G1=list(V=1, nu=0.002)))
+
+m2 <- MCMCglmm(BP ~ Group, random=~PID, data=bp, verbose=F,
+               nitt=15000, thin = 10, burnin=5000, # iterations, thinning and burn-in
+               pr=TRUE, # save random effects
+               DIC=TRUE, # evaluate the DIC
+               prior=prior
+               )
+```
+
+You can see the random effects now.
+
+```{r}
+dim(m2$Sol)
+
 tibble(
-  theta,
-  e_1 = 13,
-  e_2 = 87,
-  o_1 = theta * 100,
-  o_2 = 100 - o_1,
-  x2 = (o_1 - e_1)^2 / e_1 + (o_2 - e_2)^2 / e_2,
-  likelihood = pchisq(x2, 1, lower.tail = FALSE),
-  lcl = if_else(theta <= ad_prop_test$conf.int[1], likelihood, NA_real_),
-  ucl = if_else(theta >= ad_prop_test$conf.int[2], likelihood, NA_real_)
+  PID = factor(1:10),
+  xi_mean = apply(m2$Sol[, 3:12], 2, mean),
+  xi_lci = apply(m2$Sol[,3:12], 2, quantile, .025),
+  xi_uci = apply(m2$Sol[,3:12], 2, quantile, .975)
 ) %>%
-  ggplot(aes(x = theta)) +
-  geom_line(aes(y = likelihood)) +
-  geom_area(aes(y = lcl), fill = "firebrick", alpha = .4) +
-  geom_area(aes(y = ucl), fill = "firebrick", alpha = .4) +
-  geom_vline(xintercept = mu, linetype = 2) +
-  theme_minimal() +
-  scale_x_continuous(breaks = seq(0, .3, .05)) +
-  theme(panel.grid.minor = element_blank()) +
-  labs(title = "Frequentist proportion test for 13 clicks in 100 impressions", 
-       subtitle = glue("p = {mu}, 95%-CI (",
-       "{ad_prop_test$conf.int[1] %>% scales::number(accuracy = .01)}, ",
-       "{ad_prop_test$conf.int[2] %>% scales::number(accuracy = .01)})"),
-       x = expression(theta))
-```
-
-How might you estimate $\theta$ with Bayesian statistics? One approach is to run 1,000 experiments that sample 100 ad impression events from an `rbinom()` generative model using a uniform prior distribution of 0-30% click probability. The resulting 1,000 row data set of click probabilities is the prior predictive distribution of $D$, the denominator of Bayes' Theorem. The subset where $D = 13$ is the likelihood, $P(D|\theta)$. The sampled $\theta$'s are the prior, $P(\theta) = \text{unif}(.0, .3)$. Their product is the joint probability distribution, $P(D|\theta)P(\theta)$, the numerator of Bayes' Theorem. This method is called *rejection sampling* because you sample across the whole parameter space, then condition on the observed evidence.
-
-```{r}
-df_sim <- tibble(
-  click_prob = runif(1000, 0.0, 0.3),
-  click_n = rbinom(1000, 100, click_prob)
-)
-
-df_sim %>% 
-  mutate(is_13 = factor(click_n == 13, levels = c(TRUE, FALSE))) %>%
-  ggplot(aes(x = click_prob, y = click_n, color = is_13)) +
-  geom_point(alpha = 0.6, show.legend = FALSE) +
-  geom_hline(yintercept = 13, color = "steelblue", linetype = 1, linewidth = .5) +
-  scale_color_manual(values = c("TRUE" = "steelblue", "FALSE" = "gray80")) +
-  scale_y_continuous(breaks = c(seq(0, 40, 10), 13)) +
-  labs(title = "Joint probability of observed clicks and click probability",
-       subtitle = "with conditioning on 13 observed clicks.",
-       y = "clicks per 100 ads",
-       x = expression(theta))
-```
-
-Condition the joint probability distribution on the `r df_sim %>% filter(click_n == 13) %>% nrow()` rows that produced 13 observed clicks to update the prior. The `quantile()` function returns the median and the .025 and .975 percentile values - the *credible interval*.
-
-```{r}
-# median and credible interval
-(sim_ci <- df_sim %>% filter(click_n == 13) %>% pull(click_prob) %>% 
-  quantile(c(.025, .5, .975)))
-```
-
-The posterior click rate likelihood is `r percent(sim_ci[2], .1)` with 95% credible interval (`r percent(sim_ci[1], .1)`, `r percent(sim_ci[3], .1)`). Here is the density plot of the `r df_sim %>% filter(click_n == 13) %>% nrow()` simulations that produced the 13 clicks. The median and 95% credible interval are marked.
-
-```{r}
-df_sim %>% 
-  filter(click_n == 13) %>%
-  ggplot(aes(x = click_prob)) +
-  geom_density() +
-  geom_vline(xintercept = sim_ci[2]) +
-  geom_vline(xintercept = sim_ci[1], linetype = 2) +
-  geom_vline(xintercept = sim_ci[3], linetype = 2) +
-  # coord_cartesian(xlim = c(0, .3)) +
-  scale_x_continuous(breaks = c(seq(0, .3, .05), sim_ci), labels = percent_format(.1)) +
-  labs(title = "Posterior click likelihood distribution", 
-       subtitle = glue("p = {percent(sim_ci[2], .1)}, 95%-CI (",
-       "{percent(sim_ci[1], .1)}, {percent(sim_ci[3], .1)})"),
-       x = expression(theta), y = "density (likelihood)")
-```
-
-That's pretty close to the classical result! Instead of sampling, you could define a discrete set of candidate click probabilities and calculate the click probability density for the 100 ad impressions. This method is called *grid approximation*.
-
-```{r}
-df_bayes <- expand.grid(
-  click_prob = seq(0.01, .30, by = .001), 
-  click_n = 0:100
-) %>%
-  mutate(
-    prior = dunif(click_prob, min = 0, max = 0.3),
-    likelihood = dbinom(click_n, 100, click_prob),
-    probability = likelihood * prior / sum(likelihood * prior)
-  )
-
-df_bayes %>% 
-  mutate(is_13 = factor(click_n == 13, levels = c(TRUE, FALSE))) %>%
-  # filter(probability > .0001) %>%
-  ggplot(aes(x = click_prob, y = click_n, color = is_13)) +
-  geom_point(aes(color = probability), show.legend = FALSE, size = 1) +
-  geom_hline(yintercept = 13, color = "steelblue", linetype = 1, linewidth = .5) +
-  coord_cartesian(ylim = c(0, 50)) +
-  scale_y_continuous(breaks = c(seq(0, 50, 10), 13)) +
-  scale_color_gradient(low = "#FFFFFF", high = "steelblue") +
-  # scale_color_manual(values = c("TRUE" = "steelblue", "FALSE" = "gray20")) +
-  labs(title = "Joint probability of clicks and click probability.",
-       subtitle = "with conditioning on 13 observed clicks.",
-       y = "clicks per 100 ads",
-       x = expression(theta))
-```
-
-Condition the joint probability distribution on the 13 observed clicks to update your prior. Resample the posterior probability to create a distribution.
-
-```{r}
-df_bayes_13 <- df_bayes %>% filter(click_n == 13) %>%
-  mutate(posterior = probability / sum(probability))
-
-sampling_idx <- sample(
-  1:nrow(df_bayes_13), 
-  size = 10000, 
-  replace = TRUE, 
-  prob = df_bayes_13$posterior
-)
-
-sampling_vals <- df_bayes_13[sampling_idx, ]
-
-(df_bayes_ci <- quantile(sampling_vals$click_prob, c(.025, .5, .975)))
-```
-
-```{r echo=FALSE, warning=FALSE}
-df_bayes %>%
-  filter(click_n == 13) %>%
-  mutate(likelihood = probability / sum(probability),
-         lcl = if_else(click_prob < df_bayes_ci[1], likelihood, NA_real_),
-         ucl = if_else(click_prob > df_bayes_ci[3], likelihood, NA_real_), 
-         ci = if_else(click_prob >= df_bayes_ci[1] & 
-                        click_prob <= df_bayes_ci[3], "Y", "N")) %>%
-  ggplot(aes(x = click_prob, y = likelihood)) +
-  geom_line() +
-  geom_area(aes(y = lcl), fill = "firebrick", alpha = .4) +
-  geom_area(aes(y = ucl), fill = "firebrick", alpha = .4) +
-  geom_vline(xintercept = df_bayes_ci[2], linetype = 2) +
-  theme_minimal() +
-  scale_x_continuous(breaks = seq(0, .3, .05)) +
-  theme(panel.grid.minor = element_blank()) +
-  labs(title = "Posterior click probability", 
-       subtitle = glue("p = {df_bayes_ci[2] %>% scales::number(accuracy = .01)}, 95%-CI (",
-       "{df_bayes_ci[1] %>% scales::number(accuracy = .01)}, ",
-       "{df_bayes_ci[3] %>% scales::number(accuracy = .01)})"),
-       x = expression(theta))
-```
-
-You can use a Bayesian model to estimate multiple parameters. Suppose you want to predict the water temperature in a lake on Jun 1 based on 5 years of prior water temperatures. 
-
-```{r}
-temp <- c(19, 23, 20, 17, 23)
-```
-
-You model the water temperature as a normal distribution, $\mathrm{N}(\mu, \sigma^2)$ with a prior distribution $\mu = \mathrm{N}(18, 5^2)$ and $\sigma = \mathrm{unif}(0, 10)$ based on past experience.
-
-Using the grid approximation approach, construct a grid of candidate $\mu$ values from 8 to 30 degrees incremented by .5 degrees, and candidate $\sigma$ values from .1 to 10 incremented by .1 - a 4,500 row data frame. 
-
-```{r}
-mdl_grid <- expand_grid(mu = seq(8, 30, by = 0.5),
-                        sigma = seq(.1, 10, by = 0.1))
-```
-
-For each combination of $\mu$ and $\sigma$, the *prior* probabilities are the densities from $\mu = \mathrm{N}(18, 5^2)$ and $\sigma = \mathrm{unif}(0, 10)$. The combined prior is their product. The *likelihoods* are the products of the probabilities of observing each `temp` given the candidate $\mu$ and $\sigma$ values.
-
-```{r}
-mdl_grid_2 <- mdl_grid %>%
-  mutate(
-    mu_prior = map_dbl(mu, ~dnorm(., mean = 18, sd = 5)),
-    sigma_prior = map_dbl(sigma, ~dunif(., 0, 10)),
-    prior = mu_prior * sigma_prior, # combined prior,
-    likelihood = map2_dbl(mu, sigma, ~dnorm(temp, .x, .y) %>% prod()),
-    posterior = likelihood * prior / sum(likelihood * prior)
+  ggplot(aes(x = PID)) +
+  geom_segment(aes(y = xi_lci, yend = xi_uci, xend = PID)) +
+  geom_point(aes(y = xi_mean)) +
+  geom_abline(aes(intercept = 0, slope = 0), color = "red") +
+  labs(title = str_wrap(
+    "Patient-specific posterior means and credible intervals for deviations in BP from population mean",
+    80)
   )
 ```
 
-```{r echo=FALSE}
-mdl_grid_2 %>%
-  ggplot(aes(x = mu, y = sigma, fill = posterior)) +
-  geom_tile() +
-  scale_fill_gradient(low = "white", high = "steelblue", guide = "colorbar") +
-  theme_minimal() +
-  labs(title = "Joint probability of mu and sigma.",
-       x = expression(mu), y = expression(sigma))
-```
-
-Calculate a credible interval by drawing 10,000 samples from the grid with sampling probability equal to the calculated posterior probabilities. Use the `quantile()` function to estimate the median and .025 and .975 quantile values.
-
-```{r fig.height=3}
-sampling_idx <- sample(1:nrow(mdl_grid), size = 10000, replace = TRUE, prob = mdl_grid$posterior)
-sampling_vals <- mdl_grid[sampling_idx, c("mu", "sigma")]
-mu_ci <- quantile(sampling_vals$mu, c(.025, .5, .975))
-sigma_ci <- quantile(sampling_vals$sigma, c(.025, .5, .975))
-ci <- qnorm(c(.025, .5, .975), mean = mu_ci[2], sd = sigma_ci[2])
-
-data.frame(temp = seq(0, 30, by = .1)) %>%
-  mutate(prob = map_dbl(temp, ~dnorm(., mean = ci[2], sd = sigma_ci[2])),
-         ci = if_else(temp >= ci[1] & temp <= ci[3], "Y", "N")) %>%
-  ggplot(aes(x = temp, y = prob)) +
-  geom_area(aes(y = if_else(ci == "N", prob, 0)), 
-            fill = "firebrick", show.legend = FALSE) +
-  geom_line() +
-  geom_vline(xintercept = ci[2], linetype = 2) +
-  theme_minimal() +
-  scale_x_continuous(breaks = seq(0, 30, 5)) +
-  theme(panel.grid.minor = element_blank()) +
-  labs(title = "Posterior temperature probability", 
-       subtitle = glue("mu = {ci[2] %>% scales::number(accuracy = .1)}, 95%-CI (",
-       "{ci[1] %>% scales::number(accuracy = .1)}, ",
-       "{ci[3] %>% scales::number(accuracy = .1)})"))
-```
-
-What is the probability the temperature is at least 18?
+You might now ask how certain we are that participant 2 had a lower BP than participant 4, $P(\xi_2 < \xi_4 | \text{data})$?
 
 ```{r}
-pred_temp <- rnorm(1000, mean = sampling_vals$mu, sampling_vals$sigma)
-scales::percent(sum(pred_temp >= 18) / length(pred_temp))
+mean(m2$Sol[, 2+2] < m2$Sol[, 2+4])
 ```
+
+It's nearly certain. How about your certainty that participant 2 is the lowest?
+
+```{r}
+# Remove first 2 cols. Apply which.min() to rows. How often is col 2 the min?
+mean(apply(m2$Sol[, -c(1:2)], 1, which.min) == 2)
+```
+
 
 ## Appendix: Bayes Factors
 
