@@ -1,8 +1,0 @@
-"0","tibble::tribble("
-"0","  ~` `, ~Sampled, ~`Not Sampled`,  ~Total,"
-"0","  ""success"", ""k"", ""K-k"", ""K"","
-"0","  ""non-success"", ""n-k"", ""(N-K)-(n-k)"", ""N-K"","
-"0","  ""Total"", ""n"", ""N-n"", ""N"""
-"0",") %>%"
-"0","  flextable::flextable() %>%"
-"0","  flextable::autofit()"

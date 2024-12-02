@@ -1,0 +1,344 @@
+# Continuous ~ Multnomial
+
+```{r include=FALSE}
+library(tidyverse)
+library(gtsummary)
+library(foreign)
+library(scales)
+library(janitor)
+library(flextable)
+library(broom)
+library(glue)
+
+theme_set(
+  jtools::theme_apa() +
+    theme(
+      plot.caption = element_text(hjust = 0)
+    )
+)
+```
+
+## One-way ANOVA {#sec-onewayanova}
+
+Analysis of variance (ANOVA) is a method to compare the mean values of a continuous variable between groups of a categorical independent variable. ANOVA is typically used to analyze the response to a manipulation of the independent variable in a controlled experiment, but it can also be used to analyze the difference in the observed value among groups in a non-experimental setting.^[These notes are gleaned from [PSU STAT-502](https://online.stat.psu.edu/stat502_fa21/) "Analysis of Variance and Design of Experiments", and [Laerd Statistics](https://statistics.laerd.com/premium/spss/owa/one-way-anova-in-spss.php).]
+
+**How it Works**
+
+ANOVA decomposes the variability around the overall mean $Y_{ij} - \bar{Y}_{..}$ into two parts: the variability of the factor level means around the overall mean $\bar{Y}_{i.} - \bar{Y}_{..}$ (*between-group* variability) plus the variability of the factor level values around their means $Y_{ij} - \bar{Y}_{i.}$ (*within-group* variability). In the table below, the ratio of the treatment mean square and the mean squared error, $F = \frac{MSR}{MSE}$, follows an *F* distribution with $k-1$ numerator dof and $N-k$ denominator dof. The more observation variance captured by the treatments, the larger is the between-group variability relative to the within-group variability, and thus the larger is $F$, and the less likely that the null hypothesis, $H_0 = \mu_1 = \mu_2 = \cdots = \mu_k$ is true.
+
+```{r echo=FALSE}
+tribble(
+  ~Source, ~SS, ~df, ~MS, ~F,
+  "$SSR$", "$\\sum{n_i(\\bar{Y}_{i.} - \\bar{Y}_{..})^2}$", "$k - 1$", "${SSR}/{(k - 1)}$", "${MSR}/{MSE}$", 
+  "$SSE$", "$\\sum(Y_{ij} - \\bar{Y}_{i.})^2$", "$N - k$", "${SSE}/{(N - k)}$", "",
+  "$SST$", "$\\sum(Y_{ij} - \\bar{Y}_{..})^2$", "$N - 1$", "", ""
+) %>% 
+  knitr::kable(format = "html", caption = "ANOVA Table") %>%
+  kableExtra::kable_styling(full_width = TRUE) %>%
+  kableExtra::row_spec(row = 0, align = "c")
+```
+
+<br>
+
+**Assumptions**
+
+The ANOVA test applies when the independent variable is categorical, and the dependent variable is continuous and independent within groups. Independence means the observations are from a random sample, or from an experiment using random assignment. Each group's size should be less than 10% of its population size. The groups must also be independent of each other (non-paired, and non-repeated measures). Additionally, there are three assumptions related to the distribution of the dependent variable. If any assumption fails, either try the work-around or revert to the nonparametric Kruskal-Wallis test (Chapter \@ref(kw)).
+
+1. **No outliers**. There should be no significant outliers in the groups. Outliers exert a large influence on the mean and variance. Test with a box plot or residuals vs predicted plot. Work-arounds are dropping the outliers or transforming the dependent variable.
+2. **Normality**.  The dependent variable should be nearly normally distributed. ANOVA is robust to this condition, but it important with small sample sizes. Test with the Q-Q plots or the Shapiro-Wilk test for normality. Work-around is transforming the dependent variable.
+3. **Equal Variances**. The group variances should be roughly equal. This condition is especially important with differing sample sizes. Test with a box plot, residuals vs predicted plot, rule of thumb (see case study in Chapter \@ref(groupdiffscs3)), or one of the formal [homogeneity of variance](http://www.cookbook-r.com/Statistical_analysis/Homogeneity_of_variance/) tests such as Bartlett and Levene (be careful here because the formal tests can be overly sensitive, esp. Bartlett). Work-around is the Games-Howell post hoc test instead of the Tukey post hoc test.
+
+**Post Hoc Tests**
+
+If the ANOVA procedure rejects the null hypothesis, use a post hoc procedure to determine which groups differ. The Tukey test is the most common. The test compares the differences in means to Tukey's $w$, $w = q_\alpha(p, df_{Err}) \cdot s_\bar{Y}$ where $q_\alpha(p, df_{Err})$ is a lookup table value, and $s_\bar{Y} = \sqrt{MSE/r}$ and $r$ is the number of comparisons. Any difference in group means greater than Tukey's $w$ is statistically significant. The Tukey test is only valid with equal sample sizes. Otherwise, the Tukey–Cramer method calculates the standard deviation for each pairwise comparison separately.
+
+There are other post hoc tests. **Fisher’s Protected Least Significant Difference** (LSD) test is an older approach and less commonly used today. The **Bonferroni** and **Scheffe** methods are used for general tests of contrasts, including combinations of groups. The Bonferroni method is better when the number of contrasts is about the same as the number of factor levels. The Scheffe method is better for testing all possible contrasts. **Dunnett’s mean comparison** method is appropriate for comparisons of treatment levels against a control. 
+
+**ANOVA and OLS**
+
+ANOVA is related to linear regression. The regression model intercept is the overall mean and the coefficient estimators indirectly indicate the group means. The analysis of variance table in a regression model shows how much of the overall variance is explained by those coefficient estimators. It's the same thing.
+
+## Kruskal–Wallis Test {#sec-kruskalwallis}
+
+The **Kruskal-Wallis H test**^[The Kruskal-Wallis H test is also called the one-way ANOVA on ranks] measures the difference of a continuous or ordinal dependent variable between groups of a categorical independent variable. It is a rank-based nonparametric alternative to the one-way ANOVA test. Use Kruskal-Wallis if the dependent variable fails ANOVA's normality or homogeneity conditions, or if it is ordinal.
+
+**How it Works**
+
+The Kruskal-Wallis H test ranks the dependent variable irrespective of its group. The test statistic is a function of the averaged square of the rank sum per group:
+
+$$
+H = \left[ \frac{12}{n(n+1)} \sum_{j} \frac{T_j^2}{n_j} \right] - 3(n + 1)
+$$
+
+where $T_j$ is the sum of the ranks of group _j_. The test statistic approximately follows a $\chi^2$ distribution with _k_ – 1 degrees of freedom, where _k_ is the number of groups of the independent variable. The null hypothesis is that the rank means are equal. If you reject the null hypothesis, run a post hoc test to determine which groups differ.
+
+**Assumptions**
+
+Kruskal-Wallis has no assumptions per se, but the test interpretation depends on the distribution of the dependent variable. If its distribution has a similar shape across the groups of the categorical independent variable, then Kruskal-Wallis is a test of differences in their medians. Otherwise, Kruskal-Wallis is a test of differences in their distributions.
+
+## Case Study 3 {.unnumbered #groupdiffscs3}
+
+This case study uses the [data set](https://statistics.laerd.com/premium/spss/owa/one-way-anova-in-spss-6.php) from Laerd Statistics for ANOVA.
+
+```{r}
+cs3 <- list()
+
+# Data sets are the same, so just use one.
+# cs3$kw_dat <- read.spss("./input/kruskal-wallis-h-test.sav", to.data.frame = TRUE)
+# cs3$anova_dat <- read.spss("./input/one-way-anova.sav", to.data.frame = TRUE)
+cs3$dat <- read.spss("./input/kruskal-wallis-h-test.sav", to.data.frame = TRUE)
+```
+
+A study tests whether physically active individuals are better able to cope with workplace stress. The study categorizes $n$ = `r nrow(cs3$dat)` participants by physical activity level ("Sedentary", "Low", "Moderate", and "High") and measures their ability to cope with workplace-related stress (CWWS) as the average score of a series of Likert items on a questionnaire (higher scores indicating a greater CWWS ability). The means plot^[Trying [APA style guidelines](https://apastyle.apa.org/style-grammar-guidelines/tables-figures/figures).] and summary table are an initial look at the data.
+
+```{r}
+cs3$dat %>%
+  group_by(group) %>%
+  summarize(
+    .groups = "drop",
+    mean_coping_stress = mean(coping_stress),
+    cl_025 = mean_coping_stress + qnorm(.025) * sd(coping_stress) / sqrt(n()),
+    cl_975 = mean_coping_stress + qnorm(.975) * sd(coping_stress) / sqrt(n()),
+    n = n()
+  ) %>%
+  ggplot(aes(x = group, y = mean_coping_stress)) +
+  geom_point(shape = 21, fill = "gray80", color = "black", size = 3) +
+  geom_errorbar(aes(ymin = cl_025, ymax = cl_975, width = 0.1)) +
+  geom_text(aes(y = 2, label = glue("n = {n}")), size = 3) +
+  labs(title = "Distribution of CWWS by Physical Activity Level Group",
+       x = NULL, y = "Score",
+       caption = "Means plot with 95% CI")
+```
+
+```{r}
+(cs3$gt <- cs3$dat %>% 
+  tbl_summary(
+    by = group, 
+    label = list(coping_stress = "CWWR"),
+    type = coping_stress ~ "continuous2",
+    statistic = coping_stress ~ c("{median} ({p25}, {p75})", "{mean}, {sd}")
+  ) %>% 
+  add_n())
+```
+
+<br>
+
+CWWS score (mean, SD) increased from the sedentary (`r inline_text(cs3$gt, variable = coping_stress, level = "Mean, SD", column = "Sedentary")`), to low (`r inline_text(cs3$gt, variable = coping_stress, level = "Mean, SD", column = "Low")`), to moderate (`r inline_text(cs3$gt, variable = coping_stress, level = "Mean, SD", column = "Moderate")`) to high (`r inline_text(cs3$gt, variable = coping_stress, level = "Mean, SD", column = "High")`) physical activity groups, in that order. 
+
+### Assumptions
+
+Recall that the one-way ANOVA test is valid under three assumptions. One, there are no significant outliers that influence the group mean. Two, the dependent variable is at least _approximately_ (ANOVA is robust to this assumption) normally distributed for each group if the sample size is small (for large sample sizes the Central Limit Theorem shows normality is unnecessary). Three, the dependent variable should have equal variances across groups. ANOVA is only sensitive to this condition if the group sample sizes are not similar.
+
+Kruskal-Wallis has no assumptions per se, but the interpretation of its results depend on the distribution of the dependent variable. If the distributions are similar, then the test results tell you whether the medians differ. Otherwise, the test results tell you whether the distributions differ.
+
+Use a boxplot to assess outliers for ANOVA and the data distribution (if you revert to Kruskal-Wallis). Values greater than 1.5 IQR from the hinges (values beyond the whiskers) are outliers. Outliers might occur from data entry errors or measurement errors, so investigate and fix or throw them out. If the outlier is a genuinely extreme, you still have a couple options before reverting to Kruskal-Wallis. You can transform the dependent variable, but don't do this unless the data is also non-normal. Transforming the variable also has the downside of making interpretation more difficult. You can also leave the outlier(s) in if it doesn't affect the conclusion. There are no outliers here. 
+
+```{r}
+cs3$dat %>%
+  ggplot(aes(x = group, y = coping_stress)) +
+  geom_boxplot(outlier.color = "goldenrod", outlier.size = 2) +
+  labs(title = "Boxplot of CWWR vs Group",
+       y = "Score", x = "Group")
+```
+
+There is no accepted practice for determining whether distributions are similar. The boxplot reveals a wider range of values for "Low" group, but this is close enough to conclude the distributions are similar. 
+
+You can assume the populations are normally distributed if $n_j >= 30$. Otherwise, try the Q-Q plot, or skewness and kurtosis values, or histograms. If you still don't feel confident about normality, run the Shapiro-Wilk test of normality or the Kolmogorov-Smirnov test. Definitely do not use Shapiro-Wilk for $n_j >= 30$ because it is too sensitive. The Normal Q-Q plot below looks good for all groups except perhaps the "Low" group. The Shapiro-Wilk test confirms this, with all *p*-values over .05. 
+
+```{r}
+cs3$dat %>% 
+  ggplot(aes(sample = coping_stress)) +
+  stat_qq() +
+  stat_qq_line(col = "goldenrod") +
+  facet_wrap(facets = vars(group)) +
+  labs(title = "Q-Q Plot", x = "Theoretical", y = "Sample")
+```
+
+```{r}
+with(cs3$dat, by(coping_stress, group, shapiro.test)) %>% 
+  map(tidy) %>%
+  bind_rows(.id = "group")
+```
+
+Had the data failed the normality test, you could probably carry on anyway since the test is fairly robust to deviations from normality, particularly if the sample sizes are nearly equal. You can also try transforming the dependent variable. Transformations will generally only work when the distribution of scores in all groups are the same shape. Otherwise, revert to the Kruskal-Wallis H test. 
+
+ANOVA's equality of sample variances condition is less critical when sample sizes are similar among the groups (as they are here). A rule of thumb is that no group's standard deviation should be more than double that of any other. In this case, "Moderate" and "Low" are more than double "Sedentary".
+
+```{r echo=FALSE}
+cs3$dat %>% 
+  group_by(group) %>% 
+  summarize(.groups = "drop", n = n(), sd = sd(coping_stress)) %>%
+  arrange(sd) %>%
+  mutate(multiple = sd / first(sd))
+```
+
+There are two common tests, Bartlett and Levene^[NIST has a good write-up for [Bartlett](https://www.itl.nist.gov/div898/handbook/eda/section3/eda357.htm) and [Levene](https://www.itl.nist.gov/div898/handbook/eda/section3/eda35a.htm)]. Levene is less sensitive to departures from normality. Neither test rejects the null hypothesis of equality of variance here.
+
+```{r collapse=TRUE}
+(cs3$levene <- car::leveneTest(coping_stress ~ group, data = cs3$dat, center = "mean"))
+(cs3$bartlet <- bartlett.test(coping_stress ~ group, data = cs3$dat))
+```
+
+The residuals vs fitted values plot is included in the set of diagnostic plots that are produced in the base R `plot.lm()` function. 
+```{r}
+aov(coping_stress ~ group, data = cs3$dat) %>% plot(which = 1)
+```
+
+Heterogeneity of variances is a common problem in ANOVA. The Box-Cox procedure can help find a good transformation to remove heterogeneity. `MASS::boxcox()` calculates a profile of log-likelihoods for a power transformation of the dependent variable $Y^\lambda$.
+
+|$\lambda$ | $Y^\lambda$ | Transformation |
+|---|---|---|
+|2 | $Y^2$ | Square |
+|1 | $Y^1$ | (no transformation) |
+|.5 | $Y^{.5}$ | Square Root |
+|0 | $\ln(Y)$ | Log |
+|-.5 | $Y^{-.5}$ | Inverse Square Root |
+|-1 | $Y^{-1}$ | Inverse|
+
+The Box-Cox procedure does not recommend any particular transformation of the data in this case.
+
+```{r message=FALSE}
+MASS::boxcox(aov(coping_stress ~ group, data = cs3$dat), plotit = TRUE)
+```
+
+Had the data failed the homogeneity assumption, you could use a modified version of ANOVA called Welch's ANOVA and the Games-Howell post hoc test, or you could revert to the nonparametric Kruskal-Wallis test.
+
+### ANOVA
+
+If the dependent variable conforms to the three ANOVA assumptions of no outliers, normality, and homogeneity, then you can run a one-way ANOVA with `aov()`. If the dependent variable only violates the homegeneity assumption, you can run Welch's ANOVA with `oneway.test(..., var.equal = FALSE)`
+
+```{r collapse=TRUE}
+cs3$aov <- aov(coping_stress ~ group, data = cs3$dat)
+(cs3$anova <- anova(cs3$aov))
+(cs3$welch <- oneway.test(coping_stress ~ group, data = cs3$dat, var.equal = FALSE))
+```
+
+The ability to cope with workplace-related stress (CWWS score) was statistically significantly different for different levels of physical activity group, _F_(`r paste(cs3$anova$Df, collapse = ", ")`) = `r comma(cs3$anova$"F value"[1], .1)`, _p_ = `r comma(cs3$anova$"Pr(>F)"[1], .0001)`.
+
+```{r}
+tibble(
+  f_stat = seq(0, 10, .01), 
+  d_val = df(f_stat, 3, 14.574),
+  p_f = pf(f_stat, cs3$anova$Df[1], cs3$anova$Df[2], lower.tail = FALSE),
+  region = if_else(p_f < .05, "reject", "accept")
+) %>%
+  ggplot(aes(x = f_stat, y = d_val)) +
+  geom_area(aes(fill = region), show.legend = FALSE) +
+  geom_line() +
+  geom_vline(xintercept = cs3$anova$"F value"[1], linetype = 2, color = "firebrick") +
+  scale_fill_manual(values = c(reject = "firebrick", accept = "white")) +
+  labs(
+    title = glue::glue("F({paste(cs3$anova$Df, collapse = ', ')}) = ",
+                       "{comma(cs3$anova$'F value'[1], .1)}, p = ",
+                       "{comma(cs3$anova$'Pr(>F)'[1], .0001)}"),
+    x = "F", y = "P(F)"
+  )
+```
+
+The _F_ test does not indicate which populations cause the rejection of $H_0$. Conduct a Tukey post hoc test if you have no specific hypothesis about two groups differing or want to see all group differences.^[There are other options for post-hoc tests not discussed here: Fisher's Least Significant Difference (LSD), Bonferroni, Scheffe, and Dunnett.] If you want to compare two groups or set of groups, then use a custom contrast. Tukey is valid for _balanced_ designs. If you have different sample sizes per group, use the Tukey-Kramer post hoc test. If the dependent variable failed the homogeneity of variances assumption, you would run the Games-Howell post hoc test instead.
+
+```{r collapse=TRUE}
+(cs3$tukey <- TukeyHSD(cs3$aov))
+(cs3$games_howell <- rstatix::games_howell_test(cs3$dat, coping_stress ~ group))
+```
+
+Tukey post hoc analysis revealed that the increase from sedentary to moderate (`r comma(cs3$tukey$group["Moderate-Sedentary","diff"], .01)`, 95% CI (`r comma(cs3$tukey$group["Moderate-Sedentary","lwr"], .01)` to `r comma(cs3$tukey$group["Moderate-Sedentary","upr"], .01)`)) was statistically significant (_p_ = `r comma(cs3$tukey$group["Moderate-Sedentary","p adj"], .001)`), as well as the increase from sedentary to high (`r comma(cs3$tukey$group["High-Sedentary","diff"], .01)`, 95% CI (`r comma(cs3$tukey$group["High-Sedentary","lwr"], .01)` to `r comma(cs3$tukey$group["High-Sedentary","upr"], .01)`)) was statistically significant (_p_ = `r comma(cs3$tukey$group["High-Sedentary","p adj"], .001)`), but no other group differences were statistically significant.
+
+```{r}
+cs3$tukey %>% 
+  tidy() %>%
+  ggplot(aes(y = contrast, x = estimate)) +
+  geom_point(shape = 3) +
+  geom_errorbar(aes(xmin = conf.low, xmax = conf.high), width = .2) +
+  geom_vline(aes(xintercept = 0), linetype = 2) +
+  labs(x = NULL, y = NULL, title = "95% family-wise confidence level")
+```
+
+Games-Howell post hoc analysis revealed that the increase from sedentary to moderate (`r cs3$games_howell %>% filter(group1 == "Sedentary", group2 == "Moderate") %>% pull(estimate) %>% comma(.01)`, 95% CI (`r cs3$games_howell %>% filter(group1 == "Sedentary", group2 == "Moderate") %>% pull(conf.low) %>% comma(.01)` to `r cs3$games_howell %>% filter(group1 == "Sedentary", group2 == "Moderate") %>% pull(conf.high) %>% comma(.01)`)) was statistically significant (*p* =`r cs3$games_howell %>% filter(group1 == "Sedentary", group2 == "Moderate") %>% pull(p.adj) %>% comma(.001)`), as well as the increase from sedentary to high (`r cs3$games_howell %>% filter(group1 == "Sedentary", group2 == "High") %>% pull(estimate) %>% comma(.01)`, 95% CI (`r cs3$games_howell %>% filter(group1 == "Sedentary", group2 == "High") %>% pull(conf.low) %>% comma(.01)` to `r cs3$games_howell %>% filter(group1 == "Sedentary", group2 == "High") %>% pull(conf.high) %>% comma(.01)`, *p* = `r cs3$games_howell %>% filter(group1 == "Sedentary", group2 == "High") %>% pull(p.adj) %>% comma(.001)`).
+
+If you have specific hypotheses about the differences between the groups of your independent variable, e.g., whether the mean CWWS differs between the "Low" and "Sedentary" groups, $H_0: \sum_i^K{c_i u_i} = 0$ where $c_i = (1, -1, 0, 0)$ or "Sedentary" and average of all others, $c_i = (1, -1/3, -1/3, -1/3)$, set up a contrast using the **multcomp** package. 
+
+```{r collapse=TRUE}
+cs3$glht_1 <- multcomp::glht(cs3$aov, linfct = multcomp::mcp(group = c(-1, 1, 0, 0)))
+summary(cs3$glht_1)
+cs3$glht_2 <- multcomp::glht(cs3$aov, linfct = multcomp::mcp(group = c(-1, 1/3, 1/3, 1/3)))
+summary(cs3$glht_2)
+```
+
+There are three groups, so you need to adjust the *p*-value and 95% CI for them.
+
+```{r collapse=TRUE}
+confint(cs3$glht_1, level = 1-.05/3)
+confint(cs3$glht_2, level = 1-.05/3)
+```
+
+There was no statistically significant increase in CWWS score from the sedentary group (`r inline_text(cs3$gt, variable = coping_stress, level = "Mean, SD", column = "Sedentary")`) to the group performing a low level of physical activity (`r inline_text(cs3$gt, variable = coping_stress, level = "Mean, SD", column = "Low")`), a mean increase of `r comma(cs3$glht_1$coef["groupLow"], .1)` (95% CI, `r confint(cs3$glht_1, level = 1-.05/3) %>% tidy() %>% pull(conf.low) %>% pluck(1) %>% comma(.01)`, `r confint(cs3$glht_1, level = 1-.05/3) %>% tidy() %>% pull(conf.high) %>% pluck(1) %>% comma(.01)`), *p* = `r comma(summary(cs3$glht_1)$test$pvalues[1], .001)`.
+
+CWWS score was statistically significantly higher in the non-sedentary groups (M = `r cs3$dat %>% filter(group != "Sedentary") %>% summarize(M = mean(coping_stress)) %>% pull(M) %>% comma(.1)`) compared to the sedentary group (`r inline_text(cs3$gt, variable = coping_stress, level = "Mean, SD", column = "Sedentary")`), a mean increase of `r comma(cs3$glht_2$coef["groupLow"], .1)` (95% CI, `r confint(cs3$glht_2, level = 1-.05/3)$confint[2] %>% comma(.01)`, `r confint(cs3$glht_2, level = 1-.05/3)$confint[3] %>% comma(.01)`), *p* = `r comma(summary(cs3$glht_2)$test$pvalues[1], .001)`.
+
+You may also want to report the $\omega^2$ effect size, 
+
+$$\omega^2 = \frac{SSR - df_R \cdot MSE}{MSE + SST}$$
+
+where SSR is the between groups sum of squares, `r comma(cs3$anova$"Sum Sq"[1], .1)`, MSE is the within groups mean square, `r comma(cs3$anova$"Mean Sq"[2], .01)`, and SST is the total sum of squares, `r comma(sum(cs3$anova$"Sum Sq"), .1)`.
+
+```{r}
+(cs3$anova_stats <- sjstats::anova_stats(cs3$aov))
+```
+$\omega^2$ estimates the population effect size. It $\omega^2$ ranges from -1 to +1. Here, $\omega^2$ is `r cs3$anova_stats$omegasq[[1]]`.
+
+```{r}
+comma(cs3$anova$`Sum Sq`[1], .1)
+```
+
+Alternatively, the partial eta squared statistic, $\eta^2$, measures the effect size in the sample. Here $\eta^2$ is `r cs3$anova_stats$partial.etasq[[1]]`.
+
+Now you can report your results.
+
+> A one-way ANOVA was conducted to determine if the ability to cope with workplace-related stress (CWWS score) was different for groups with different physical activity levels. Participants were classified into four groups: sedentary (*n* = `r inline_text(cs3$gt, variable = coping_stress, column = "Sedentary", pattern = "{N_obs}")`), low (*n* = `r inline_text(cs3$gt, variable = coping_stress, column = "Low", pattern = "{N_obs}")`), moderate (*n* = `r inline_text(cs3$gt, variable = coping_stress, column = "Moderate", pattern = "{N_obs}")`) and high levels of physical activity (*n* = `r inline_text(cs3$gt, variable = coping_stress, column = "High", pattern = "{N_obs}")`). There were no outliers, as assessed by boxplot; data was normally distributed for each group, as assessed by Shapiro-Wilk test (*p* > .05); and there was homogeneity of variances, as assessed by Levene's test of homogeneity of variances (*p* = `r comma(cs3$levene$"Pr(>F)"[1], .001)`). CWWS score was statistically significantly different between different physical activity groups, _F_(`r paste(cs3$anova$Df, collapse = ", ")`) = `r comma(cs3$anova$"F value"[1], .1)`, _p_ = `r comma(cs3$anova$"Pr(>F)"[1], .0001)`, $\omega^2$ = `r cs3$anova_stats$omegasq[[1]]`. CWWS score (Mean, SD) increased from the sedentary (`r inline_text(cs3$gt, variable = coping_stress, level = "Mean, SD", column = "Sedentary")`), to low (`r inline_text(cs3$gt, variable = coping_stress, level = "Mean, SD", column = "Low")`), to moderate (`r inline_text(cs3$gt, variable = coping_stress, level = "Mean, SD", column = "Moderate")`) to high (`r inline_text(cs3$gt, variable = coping_stress, level = "Mean, SD", column = "High")`) physical activity groups, in that order. Tukey post hoc analysis revealed that the mean increase from sedentary to moderate (`r comma(cs3$tukey$group["Moderate-Sedentary","diff"], .01)`, 95% CI [`r comma(cs3$tukey$group["Moderate-Sedentary","lwr"], .01)` to `r comma(cs3$tukey$group["Moderate-Sedentary","upr"], .01)`]) was statistically significant (_p_ = `r comma(cs3$tukey$group["Moderate-Sedentary","p adj"], .001)`), as well as the increase from sedentary to high (`r comma(cs3$tukey$group["High-Sedentary","diff"], .01)`, 95% CI [`r comma(cs3$tukey$group["High-Sedentary","lwr"], .01)` to `r comma(cs3$tukey$group["High-Sedentary","upr"], .01)`], _p_ = `r comma(cs3$tukey$group["High-Sedentary","p adj"], .001)`), but no other group differences were statistically significant.
+
+Had the dependent variable failed the homogeneity of variances assumption, you would report the results from Welch's ANOVA,
+
+> The ability to cope with workplace-related stress (CWWS score) was statistically significantly different for different levels of physical activity group, Welch's *F*(`r cs3$welch$parameter[1]`, `r comma(cs3$welch$parameter[2], .1)`) = `r comma(cs3$welch$statistic, .1)`, *p* < .0005.
+
+and the Games-Howell post hoc test,
+
+> Games-Howell post hoc analysis revealed that the increase from sedentary to moderate (`r cs3$games_howell %>% filter(group1 == "Sedentary", group2 == "Moderate") %>% pull(estimate) %>% comma(.01)`, 95% CI [`r cs3$games_howell %>% filter(group1 == "Sedentary", group2 == "Moderate") %>% pull(conf.low) %>% comma(.01)` to `r cs3$games_howell %>% filter(group1 == "Sedentary", group2 == "Moderate") %>% pull(conf.high) %>% comma(.01)`]) was statistically significant (*p* =`r cs3$games_howell %>% filter(group1 == "Sedentary", group2 == "Moderate") %>% pull(p.adj) %>% comma(.001)`), as well as the increase from sedentary to high (`r cs3$games_howell %>% filter(group1 == "Sedentary", group2 == "High") %>% pull(estimate) %>% comma(.01)`, 95% CI [`r cs3$games_howell %>% filter(group1 == "Sedentary", group2 == "High") %>% pull(conf.low) %>% comma(.01)` to `r cs3$games_howell %>% filter(group1 == "Sedentary", group2 == "High") %>% pull(conf.high) %>% comma(.01)`], *p* = `r cs3$games_howell %>% filter(group1 == "Sedentary", group2 == "High") %>% pull(p.adj) %>% comma(.001)`).
+
+**Power Analysis**
+
+If you run an ANOVA and do not reject the null hypothesis, you may want to run a power analysis to make sure the power of the test was not very low. Power is the ability to reject the null when the null is really false. Power is affected by sample size, effect size,  variability of the experiment, and the significance of the type 1 error. You typically want power to be at 80%, meaning 80% of the time your test rejects the null when it should, and 20% of the time your test does not reject the null when it should. 
+
+```{r}
+power.anova.test(
+  groups = cs3$aov$rank,
+  n = cs3$aov$model %>% count(group) %>% pull(n) %>% min(),
+  between.var = cs3$dat %>% group_by(group) %>% 
+    summarize(M = mean(coping_stress)) %>% pull(M) %>% var(),
+  within.var= cs3$anova$`Mean Sq`[2],
+  sig.level = 0.05
+)
+```
+
+### Kruskal-Wallis Test
+
+Run a Kruskal-Wallis H test with `kruskal.test()`. 
+
+```{r}
+(cs3$kruskal <- kruskal.test(coping_stress ~ group, data = cs3$dat))
+```
+
+The dependent variable has similarly shaped distributions for all groups of the independent variable, so you can conclude the median CWWS scores were statistically significantly different between groups, $\chi^2$(`r cs3$kruskal$parameter`) = `r comma(cs3$kruskal$statistic, .1)`, *p* = `r comma(cs3$kruskal$p.value, .0001)`. Otherwise you would conclude the _distributions_ differ. You rejected the null hypothesis, so continue on with a post hoc test to determine which medians (similar distributions) or mean ranks (dissimilar distributions) differ with the Dunn procedure using a Bonferroni correction for multiple comparisons.
+
+```{r}
+(cs3$dunn <- FSA::dunnTest(coping_stress ~ group, data = cs3$dat, method = "bonferroni"))
+```
+
+*P.adj* equals *P.unadj* multiplied by the number of comparisons (`r nrow(cs3$dunn$res)`). You could report the adjusted _p_ or the unadjusted _p_ with a note that you accepted statistical significance at the _p_ < .05 / `r nrow(cs3$dunn$res)` = `r comma(.05 / nrow(cs3$dunn$res), .0001)` level.
+
+Now you can report your results.
+
+> A Kruskal-Wallis test was conducted to determine if there were differences in CWWS scores between groups that differed in their level of physical activity: the "sedentary" (_n_ = `r inline_text(cs3$gt, variable = coping_stress, column = "Sedentary", pattern = "{N_obs}")`), "low" (n = `r inline_text(cs3$gt, variable = coping_stress, column = "Low", pattern = "{N_obs}")`), "moderate" (n = `r inline_text(cs3$gt, variable = coping_stress, column = "Moderate", pattern = "{N_obs}")`) and "high" (n = `r inline_text(cs3$gt, variable = coping_stress, column = "High", pattern = "{N_obs}")`) physical activity level groups. Distributions of CWWS scores were similar for all groups, as assessed by visual inspection of a boxplot. Median CWWS scores were statistically significantly different between the different levels of physical activity group, $\chi^2$(`r cs3$kruskal$parameter`) = `r comma(cs3$kruskal$statistic, .1)`, *p* = `r comma(cs3$kruskal$p.value, .0001)`. Subsequently, pairwise comparisons were performed using Dunn's (1964) procedure with a Bonferroni correction for multiple comparisons. Adjusted *p*-values are presented. This post hoc analysis revealed statistically significant differences in CWWS scores between the sedentary (Mdn = `r inline_text(cs3$gt, variable = coping_stress, column = "Sedentary", level = "Median (Q1, Q3)")`) and moderate (Mdn = `r inline_text(cs3$gt, variable = coping_stress, column = "Moderate", level = "Median (Q1, Q3)")`) (*p* = `r cs3$dunn$res %>% filter(Comparison == "Moderate - Sedentary") %>% pull(P.adj) %>% comma(.0001)`) and sedentary and high (Mdn = `r inline_text(cs3$gt, variable = coping_stress, column = "High", level = "Median (Q1, Q3)")`) (*p* = `r cs3$dunn$res %>% filter(Comparison == "High - Sedentary") %>% pull(P.adj) %>% comma(.0001)`) physical activity groups, but not between the low physical activity group (Mdn = `r inline_text(cs3$gt, variable = coping_stress, column = "Low", level = "Median (Q1, Q3)")`) or any other group combination.
+
+Had the distributions been different, you would report "CWWS scores" instead of "Median CWWS scores" and report the mean ranks instead of Mdn. Unfortunately, you cannot retrieve those ranks from the test object, so you would have to calculate them yourself.
+

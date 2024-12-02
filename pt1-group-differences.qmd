@@ -1,0 +1,16 @@
+---
+title: "Group Differences"
+---
+
+This section discusses statistical tests of _comparison_. Select the test that based on the data structure.
+
+**Continuous (interval or ratio) and Ordinal Outcomes**
+
+- Compare a continuous dependent variable between the two levels of a binomial independent variable with an **independent samples _t_-test** (@sec-isttest). Revert to the nonparametric **Wilcoxon rank sum test** (@sec-wilcoxonranksum) if the _t_-test assumptions fail. 
+- A special case arises when samples are paired. Paired samples are more like one-sample tests where the dependent variable is the _difference_ between the pairs. Use the **Paired Samples _t_-test** (@sec-pairedttest) or the nonparametric **Wilcoxon signed-rank test** (@sec-wilcoxonsignedrank).
+- If the independent categorical variable is multinomial, conduct an **ANOVA** (@sec-onewayanova) test or the nonparametric **Kruskal-Wallis test** (@sec-kruskalwallis).
+
+**Discrete (count) Outcomes**
+
+- Compare the proportions of a binomial dependent variable between the two levels of a binomial independent variable with a **two-sample _z_-test** (@sec-tsztest). 
+- The **Chi-square test of homogeneity** (@sec-chisqhomogeneity) is the main way to compare a discrete dependent variable among the levels of a binomial or multinomial independent categorical variable. Revert to the nonparametric **Fisher's Exact Test** (@sec-fisherexact) if the sample size is small. Handle the special case of paired samples with the **Pairwise Prop Test** (@sec-pairwiseproptest) or the nonparametric **McNemar's test** (@sec-mcnemar).

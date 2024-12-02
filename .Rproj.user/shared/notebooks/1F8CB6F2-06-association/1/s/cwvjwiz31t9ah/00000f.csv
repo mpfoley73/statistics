@@ -1,6 +1,0 @@
-"0","cov(rank(cs$dat2$income), rank(cs$dat2$tax_too_high)) /"
-"0","  (sd(rank(cs$dat2$income)) * sd(rank(cs$dat2$tax_too_high)))"
-"1","[1]"
-"1"," 0.6024641"
-"1","
-"

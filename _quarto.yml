@@ -1,0 +1,63 @@
+project:
+  type: book
+  output-dir: docs
+
+book:
+  title: "Statistical Inference"
+  author: "Michael Foley"
+  date: today
+  cover-image: images/statistics.jpg
+  chapters:
+    - index.qmd
+    - part: "Frequentist"
+      chapters:
+      - 01-frequentist-statistics.qmd
+    - part: "Likelihood"
+      chapters:
+      - 02-likelihood-statistics.qmd
+    - part: "Bayesian"
+      chapters:
+      - 03-bayesian-statistics.qmd
+    - part: "Point Estimates"
+      chapters:
+      - 04-one-sample.qmd
+    - part: pt1-group-differences.qmd
+      chapters: 
+      - 05-continuous-binomial.qmd
+      - 06-continuous-binomial-pairwise.qmd
+      - 07-continuous-multinomial.qmd
+      - 08-binomial-binomial.qmd
+      - 09-multinomial-multinomial.qmd
+      - 10-binomial-multinomial-pairwise.qmd
+    - part: "Association"
+      chapters: 
+      - 11-association.qmd
+    - part: "Reference"
+      chapters: 
+      - 12-matrix-algebra.qmd
+    - 13-references.qmd
+
+bibliography: references.bib
+
+execute: 
+  echo: true
+  message: false
+  error: false
+  warning: false
+
+format:
+  html:
+    theme: cosmo
+    toc-title: "On this page"
+    toc-depth: 4
+    code-tools: true
+    code-overflow: scroll
+    code-fold: false
+    fig-cap-location: top
+  pdf:
+    documentclass: scrreprt
+
+editor: source
+
+language: 
+  code-summary: "Show the code"

@@ -1,0 +1,365 @@
+# Continuous ~ Binomial
+
+```{r include=FALSE}
+library(tidyverse)
+library(gtsummary)
+library(foreign)
+library(scales)
+library(janitor)
+library(flextable)
+library(broom)
+library(glue)
+
+theme_set(
+  jtools::theme_apa() +
+    theme(
+      plot.caption = element_text(hjust = 0)
+    )
+)
+```
+
+## Independent Samples t-Test {#sec-isttest}
+
+If a population measure *X* is normally distributed with mean $\mu_X$ and variance $\sigma_X^2$, and a population measure *Y* is normally distributed with mean $\mu_Y$ and variance $\sigma_Y^2$, then their difference is normally distributed with mean $d = \mu_X - \mu_Y$ and variance $\sigma_{XY}^2 = \sigma_X^2 + \sigma_Y^2$. By the CLT, as sample sizes grow, non-normally distributed *X* and *Y* approach normality, and so do their difference.
+
+The **independent samples t-test** compares an hypothesized difference, $d_0$ (H0: $d = d_0$), with a sample means difference, $\hat{d} = \bar{x} - \bar{y}$, or constructs a (1 - $\alpha$)% confidence interval around $\hat{d}$ to estimate $d$ within a margin of error, $\epsilon$.
+
+In principal, you can evaluate $\hat{d}$ with either a *z*-test or a *t*-test. Both require independent samples and approximately normal sampling distributions. Sampling distributions are normal if the underlying populations are normally distributed, or if the sample sizes are large ($n_X$ and $n_Y$ $\ge$ 30). However, the *z*-test additionally requires known sampling distribution variances, $\sigma^2_X$ and $\sigma^2_Y$. These variances are never known, so always use the *t*-test.
+
+The *z*-test assumes $d$ is normally distributed around $\hat{d} = d$ with standard error $SE = \sqrt{\frac{\sigma_X^2}{n_X} + \frac{\sigma_Y^2}{n_Y}}.$ The test statistic for H0: $d = d_0$ is $Z = \frac{\hat{d} - d_0}{SE}$. The (1 - $\alpha$)% CI is $d = \hat{d} \pm z_{(1 - \alpha {/} 2)} SE$.  
+
+The *t*-test assumes $d$ has a *t*-distribution around $\hat{d} = d$ with standard error $SE = \sqrt{\frac{s_X^2}{n_X} + \frac{s_Y^2}{n_Y}}.$ The test statistic for H0: $d = d_0$ is $T = \frac{\hat{d} - d_0}{SE}$. The (1 - $\alpha$)% CI iss $d = \hat{d} \pm t_{(1 - \alpha / 2), (n_X + n_Y - 2)} SE$.
+
+There is a complication with the *t*-test *SE* and degrees of freedom. If the sample sizes are small and the standard deviations from each population are similar (the ratios of $s_X$ and $s_Y$ are <2), pool the variances, $s_p^2 = \frac{(n_X - 1) s_X^2 + (n_Y-1) s_Y^2}{n_X + n_Y-2}$, so that $SE = s_p \sqrt{\frac{1}{n_X} + \frac{1}{n_Y}}$ and the degrees of freedom (df) = $n_X + n_Y - 2$ (the **pooled variances t-test**). Otherwise, $SE = \sqrt{\frac{s_X^2}{n_X} + \frac{s_Y^2}{n_Y}}$, but you reduce df using the Welch-Satterthwaite correction, $df = \frac{\left(\frac{s_X^2}{n_X} + \frac{s_Y^2}{n_Y}\right)^2}{\frac{s_X^4}{n_X^2\left(N_X-1\right)} + \frac{s_Y^4}{n_Y^2\left(N_Y-1\right)}}$ (the **separate variance t-test**, or **Welch's t-test**).
+
+## Wilcoxon Rank Sum Test {#sec-wilcoxonranksum}
+
+The **Wilcoxon rank sum test**^[The Mann-Whitney U test is also called the Mann-Whitney U test, Wilcoxon-Mann-Whitney test, and the two-sample Wilcoxon test] is a nonparametric alternative to the independent-samples *t*-test. Use the the test when the samples are not normally distributed or when the response variables are ordinal rather continuous. In the first case where the normality assumption fails, the test evaluates H0 that the two samples are from the same population distribution. In the second case where the response variables are ordinal, the test evaluates the difference in medians. 
+
+The Wilcoxon Rank Sum test ranks the response values, then sums the ranks for the reference group, $W = \sum R_1$. The test statistic is $U = W - \frac{n_2(n_2 + 1)}{2}$ where $n_2$ is the number of observations in the test group. $U$ will equal 0 if there is complete separation between the groups, and $n_1 n_2$ if there is complete overlap. Reject H0 if $U$ is sufficiently small.
+
+## Case Study
+
+```{r include=FALSE}
+ind_num <- list()
+
+ind_num$t_dat <- read.spss("./input/independent-samples-t-test.sav", to.data.frame = TRUE)
+ind_num$t_n <- with(ind_num$t_dat, by(engagement, gender, length))
+ind_num$t_mean <- with(ind_num$t_dat, by(engagement, gender, mean))
+ind_num$t_sd <- with(ind_num$t_dat, by(engagement, gender, sd))
+
+ind_num$mw_dat <- read.spss("./input/mann-whitney-test.sav", to.data.frame = TRUE)
+ind_num$mw_n <- with(ind_num$mw_dat, by(engagement, gender, length))
+ind_num$mw_median <- with(ind_num$mw_dat, by(engagement, gender, median))
+ind_num$mw_sd <- with(ind_num$mw_dat, by(engagement, gender, sd))
+```
+
+A company shows an advertisement to $n_M$ = `r ind_num$t_n["Male"]` males and $n_F$ = `r ind_num$t_n["Female"]` females, then measures their engagement with a survey. Do the groups' mean engagement scores differ?
+
+[Laerd](https://statistics.laerd.com/) has two data sets for this example. One meets the conditions for a *t*-test, and the other fails the normality test, forcing you to use the Mann-Whitney U test.
+
+```{r fig.height=3.5, fig.width=7.5, echo=FALSE}
+bind_rows(
+  `t-Test` = ind_num$t_dat, 
+  `Mann-Whitney` = ind_num$mw_dat, 
+  .id = "set"
+) %>%
+  ggplot(aes(x = engagement, fill = gender)) +
+  # geom_density(alpha = 0.6) +
+  geom_histogram(bins = 20, alpha = 0.6, position = "dodge") +
+  facet_wrap(~fct_rev(set)) +
+  labs(title = "Mean Engagement Scores Counts", fill = NULL) +
+  theme_light() +
+  scale_fill_manual(values = c("Male" = "slategray", "Female" = "snow3"))
+```
+
+```{r fig.height=3.5, fig.width=7.5, echo=FALSE}
+bind_rows(
+  `t-test` = ind_num$t_dat,
+  `Mann-Whitney` = ind_num$mw_dat,
+  .id = "set"
+) %>%
+  group_by(set, gender) %>%
+  summarize(.groups = "drop",
+            mean_engage = mean(engagement),
+            n = n(),
+            se_engage = sd(engagement) / sqrt(n),
+            ci_low = mean_engage - qt(.975, n-1) * se_engage,
+            ci_high = mean_engage + qt(.975, n-1) * se_engage) %>%
+  ggplot(aes(x = gender)) +
+  geom_col(aes(y = mean_engage), fill = "snow3", color = "snow4", width = 0.25) +
+  geom_errorbar(aes(ymin = ci_low, ymax = ci_high), color = "snow4", width = .125) +
+  theme_minimal() +
+  facet_wrap(~fct_rev(set)) +
+  labs(x = NULL, y = NULL,
+       title = "Mean Engagement Score", 
+       subtitle = "Two data sets with similar means.",
+       caption = "Error bars show 95% CI.")
+```
+
+The *t*-test data set has the following summary statistics.
+
+```{r}
+(ind_num$t_gt <- ind_num$t_dat %>% 
+  gtsummary::tbl_summary(
+    by = c(gender), 
+    statistic = list(all_continuous() ~ "{mean} ({sd})")
+  ))
+```
+
+> There were `r ind_num$t_n["Male"]` male and `r ind_num$t_n["Female"]` female participants. Data are mean $\pm$ standard deviation, unless otherwise stated. The advertisement was more engaging to male viewers, `r gtsummary::inline_text(ind_num$t_gt, engagement, column = "Male")`, than female viewers, `r gtsummary::inline_text(ind_num$t_gt, engagement, column = "Female")`.
+
+The Mann-Whitney data set has the following summary statistics.
+
+```{r}
+(ind_num$mw_gt <- ind_num$mw_dat %>% 
+  gtsummary::tbl_summary(
+    by = c(gender), 
+    statistic = list(all_continuous() ~ "{mean} ({sd})")
+  ))
+```
+
+> There were `r ind_num$mw_n["Male"]` male and `r ind_num$mw_n["Female"]` female participants. Data are mean $\pm$ standard deviation, unless otherwise stated. The advertisement was more engaging to male viewers, `r gtsummary::inline_text(ind_num$mw_gt, engagement, column = "Male")`, than female viewers, `r gtsummary::inline_text(ind_num$mw_gt, engagement, column = "Female")`.
+
+#### Conditions {-}
+
+The independent samples *t*-test and Mann-Whitney U test apply when 1) the response variable is continuous, 2) the independent variable is binomial, and 3) the observations are independent. The decision between the *t*-test and Mann-Whitney stems from two additional conditions related to the data distribution - if both conditions hold, use the *t*-test; otherwise use Mann-Whitney.
+
+1. **Outliers**. There should be no outliers in either group. Outliers exert a large influence on the mean and standard deviation. Test with a box plot. If there are outliers, you might be able to drop them or transform the data.
+2. **Normality**.  Values should be *nearly* normally distributed. The *t*-test is robust to normality, but this condition is important with small sample sizes. Test with Q-Q plots or the Shapiro-Wilk test for normality. If the data is very non-normal, you might be able to transform the data.
+
+If the data passes the two conditions, use the *t*-test, but now you need to check a third condition related to the variances to determine which flavor of the *t*-test to use.
+
+3. **Homogeneous Variances**. Use *pooled-variances* if the variances are homogeneous; otherwise use the *separate variances* method. Test with Levene's test of equality of variances.
+
+If the data does not pass the first two conditions, use Mann-Whitney, but now you need to check a third condition here as well. The condition does not affect how to perform the test, but rather how to interpret the results.
+
+3. **Distribution shape**. If the distributions have the same shape, interpret the Mann-Whitney result as a comparison of the *medians*; otherwise interpret the result as a comparison of the *mean ranks*.
+
+##### Checking for Outliers {-}
+
+Assess outliers with a box plot. Box plot whiskers extend up to 1.5\*IQR from the upper and lower hinges and outliers (beyond the whiskers) are are plotted individually.
+
+```{r echo=FALSE, fig.height=2.5, fig.width=7.5}
+bind_rows(
+  `t-test` = ind_num$t_dat,
+  `Mann-Whitney` = ind_num$mw_dat,
+  .id = "set"
+) %>%
+  ggplot(aes(x = gender, y = engagement)) +
+  geom_boxplot(fill = "snow3", color = "snow4", alpha = 0.6, width = 0.25, 
+               outlier.color = "goldenrod", outlier.size = 2) +
+  theme_minimal() +
+  facet_wrap(~fct_rev(set)) +
+  labs(title = "Boxplot of Engagement Score", y = "Score", x = NULL)
+```
+
+For the *t* test data set,
+
+>There were no outliers in the data, as assessed by inspection of a boxplot.
+
+and for the Mann-Whitney data set,
+
+>There was one outlier in the data, as assessed by inspection of a boxplot.
+
+If the outliers are data entry errors or measurement errors, fix or discard them. If the outliers are genuine, you have a couple options before reverting to the Mann-Whitney U test.
+
+* Leave it in if it doesn't affect the conclusion (compared to taking it out).
+* Transform the variable. Don't do this unless the variable is also non-normal. Transformation also has the downside of making interpretation more difficult.
+
+##### Checking for Normality {-}
+
+Assume the population is normally distributed if *n* $\ge$ 30. Otherwise, assess a Q-Q plot, skewness and kurtosis values, or a histogram. If you still don't feel confident about normality, run a Shapiro-Wilk test.
+
+There are only $n_M$ = `r ind_num$t_n["Male"]` male and $n_F$ = `r ind_num$t_n["Female"]` female observations, so you need to test normality. The QQ plot indicates normality in the t-test data set, but not in the Mann-Whitney data set.
+
+```{r fig.height=3.5, fig.width=7.5}
+bind_rows(
+  `t-test` = ind_num$t_dat,
+  `Mann-Whitney` = ind_num$mw_dat,
+  .id = "set"
+) %>%
+  ggplot(aes(sample = engagement, group = gender, color = fct_rev(gender))) +
+  stat_qq() +
+  stat_qq_line(col = "goldenrod") +
+  theme_minimal() + theme(legend.position = "top") +
+  facet_wrap(~fct_rev(set)) +
+  labs(title = "Normal Q-Q Plot", color = NULL)
+```
+
+Run Shapiro-Wilk separately for the males and for the females. Since we are looking at two data sets in tandem, there are four tests below. For the t-test data set, 
+
+```{r}
+(ind_num$t_shapiro <- split(ind_num$t_dat, ind_num$t_dat$gender) %>% 
+  map(~shapiro.test(.$engagement))
+)
+```
+
+>Engagement scores for each level of gender were normally distributed, as assessed by Shapiro-Wilk's test (*p* > .05).
+
+For the Mann-Whitney data set,
+
+```{r}
+(ind_num$mw_shapiro <- split(ind_num$mw_dat, ind_num$mw_dat$gender) %>% 
+  map(~shapiro.test(.$engagement))
+)
+```
+
+>Engagement scores for each level of gender were not normally distributed for the Female sample, as assessed by Shapiro-Wilk's test (*p* = `r ind_num$mw_shapiro$Female$p.value %>% scales::comma(accuracy = 0.001)`).
+
+If the data is not normally distributed, you still have a couple options before reverting to the Mann-Whitney U test.
+
+* Transform the dependent variable.
+* Carry on regardless - the independent samples *t*-test is fairly robust to deviations from normality.
+
+##### Checking for Homogenous Variances {-}
+
+If the data passed the outliers and normality tests, you will use the *t*-test, so now you need to test the variances to see which version (*pooled-variances* method if variances are homogeneous; *separate variances* if variances are heterogeneous). A rule of thumb is that homogeneous variances have a ratio of standard deviations between 0.5 and 2.0:
+
+```{r}
+sd(ind_num$t_dat %>% filter(gender == "Male") %>% pull(engagement)) /
+  sd(ind_num$t_dat %>% filter(gender == "Female") %>% pull(engagement))
+```
+
+You can also use the *F* test to compare the ratio of the sample variances $\hat{r} = s_X^2 / s_Y^2$ to an hypothesized ratio of population variances $r_0 = \sigma_X^2 / \sigma_Y^2 = 1.$
+
+```{r}
+var.test(ind_num$t_dat %>% filter(gender == "Female") %>% pull(engagement), 
+         ind_num$t_dat %>% filter(gender == "Male") %>% pull(engagement))
+```
+
+Bartlett's test is another option.
+
+```{r}
+bartlett.test(ind_num$t_dat$engagement, ind_num$t_dat$gender)
+```
+
+Levene's test is a third option. Levene's is less sensitive to departures from normality than Bartlett.
+
+```{r}
+(ind_num$levene <- with(ind_num$t_dat, 
+                        car::leveneTest(engagement, gender, center = "mean"))
+)
+```
+
+> There was homogeneity of variances for engagement scores for males and females, as assessed by Levene's test for equality of variances (*p* = `r ind_num$levene %>% pluck("Pr(>F)", 1) %>% scales::number(accuracy = 0.001)`).
+
+##### Checking for Similar Distributions {-}
+
+If the data fail either the outliers or the normality test, use the Mann-Whitney test. The Mann-Whitney data set failed both, so the Mann-Whitney test applies. Now you need to test the distributions to determine how to interpret its results. If the distributions are similarly shaped, interpret the Mann-Whitney U test as inferences about differences in medians between the two groups. If the distributions are dissimilar, interpret the test as inferences about the distributions, lower/higher scores and/or mean ranks.
+
+```{r fig.height = 3.5, fig.width=7.5, echo=FALSE}
+ind_num$mw_dat %>%
+  ggplot(aes(x = engagement, color = fct_rev(gender))) +
+  geom_density() +
+  theme_minimal() +
+  theme(legend.position = "right") +
+  labs(title = "Engagement Distribution", color = NULL)
+```
+
+> Distributions of the engagement scores for males and females were similar, as assessed by visual inspection.
+
+#### Test {-}
+
+Conduct the *t*-test or the Mann-Whitney U test. 
+
+##### t-Test {-}
+
+The the *t*-test data the variances were equal, so the pooled-variances version applies (`t.test(var.equal = TRUE)`).
+
+```{r}
+(ind_num$t_test <- t.test(engagement ~ gender, data = ind_num$t_dat, var.equal = TRUE))
+```
+
+> There was a statistically significant difference in mean engagement score between males and females, with males scoring higher than females, `r scales::number(ind_num$t_test$estimate[1] - ind_num$t_test$estimate[2] %>% as.numeric(), accuracy = 0.01)` (95% CI, `r ind_num$t_test$conf.int[1] %>% scales::number(accuracy = 0.01)` to `r ind_num$t_test$conf.int[2] %>% scales::number(accuracy = 0.01)`), t(`r ind_num$t_test$parameter`) = `r ind_num$t_test$statistic %>% scales::number(accuracy = 0.001)`, *p* = `r ind_num$t_test$p.value %>% scales::number(accuracy = 0.001)`.
+
+The effect size, Cohen's *d*, is defined as $d = |M_D| / s$, where $|M_D| = \bar{x} - \bar{y}$, and $s$ is the pooled sample standard deviation, $s_p = \sqrt{\frac{(n_X - 1) s_X^2 + (n_Y-1) s_Y^2}{n_X + n_Y-2}}$. $d <.2$ is considered trivial, $.2 \le d < .5$ small, and $.5 \le d < .8$ large.
+
+```{r message=FALSE}
+(d <- effectsize::cohens_d(engagement ~ gender, data = ind_num$t_dat, pooled_sd = TRUE))
+```
+
+> There was a large difference in mean engagement score between males and females, Cohen's d = `r scales::number(d$Cohens_d, accuracy = 0.01)` 95% CI [`r scales::number(d$CI_low, accuracy = 0.01)`, `r scales::number(d$CI_high, accuracy = 0.01)`]
+
+Before rejecting the null hypothesis, construct a plot as a sanity check.
+
+```{r echo=FALSE, warning=FALSE, fig.height=3.5, fig.width=7.5}
+d_bar <- ind_num$t_mean["Male"] - ind_num$t_mean["Female"]
+d_0 <- 0
+se <- effectsize::sd_pooled(engagement ~ gender, data = ind_num$t_dat) * 
+  sqrt(1/ind_num$t_n["Male"] + 1/ind_num$t_n["Female"])
+df <- sum(ind_num$t_n) - 2
+lrr <- se * qt(.025, df)
+urr <- se * qt(.975, df)
+data.frame(d = seq(-1.0, 1.0, by = .01)) %>%
+  mutate(t = (d - d_0) / se,
+         prob = dt(x = t, df = df),
+         lrr = if_else(d < lrr, prob, NA_real_),
+         urr = if_else(d > urr, prob, NA_real_)) %>%
+  ggplot() +
+  geom_line(aes(x = d, y = prob)) +
+  geom_area(aes(x = d, y = lrr), fill = "firebrick", alpha = 0.6) +
+  geom_area(aes(x = d, y = urr), fill = "firebrick", alpha = 0.6) +
+  geom_vline(aes(xintercept = d_0), size = 1) +
+  geom_vline(aes(xintercept = d_bar), color = "goldenrod", size = 1, linetype = 2) +
+  annotate("text", x = d_bar + .06, y = .05, 
+           label = scales::number(d_bar, accuracy = .01), 
+           size = 3, color = "goldenrod3") +
+  theme_minimal() +
+  theme(legend.position="none",
+        axis.text.y = element_blank()) +
+  labs(title = bquote("Two-Tailed t-test"),
+       x = "Difference in Group Means (Male - Female)",
+       y = "Probability",
+       caption = "Shaded area is 95% CI.")
+```
+
+##### Wilcoxon Rank Sum test {-}
+
+The reference level for the `gender` variable is males, so the Wilcoxon Rank Sum test statistic is the sum of male ranks minus $n_f(n_f + 1) / 2$ where $n_f$ is the number of females. You can calculate the test statistic by hand.
+
+```{r}
+(ind_num$mw_test_manual <- ind_num$mw_dat %>% 
+  mutate(R = rank(engagement)) %>%
+  group_by(gender) %>%
+  summarize(.groups = "drop", n = n(), R = sum(R), meanR = sum(R)/n()) %>%
+  pivot_wider(names_from = gender, values_from = c(n, R, meanR)) %>%
+  mutate(U = R_Male - n_Female * (n_Female + 1) / 2))
+```
+
+Compare the test statistic to the Wilcoxon rank sum distribution with `pwilcox()`.
+
+```{r}
+pwilcox(
+  q = ind_num$mw_test_manual[1, ]$U - 1, 
+  m = ind_num$mw_test_manual[1, ]$n_Male, 
+  n = ind_num$mw_test_manual[1, ]$n_Male, 
+  lower.tail = FALSE
+) * 2
+```
+
+There is a function for all this.
+
+```{r}
+(ind_num$mw_test <- wilcox.test(
+  engagement ~ gender, 
+  data = ind_num$mw_dat, 
+  exact = TRUE, 
+  correct = FALSE,
+  conf.int = TRUE))
+```
+
+> Median engagement score was not statistically significantly different between males and females, *U* = `r ind_num$mw_test$statistic`, *p* = `r ind_num$mw_test$p.value %>% scales::number(accuracy = .001)`, using an exact sampling distribution for *U*.
+
+Now you are ready to report the results. Here is how you would report the *t* test.
+
+> Data are mean $\pm$ standard deviation, unless otherwise stated. There were `r ind_num$t_n[["Male"]]` male and `r ind_num$t_n[["Female"]]` female participants. An independent-samples t-test was run to determine if there were differences in engagement to an advertisement between males and females. There were no outliers in the data, as assessed by inspection of a boxplot. Engagement scores for each level of gender were normally distributed, as assessed by Shapiro-Wilk's test (*p* > .05), and there was homogeneity of variances, as assessed by Levene's test for equality of variances (*p* = `r ind_num$levene %>% pluck("Pr(>F)", 1) %>% scales::number(accuracy = 0.001)`). The advertisement was more engaging to male viewers (`r scales::number(ind_num$t_mean["Male"], accuracy = .01)` $\pm$ = `r scales::number(ind_num$t_sd["Male"], accuracy = .01)`) than female viewers (`r scales::number(ind_num$t_mean["Female"], accuracy = .01)` $\pm$ = `r scales::number(ind_num$t_sd["Female"], accuracy = .01)`), a statistically significant difference of `r scales::number(ind_num$t_test$estimate[1] - ind_num$t_test$estimate[2] %>% as.numeric(), accuracy = 0.01)` (95% CI, `r ind_num$t_test$conf.int[1] %>% scales::number(accuracy = 0.01)` to `r ind_num$t_test$conf.int[2] %>% scales::number(accuracy = 0.01)`), t(`r ind_num$t_test$parameter`) = `r ind_num$t_test$statistic %>% scales::number(accuracy = 0.001)`, *p* = `r ind_num$t_test$p.value %>% scales::number(accuracy = 0.001)`, *d* = `r d$Cohens_d %>% scales::number(accuracy = 0.01)`.
+
+Here is how you would report the Mann-Whitney U-Test.
+
+> A Mann-Whitney U test was run to determine if there were differences in engagement score between males and females. Distributions of the engagement scores for males and females were similar, as assessed by visual inspection. Median engagement score for males (`r ind_num$mw_median["Male"] %>% as.numeric() %>% scales::number(accuracy = .01)`) and females (`r ind_num$mw_median["Female"] %>% as.numeric() %>% scales::number(accuracy = .01)`) was not statistically significantly different, *U* = `r ind_num$mw_test$statistic`, *p* = `r ind_num$mw_test$p.value %>% scales::number(accuracy = .001)`, using an exact sampling distribution for *U*.
+
+Had the distributions differed, you would report the Mann-Whitney like this:
+
+> A Mann-Whitney U test was run to determine if there were differences in engagement score between males and females. Distributions of the engagement scores for males and females were not similar, as assessed by visual inspection. Engagement scores for males (mean rank = `r ind_num$mw_test_manual %>% pull(meanR_Male)`) and females (mean rank = `r ind_num$mw_test_manual %>% pull(meanR_Female)`) were not statistically significantly different, *U* = `r ind_num$mw_test$statistic`, *p* = `r ind_num$mw_test$p.value %>% scales::number(accuracy = .001)`, using an exact sampling distribution for *U*.
+

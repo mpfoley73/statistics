@@ -1,0 +1,188 @@
+# Binomial ~ Binomial
+
+```{r include=FALSE}
+library(tidyverse)
+library(gtsummary)
+library(foreign)
+library(scales)
+library(janitor)
+library(flextable)
+library(broom)
+library(glue)
+
+theme_set(
+  jtools::theme_apa() +
+    theme(
+      plot.caption = element_text(hjust = 0)
+    )
+)
+```
+
+## Two Proportion Z-Test {#sec-tsztest}
+
+The *Z*-test and chi-square test produce the same statistical significance result because they are algebraically identical.
+
+The *Z*-test uses the difference in sample proportions, $\hat{d} = p_1 - p_2$, to test whether the difference in population proportions, $\delta = \pi_1 - \pi_2$, differs from an hypothesized difference, $d_0 = \pi_0 - \pi_1$. Alternatively, the *Z*-test is used to construct a $(1−\alpha)\%$ confidence interval around $\hat{d}$ to estimate $\delta$ within a margin of error, $\epsilon$.
+
+The *Z*-test applies when the central limit theorem conditions hold so that the normal distribution approximates the binomial distribution.
+
+* The sample is independently drawn, meaning random assignment (experiments) or random sampling without replacement from $n < 10\%$ of the population (observational studies),
+* there are at least $n_i p_i >= 5$ successes and $n_i (1 - p_i) >= 5$ failures for each group $i$,
+* the sample sizes are both $n_i >= 30$, and 
+* the probability of success for each group is not extreme, $0.2 < \pi_i < 0.8$.
+
+If these conditions hold, the sampling distribution of $\delta$ is normally distributed around $\hat{d}$ with standard error $se_\hat{d} = \sqrt{\frac{p_1(1 - p_1)}{n_1} + \frac{p_2(1 − p_2)}{n_2}}$. The measured values $\hat{d}$ and $se_\hat{d}$ approximate the population values $\delta$ and $se_\delta$. The *Z*-test statistic is $Z = \frac{\hat{d}}{se_{\hat{d}}}$.
+
+Define a $(1 − \alpha)\%$ confidence interval as $\hat{d} \pm z_{\alpha / 2}se_\hat{d}$ or test the hypothesis of $d = d_0$ with test statistic $z = \frac{\hat{d} − d_0}{se_{d_0}}$ where $se_{d_0} = \sqrt{p^*(1 - p^*) \left(\frac{1}{n_1} + \frac{1}{n_2}\right)}$ and $p^*$ is the overall success probability.
+
+## Fisher's Exact Test {#sec-fisherexact}
+
+Fisher's exact test is an "exact test" in that the *p*-value is calculated exactly from the hypergeometric distribution rather than relying on the approximation that the test statistic distribution approaches $\chi^2$ as $n \rightarrow \infty$. The test is applicable in situations where
+
+* the row totals $n_{i+}$ and the column totals $n_+j$ are fixed by study design (rarely applies), and
+* the expected values of >20% of cells (at least 1 cell in a 2x2 table) have expected cell counts >5, and no expected cell count is <1.
+
+The *p*-value from the test is computed as if the margins of the table are fixed. This leads under a null hypothesis of independence to a hypergeometric distribution of the numbers in the cells of the table ([Wikipedia](https://en.wikipedia.org/wiki/Fisher%27s_exact_test)). Fisher's exact test is useful for small *n*-size samples where the chi-squared distribution assumption of the chi-squared and G-test tests fails. Fisher's exact test is overly conservative (*p*-values too high) for large *n*-sizes.
+
+The Hypergeometric density function is
+$$f_X(k|N, K, n) = \frac{{{K}\choose{k}}{{N-K}\choose{n-k}}}{{N}\choose{n}}.$$
+
+The density is the exact hypergeometric probability of observing this particular arrangement of the data, assuming the given marginal totals, on the null hypothesis that the conditional probabilities are equal.
+
+## Case Study
+
+This case study uses a data set from [Laerd](https://statistics.laerd.com/) and a second version modified to have small sample size. The first data set passes the *Z*-test requirements. The second (in parentheses), fails the sample sizes condition. 
+
+```{r}
+z_dat <- read.spss(
+  "./input/test-of-two-proportions-individual-scores.sav",
+  to.data.frame = TRUE
+)
+
+fisher_dat <- z_dat[seq(2, 100, 2),]
+```
+
+A researcher recruits `r nrow(z_dat)` (`r nrow(fisher_dat)`) patients who have a "high" classification of cholesterol and a poor lifestyle. The researcher randomly assigns `r z_dat %>% filter(intervention == "Drug") %>% nrow()` (`r fisher_dat %>% filter(intervention == "Drug") %>% nrow()`) of them to a drug intervention and `r z_dat %>% filter(intervention == "Lifestyle") %>% nrow()` (`r fisher_dat %>% filter(intervention == "Lifestyle") %>% nrow()`) to a lifestyle intervention. After six months, a doctor reclassifies the patients' cholesterol classification as either "high" or "normal".
+
+```{r fig.height=3.5, fig.width=7.5}
+#| code-fold: true
+bind_rows(
+  `Z-Test (n = 50, 50)` = z_dat,
+  `Fisher (n = 25, 25)` = fisher_dat,
+  .id = "set"
+) %>%
+  count(set, intervention, risk_level) %>%
+  summarize(
+    .by = c(set, intervention),
+    p = sum(if_else(risk_level == "Normal", n, as.integer(0))) / sum(n),
+    n = sum(n),
+    se = sqrt(p * (1 - p) / n),
+    ci_lwr = p - qt(.975, n - 1) * se,
+    ci_upr = p + qt(.975, n - 1) * se
+  ) %>%
+  ggplot(aes(x = intervention)) +
+  geom_col(aes(y = p), fill = "snow3", color = "snow4", width = 0.25) +
+  geom_errorbar(aes(ymin = ci_lwr, ymax = ci_upr), color = "snow4", width = .125) +
+  theme_minimal() +
+  scale_y_continuous(labels = scales::percent) +
+  facet_wrap(vars(fct_rev(set))) +
+  labs(x = NULL, y = NULL,
+       title = "Cholesterol Classification Improvement from High to Normal",
+       subtitle = "Two data sets with different sample sizes.",
+       caption = "Error bars show 95% CI.")
+```
+
+```{r}
+#| code-fold: true
+x <-
+  z_dat |> 
+  gtsummary::tbl_cross(
+    row = intervention, 
+    col = risk_level, 
+    percent = "row", 
+    label = list(intervention = "Intervention", risk_level = "Risk Level")
+  )
+
+y <- 
+  fisher_dat |> 
+  gtsummary::tbl_cross(
+    row = intervention, 
+    col = risk_level, 
+    percent = "row", 
+    label = list(intervention = "Intervention", risk_level = "Risk Level")
+  )
+
+gtsummary::tbl_merge(list(x, y), tab_spanner = c("Z-Test", "Fisher")) |>
+  gtsummary::as_gt() |>
+  gt::tab_header(title = "Summary statistics, Z-Test case, Fisher test case.") |>
+  gt::tab_options(heading.align = "left")
+```
+
+### Conditions
+
+The *Z*-test applies with the CLT conditions hold.
+
+* the sample is independently drawn so the outcome of one observation does not influence another within the same group,
+* both samples are randomly drawn from their respective populations so the results can be generalized,
+* there are at least 5 successes (Normal) and failures (High) for each group $i$ so the normal approximation holds,
+* each group has a fixed number of trials or observations,
+* the population variances of the two groups are equal (typically true when sample sizes are large),
+* the sample sizes for both groups are >=30, and 
+* the probability of success for each group is not extreme, $0.2 < \pi_i < 0.8$.
+
+The conditions hold for the *Z*-test data set, but not for the Fisher data set.
+
+### Test
+
+#### Z-Test {-}
+
+There is no R function that performs a two-sample *Z*-test. Let's do it manually.
+
+```{r collapse=TRUE}
+dat_drug <- z_dat |> filter(intervention == "Drug")
+dat_lifestyle <- z_dat |> filter(intervention == "Lifestyle")
+
+n_drug <- nrow(dat_drug)
+n_lifestyle <- nrow(dat_lifestyle)
+
+p_drug <- mean(dat_drug$risk_level == "Normal")
+p_lifestyle <- mean(dat_lifestyle$risk_level == "Normal")
+p_pool <- mean(z_dat$risk_level == "Normal")
+
+(se <- sqrt(p_pool * (1 - p_pool) * (1 / n_drug + 1 / n_lifestyle)))
+(z <- (p_drug - p_lifestyle) / se)
+
+(p_value <- pnorm(z, lower.tail = FALSE))
+```
+
+> `r nrow(z_dat)` patients with a high cholesterol classification were randomly assigned to either a drug or lifestyle intervention, `r n_drug` in each intervention. The test of two proportions used was the two sample *Z*-test. At the conclusion of the drug intervention, `r sum(dat_drug$risk_level == "Normal")` patients (`r percent(p_drug, 1)`) had improved their cholesterol classification from high to normal compared to `r sum(dat_lifestyle$risk_level == "Normal")` patients (`r percent(p_lifestyle, 1)`) in the lifestyle intervention, a difference in proportions of `r comma(p_drug - p_lifestyle, .01)`, *p* = `r comma(p_value, .0001)`.
+
+The chi-square test of homogeneity (@sec-chisqhomogeneity) can also be used here.
+
+```{r}
+(chisq_test <- z_dat %>%
+  tabyl(intervention, risk_level) %>%
+  chisq.test(correct = FALSE))
+```
+
+> `r nrow(z_dat)` patients with a high cholesterol classification were randomly assigned to either a drug or lifestyle intervention, `r n_drug` in each intervention. The test of two proportions used was the chi-square test of homogeneity. At the conclusion of the drug intervention, `r sum(dat_drug$risk_level == "Normal")` patients (`r percent(p_drug, 1)`) had improved their cholesterol classification from high to normal compared to `r sum(dat_lifestyle$risk_level == "Normal")` patients (`r percent(p_lifestyle, 1)`) in the lifestyle intervention, a difference in proportions of `r comma(p_drug - p_lifestyle, .01)`, *p* = `r comma(chisq_test$p.value, .0001)`.
+
+#### Fisher's Exact Test {-}
+
+Use the Fisher exact test from the *janitor* package.
+
+```{r}
+(fisher_test <- fisher_dat %>%
+  tabyl(intervention, risk_level) %>%
+  fisher.test())
+```
+
+```{r include=FALSE}
+fisher_drug <- fisher_dat |> filter(intervention == "Drug")
+fisher_lifestyle <- fisher_dat |> filter(intervention == "Lifestyle")
+
+p_fisher_drug <- mean(fisher_drug$risk_level == "Normal")
+p_fisher_lifestyle <- mean(fisher_lifestyle$risk_level == "Normal")
+```
+
+> `r nrow(fisher_dat)` patients with a high cholesterol classification were randomly assigned to either a drug or lifestyle intervention, `r nrow(fisher_drug)` in each intervention. At the conclusion of the drug intervention, `r sum(fisher_drug == "Normal")` patients (`r percent(mean(fisher_drug$risk_level == "Normal"), 1)`) had improved their cholesterol classification from high to normal compared to `r sum(fisher_lifestyle$risk_level == "Normal")` patients (`r percent(mean(fisher_lifestyle$risk_level == "Normal"), 1)`) in the lifestyle intervention. Due to small sample sizes, Fisher's exact test was run. There was a non-statistically significant difference in proportions of `r comma(p_fisher_drug - p_fisher_lifestyle, .01)`, *p* = `r number(fisher_test$p.value, .0001)`.

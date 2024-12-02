@@ -1,0 +1,7 @@
+# Preface {-}
+
+These notes are a personal reference related to my statistics work. 
+
+Repo for this quarto book: [https://github.com/mpfoley73/statistics](https://github.com/mpfoley73/statistics).
+
+There are at least three approaches to establishing statistical inference: frequentist, likelihood, and Bayesian. Think of them philosophically. The frequentist approach is the path of *action*. It rejects a null hypothesis if the *p*-value is low because repeated sample analyses are likely to agree. The likelihood approach is the path of *knowledge*. It compares the observed summary measure to the likelihoods of the other possible realities. The Bayesian approach is the path of *belief*. It uses a summary measure to update the prior belief.
