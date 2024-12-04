@@ -12,5 +12,5 @@ This section discusses statistical tests of _comparison_. Select the test that b
 
 **Discrete (count) Outcomes**
 
-- Compare the proportions of a binomial dependent variable between the two levels of a binomial independent variable with a **two-sample _z_-test** (@sec-tsztest). 
+- Compare the proportions of a binomial outcome between two levels of a nominal independent variable with a **two-sample _z_-test** (@sec-08-z), **chi-squared test of homogeneity** (@sec-08-chisq), or **Fisher's Exact test** (@sec-08-fet). 
 - The **Chi-square test of homogeneity** (@sec-chisqhomogeneity) is the main way to compare a discrete dependent variable among the levels of a binomial or multinomial independent categorical variable. Revert to the nonparametric **Fisher's Exact Test** (@sec-fisherexact) if the sample size is small. Handle the special case of paired samples with the **Pairwise Prop Test** (@sec-pairwiseproptest) or the nonparametric **McNemar's test** (@sec-mcnemar).

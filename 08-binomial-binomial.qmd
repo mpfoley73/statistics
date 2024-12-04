@@ -1,5 +1,7 @@
 # Binomial ~ Binomial
 
+The tests presented here compare two proportions. That is, the outcome is binomial (1|0) and you want to compare the proportion (outcome = 1) between two groups.
+
 ```{r include=FALSE}
 library(tidyverse)
 library(gtsummary)
@@ -18,24 +20,44 @@ theme_set(
 )
 ```
 
-## Two Proportion Z-Test {#sec-tsztest}
+## Two Proportion Z-Test {#sec-08-z}
 
-The *Z*-test and chi-square test produce the same statistical significance result because they are algebraically identical.
+::: {.callout-note}
+The two propportion *Z*-test and the chi-square test of homogeneity produce the same statistical significance result because they are algebraically identical. The *Z* statistic equals $\sqrt{\chi^2}$. There is no *Z-test* function in the *stats* library.
+:::
 
-The *Z*-test uses the difference in sample proportions, $\hat{d} = p_1 - p_2$, to test whether the difference in population proportions, $\delta = \pi_1 - \pi_2$, differs from an hypothesized difference, $d_0 = \pi_0 - \pi_1$. Alternatively, the *Z*-test is used to construct a $(1−\alpha)\%$ confidence interval around $\hat{d}$ to estimate $\delta$ within a margin of error, $\epsilon$.
+The *Z*-test uses the difference in sample proportions, $d = p_1 - p_2$, to test whether the difference in population proportions, $\delta = \pi_1 - \pi_2$, differs from an hypothesized difference, $d_0 = \pi_1 - \pi_2$, or to construct a $(1−\alpha)\%$ confidence interval around $d$ to estimate $\delta$.
 
 The *Z*-test applies when the central limit theorem conditions hold so that the normal distribution approximates the binomial distribution.
 
 * The sample is independently drawn, meaning random assignment (experiments) or random sampling without replacement from $n < 10\%$ of the population (observational studies),
-* there are at least $n_i p_i >= 5$ successes and $n_i (1 - p_i) >= 5$ failures for each group $i$,
+* there are at least $n_i p_i >= 5$ successes and $n_i (1 - p_i) >= 5$ failures for each group, $i$,
 * the sample sizes are both $n_i >= 30$, and 
 * the probability of success for each group is not extreme, $0.2 < \pi_i < 0.8$.
 
-If these conditions hold, the sampling distribution of $\delta$ is normally distributed around $\hat{d}$ with standard error $se_\hat{d} = \sqrt{\frac{p_1(1 - p_1)}{n_1} + \frac{p_2(1 − p_2)}{n_2}}$. The measured values $\hat{d}$ and $se_\hat{d}$ approximate the population values $\delta$ and $se_\delta$. The *Z*-test statistic is $Z = \frac{\hat{d}}{se_{\hat{d}}}$.
+If these conditions hold, the sampling distribution of $\delta$ is normally distributed around $d$ with standard error $se_d = \sqrt{\frac{p_1(1 - p_1)}{n_1} + \frac{p_2(1 − p_2)}{n_2}}$. When $d_0 = 0$ (almost always), pool the proportions, so $se_d = \sqrt{\frac{p(1 - p)}{n_1} + \frac{p(1 − p)}{n_2}}$, or simply:
 
-Define a $(1 − \alpha)\%$ confidence interval as $\hat{d} \pm z_{\alpha / 2}se_\hat{d}$ or test the hypothesis of $d = d_0$ with test statistic $z = \frac{\hat{d} − d_0}{se_{d_0}}$ where $se_{d_0} = \sqrt{p^*(1 - p^*) \left(\frac{1}{n_1} + \frac{1}{n_2}\right)}$ and $p^*$ is the overall success probability.
+$$se_d = \sqrt{p(1-p)\left(\frac{1}{n_1} + \frac{1}{n_2}\right)}
+$$ {#eq-08-se-d}
 
-## Fisher's Exact Test {#sec-fisherexact}
+The *Z*-test statistic is 
+$$Z = \frac{d-d_0}{se_{d}}$$ {#eq-08-z}
+
+Define a $(1 − \alpha)\%$ confidence interval as $d \pm z_{1-\alpha / 2}se_d$.
+
+## Chi-Square Test of Homogeneity {#sec-08-chisq}
+
+The chi-square test of homogeneity tests whether frequency counts of the *R* levels of a categorical variable are distributed identically across the *C* populations. It tests whether observed joint frequency counts $O_{ij}$ differ from expected frequency counts $E_{ij}$ under the *independence model* (the model of independent explanatory variables, $\pi_{ij} = \pi_{i+} \pi_{+j}$. $H_0$ is $O_{ij} = E_{ij}$.
+
+There are two possible test statistics for this test, Pearson 
+
+$$X^2 = \sum \frac{(O_{ij} - E_{ij})^2}{E_{ij}}$$ {#eq-08-x2} 
+
+and deviance 
+
+$$G^2 = 2 \sum_{ij} O_{ij} \log \left( \frac{O_{ij}}{E_{ij}} \right).$$ {#eq-08-g2}
+
+## Fisher's Exact Test {#sec-08-fet}
 
 Fisher's exact test is an "exact test" in that the *p*-value is calculated exactly from the hypergeometric distribution rather than relying on the approximation that the test statistic distribution approaches $\chi^2$ as $n \rightarrow \infty$. The test is applicable in situations where
 
@@ -45,7 +67,7 @@ Fisher's exact test is an "exact test" in that the *p*-value is calculated exact
 The *p*-value from the test is computed as if the margins of the table are fixed. This leads under a null hypothesis of independence to a hypergeometric distribution of the numbers in the cells of the table ([Wikipedia](https://en.wikipedia.org/wiki/Fisher%27s_exact_test)). Fisher's exact test is useful for small *n*-size samples where the chi-squared distribution assumption of the chi-squared and G-test tests fails. Fisher's exact test is overly conservative (*p*-values too high) for large *n*-sizes.
 
 The Hypergeometric density function is
-$$f_X(k|N, K, n) = \frac{{{K}\choose{k}}{{N-K}\choose{n-k}}}{{N}\choose{n}}.$$
+$$f_X(k|N, K, n) = \frac{{{K}\choose{k}}{{N-K}\choose{n-k}}}{{N}\choose{n}}.$$ {#eq-08-fet}
 
 The density is the exact hypergeometric probability of observing this particular arrangement of the data, assuming the given marginal totals, on the null hypothesis that the conditional probabilities are equal.
 
@@ -67,10 +89,10 @@ A researcher recruits `r nrow(z_dat)` (`r nrow(fisher_dat)`) patients who have a
 ```{r fig.height=3.5, fig.width=7.5}
 #| code-fold: true
 bind_rows(
-  `Z-Test (n = 50, 50)` = z_dat,
-  `Fisher (n = 25, 25)` = fisher_dat,
+  `Larger Sample (n = 50, 50)` = z_dat,
+  `Smaller Sample (n = 25, 25)` = fisher_dat,
   .id = "set"
-) %>%
+) |>
   count(set, intervention, risk_level) %>%
   summarize(
     .by = c(set, intervention),
@@ -85,7 +107,7 @@ bind_rows(
   geom_errorbar(aes(ymin = ci_lwr, ymax = ci_upr), color = "snow4", width = .125) +
   theme_minimal() +
   scale_y_continuous(labels = scales::percent) +
-  facet_wrap(vars(fct_rev(set))) +
+  facet_wrap(vars(set)) +
   labs(x = NULL, y = NULL,
        title = "Cholesterol Classification Improvement from High to Normal",
        subtitle = "Two data sets with different sample sizes.",
@@ -112,7 +134,10 @@ y <-
     label = list(intervention = "Intervention", risk_level = "Risk Level")
   )
 
-gtsummary::tbl_merge(list(x, y), tab_spanner = c("Z-Test", "Fisher")) |>
+gtsummary::tbl_merge(
+  list(x, y), 
+  tab_spanner = c("Larger Sample", "Smaller Sample")
+) |>
   gtsummary::as_gt() |>
   gt::tab_header(title = "Summary statistics, Z-Test case, Fisher test case.") |>
   gt::tab_options(heading.align = "left")
@@ -149,15 +174,16 @@ p_drug <- mean(dat_drug$risk_level == "Normal")
 p_lifestyle <- mean(dat_lifestyle$risk_level == "Normal")
 p_pool <- mean(z_dat$risk_level == "Normal")
 
-(se <- sqrt(p_pool * (1 - p_pool) * (1 / n_drug + 1 / n_lifestyle)))
+se <- sqrt(p_pool * (1 - p_pool) * (1 / n_drug + 1 / n_lifestyle))
 (z <- (p_drug - p_lifestyle) / se)
-
-(p_value <- pnorm(z, lower.tail = FALSE))
+(p_value <- pnorm(z, lower.tail = FALSE) * 2) # mult by 2 for two-sided test.
 ```
 
 > `r nrow(z_dat)` patients with a high cholesterol classification were randomly assigned to either a drug or lifestyle intervention, `r n_drug` in each intervention. The test of two proportions used was the two sample *Z*-test. At the conclusion of the drug intervention, `r sum(dat_drug$risk_level == "Normal")` patients (`r percent(p_drug, 1)`) had improved their cholesterol classification from high to normal compared to `r sum(dat_lifestyle$risk_level == "Normal")` patients (`r percent(p_lifestyle, 1)`) in the lifestyle intervention, a difference in proportions of `r comma(p_drug - p_lifestyle, .01)`, *p* = `r comma(p_value, .0001)`.
 
-The chi-square test of homogeneity (@sec-chisqhomogeneity) can also be used here.
+#### Chi-Square Test of Homogeneity {-}
+
+The chi-square test achieves an identical result. The X-squared value is double the *Z* statistic and the *p* values are identical.
 
 ```{r}
 (chisq_test <- z_dat %>%
