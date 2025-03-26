@@ -8,9 +8,7 @@ library(scales)
 
 set.seed(123456)
 
-theme_set(
-  theme_light()
-)
+source("setup.R")
 ```
 
 ## Central Tendancy and Dispersion
@@ -69,25 +67,30 @@ pop_100 %>%
   labs(title = "H0: population IQs are centered at M = 100, SD = 15.")
 ```
 
-Take a random sample of *n* = 30 IQs from the population. 
+Suppose you take a random sample of *n* = 30 IQs from the population. The sample has $\bar{x}$ = 104, SD = 15.2. 
 
 ```{r collapse=TRUE}
 n <- 30
+x_bar <- 104
+x <- 15.2
 
-x <- sample(pop_106$iq, n)
-
-(x_bar <- mean(x)) %>% scales::comma(.1)
-(s <- sd(x)) %>% scales::comma(.1)
+# x <- sample(pop_106$iq, n)
+# 
+# # (x_bar <- mean(x)) %>% scales::comma(.1)
+# (x_bar <- 104) %>% scales::comma(.1)
+# (s <- sd(x)) %>% scales::comma(.1)
 ```
 
-The sample has $\bar{x}$ = `r comma(x_bar, .1)`, SD = `r comma(s, .1)`. How surprising is this if H0 is true? I.e., what is the *probability* of observing `r comma(x_bar, .1)` when $\mu$ is `r comma(mu_0, 1)`? According to the Central Limit Theorem (CLM), repeated samples of size *n* from a large population will yield $\bar{x}$ values that approach a normal distribution centered at $\mu$ with a standard deviation equal to the the *standard error*, $SE = \frac{\sigma}{\sqrt{n}}$ where $\sigma$ is the population SD. In this example, *n* = 30, so *SE* = $15/\sqrt{30}$ = `r comma(sigma / sqrt(n), .1)` and repeated samples would be expected to be distributed $\sim N(`r comma(mu_0, .1)`, `r comma(sigma/sqrt(n), .1)`^2).$ You can verify this empirically with a simulation.
+How surprising is this if H0 is true? I.e., what is the *probability* of observing `r comma(x_bar, 1)` when $\mu$ is `r comma(mu_0, 1)`? According to the Central Limit Theorem (CLM), repeated samples of size *n* from a large population will yield $\bar{x}$ values that approach a normal distribution centered at $\mu$ with a standard deviation equal to the the *standard error*, $SE = \frac{\sigma}{\sqrt{n}}$ where $\sigma$ is the population SD. In this example, *n* = 30, so *SE* = $15/\sqrt{30}$ = `r comma(sigma / sqrt(n), .1)` and repeated samples would be expected to be distributed $\sim N(`r comma(mu_0, 1)`, `r comma(sigma/sqrt(n), .1)`^2).$ You can verify this empirically with a simulation.
 
-```{r collapse=TRUE, echo=FALSE}
-# 1000 sample means centered at the presumed mean of 100 with SD = 15/
+```{r}
 sim <- replicate(1000, mean(sample(pop_100$iq, n)))
 
-# 90% of the values are within these limits.
 x_quantiles <- quantile(sim, probs = c(.05, .95))
+```
+
+```{r}
+#| echo: false
 
 data.frame(iq = sim) %>%
   ggplot(aes(x = iq)) +
@@ -110,12 +113,17 @@ data.frame(iq = sim) %>%
   )
 ```
 
-But you measured $\bar{x}$ = `r comma(x_bar, .1)`. The probability of measuring a value $z = \frac{\bar{x} - \mu_0}{\sigma / \sqrt{n}} = \frac{105.6 - 100}{2.7}$ >= `r comma((x_bar - mu_0) / (sigma / sqrt(n)), .1)` standard errors greater than 100 is `r pnorm((x_bar - mu_0) / (sigma / sqrt(n)), lower.tail = FALSE) %>% comma(.001)`. A common threshold probability is $\alpha$ = .05 level of significance. A sample of `r n` from a population with $\mu$ = 100 that has a mean greater than `qnorm(.05, 100, 15 / sqrt(30), lower.tail = FALSE)` = `r qnorm(.05, mu_0, sigma / sqrt(n), lower.tail = FALSE) %>% comma(.1)` would occur with less than 5% probability.
+But you measured $\bar{x}$ = `r comma(x_bar, 1)`, just short of the $\alpha$ <= .05 shaded region. The probability of measuring a mean IQ of `r comma(x_bar, 1)` from a sample of size *n* = `r n` when the population mean is `r mu_0` is measured from the z-value.
 
-```{r collapse=TRUE}
-z <- (x_bar - mu_0) / (sigma / sqrt(n))
-critical_value <- qnorm(.95, mu_0, sigma / sqrt(n))
+```{r}
+#| collapse: true
+
+(z <- (x_bar - mu_0) / (sigma / sqrt(n)))
+(p.value <- pnorm(z, lower.tail = FALSE))
+(critical_value <- qnorm(.95, mu_0, sigma / sqrt(n)))
 ```
+
+$z = \frac{\bar{x} - \mu_0}{\sigma / \sqrt{n}} = \frac{`r x_bar` - 100}{2.7}$ = `r comma((x_bar - mu_0) / (sigma / sqrt(n)), .1)`. $P(z \ge 1.5)$ = `r comma(p.value, .001)`, meaning `r percent(pnorm(z, lower.tail = FALSE), .1)` of the area under the distribution is to the right of `r comma(x_bar, 1)`. Using an $\alpha$ = .05 level of significance, do not reject H0. To reject H0 of $\mu_0 = 100$ from a sample of `r n` at the $\alpha = .05$ level of significance, $\bar{x}$ would have to be at least `qnorm(.05, 100, 15 / sqrt(30), lower.tail = FALSE)` = `r qnorm(.05, mu_0, sigma / sqrt(n), lower.tail = FALSE) %>% comma(.1)`.
 
 ```{r warning=FALSE, echo=FALSE}
 tibble(
@@ -139,10 +147,10 @@ tibble(
     axis.ticks.y = element_blank(),
     axis.text.x = element_text(angle = 90, vjust = .5)
   ) +
-  labs(title = "X-bar is in the .05 significance level region of H0.", x = "IQ")
+  labs(title = "X-bar is outside in the .05 significance level region of H0.", x = "IQ")
 ```
 
-The sampling mean is $\bar{x}$ = `r comma(x_bar, .1)`, well into the $\alpha$ <= .05 shaded region. The probability of measuring a mean IQ of `r comma(x_bar, .1)` from a sample of size *n* = `r n` when the population mean is `r mu_0` is *p* = `r comma(pnorm(z, lower.tail = FALSE), .001)`, meaning only `r percent(pnorm(z, lower.tail = FALSE), .1)` of the area under the distribution is to the right of `r comma(x_bar, .1)`. Using an $\alpha$ = .05 level of significance, reject H0. This is a *true positive* because the population mean is `r mu`, not `r mu_0`. Imagine a stricter level of significance, shrinking the shaded region right of `r comma(x_bar, .1)`. You would mistakenly fail to reject H0, a *false negative* (Type II error). The $\beta$ blue-shaded region is Type II error probability. Any measured mean in this region would be greater than $mu_0$ = 100, yet not be rejected by the statistical test. 
+ This is a *false negative* (Type II error) because the population mean is `r mu`, not `r mu_0`. Imagine a lower level of significance, increasing the shaded region to include `r comma(x_bar, .1)`. Now you would reject H0, a  *true positive*.
 
 ### Type I and II Errors {-}
 
@@ -155,7 +163,7 @@ The probabilities of landing in these four states depend on your chosen signific
 |Significance test is positive, so you reject H0.| False Positive <br>Type I Error<br> Probability = $\alpha$    | True Positive <br>Good Call! <br> Probability = 1 - $\beta$ |
 |Significance test is negative, so you do *not* reject H0.   | True Negative <br> Good Call!<br> Probability = ($1 - \alpha$)    | False Negative <br>Type II Error <br>Probability = $\beta$ |
 
-$\alpha$ is the expected Type I error rate - extreme summary measures occurring by chance. $\beta$ is the expected Type II error rate - summary measures that by chance were not extreme enough to reject H0. In the IQ example, if the population mean was $\mu$ = `r mu_0`, any sample mean greater than `qnorm(.95, 100, 15/sqrt(n))` = `r scales::number(qnorm(.95, mu_0, sigma / sqrt(n)), accuracy = .1)` would be mistakenly rejected at the $\alpha$ = .05 significance level, a false positive. If the population mean was $\mu$ = `r mu`, any sample mean less than `r comma(qnorm(.95, mu_0, sigma / sqrt(n)), .1)` would be mistakenly _not_ rejected, a false negative.
+$\alpha$ is the expected Type I error rate - extreme summary measures occurring by chance when there was no effect to measure. $\beta$ is the expected Type II error rate - summary measures that by chance were not extreme enough to reject H0 even though there was an actual effect. In the IQ example, if the population mean was $\mu$ = `r mu_0`, any sample mean greater than `qnorm(.95, 100, 15/sqrt(n))` = `r scales::number(qnorm(.95, mu_0, sigma / sqrt(n)), accuracy = .1)` would mistakenly reject the null hypothesis at the $\alpha$ = .05 significance level, a false positive (Type I error). However, we measured $\bar{x}$ = `r comma(x_bar, .1)` from a population whose mean was actually $\mu$ = `r mu`. The *p*-value was only `r comma(pnorm(z, lower.tail = FALSE), .001)`, so we failed to reject the null hypothesis, a false negative (Type II error).
 
 The plot below shows how the sampling distributions of the null hypothesis and a potentially different true population overlap to create the four zones. The first facet uses a sample size of *n* = 30. The second uses *n* = 50, resulting in tighter distributions.
 
@@ -220,7 +228,7 @@ Statistical power is an increasing function of sample size, effect size, and sig
 
 The 1 - $\beta$ statistical power threshold is usually set at .80, similar to the $\alpha$ = .05 level of significance threshold convention. Given a real effect, a study with a statistical power of .80 will only find a positive test result 80% of the time. You may think more power is better, but beware that with a large enough sample size, even trivial effect sizes may yield a positive test result. You need to consider both sides of this coin.
 
-A *power analysis* is frequently used to determine the sample size required to detect a threshold effect size given an $\alpha$ level of significance. A power analysis expresses the relationship among four components. If you know any three, it tells you the fourth: The components are i) 1 - $\beta$, ii) *n*, iii) $\alpha$, and iv) expected effect size, Cohen's d = $(\bar{x} - \mu_0)/\sigma$.
+A *power analysis* determines the sample size required to detect a threshold effect size given an $\alpha$ level of significance. A power analysis expresses the relationship among four components. If you know any three, it tells you the fourth: The components are 1 - $\beta$, *n*, $\alpha$, and Cohen's *d* = $(\bar{x} - \mu_0)/\sigma$.
 
 Suppose you set power at .80, significance level at .05, and *n* = 30. What effect size will this design detect?
 
@@ -234,7 +242,7 @@ Suppose you set power at .80, significance level at .05, and *n* = 30. What effe
 ))
 ```
 
-An effect size of *d* = `r comma(pwr$d, .001)` will fall in the $\alpha$ = .05 region with probability 1 - $\beta$ = .80 if the sample size is *n* = 30. Multiply *d* = `r comma(pwr$d, .001)` by $\sigma$ = `r sigma` to convert to the IQ units, `r comma(pwr$d * sigma, .1)`. More likely, you will use the power test to detect the required sample size. Suppose you set $1 - \beta$ = .8 and $\alpha = .05$, and want to detect an effect size of $5 / 15$.
+An effect size of *d* = `r comma(pwr$d, .001)` will fall in the $\alpha$ = .05 region with probability 1 - $\beta$ = .80 if the sample size is *n* = 30. Multiply *d* = `r comma(pwr$d, .001)` by $\sigma$ = `r sigma` to convert to the IQ units, `r comma(pwr$d * sigma, .1)`. More likely, you will use the power test to detect the required sample size. Suppose you set $1 - \beta$ = .8 and $\alpha$ = .05, and want to detect an effect size of $5 / 15$.
 
 ```{r collapse=TRUE}
 (pwr <- pwr::pwr.t.test(
@@ -265,7 +273,6 @@ data.frame(n = rep(10:150, 2),
   scale_y_continuous(limits = c(0, NA), breaks = 1:100, expand = c(0, 0)) +
   scale_x_continuous(limits = c(0, 155), breaks = seq(0, 150, 10), expand = c(0, 0)) +
   scale_color_manual(values = c("0.6" = "gray80", "0.8" = "steelblue")) +
-  theme_light() +
   theme(panel.grid.minor = element_blank(), legend.position = "right") +
   labs(title = paste("A sample size of 30 is required to detect an effect size",
                      "of 7 at a .05 significance \nlevel with 80% probability."),
@@ -274,6 +281,100 @@ data.frame(n = rep(10:150, 2),
 ```
 
 The dashed lines show a sample size of 30 is required to detect an effect size of 7 at a .05 significance level with 80% probability.
+
+### Power Analysis Variations
+
+::: panel-tabset
+
+#### p
+
+How many employees would we have to survey to detect whether a majority support our health care plan? Let's set an effect size that detects the difference from 0.5 (no majority) to 0.6 (clear majority).
+
+```{r}
+pwr::pwr.p.test(
+  h = ES.h(p1 = .6, p2 = .5), 
+  sig.level = .05, 
+  power = 0.80, 
+  alternative = "greater"
+)
+```
+
+With a sample size of 616 and a 55% support, 
+
+```{r}
+PracTools::nPropMoe(moe.sw = 1, e = .05, alpha = .05, pU = .6)
+```
+```{r warning=FALSE, echo=FALSE}
+lbl <- tibble(
+  `Sample Size` = c(rep("n = 30", 2), rep("n = 50", 2)),
+  iq = c(103, 105, 102.5, 104),
+  lbl = c("beta", "alpha", "beta", "alpha")
+)
+
+prop_0 <- .50
+prop <- .60
+prop_bar <- .55
+sigma <- sqrt(.5 * (1 - .5))
+tibble(
+  iq = rep(seq(.40, .70, .01), 2),
+  n = c(rep(153, 31), rep(369, 31)),
+  `Sample Size` = map_chr(n, ~paste("n =", .)),
+  Presumed = map2_dbl(iq, n, ~dnorm(.x, mean = prop_0, sd = sigma / sqrt(.y))),
+  Alternative = map2_dbl(iq, n, ~dnorm(.x, mean = prop, sd = sigma / sqrt(.y))),
+  iq_crit = map_dbl(n, ~qnorm(.95, mean = prop_0, sd = sigma / sqrt(.x)))
+) %>%
+  pivot_longer(cols = -c(`Sample Size`, iq, iq_crit, n), 
+               names_to = "curve", values_to = "density") %>%
+  mutate(area = if_else(iq >= iq_crit & curve == "Presumed" | 
+                          iq < iq_crit & curve == "Alternative", 
+                        density, NA_real_)) %>%
+  ggplot(aes(x = iq)) +
+  geom_area(aes(y = area, fill = curve), show.legend = FALSE) +
+  geom_line(aes(y = density, color = curve)) +
+  geom_vline(xintercept = prop_0, linetype = 2, color = "gray40") +
+  geom_vline(xintercept = prop, linetype = 2, color = "goldenrod") +
+  geom_vline(xintercept = prop_bar, linetype = 2, color = "forestgreen") +
+  # geom_text(data = lbl, aes(y = .015, label = lbl), parse = TRUE, size = 4.5, color = "gray40") +
+  # scale_x_continuous(breaks = c(90, prop_0, 
+  #                               qnorm(.95, mean = prop_0, sd = sigma / sqrt(153)),
+  #                               qnorm(.95, mean = prop_0, sd = sigma / sqrt(369)),
+  #                               prop_bar, 110, 120), 
+  #                    label = comma_format(.1)) +
+  scale_y_continuous(expand = expansion(mult = c(0, .1))) +
+  scale_color_manual(values = c("goldenrod", "gray40")) +
+  scale_fill_manual(values = c("lightgoldenrod", "gray80")) +
+  facet_wrap(facets = vars(`Sample Size`), ncol = 1) +
+  theme(
+    panel.grid = element_blank(),
+    axis.text.y = element_blank(), 
+    axis.ticks.y = element_blank(),
+    axis.text.x = element_text(angle = 90, vjust = .5),
+    legend.position = "top"
+  ) +
+  labs(title = "X-bar is in the .05 significance level region of H0.", 
+       color = NULL, x = "IQ")
+```
+
+#### 2p
+
+Does group 1 differ from group 2 by at least 5% in their support for a policy? Note that *n* is the sample size for each population.
+
+```{r}
+pwr::pwr.2p.test(
+  h = ES.h(p1 = .55, p2 = .50), 
+  power = 0.80, 
+  sig.level = .05, 
+  alternative = "two.sided"
+)
+pwr::pwr.2p.test(
+  h = cohen.ES(test = "r", size = "medium")$effect.size,
+  power = .80,
+  sig.level = .05,
+  alternative = "two.sided"
+)
+```
+
+:::
 
 ### What p-values would you expect? {-}
 

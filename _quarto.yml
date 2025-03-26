@@ -7,16 +7,13 @@ book:
   author: "Michael Foley"
   date: today
   cover-image: images/statistics.jpg
+  favicon: favicon.ico
   chapters:
     - index.qmd
-    - part: "Frequentist"
+    - part: "Statistics"
       chapters:
       - 01-frequentist-statistics.qmd
-    - part: "Likelihood"
-      chapters:
       - 02-likelihood-statistics.qmd
-    - part: "Bayesian"
-      chapters:
       - 03-bayesian-statistics.qmd
     - part: "Point Estimates"
       chapters:
