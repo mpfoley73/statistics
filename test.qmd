@@ -1,0 +1,63 @@
+---
+title: "Untitled"
+format: html
+server: shiny
+---
+
+My sample file 
+
+---
+
+### Interactive
+
+```{r}
+#| context: setup
+#| warning: false
+#| message: false
+
+library(bslib)
+library(tidyverse)
+```
+
+```{r}
+layout_sidebar(
+  sidebar = sidebar(
+    shiny::selectizeInput(
+      "select_species",
+      "Highlighted Species",
+      choices = c("Adelie", "Chinstrap", "Gentroo"),
+      selected = c("Adelie", "Chinstrap", "Gentroo"),
+      multiple = TRUE
+    ),
+    shiny::sliderInput(
+      "slider_weight",
+      "Minimum Weight (g)",
+      min = 1000,
+      max = 5000,
+      value = 3000
+    )
+  ),
+  shiny::plotOutput("output_plot")
+)
+```
+
+```{r}
+#| context: server
+
+output$output_plot <- shiny::renderPlot({
+  palmerpenguins::penguins |>
+    filter(
+      species %in% input$select_species,
+      body_mass_g >= input$slider_weight
+    ) |>
+    ggplot(aes(x = bill_length_mm,
+               y = flipper_length_mm,
+               fill = species)) +
+    geom_point(shape = 21, size = 6, color = "black")
+})
+```
+
+
+---
+
+### Other
