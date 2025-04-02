@@ -69,7 +69,6 @@ iq_sample <-
     mu = if_else(grp == "presumed", MU_0, MU),
     dens = pmap_dbl(list(iq, n, mu), \(iq, n, mu) dnorm(iq, mean = mu, sd = SIGMA / sqrt(n))),
     iq_crit = if_else(n == 30, iq_crit_30, iq_crit_50)
-    # iq_crit = pmap_dbl(list(iq, n, MU_0), \(iq, n, mu) qnorm(.95, mean = mu, sd  = SIGMA / sqrt(n)))
   )
 ```
 
@@ -150,16 +149,16 @@ Either H0 ($\mu = `r MU`$) or H1 ($\mu \ge `r MU`$) is correct. You must choose 
 
 The probabilities of landing in these four states depend on your chosen significance level, $\alpha$, and on the statistical power of the study, 1 - $\beta$.
 
-|                        |H0 True                       |H1 True                      |
+|                        |H0 True                       |H0 False                      |
 |------------------------|------------------------------|-----------------------------|
-|Significance test is positive, so you reject H0.| False Positive <br>Type I Error<br> Probability = $\alpha$    | True Positive <br>Good Call! <br> Probability = 1 - $\beta$ |
-|Significance test is negative, so you do *not* reject H0.   | True Negative <br> Good Call!<br> Probability = ($1 - \alpha$)    | False Negative <br>Type II Error <br>Probability = $\beta$ |
+|Positive test, reject H0.| False Positive <br>Type I Error<br> Probability = $\alpha$    | True Positive <br>Good Call! <br> Probability = 1 - $\beta$ |
+|Negative test, do *not* reject H0.   | True Negative <br> Good Call!<br> Probability = ($1 - \alpha$)    | False Negative <br>Type II Error <br>Probability = $\beta$ |
 
 $\alpha$ is the expected Type I error rate - extreme summary measures occurring by chance when there is no effect to measure. $\beta$ is the expected Type II error rate - summary measures that by chance were not extreme enough to reject H0 even though there is an actual effect. 
 
 If the population mean really was $\mu$ = `r MU_0`, any sample mean greater than `r qnorm(.95, MU_0, SIGMA / sqrt(n)) |> comma(.1)` would mistakenly reject H0 at the $\alpha$ = .05 significance level, a Type I error. However, the population mean is actually $\mu$ = `r MU`, and our measured $\bar{x}$ = `r comma(X_BAR, 1)` only achieved a *p*-value of `r comma(pnorm(z, lower.tail = FALSE), .001)`, so we failed to reject H0, a Type II error.
 
-Had the sample size been larger, the study would have had the power to reject H0. Here's the plot with *n* = 50. The null and actual distributions are tighter, and the $alpha$ region starts at `r comma(iq_crit_50, .1)`.
+Had the sample size been larger, the study would have had the power to reject H0. Here's the plot with *n* = 50. The null and actual distributions are tighter, and the $\alpha$ region starts at `r comma(iq_crit_50, .1)`.
 
 ```{r}
 #| echo: false
@@ -201,17 +200,17 @@ The area under the actual distribution to the left of $alpha$ is labeled $\beta$
 
 ### Statistical Power
 
-The ability to detect a difference when it exists (the true positive) is called the power of the test. Its measured by the area outside of $\beta$. Changing *n* from 30 to 50 reduced the area in the $\beta$ region, and therefore increased the power of the test.
+The ability to detect a difference when it exists (the true positive) is called the power of the test. It's measured by the area outside of $\beta$. Changing *n* from 30 to 50 reduced the area in the $\beta$ region, increasing the power of the test.
 
 Statistical power is an increasing function of sample size, effect size, and significance level. The positive association with significance level means there is a trade-off between Type I and Type II error rates. A small $\alpha$ sets a high bar for rejecting H0, but you run the risk of failing to appreciate a *real* difference. On the other hand, a large $\alpha$ sets a low bar for rejecting H0, but you run the risk of mistaking a random difference as real.
 
 The 1 - $\beta$ statistical power threshold is usually set at .80, similar to the $\alpha$ = .05 level of significance threshold convention. Given a real effect, a study with a statistical power of .80 will only find a positive test result 80% of the time. You may think more power is better, but beware that with a large enough sample size, even trivial effect sizes may yield a positive test result. You need to consider both sides of this coin.
 
-A *power analysis* determines the sample size required to detect a threshold effect size given an $\alpha$ level of significance. A power analysis expresses the relationship among four components. If you know any three, it tells you the fourth: The components are 1 - $\beta$, *n*, $\alpha$, and Cohen's *d* = $(\bar{x} - \mu_0)/\sigma$.
+A *power analysis* determines the sample size required to detect a threshold effect size given an $\alpha$ level of significance. A power analysis expresses the relationship among four components. If you know any three, it tells you the fourth: The components are *n*, $\alpha$, , 1 - $\beta$, and Cohen's *d* = $(\bar{x} - \mu_0)/\sigma$.
 
 Suppose you set power at .80, significance level at .05, and *n* = 30. What effect size will this design detect?
 
-```{r collapse=TRUE}
+```{r}
 (pwr <- pwr::pwr.t.test(
   n = 30,
   sig.level = .05,
@@ -265,76 +264,189 @@ The dashed lines show a sample size of 30 is required to detect an effect size o
 
 ::: panel-tabset
 
-#### p
+#### p (greater)
 
-How many employees would we have to survey to detect whether a majority support our health care plan? Let's set an effect size that detects the difference from 0.5 (no majority) to 0.6 (clear majority).
+How many people would you need to survey to detect a clear majority? Set an effect size that detects the difference from 50% (no majority) to 60% (clear majority)
 
 ```{r}
-pwr::pwr.p.test(
-  h = ES.h(p1 = .6, p2 = .5), 
+h <- pwr::ES.h(p1 = .60, p2 = .50)
+
+(pwr <- pwr::pwr.p.test(
+  h = h, 
   sig.level = .05, 
-  power = 0.80, 
+  power = .80, 
   alternative = "greater"
-)
+))
 ```
-
-With a sample size of 616 and a 55% support, 
+You need `r comma(ceiling(pwr$n))` people. Simulate this 1,000 times from a population centered at 60%. ~80% of simulations should reject H0.
 
 ```{r}
-PracTools::nPropMoe(moe.sw = 1, e = .05, alpha = .05, pU = .6)
-```
-```{r warning=FALSE, echo=FALSE}
-lbl <- tibble(
-  `Sample Size` = c(rep("n = 30", 2), rep("n = 50", 2)),
-  iq = c(103, 105, 102.5, 104),
-  lbl = c("beta", "alpha", "beta", "alpha")
-)
+n <- ceiling(pwr$n)
 
-prop_0 <- .50
-prop <- .60
-prop_bar <- .55
-SIGMA <- sqrt(.5 * (1 - .5))
-tibble(
-  iq = rep(seq(.40, .70, .01), 2),
-  n = c(rep(153, 31), rep(369, 31)),
-  `Sample Size` = map_chr(n, ~paste("n =", .)),
-  Presumed = map2_dbl(iq, n, ~dnorm(.x, mean = prop_0, sd = SIGMA / sqrt(.y))),
-  Alternative = map2_dbl(iq, n, ~dnorm(.x, mean = prop, sd = SIGMA / sqrt(.y))),
-  iq_crit = map_dbl(n, ~qnorm(.95, mean = prop_0, sd = SIGMA / sqrt(.x)))
-) %>%
-  pivot_longer(cols = -c(`Sample Size`, iq, iq_crit, n), 
-               names_to = "curve", values_to = "density") %>%
-  mutate(area = if_else(iq >= iq_crit & curve == "Presumed" | 
-                          iq < iq_crit & curve == "Alternative", 
-                        density, NA_real_)) %>%
-  ggplot(aes(x = iq)) +
-  geom_area(aes(y = area, fill = curve), show.legend = FALSE) +
-  geom_line(aes(y = density, color = curve)) +
-  geom_vline(xintercept = prop_0, linetype = 2, color = "gray40") +
-  geom_vline(xintercept = prop, linetype = 2, color = "goldenrod") +
-  geom_vline(xintercept = prop_bar, linetype = 2, color = "forestgreen") +
-  # geom_text(data = lbl, aes(y = .015, label = lbl), parse = TRUE, size = 4.5, color = "gray40") +
-  # scale_x_continuous(breaks = c(90, prop_0, 
-  #                               qnorm(.95, mean = prop_0, sd = SIGMA / sqrt(153)),
-  #                               qnorm(.95, mean = prop_0, sd = SIGMA / sqrt(369)),
-  #                               prop_bar, 110, 120), 
-  #                    label = comma_format(.1)) +
-  scale_y_continuous(expand = expansion(mult = c(0, .1))) +
-  scale_color_manual(values = c("goldenrod", "gray40")) +
-  scale_fill_manual(values = c("lightgoldenrod", "gray80")) +
-  facet_wrap(facets = vars(`Sample Size`), ncol = 1) +
-  theme(
-    panel.grid = element_blank(),
-    axis.text.y = element_blank(), 
-    axis.ticks.y = element_blank(),
-    axis.text.x = element_text(angle = 90, vjust = .5),
-    legend.position = "top"
-  ) +
-  labs(title = "X-bar is in the .05 significance level region of H0.", 
-       color = NULL, x = "IQ")
+sims <- rbinom(n = 1000, size = n, prob = .60)
+
+crit_val <- qbinom(p = .95, size = n, prob = .50, lower.tail = TRUE)
+
+mean(sims >= crit_val)
 ```
 
-#### 2p
+Here are the theoretical distributions showing the relationship between effect size and power.
+
+```{r}
+#| echo: false
+#| warning: false
+
+sampling_dist <- 
+  tibble(
+    grp = factor(c(rep("H0 = .5", n), rep("Actual = .6", n)), 
+                 levels = c("H0 = .5", "Actual = .6")),
+    cnt = rep(seq(1, n, 1), 2),
+    size = n,
+    prob = c(rep(.5, n), rep(.6, n)),
+    dens = pmap_dbl(list(cnt, n, prob), \(cnt, n, prob) dbinom(cnt, n, prob)),
+    prop = cnt / size
+  )
+
+sampling_dist |>
+  ggplot() +
+  geom_line(aes(x = prop, y = dens, color = grp, fill = grp)) +
+  geom_area(aes(x = prop, color = grp, fill = grp, 
+                y = if_else(cnt >= crit_val & grp == "H0 = .5", dens, NA_real_)), alpha = .2) +
+  geom_area(aes(x = prop, color = grp, fill = grp, 
+                y = if_else(cnt <= crit_val & grp == "Actual = .6", dens, NA_real_)), alpha = .2) +
+  geom_text(aes(x = .55, y = .005, label = "beta"), parse = TRUE, size = 4.5, color = "darkgoldenrod4") +
+  geom_text(aes(x = .58, y = .005, label = "alpha"), parse = TRUE, size = 4.5, color = "gray40") +
+  geom_vline(xintercept = .5, color = "gray30", linetype = 2, linewidth = 1) +
+  geom_vline(xintercept = .6, color = "darkgoldenrod", linetype = 2, linewidth = 1) +
+  scale_fill_manual(values = c("gray30", "darkgoldenrod")) +
+  scale_color_manual(values = c("gray30", "darkgoldenrod")) +
+  scale_x_continuous(breaks = c(.5, .6, crit_val / n), labels = percent_format(1)) +
+  coord_cartesian(xlim = c(.4, .7)) +
+  guides(fill = "none") +
+  theme(axis.text.x = element_text(angle = 90, vjust = .5)) +
+  labs(
+    x = "Approve", y = "density", color = NULL,
+    title = str_wrap(glue(
+      "One-sided power analysis detecting h = .2 (10 pct pt) effect size with ",
+      "1-beta = 80% power. Sample size n = {comma(n)}."
+    ), 80),
+    subtitle = str_wrap(glue(
+      "Only values >= {percent(crit_val / n, 1)} reject H0 at alpha = .05. "
+    ), 100)
+  )
+```
+
+$\beta$ = `r pbinom(q = crit_val, size = n, prob = .6, lower.tail = TRUE) |> percent(1)` of the *Actual* curve area is to the left of `r percent(crit_val / n, 1)`.
+
+```{r}
+#| collapse: true
+pbinom(q = crit_val, size = n, prob = .6, lower.tail = TRUE)
+```
+
+#### p (two-sided)
+
+How many people would you need to survey to detect a clear preference either way? Set an effect size that detects the difference from 50% (no preference) to 40% or 60%.
+
+```{r}
+h <- pwr::ES.h(p1 = .60, p2 = .50)
+
+(pwr <- pwr::pwr.p.test(
+  h = h, 
+  sig.level = .05, 
+  power = .80, 
+  alternative = "two.sided"
+))
+```
+You need more people for a two-sided test, `r comma(ceiling(pwr$n))`, and the critical values are further from 50%. Here's the simulation again.
+
+```{r}
+n <- ceiling(pwr$n)
+
+sims <- rbinom(n = 1000, size = n, prob = .60)
+
+crit_val1 <- qbinom(p = .025, size = n, prob = .50, lower.tail = TRUE)
+crit_val2 <- qbinom(p = .975, size = n, prob = .50, lower.tail = TRUE)
+
+(h0_reject_rate <- mean(sims <= crit_val1 | sims >= crit_val2))
+```
+
+Here are the theoretical distributions.
+
+```{r}
+#| echo: false
+#| warning: false
+
+sampling_dist <- 
+  tibble(
+    grp = factor(c(rep("H0 = .5", n), rep("Actual = .4", n), rep("Actual = .6", n)),
+                 levels = c("H0 = .5", "Actual = .4", "Actual = .6")),
+    cnt = rep(seq(1, n, 1), 3),
+    size = n,
+    prob = c(rep(.5, n), rep(.4, n), rep(.6, n)),
+    dens = pmap_dbl(list(cnt, n, prob), \(cnt, n, prob) dbinom(cnt, n, prob)),
+    prop = cnt / size
+  )
+
+sampling_dist |>
+  ggplot() +
+  geom_line(aes(x = prop, y = dens, color = grp, fill = grp)) +
+  geom_area(aes(x = prop, color = grp, fill = grp, 
+                y = if_else(cnt <= crit_val1 & grp == "H0 = .5", dens, NA_real_)), alpha = .2) +
+  geom_area(aes(x = prop, color = grp, fill = grp, 
+                y = if_else(cnt >= crit_val2 & grp == "H0 = .5", dens, NA_real_)), alpha = .2) +
+  geom_area(aes(x = prop, color = grp, fill = grp, 
+                y = if_else(cnt >= crit_val1 & grp == "Actual = .4", dens, NA_real_)), alpha = .2) +
+  geom_area(aes(x = prop, color = grp, fill = grp, 
+                y = if_else(cnt <= crit_val2 & grp == "Actual = .6", dens, NA_real_)), alpha = .2) +
+  geom_text(aes(x = .55, y = .005, label = "beta"), parse = TRUE, size = 4.5, color = "gray40") +
+  geom_text(aes(x = .45, y = .005, label = "beta"), parse = TRUE, size = 4.5, color = "gray40") +
+  geom_text(aes(x = .58, y = .0025, label = "alpha / 2"), parse = TRUE, size = 3.0, color = "gray40") +
+  geom_text(aes(x = .42, y = .0025, label = "alpha / 2"), parse = TRUE, size = 3.0, color = "gray40") +
+  geom_vline(xintercept = .5, color = "gray30", linetype = 2, linewidth = 1) +
+  geom_vline(xintercept = .6, color = "darkgoldenrod", linetype = 2, linewidth = 1) +
+  scale_fill_manual(values = c("gray30", "darkgoldenrod", "darkgoldenrod")) +
+  scale_color_manual(values = c("gray30", "darkgoldenrod", "darkgoldenrod")) +
+  scale_x_continuous(breaks = c(.4, .5, .6, crit_val1 / n, crit_val2 / n),
+                     labels = percent_format(1)) +
+  coord_cartesian(xlim = c(.3, .7)) +
+  guides(fill = "none") +
+  theme(axis.text.x = element_text(angle = 90, vjust = .5)) +
+  labs(
+    x = "Approve", y = "density", color = NULL,
+    title = str_wrap(glue(
+      "Two-sided power analysis detecting h = .2 (10 pct pt) effect size with ",
+      "1-beta = 80% power. Sample size n = {comma(n)}."
+    ), 80),
+    subtitle = str_wrap(glue(
+      "Only values outside {percent(crit_val1 / n, 1)} and {percent(crit_val2 / n, 1)} ",
+      "reject H0 at alpha = .05. "
+    ), 100)
+  )
+```
+
+$\beta$ = `r pbinom(q = crit_val1, size = n, prob = .4, lower.tail = FALSE) |> percent(1)` of the *Actual = .4* curve area is to the right of `r percent(crit_val1 / n, 1)` and $\beta$ = `r pbinom(q = crit_val2, size = n, prob = .6, lower.tail = TRUE) |> percent(1)` of the *Actual = .6* curve area is to the left of `r percent(crit_val2 / n, 1)`.
+
+```{r}
+#| collapse: true
+pbinom(q = crit_val1, size = n, prob = .4, lower.tail = FALSE)
+pbinom(q = crit_val2, size = n, prob = .6, lower.tail = TRUE)
+```
+
+#### 2p (greater)
+
+#### 2p (two-sided)
+
+#### 2p2n (greater)
+
+#### 2p2n (two-sided)
+
+#### t (greater)
+
+#### t (two-sided)
+
+#### t2n (greater)
+
+#### t2n (two-sided)
 
 Does group 1 differ from group 2 by at least 5% in their support for a policy? Note that *n* is the sample size for each population.
 
