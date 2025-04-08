@@ -143,7 +143,7 @@ iq_sample |>
 
 The $\alpha$ region starts at `qnorm(.05, 100, 2.7, lower.tail = FALSE)` = `r comma(critical_value, .1)`. $\bar{x}$ would have had to be at least that large to reject H0. The probability of measuring $\bar{x} \ge `r comma(X_BAR, 1)`$ is derived from the *z* score, $z = \frac{\bar{x} - \mu_0}{\sigma / \sqrt{n}} = \frac{`r X_BAR` - 100}{2.7}$ = `r comma((X_BAR - MU_0) / (SIGMA / sqrt(n)), .1)`. The probability of measuring a *z* score that high given H0 is $P(z \ge 1.5)$ = `r comma(p.value, .001)`, meaning `r percent(pnorm(z, lower.tail = FALSE), .1)` of the area under the null distribution is to the right of `r comma(X_BAR, 1)`. Therefore, do not reject H0 at the $\alpha$ = .05 level of significance. 
 
-### Type I and II Errors
+## Type I and II Errors
 
 Either H0 ($\mu = `r MU`$) or H1 ($\mu \ge `r MU`$) is correct. You must choose to either reject or not reject H0. That means there are four possible states at the end of your analysis. If your summary measure is extreme enough for you to declare a "positive" result and reject H0, you are either correct (true positive) or incorrect (false positive). False positives are called *Type I errors*. Alternatively, if it is *not* extreme enough, you are either correct (true negative) or incorrect (false negative). False negatives are called *Type II errors*.
 
@@ -198,7 +198,7 @@ iq_sample |>
 
 The area under the actual distribution to the left of $alpha$ is labeled $\beta$. It's the Type II error zone. You don't usually see much discussion of $\beta$ in reports because $\beta$ is based on the unknown actual population distribution. $\beta$ is relevant at the _design_ stage. It informs how large your sample needs to be in order to reject H0 given some expected $\bar{x}$. Interestingly, you can see how there can be such a thing as too much power. If *n* is large enough, you can reject H0 with even a trivial effect size.
 
-### Statistical Power
+## Statistical Power
 
 The ability to detect a difference when it exists (the true positive) is called the power of the test. It's measured by the area outside of $\beta$. Changing *n* from 30 to 50 reduced the area in the $\beta$ region, increasing the power of the test.
 
@@ -222,7 +222,7 @@ Suppose you set power at .80, significance level at .05, and *n* = 30. What effe
 
 An effect size of *d* = `r comma(pwr$d, .001)` will fall in the $\alpha$ = .05 region with probability 1 - $\beta$ = .80 if the sample size is *n* = 30. Multiply *d* = `r comma(pwr$d, .001)` by $\sigma$ = `r SIGMA` to convert to the IQ units, `r comma(pwr$d * SIGMA, .1)`. More likely, you will use the power test to detect the required sample size. Suppose you set $1 - \beta$ = .8 and $\alpha$ = .05, and want to detect an effect size of $5 / 15$.
 
-```{r collapse=TRUE}
+```{r}
 (pwr <- pwr::pwr.t.test(
   d = 5 / 15,
   sig.level = .05,
@@ -260,13 +260,11 @@ data.frame(n = rep(10:150, 2),
 
 The dashed lines show a sample size of 30 is required to detect an effect size of 7 at a .05 significance level with 80% probability.
 
-### Power Analysis Variations
+## Power Analyses
 
-::: panel-tabset
+### p (greater) {-}
 
-#### p (greater)
-
-How many people would you need to survey to detect a clear majority? Set an effect size that detects the difference from 50% (no majority) to 60% (clear majority)
+How many people would you need to survey to detect a clear majority of support for an issue? $H_0$ is 50% (no majority) and $H_a$ is >= 50%. By "clear majority", you might mean "at least 10 percentage points". If the majority is there, but it's less than 60%, you are okay with not rejecting $H_0$.
 
 ```{r}
 h <- pwr::ES.h(p1 = .60, p2 = .50)
@@ -278,19 +276,24 @@ h <- pwr::ES.h(p1 = .60, p2 = .50)
   alternative = "greater"
 ))
 ```
-You need `r comma(ceiling(pwr$n))` people. Simulate this 1,000 times from a population centered at 60%. ~80% of simulations should reject H0.
+If you repeatedly survey random samples of `r comma(ceiling(pwr$n))` people from a population where 60% support the topic, you should expect to reject H0 80% of the time. I.e., you expect at least 87 (57%) approvals 80% of the time.
 
 ```{r}
+#| collapse: true
+
 n <- ceiling(pwr$n)
 
-sims <- rbinom(n = 1000, size = n, prob = .60)
+(crit_val <- qbinom(p = .05, size = n, prob = .50, lower.tail = FALSE))
 
-crit_val <- qbinom(p = .95, size = n, prob = .50, lower.tail = TRUE)
-
-mean(sims >= crit_val)
+(crit_pct <- crit_val / n)
 ```
 
-Here are the theoretical distributions showing the relationship between effect size and power.
+You can see this in a plot of the theoretical distributions for samples of size `r n` from populations centered at 50% and 60%. ~20% of the 60% curve is to the left of the critical value.
+
+```{r}
+#| collapse: true
+pbinom(q = crit_val, size = n, prob = .6, lower.tail = TRUE)
+```
 
 ```{r}
 #| echo: false
@@ -327,25 +330,18 @@ sampling_dist |>
   labs(
     x = "Approve", y = "density", color = NULL,
     title = str_wrap(glue(
-      "One-sided power analysis detecting h = .2 (10 pct pt) effect size with ",
-      "1-beta = 80% power. Sample size n = {comma(n)}."
+      "Power Analysis for One Proportion, One-sided",
     ), 80),
     subtitle = str_wrap(glue(
-      "Only values >= {percent(crit_val / n, 1)} reject H0 at alpha = .05. "
-    ), 100)
+      "Effect size h = .2 (10 pct pts), 80% power, Sample size n = {comma(n)}. ",
+      "Proportions > {percent(crit_val / n, 1)} reject H0 at alpha = .05."
+    ), 95)
   )
 ```
 
-$\beta$ = `r pbinom(q = crit_val, size = n, prob = .6, lower.tail = TRUE) |> percent(1)` of the *Actual* curve area is to the left of `r percent(crit_val / n, 1)`.
+### p (two-sided) {-}
 
-```{r}
-#| collapse: true
-pbinom(q = crit_val, size = n, prob = .6, lower.tail = TRUE)
-```
-
-#### p (two-sided)
-
-How many people would you need to survey to detect a clear preference either way? Set an effect size that detects the difference from 50% (no preference) to 40% or 60%.
+How many people would you need to survey to detect a clear preference either way? Set an effect size that detects the difference from 50% (no preference) to 40% or 60%. This is a two-sided test.
 
 ```{r}
 h <- pwr::ES.h(p1 = .60, p2 = .50)
@@ -357,17 +353,19 @@ h <- pwr::ES.h(p1 = .60, p2 = .50)
   alternative = "two.sided"
 ))
 ```
-You need more people for a two-sided test, `r comma(ceiling(pwr$n))`, and the critical values are further from 50%. Here's the simulation again.
+You need more people for a two-sided test, `r comma(ceiling(pwr$n))`, and the critical values are further from 50%.
 
 ```{r}
+#| collapse: true
 n <- ceiling(pwr$n)
 
-sims <- rbinom(n = 1000, size = n, prob = .60)
+(crit_val1 <- qbinom(p = .025, size = n, prob = .50, lower.tail = TRUE))
 
-crit_val1 <- qbinom(p = .025, size = n, prob = .50, lower.tail = TRUE)
-crit_val2 <- qbinom(p = .975, size = n, prob = .50, lower.tail = TRUE)
+(crit_pct1 <- crit_val1 / n)
 
-(h0_reject_rate <- mean(sims <= crit_val1 | sims >= crit_val2))
+(crit_val2 <- qbinom(p = .975, size = n, prob = .50, lower.tail = TRUE))
+
+(crit_pct2 <- crit_val2 / n)
 ```
 
 Here are the theoretical distributions.
@@ -414,17 +412,17 @@ sampling_dist |>
   labs(
     x = "Approve", y = "density", color = NULL,
     title = str_wrap(glue(
-      "Two-sided power analysis detecting h = .2 (10 pct pt) effect size with ",
-      "1-beta = 80% power. Sample size n = {comma(n)}."
+      "Power Analysis for One Proportion, Two-sided",
     ), 80),
     subtitle = str_wrap(glue(
-      "Only values outside {percent(crit_val1 / n, 1)} and {percent(crit_val2 / n, 1)} ",
-      "reject H0 at alpha = .05. "
-    ), 100)
+      "Effect size h = .2 (10 pct pts), 80% power, Sample size n = {comma(n)}. ",
+      "Proportions < {percent(crit_val1 / n, 1)} and > {percent(crit_val2 / n, 1)} ",
+      "reject H0 at alpha = .05."
+    ), 95)
   )
 ```
 
-$\beta$ = `r pbinom(q = crit_val1, size = n, prob = .4, lower.tail = FALSE) |> percent(1)` of the *Actual = .4* curve area is to the right of `r percent(crit_val1 / n, 1)` and $\beta$ = `r pbinom(q = crit_val2, size = n, prob = .6, lower.tail = TRUE) |> percent(1)` of the *Actual = .6* curve area is to the left of `r percent(crit_val2 / n, 1)`.
+$\beta$ ~20% of the area of *Actual = .4* is to the right of `r percent(crit_val1 / n, 1)` and $\beta$ ~20% of the area of *Actual = .6* is to the left of `r percent(crit_val2 / n, 1)`.
 
 ```{r}
 #| collapse: true
@@ -432,42 +430,325 @@ pbinom(q = crit_val1, size = n, prob = .4, lower.tail = FALSE)
 pbinom(q = crit_val2, size = n, prob = .6, lower.tail = TRUE)
 ```
 
-#### 2p (greater)
+### 2p (greater) {-}
 
-#### 2p (two-sided)
-
-#### 2p2n (greater)
-
-#### 2p2n (two-sided)
-
-#### t (greater)
-
-#### t (two-sided)
-
-#### t2n (greater)
-
-#### t2n (two-sided)
-
-Does group 1 differ from group 2 by at least 5% in their support for a policy? Note that *n* is the sample size for each population.
+How many people would you need to survey to detect a clear difference in support for an issue between two groups? $H_0$ is that groups *A* and *B* have the same support rate. As before, you set a minimum effect size of 10 percentage points. One-sided test assesses whether *A* has a higher (lower) support rate than *B*.
 
 ```{r}
-pwr::pwr.2p.test(
-  h = ES.h(p1 = .55, p2 = .50), 
-  power = 0.80, 
+h <- pwr::ES.h(p1 = .60, p2 = .50)
+
+(pwr <- pwr::pwr.2p.test(
+  h = h, 
   sig.level = .05, 
-  alternative = "two.sided"
-)
-pwr::pwr.2p.test(
-  h = cohen.ES(test = "r", size = "medium")$effect.size,
-  power = .80,
-  sig.level = .05,
-  alternative = "two.sided"
+  power = .80, 
+  alternative = "greater"
+))
+```
+
+Whoa, we need twice as many people *for each group*! Why is that? Recall from [your notes](https://mpfoley73.github.io/statistics/08-binomial-binomial.html) that the two proportions test is a test on the distribution of proportion difference, $d = p_1 - p_2$. The sampling distribution of $d$ has a standard error $SE = \sqrt{\frac{p_1(1-p_1)}{n_1} + \frac{p_2(1-p_2)}{n_2}}$. The test statistic is $Z = (d-d_0) / SE$.
+
+There is a similar test that allows for unequal group sample sizes. If the first group is 305, so will be the second group. If the first group is 400, the second needs to be 247. The minimum sample size is always going to be for equal sample sizes.
+
+```{r}
+pwr::pwr.2p2n.test(
+  h = h, 
+  n1 = 400,
+  sig.level = .05, 
+  power = .80, 
+  alternative = "greater"
 )
 ```
 
-:::
+```{r}
+#| collapse: true
 
-### p-value Intuition
+n <- ceiling(pwr$n)
+
+SE <- sqrt(.5 * (1 - .5) / n + .6 * (1 - .6) / n)
+(crit_val <- qnorm(p = .05, mean = 0, sd = SE, lower.tail = FALSE))
+```
+
+```{r}
+#| echo: false
+#| warning: false
+
+sampling_dist <- 
+  tibble(
+    grp = factor(c(rep("d = 0", 1001), rep("d = .1", 1001))),
+    p = rep(seq(-.2, .3, .0005), 2),
+    d = c(rep(0, 1001), rep(.1, 1001)),
+    dens = pmap_dbl(list(p, d), \(p, d) dnorm(p, mean = d, sd = SE)),
+  )
+
+sampling_dist |>
+  ggplot() +
+  geom_line(aes(x = p, y = dens, color = grp, fill = grp)) +
+  geom_area(aes(x = p, color = grp, fill = grp, 
+                y = if_else(p >= crit_val & grp == "d = 0", dens, NA_real_)), alpha = .2) +
+  geom_area(aes(x = p, color = grp, fill = grp, 
+                y = if_else(p <= crit_val & grp == "d = .1", dens, NA_real_)), alpha = .2) +
+  geom_text(aes(x = .03, y = .5, label = "beta"), parse = TRUE, size = 4.5, color = "darkgoldenrod4") +
+  geom_text(aes(x = .08, y = .5, label = "alpha"), parse = TRUE, size = 4.5, color = "gray40") +
+  geom_vline(xintercept = .0, color = "gray30", linetype = 2, linewidth = 1) +
+  geom_vline(xintercept = .1, color = "darkgoldenrod", linetype = 2, linewidth = 1) +
+  scale_fill_manual(values = c("d = 0" = "gray30", "d = .1" = "darkgoldenrod")) +
+  scale_color_manual(values = c("d = 0" = "gray30", "d = .1" = "darkgoldenrod")) +
+  scale_x_continuous(breaks = c(.0, .1, crit_val), labels = comma_format(.01)) +
+  coord_cartesian(xlim = c(-.2, .3)) +
+  guides(fill = "none") +
+  labs(
+    x = "Difference", y = "density", color = NULL,
+    title = str_wrap(glue(
+      "Power Analysis for Two Proportions, Equal Sample Sizes, One-sided Test",
+    ), 80),
+    subtitle = str_wrap(glue(
+      "Effect size h = .2 (10 pct pts), 80% power, Sample size n = {comma(n)} ",
+      "for each group. Differences >= {comma(crit_val, .01)} reject H0 at alpha = .05."
+    ), 100)
+  )
+```
+
+### 2p (two-sided) {-}
+
+How many people would you need to survey to detect a clear difference in support for an issue between two groups? $H_0$ is that groups *A* and *B* have the same support rate. Again, suppose you care about a difference of at least a 10 percentage points. In the two-sided test, group *A* can be a higher *or lower* than *B*.
+
+```{r}
+h <- pwr::ES.h(p1 = .60, p2 = .50)
+
+(pwr <- pwr::pwr.2p.test(
+  h = h, 
+  sig.level = .05, 
+  power = .80, 
+  alternative = "two.sided"
+))
+```
+
+The two-sided test requires a larger sample and the critical values are a little further from zero.
+
+```{r}
+#| collapse: true
+
+n <- ceiling(pwr$n)
+
+SE <- sqrt(.5 * (1 - .5) / n + .6 * (1 - .6) / n)
+(crit_val1 <- qnorm(p = .025, mean = 0, sd = SE, lower.tail = FALSE))
+(crit_val2 <- qnorm(p = .025, mean = 0, sd = SE, lower.tail = TRUE))
+```
+
+```{r}
+#| echo: false
+#| warning: false
+
+sampling_dist <- 
+  tibble(
+    grp = factor(c(rep("d = 0", 1001), rep("d = .1", 1001), rep("d = -.1", 1001))),
+    p = rep(seq(-.25, .25, .0005), 3),
+    d = c(rep(0, 1001), rep(.1, 1001), rep(-.1, 1001)),
+    dens = pmap_dbl(list(p, d), \(p, d) dnorm(p, mean = d, sd = SE)),
+  )
+
+sampling_dist |>
+  ggplot() +
+  geom_line(aes(x = p, y = dens, color = grp, fill = grp)) +
+  geom_area(aes(x = p, color = grp, fill = grp, 
+                y = if_else(p >= crit_val1 & grp == "d = 0", dens, NA_real_)), alpha = .2) +
+  geom_area(aes(x = p, color = grp, fill = grp, 
+                y = if_else(p <= crit_val2 & grp == "d = 0", dens, NA_real_)), alpha = .2) +
+  geom_area(aes(x = p, color = grp, fill = grp, 
+                y = if_else(p <= crit_val1 & grp == "d = .1", dens, NA_real_)), alpha = .2) +
+  geom_area(aes(x = p, color = grp, fill = grp, 
+                y = if_else(p >= crit_val2 & grp == "d = -.1", dens, NA_real_)), alpha = .2) +
+  geom_text(aes(x = .04, y = .5, label = "beta"), parse = TRUE, size = 4.5, color = "darkgoldenrod4") +
+  geom_text(aes(x = .08, y = .5, label = "alpha"), parse = TRUE, size = 4.5, color = "gray40") +
+  geom_text(aes(x = -.04, y = .5, label = "beta"), parse = TRUE, size = 4.5, color = "darkgoldenrod4") +
+  geom_text(aes(x = -.08, y = .5, label = "alpha"), parse = TRUE, size = 4.5, color = "gray40") +
+  geom_vline(xintercept = .0, color = "gray30", linetype = 2, linewidth = 1) +
+  geom_vline(xintercept = .1, color = "darkgoldenrod", linetype = 2, linewidth = 1) +
+  geom_vline(xintercept = -.1, color = "darkgoldenrod", linetype = 2, linewidth = 1) +
+  scale_fill_manual(values = c("d - 0" = "gray30", "d = .1" = "darkgoldenrod", "d = -.1" = "darkgoldenrod")) +
+  scale_color_manual(values = c("d - 0" = "gray30", "d = .1" = "darkgoldenrod", "d = -.1" = "darkgoldenrod")) +
+  scale_x_continuous(breaks = c(.0, .1, crit_val1, crit_val2), labels = comma_format(.01)) +
+  coord_cartesian(xlim = c(-.25, .25)) +
+  guides(fill = "none") +
+  labs(
+    x = "Difference", y = "density", color = NULL,
+    title = str_wrap(glue(
+      "Power Analysis for Two Proportions, Equal Sample Sizes, Two-sided Test",
+    ), 80),
+    subtitle = str_wrap(glue(
+      "Effect size h = .2 (10 pct pts), 80% power, Sample size n = {comma(n)} ",
+      "for each group. Differences<= {comma(crit_val2, .01)} or ",
+      ">= {comma(crit_val1, .01)} reject H0 at alpha = .05."
+    ), 100)
+  )
+```
+
+### t (greater) {-}
+
+How many people would you need to survey to detect a clear level of agreement for an item measured in a 7-level Likert scale? This is an ordinal variable, but you can treat it as continuous. $H_0$ is 4 (middle value) and $H_a$ is >4. By "clear agreement", you might mean "at least .5 points". If true average is >4, but less than 4.5, you are okay with not rejecting $H_0$.
+
+```{r}
+sd <- 1  # assumption
+cohen.d <- (4.5 - 4) / sd
+
+(pwr <- pwr::pwr.t.test(
+  d = cohen.d, 
+  sig.level = .05, 
+  power = .80, 
+  type = "one.sample",
+  alternative = "greater"
+))
+```
+
+If you repeatedly survey random samples of `r comma(ceiling(pwr$n))` people from a population where the average preference is level is 4.5 of 7, you should expect to reject H0 80% of the time.
+
+```{r}
+#| collapse: true
+
+n <- ceiling(pwr$n)
+se <- sd / sqrt(n)
+
+(crit_val <- qt(p = .05, df = n - 1, lower.tail = FALSE))
+
+(crit_rating <- crit_val * se + 4)
+```
+
+You can see this in a plot of the theoretical distributions for samples of size `r n` from populations centered at 4 and 4.5. ~20% of the mean 4.5 curve is to the left of the critical value.
+
+```{r}
+#| echo: false
+#| warning: false
+
+sampling_dist <- 
+  tibble(
+    grp = factor(c(rep("H0 = 4", 201), rep("Actual = 4.5", 201)), 
+                 levels = c("H0 = 4", "Actual = 4.5")),
+    rating = rep(seq(3, 5, .01), 2),
+    x = (rating - if_else(grp == "H0 = 4", 4, 4.5)) / se,
+    dens = map_dbl(x, \(x) dt(x, df = n - x))
+  )
+
+sampling_dist |>
+  ggplot() +
+  geom_line(aes(x = rating, y = dens, color = grp, fill = grp)) +
+  geom_area(aes(x = rating, color = grp, fill = grp, 
+                y = if_else(rating >= crit_rating & grp == "H0 = 4", dens, NA_real_)), alpha = .2) +
+  geom_area(aes(x = rating, color = grp, fill = grp, 
+                y = if_else(rating <= crit_rating & grp == "Actual = 4.5", dens, NA_real_)), alpha = .2) +
+  geom_text(aes(x = 4.2, y = .03, label = "beta"), parse = TRUE, size = 4.5, color = "darkgoldenrod4") +
+  geom_text(aes(x = 4.4, y = .03, label = "alpha"), parse = TRUE, size = 4.5, color = "gray40") +
+  geom_vline(xintercept = 4.0, color = "gray30", linetype = 2, linewidth = 1) +
+  geom_vline(xintercept = 4.5, color = "darkgoldenrod", linetype = 2, linewidth = 1) +
+  scale_fill_manual(values = c("H0 = 4" = "gray30", "Actual = 4.5" = "darkgoldenrod")) +
+  scale_color_manual(values = c("H0 = 4" = "gray30", "Actual = 4.5" = "darkgoldenrod")) +
+  scale_x_continuous(breaks = c(3, 4, 4.5, 5, crit_rating), labels = comma_format(.1)) +
+  coord_cartesian(xlim = c(3, 5)) +
+  guides(fill = "none") +
+  theme(axis.text.x = element_text(angle = 0, vjust = .5)) +
+  labs(
+    x = "Average Likert Rating (1-7)", y = "density", color = NULL,
+    title = str_wrap(glue(
+      "Power Analysis for One Sample t-Test, One-sided",
+    ), 80),
+    subtitle = str_wrap(glue(
+      "Effect size d = .5, 80% power, Sample size n = {comma(n)}. ",
+      "Average ratings > {comma(crit_rating, .1)} reject H0 at alpha = .05."
+    ), 95)
+  )
+```
+
+### t (two-sided) {-}
+
+How many people would you need to survey to detect a clear level of preference for an item measured in a 7-level Likert scale? Treating the ordinal variable as continuous. $H_0$ is 4 (middle value) and $H_a$ is <>4. "Clear agreement" might mean "at least .5 points" either direction. If true average is between 3.5 and 4.5, you are okay with not rejecting $H_0$.
+
+```{r}
+sd <- 1  # assumption
+cohen.d <- (4.5 - 4) / sd
+
+(pwr <- pwr::pwr.t.test(
+  d = cohen.d, 
+  sig.level = .05, 
+  power = .80, 
+  type = "one.sample",
+  alternative = "two.sided"
+))
+```
+
+The sample size increased from `r ceiling(n)` to `r ceiling(pwr$n)`. If you repeatedly survey random samples of `r comma(ceiling(pwr$n))` people from a population where the average preference is level is 3.5 or 4.5 of 7, you should expect to reject H0 80% of the time.
+
+```{r}
+#| collapse: true
+
+n <- ceiling(pwr$n)
+se <- sd / sqrt(n)
+
+(crit_val1 <- qt(p = .05, df = n - 1, lower.tail = TRUE))
+(crit_val2 <- qt(p = .05, df = n - 1, lower.tail = FALSE))
+
+(crit_rating1 <- crit_val1 * se + 4)
+(crit_rating2 <- crit_val2 * se + 4)
+```
+
+You can see this in a plot of the theoretical distributions for samples of size `r n` from populations centered at 3.5, 4 and 4.5. ~20% of the mean 4.5 curve and mean 3.5 curve is to the left of the critical value.
+
+```{r}
+#| echo: false
+#| warning: false
+
+sampling_dist <- 
+  tibble(
+    grp = factor(c(rep("H0 = 4", 201), rep("Actual = 3.5", 201), rep("Actual = 4.5", 201)), 
+                 levels = c("Actual = 3.5", "H0 = 4", "Actual = 4.5")),
+    rating = rep(seq(3, 5, .01), 3),
+    x = (rating - case_when(grp == "H0 = 4" ~ 4, grp == "Actual = 3.5" ~ 3.5, TRUE ~ 4.5)) / se,
+    dens = map_dbl(x, \(x) dt(x, df = n - x))
+  )
+
+sampling_dist |>
+  ggplot() +
+  geom_line(aes(x = rating, y = dens, color = grp, fill = grp)) +
+  geom_area(aes(x = rating, color = grp, fill = grp, 
+                y = if_else(rating <= crit_rating1 & grp == "H0 = 4", dens, NA_real_)), alpha = .2) +
+  geom_area(aes(x = rating, color = grp, fill = grp, 
+                y = if_else(rating >= crit_rating1 & grp == "Actual = 3.5", dens, NA_real_)), alpha = .2) +
+  geom_area(aes(x = rating, color = grp, fill = grp, 
+                y = if_else(rating >= crit_rating2 & grp == "H0 = 4", dens, NA_real_)), alpha = .2) +
+  geom_area(aes(x = rating, color = grp, fill = grp, 
+                y = if_else(rating <= crit_rating2 & grp == "Actual = 4.5", dens, NA_real_)), alpha = .2) +
+  geom_text(aes(x = 4.2, y = .03, label = "beta"), parse = TRUE, size = 4.5, color = "darkgoldenrod4") +
+  geom_text(aes(x = 4.35, y = .03, label = "alpha"), parse = TRUE, size = 4.5, color = "gray40") +
+  geom_text(aes(x = 3.8, y = .03, label = "beta"), parse = TRUE, size = 4.5, color = "darkgoldenrod4") +
+  geom_text(aes(x = 3.65, y = .03, label = "alpha"), parse = TRUE, size = 4.5, color = "gray40") +
+  geom_vline(xintercept = 4.0, color = "gray30", linetype = 2, linewidth = 1) +
+  geom_vline(xintercept = 4.5, color = "darkgoldenrod", linetype = 2, linewidth = 1) +
+  scale_fill_manual(values = c("H0 = 4" = "gray30", "Actual = 3.5" = "darkgoldenrod", 
+                               "Actual = 4.5" = "darkgoldenrod")) +
+  scale_color_manual(values = c("H0 = 4" = "gray30", "Actual = 3.5" = "darkgoldenrod", 
+                                "Actual = 4.5" = "darkgoldenrod")) +
+  scale_x_continuous(breaks = c(3, 3.5, 4, 4.5, 5, crit_rating1, crit_rating2), labels = comma_format(.1)) +
+  coord_cartesian(xlim = c(3, 5)) +
+  guides(fill = "none") +
+  theme(axis.text.x = element_text(angle = 0, vjust = .5)) +
+  labs(
+    x = "Average Likert Rating (1-7)", y = "density", color = NULL,
+    title = str_wrap(glue(
+      "Power Analysis for One Sample t-Test, One-sided",
+    ), 80),
+    subtitle = str_wrap(glue(
+      "Effect size d = .5, 80% power, Sample size n = {comma(n)}. ",
+      "Average ratings between {comma(crit_rating1, .1)} and ",
+      "{comma(crit_rating2, .1)} reject H0 at alpha = .05."
+    ), 95)
+  )
+```
+
+### t2n (greater)
+
+### t2n (two-sided)
+
+
+
+## p-value Intuition
 
 What distribution of p-values would you expect if there *is* a true effect and you repeated the study many times? What if there is *no* true effect? The answer is completely determined by the statistical power of the study.^[This section is based on ideas I learned from homework assignment 1 in Daniel Lakens's Coursera class [Improving your statistical inferences](https://www.coursera.org/learn/statistical-inferences/home/welcome).]
 
