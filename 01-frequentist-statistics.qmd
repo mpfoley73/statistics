@@ -262,7 +262,7 @@ The dashed lines show a sample size of 30 is required to detect an effect size o
 
 ## Power Analyses
 
-### p (greater) {-}
+### One-Sample Prop Test (greater) {-}
 
 How many people would you need to survey to detect a clear majority of support for an issue? $H_0$ is 50% (no majority) and $H_a$ is >= 50%. By "clear majority", you might mean "at least 10 percentage points". If the majority is there, but it's less than 60%, you are okay with not rejecting $H_0$.
 
@@ -339,7 +339,7 @@ sampling_dist |>
   )
 ```
 
-### p (two-sided) {-}
+### One-Sample Prop Test (two-sided) {-}
 
 How many people would you need to survey to detect a clear preference either way? Set an effect size that detects the difference from 50% (no preference) to 40% or 60%. This is a two-sided test.
 
@@ -430,9 +430,9 @@ pbinom(q = crit_val1, size = n, prob = .4, lower.tail = FALSE)
 pbinom(q = crit_val2, size = n, prob = .6, lower.tail = TRUE)
 ```
 
-### 2p (greater) {-}
+### Two-Sample Prop Test (greater) {-}
 
-How many people would you need to survey to detect a clear difference in support for an issue between two groups? $H_0$ is that groups *A* and *B* have the same support rate. As before, you set a minimum effect size of 10 percentage points. One-sided test assesses whether *A* has a higher (lower) support rate than *B*.
+How many people would you need to survey to detect a clear difference in support for an issue between two groups? $H_0$ is that groups *A* and *B* have the same support rate. As before, you set a minimum effect size of 10 percentage points. A one-sided test assesses whether *A* has a higher (lower) support rate than *B*.
 
 ```{r}
 h <- pwr::ES.h(p1 = .60, p2 = .50)
@@ -508,7 +508,7 @@ sampling_dist |>
   )
 ```
 
-### 2p (two-sided) {-}
+### Two-Sample Prop Test (two-sided) {-}
 
 How many people would you need to survey to detect a clear difference in support for an issue between two groups? $H_0$ is that groups *A* and *B* have the same support rate. Again, suppose you care about a difference of at least a 10 percentage points. In the two-sided test, group *A* can be a higher *or lower* than *B*.
 
@@ -583,7 +583,7 @@ sampling_dist |>
   )
 ```
 
-### t (greater) {-}
+### One-sample t-test (greater) {-}
 
 How many people would you need to survey to detect a clear level of agreement for an item measured in a 7-level Likert scale? This is an ordinal variable, but you can treat it as continuous. $H_0$ is 4 (middle value) and $H_a$ is >4. By "clear agreement", you might mean "at least .5 points". If true average is >4, but less than 4.5, you are okay with not rejecting $H_0$.
 
@@ -657,7 +657,7 @@ sampling_dist |>
   )
 ```
 
-### t (two-sided) {-}
+### One-sample t-test (two-sided) {-}
 
 How many people would you need to survey to detect a clear level of preference for an item measured in a 7-level Likert scale? Treating the ordinal variable as continuous. $H_0$ is 4 (middle value) and $H_a$ is <>4. "Clear agreement" might mean "at least .5 points" either direction. If true average is between 3.5 and 4.5, you are okay with not rejecting $H_0$.
 
@@ -742,11 +742,184 @@ sampling_dist |>
   )
 ```
 
-### t2n (greater)
+### Indep Samples t-test (greater) {-}
 
-### t2n (two-sided)
+How many people would you need to survey to detect a clear group difference in agreement for an item measured in a 7-level Likert scale? $H_0$ is that groups *A* and *B* have the same average rating. As before, you set a minimum effect size of .5 points. The one-sided test assesses whether *A* has a higher (lower) average than *B*.
 
+```{r}
+s1 <- 1  # assumption
+s2 <- 1  # assumption
+cohen.d <- (4.5 - 4) / s1
 
+(pwr <- pwr::pwr.t2n.test(
+  n1 = 54,
+  d = cohen.d, 
+  sig.level = .05, 
+  power = .80, 
+  alternative = "greater"
+))
+```
+
+We need about twice as many people *for each group*! Recall from [your notes](https://mpfoley73.github.io/statistics/05-continuous-binomial.html) that the independent samples t-test is a test on the distribution of the difference in means, $\hat{d} = \bar{x}_1 - \bar{x}_2$. The sampling distribution of $d$ has a standard error $SE = \sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}$. The test statistic is $T = (\hat{d}-d_0) / SE$.
+
+```{r}
+#| collapse: true
+
+n1 <- 54
+n2 <- ceiling(pwr$n2)
+sp2 <- ((n1 - 1)*s1^2 + (n2 - 1)*s2^2) / (n1 + n2 - 2)
+SE <- sqrt(sp2) * sqrt(1/n1 + 1/n2)
+df <- n1 + n2 - 2
+
+(crit_val <- qt(p = .05, df = df, lower.tail = FALSE))
+
+(crit_diff <- crit_val * SE)
+```
+
+```{r}
+#| echo: false
+#| warning: false
+
+sampling_dist <- 
+  tibble(
+    grp = factor(c(rep("H0 = 0", 201), rep("Actual = 0.5", 201)), 
+                 levels = c("H0 = 0", "Actual = 0.5")),
+    rating_diff = rep(seq(-1, 1, .01), 2),
+    x = (rating_diff - if_else(grp == "H0 = 0", 0, 0.5)) / SE,
+    dens = map_dbl(x, \(x) dt(x, df = df))
+  )
+
+sampling_dist |>
+  ggplot() +
+  geom_line(aes(x = rating_diff, y = dens, color = grp, fill = grp)) +
+  geom_area(aes(x = rating_diff, color = grp, fill = grp, 
+                y = if_else(rating_diff >= crit_diff & grp == "H0 = 0", dens, NA_real_)), 
+            alpha = .2) +
+  geom_area(aes(x = rating_diff, color = grp, fill = grp, 
+                y = if_else(rating_diff <= crit_diff & grp == "Actual = 0.5", dens, NA_real_)),
+            alpha = .2) +
+  geom_text(aes(x = .25, y = .03, label = "beta"), parse = TRUE, size = 4.5, color = "darkgoldenrod4") +
+  geom_text(aes(x = .40, y = .03, label = "alpha"), parse = TRUE, size = 4.5, color = "gray40") +
+  geom_vline(xintercept = 0.0, color = "gray30", linetype = 2, linewidth = 1) +
+  geom_vline(xintercept = 0.5, color = "darkgoldenrod", linetype = 2, linewidth = 1) +
+  scale_fill_manual(values = c("H0 = 0" = "gray30", "Actual = 0.5" = "darkgoldenrod")) +
+  scale_color_manual(values = c("H0 = 0" = "gray30", "Actual = 0.5" = "darkgoldenrod")) +
+  scale_x_continuous(breaks = c(-1, -.5, 0, .5, 1, crit_diff), labels = comma_format(.1)) +
+  coord_cartesian(xlim = c(-1, 1)) +
+  guides(fill = "none") +
+  theme(axis.text.x = element_text(angle = 0, vjust = .5)) +
+  labs(
+    x = "Difference in Likert Rating Average", y = "density", color = NULL,
+    title = str_wrap(glue(
+      "Power Analysis for Independent Sample t-Test, One-sided",
+    ), 80),
+    subtitle = str_wrap(glue(
+      "Effect size d = .5, 80% power, Sample sizes n1 = {comma(n1)}, ",
+      "n2 = {comma(n2)}. ",
+      "Diff in averages > {comma(crit_diff, .1)} reject H0 at alpha = .05."
+    ), 95)
+  )
+```
+
+### Indep Samples t-test (two-sided) {-}
+
+How many people would you need to survey to detect a clear group difference in agreement for an item measured in a 7-level Likert scale? $H_0$ is that groups *A* and *B* have the same average rating. As before, you set a minimum effect size of .5 points. The two-sided test assesses whether *A* has a different average than *B*.
+
+```{r}
+s1 <- 1  # assumption
+s2 <- 1  # assumption
+cohen.d <- (4.5 - 4) / s1
+
+(pwr <- pwr::pwr.t2n.test(
+  n1 = 54,
+  d = cohen.d, 
+  sig.level = .05, 
+  power = .80, 
+  alternative = "two.sided"
+))
+```
+
+If $n_1$ is `r n1`, then $n_2$ needs to be `r ceiling(pwr$n2)` - higher than the one-sided test.
+
+```{r}
+#| collapse: true
+
+n1 <- 54
+n2 <- ceiling(pwr$n2)
+sp2 <- ((n1 - 1)*s1^2 + (n2 - 1)*s2^2) / (n1 + n2 - 2)
+SE <- sqrt(sp2) * sqrt(1/n1 + 1/n2)
+df <- n1 + n2 - 2
+
+(crit_val_l <- qt(p = .05, df = df, lower.tail = TRUE))
+(crit_val_u <- qt(p = .05, df = df, lower.tail = FALSE))
+
+(crit_diff_l <- crit_val_l * SE)
+(crit_diff_u <- crit_val_u * SE)
+```
+
+```{r}
+#| echo: false
+#| warning: false
+
+sampling_dist <- 
+  tibble(
+    grp = factor(c(rep("Actual = -0.5", 201), rep("H0 = 0", 201), rep("Actual = +0.5", 201)), 
+                 levels = c("Actual = -0.5", "H0 = 0", "Actual = +0.5")),
+    rating_diff = rep(seq(-1, 1, .01), 3),
+    x = (rating_diff - case_when(grp == "H0 = 0" ~ 0, 
+                                 grp == "Actual = -0.5" ~ -0.5,
+                                 grp == "Actual = +0.5" ~ 0.5)) / SE,
+    dens = map_dbl(x, \(x) dt(x, df = df))
+  )
+
+sampling_dist |>
+  ggplot() +
+  geom_line(aes(x = rating_diff, y = dens, color = grp, fill = grp)) +
+  geom_area(aes(x = rating_diff, color = grp, fill = grp, 
+                y = if_else(rating_diff <= crit_diff_l & grp == "H0 = 0", dens, NA_real_)), 
+            alpha = .2) +
+  geom_area(aes(x = rating_diff, color = grp, fill = grp, 
+                y = if_else(rating_diff >= crit_diff_u & grp == "H0 = 0", dens, NA_real_)), 
+            alpha = .2) +
+  geom_area(aes(x = rating_diff, color = grp, fill = grp, 
+                y = if_else(rating_diff >= crit_diff_l & grp == "Actual = -0.5", dens, NA_real_)),
+            alpha = .2) +
+  geom_area(aes(x = rating_diff, color = grp, fill = grp, 
+                y = if_else(rating_diff <= crit_diff_u & grp == "Actual = +0.5", dens, NA_real_)),
+            alpha = .2) +
+  geom_text(aes(x = .25, y = .03, label = "beta"), 
+            parse = TRUE, size = 4.5, color = "darkgoldenrod4") +
+  geom_text(aes(x = .35, y = .03, label = "alpha"), 
+            parse = TRUE, size = 4.5, color = "gray40") +
+  geom_text(aes(x = -.25, y = .03, label = "beta"), 
+            parse = TRUE, size = 4.5, color = "darkgoldenrod4") +
+  geom_text(aes(x = -.35, y = .03, label = "alpha"), 
+            parse = TRUE, size = 4.5, color = "gray40") +
+  geom_vline(xintercept = 0.0, color = "gray30", linetype = 2, linewidth = 1) +
+  geom_vline(xintercept = -0.5, color = "darkgoldenrod", linetype = 2, linewidth = 1) +
+  geom_vline(xintercept = +0.5, color = "darkgoldenrod", linetype = 2, linewidth = 1) +
+  scale_fill_manual(values = c("H0 = 0" = "gray30", 
+                               "Actual = -0.5" = "darkgoldenrod", 
+                               "Actual = +0.5" = "darkgoldenrod")) +
+  scale_color_manual(values = c("H0 = 0" = "gray30", 
+                                "Actual = -0.5" = "darkgoldenrod",
+                                "Actual = +0.5" = "darkgoldenrod")) +
+  scale_x_continuous(breaks = c(-1, -.5, 0, .5, 1, crit_diff_l, crit_diff_u), labels = comma_format(.1)) +
+  coord_cartesian(xlim = c(-1, 1)) +
+  guides(fill = "none") +
+  theme(axis.text.x = element_text(angle = 0, vjust = .5)) +
+  labs(
+    x = "Difference in Likert Rating Average", y = "density", color = NULL,
+    title = str_wrap(glue(
+      "Power Analysis for Independent Sample t-Test, Two-sided",
+    ), 80),
+    subtitle = str_wrap(glue(
+      "Effect size d = .5, 80% power, Sample sizes n1 = {comma(n1)}, ",
+      "n2 = {comma(n2)}. ",
+      "Diff in averages > {comma(crit_diff, .1)} reject H0 at alpha = .05."
+    ), 95)
+  )
+```
 
 ## p-value Intuition
 
