@@ -264,108 +264,130 @@ The dashed lines show a sample size of 30 is required to detect an effect size o
 
 ### One-Sample Prop Test (greater) {-}
 
-How many people would you need to survey to detect a clear majority of support for an issue? $H_0$ is 50% (no majority) and $H_a$ is >= 50%. By "clear majority", you might mean "at least 10 percentage points". If the majority is there, but it's less than 60%, you are okay with not rejecting $H_0$.
+How large must a sample be to detect a proportion meaningfully greater than 50% (null hypothesis H0: $\pi_0 = .50$)? You might define *meaningfully* as at least 10 percentage points. 
+
+The effect size for a proportion power calculation uses the arcsine transformation. 10 percentage points equates to an effect size of about .20.
+
+$$ h = 2*\arcsin(\sqrt{p1})-2*\arcsin(\sqrt{p2})
+$$ {#eq-01-arcsin}
 
 ```{r}
-h <- pwr::ES.h(p1 = .60, p2 = .50)
+(h <- pwr::ES.h(p1 = .60, p2 = .50))
+```
 
-(pwr <- pwr::pwr.p.test(
+Use the power calculation to calculate *n* for an effect size of .20 with 80% power and .05 level of significance.
+
+```{r}
+(pwr_calc <- pwr::pwr.p.test(
   h = h, 
   sig.level = .05, 
   power = .80, 
   alternative = "greater"
 ))
 ```
-If you repeatedly survey random samples of `r comma(ceiling(pwr$n))` people from a population where 60% support the topic, you should expect to reject H0 80% of the time. I.e., you expect at least 87 (57%) approvals 80% of the time.
+
+```{r}
+#| include: false
+
+n <- ceiling(pwr_calc$n)
+
+crit_val <- qbinom(p = .05, size = n, prob = .50, lower.tail = FALSE)
+
+crit_pct <- crit_val / n
+```
+
+If you repeatedly draw samples of size `r comma(n)` from a population with proportion $\pi$ = .60, expect to reject the H0 80% of the time. The critical value for a one-sided test is `r comma(crit_val)` (`r comma(crit_pct, .01)`), meaning only measured proportions of at least `r comma(crit_pct, .01)` reject H0.
 
 ```{r}
 #| collapse: true
 
-n <- ceiling(pwr$n)
+n <- ceiling(pwr_calc$n)
 
 (crit_val <- qbinom(p = .05, size = n, prob = .50, lower.tail = FALSE))
 
-(crit_pct <- crit_val / n)
+(crit_prop <- crit_val / n)
 ```
 
-You can see this in a plot of the theoretical distributions for samples of size `r n` from populations centered at 50% and 60%. ~20% of the 60% curve is to the left of the critical value.
+In a plot of the theoretical distributions for samples of size `r n` from populations centered at $\pi_0$ = .50 and $\pi$ = .60, 20% of the $\pi$ distribution is to the left of the critical value.
 
 ```{r}
-#| collapse: true
-pbinom(q = crit_val, size = n, prob = .6, lower.tail = TRUE)
-```
-
-```{r}
-#| echo: false
+#| code-fold: true
 #| warning: false
+
+H0_str <- "H0: p = .50"
+H0 <- .50
+pop_str <- "Population: .60"
+pop <- .60
+pal <- c("gray30", "darkgoldenrod")
+names(pal) <- c(H0_str, pop_str)
 
 sampling_dist <- 
   tibble(
-    grp = factor(c(rep("H0 = .5", n), rep("Actual = .6", n)), 
-                 levels = c("H0 = .5", "Actual = .6")),
+    grp = factor(c(rep(H0_str, n), rep(pop_str, n)), levels = c(H0_str, pop_str)),
     cnt = rep(seq(1, n, 1), 2),
-    size = n,
-    prob = c(rep(.5, n), rep(.6, n)),
-    dens = pmap_dbl(list(cnt, n, prob), \(cnt, n, prob) dbinom(cnt, n, prob)),
-    prop = cnt / size
+    prob = c(rep(H0, n), rep(pop, n)),
+    prop = cnt / n,
+    dens = pmap_dbl(list(cnt, prob), \(cnt, prob) dbinom(cnt, n, prob))
   )
 
 sampling_dist |>
   ggplot() +
   geom_line(aes(x = prop, y = dens, color = grp, fill = grp)) +
   geom_area(aes(x = prop, color = grp, fill = grp, 
-                y = if_else(cnt >= crit_val & grp == "H0 = .5", dens, NA_real_)), alpha = .2) +
+                y = if_else(cnt >= crit_val & grp == H0_str, dens, NA_real_)), 
+            alpha = .2) +
   geom_area(aes(x = prop, color = grp, fill = grp, 
-                y = if_else(cnt <= crit_val & grp == "Actual = .6", dens, NA_real_)), alpha = .2) +
-  geom_text(aes(x = .55, y = .005, label = "beta"), parse = TRUE, size = 4.5, color = "darkgoldenrod4") +
-  geom_text(aes(x = .58, y = .005, label = "alpha"), parse = TRUE, size = 4.5, color = "gray40") +
-  geom_vline(xintercept = .5, color = "gray30", linetype = 2, linewidth = 1) +
-  geom_vline(xintercept = .6, color = "darkgoldenrod", linetype = 2, linewidth = 1) +
-  scale_fill_manual(values = c("gray30", "darkgoldenrod")) +
-  scale_color_manual(values = c("gray30", "darkgoldenrod")) +
-  scale_x_continuous(breaks = c(.5, .6, crit_val / n), labels = percent_format(1)) +
-  coord_cartesian(xlim = c(.4, .7)) +
+                y = if_else(cnt <= crit_val & grp == pop_str, dens, NA_real_)), 
+            alpha = .2) +
+  annotate("text", x = .55, y = .005, label = "beta", parse = TRUE, size = 4.5, 
+           color = pal[pop_str]) +
+  annotate("text", x = .58, y = .005, label = "alpha", parse = TRUE, size = 4.5, 
+           color = pal[H0_str]) +
+  geom_vline(xintercept = H0, color = pal[H0_str], linetype = 2, linewidth = 1) +
+  geom_vline(xintercept = pop, color = pal[pop_str], linetype = 2, linewidth = 1) +
+  scale_fill_manual(values = pal) +
+  scale_color_manual(values = pal) +
+  scale_x_continuous(breaks = c(H0, pop, crit_prop), labels = comma_format(.01)) +
+  coord_cartesian(xlim = c(.3, .7)) +
   guides(fill = "none") +
   theme(axis.text.x = element_text(angle = 90, vjust = .5)) +
   labs(
-    x = "Approve", y = "density", color = NULL,
-    title = str_wrap(glue(
-      "Power Analysis for One Proportion, One-sided",
-    ), 80),
+    x = "Proportion", y = "Density", color = NULL,
+    title = "Power Analysis for One Proportion, One-sided",
     subtitle = str_wrap(glue(
       "Effect size h = .2 (10 pct pts), 80% power, Sample size n = {comma(n)}. ",
-      "Proportions > {percent(crit_val / n, 1)} reject H0 at alpha = .05."
+      "Proportions > {comma(crit_prop, .01)} reject {H0_str} at alpha = .05."
     ), 95)
   )
 ```
 
 ### One-Sample Prop Test (two-sided) {-}
 
-How many people would you need to survey to detect a clear preference either way? Set an effect size that detects the difference from 50% (no preference) to 40% or 60%. This is a two-sided test.
+How does this change for a two-sided test of the same effect size?
 
 ```{r}
-h <- pwr::ES.h(p1 = .60, p2 = .50)
-
-(pwr <- pwr::pwr.p.test(
+(pwr_calc <- pwr::pwr.p.test(
   h = h, 
   sig.level = .05, 
   power = .80, 
   alternative = "two.sided"
 ))
 ```
-You need more people for a two-sided test, `r comma(ceiling(pwr$n))`, and the critical values are further from 50%.
+
+You need more people for a two-sided test. *n* increased from `r comma(n)` to `r comma(ceiling(pwr_calc$n))`.
 
 ```{r}
 #| collapse: true
-n <- ceiling(pwr$n)
 
-(crit_val1 <- qbinom(p = .025, size = n, prob = .50, lower.tail = TRUE))
+n <- ceiling(pwr_calc$n)
 
-(crit_pct1 <- crit_val1 / n)
+(crit_val_lwr <- qbinom(p = .025, size = n, prob = .50, lower.tail = TRUE))
 
-(crit_val2 <- qbinom(p = .975, size = n, prob = .50, lower.tail = TRUE))
+(crit_prop_lwr <- crit_val_lwr / n)
 
-(crit_pct2 <- crit_val2 / n)
+(crit_val_upr <- qbinom(p = .025, size = n, prob = .50, lower.tail = FALSE))
+
+(crit_prop_upr <- crit_val_upr / n)
 ```
 
 Here are the theoretical distributions.
@@ -374,60 +396,71 @@ Here are the theoretical distributions.
 #| echo: false
 #| warning: false
 
+H0_str <- "H0: p = .50"
+H0 <- .50
+pop_str_lwr <- "Population: .40"
+pop_lwr <- .40
+pop_str_upr <- "Population: .60"
+pop_upr <- .60
+pal <- c("gray30", "darkgoldenrod", "darkgoldenrod")
+names(pal) <- c(H0_str, pop_str_lwr, pop_str_upr)
+
 sampling_dist <- 
   tibble(
-    grp = factor(c(rep("H0 = .5", n), rep("Actual = .4", n), rep("Actual = .6", n)),
-                 levels = c("H0 = .5", "Actual = .4", "Actual = .6")),
+    grp = factor(c(rep(H0_str, n), rep(pop_str_lwr, n), rep(pop_str_upr, n)), 
+                 levels = c(H0_str, pop_str_lwr, pop_str_upr)),
     cnt = rep(seq(1, n, 1), 3),
-    size = n,
-    prob = c(rep(.5, n), rep(.4, n), rep(.6, n)),
-    dens = pmap_dbl(list(cnt, n, prob), \(cnt, n, prob) dbinom(cnt, n, prob)),
-    prop = cnt / size
+    prob = c(rep(H0, n), rep(pop_lwr, n), rep(pop_upr, n)),
+    prop = cnt / n,
+    dens = pmap_dbl(list(cnt, prob), \(cnt, prob) dbinom(cnt, n, prob))
   )
 
 sampling_dist |>
   ggplot() +
   geom_line(aes(x = prop, y = dens, color = grp, fill = grp)) +
-  geom_area(aes(x = prop, color = grp, fill = grp, 
-                y = if_else(cnt <= crit_val1 & grp == "H0 = .5", dens, NA_real_)), alpha = .2) +
-  geom_area(aes(x = prop, color = grp, fill = grp, 
-                y = if_else(cnt >= crit_val2 & grp == "H0 = .5", dens, NA_real_)), alpha = .2) +
-  geom_area(aes(x = prop, color = grp, fill = grp, 
-                y = if_else(cnt >= crit_val1 & grp == "Actual = .4", dens, NA_real_)), alpha = .2) +
-  geom_area(aes(x = prop, color = grp, fill = grp, 
-                y = if_else(cnt <= crit_val2 & grp == "Actual = .6", dens, NA_real_)), alpha = .2) +
-  geom_text(aes(x = .55, y = .005, label = "beta"), parse = TRUE, size = 4.5, color = "gray40") +
-  geom_text(aes(x = .45, y = .005, label = "beta"), parse = TRUE, size = 4.5, color = "gray40") +
-  geom_text(aes(x = .58, y = .0025, label = "alpha / 2"), parse = TRUE, size = 3.0, color = "gray40") +
-  geom_text(aes(x = .42, y = .0025, label = "alpha / 2"), parse = TRUE, size = 3.0, color = "gray40") +
-  geom_vline(xintercept = .5, color = "gray30", linetype = 2, linewidth = 1) +
-  geom_vline(xintercept = .6, color = "darkgoldenrod", linetype = 2, linewidth = 1) +
-  scale_fill_manual(values = c("gray30", "darkgoldenrod", "darkgoldenrod")) +
-  scale_color_manual(values = c("gray30", "darkgoldenrod", "darkgoldenrod")) +
-  scale_x_continuous(breaks = c(.4, .5, .6, crit_val1 / n, crit_val2 / n),
-                     labels = percent_format(1)) +
+  geom_area(data = sampling_dist |> filter(grp == H0_str & cnt <= crit_val_lwr),
+            aes(x = prop, y = dens, fill = grp),
+            alpha = .2) +
+  geom_area(data = sampling_dist |> filter(grp == H0_str & cnt >= crit_val_upr),
+            aes(x = prop, y = dens, fill = grp),
+            alpha = .2) +
+  geom_area(data = sampling_dist |> filter(grp == pop_str_lwr & cnt >= crit_val_lwr),
+            aes(x = prop, y = dens, fill = grp),
+            alpha = .2) +
+  geom_area(data = sampling_dist |> filter(grp == pop_str_upr & cnt <= crit_val_upr),
+            aes(x = prop, y = dens, fill = grp),
+            alpha = .2) +
+  annotate("text", x = c(.45, .55), y = .005, label = "beta", parse = TRUE, size = 4.5, 
+           color = pal[pop_str_lwr]) +
+  annotate("text", x = c(.42, .58), y = .0025, label = "alpha / 2", parse = TRUE, size = 3.0, 
+           color = pal[H0_str]) +
+  geom_vline(xintercept = H0, color = pal[H0_str], linetype = 2, linewidth = 1) +
+  geom_vline(xintercept = c(pop_lwr, pop_upr), color = pal[pop_str_lwr], 
+             linetype = 2, linewidth = 1) +
+  scale_fill_manual(values = pal) +
+  scale_color_manual(values = pal) +
+  scale_x_continuous(breaks = c(pop_lwr, H0, pop_upr, crit_prop_lwr, crit_prop_upr),
+                     labels = comma_format(.01)) +
   coord_cartesian(xlim = c(.3, .7)) +
   guides(fill = "none") +
   theme(axis.text.x = element_text(angle = 90, vjust = .5)) +
   labs(
-    x = "Approve", y = "density", color = NULL,
-    title = str_wrap(glue(
-      "Power Analysis for One Proportion, Two-sided",
-    ), 80),
+    x = "Proportion", y = "Density", color = NULL,
+    title = "Power Analysis for One Proportion, Two-sided",
     subtitle = str_wrap(glue(
       "Effect size h = .2 (10 pct pts), 80% power, Sample size n = {comma(n)}. ",
-      "Proportions < {percent(crit_val1 / n, 1)} and > {percent(crit_val2 / n, 1)} ",
-      "reject H0 at alpha = .05."
+      "Proportions < {comma(crit_prop_lwr, .01)} and > {comma(crit_prop_upr, .01)} ",
+      "reject {H0_str} at alpha = .05."
     ), 95)
   )
 ```
 
-$\beta$ ~20% of the area of *Actual = .4* is to the right of `r percent(crit_val1 / n, 1)` and $\beta$ ~20% of the area of *Actual = .6* is to the left of `r percent(crit_val2 / n, 1)`.
+~20% of the area under *`r pop_str_lwr`* is to the right of `r comma(crit_prop_lwr, .01)` and ~20% of the area under *`r pop_str_upr`* is to the left of `r comma(crit_prop_upr, .01)`.
 
 ```{r}
 #| collapse: true
-pbinom(q = crit_val1, size = n, prob = .4, lower.tail = FALSE)
-pbinom(q = crit_val2, size = n, prob = .6, lower.tail = TRUE)
+pbinom(q = crit_val_lwr, size = n, prob = pop_lwr, lower.tail = FALSE)
+pbinom(q = crit_val_upr, size = n, prob = pop_upr, lower.tail = TRUE)
 ```
 
 ### Two-Sample Prop Test (greater) {-}
