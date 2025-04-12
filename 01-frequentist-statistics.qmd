@@ -316,35 +316,35 @@ In a plot of the theoretical distributions for samples of size `r n` from popula
 
 H0_str <- "H0: p = .50"
 H0 <- .50
-pop_str <- "Population: .60"
+act_str <- "Actual: pi = .60"
 pop <- .60
 pal <- c("gray30", "darkgoldenrod")
-names(pal) <- c(H0_str, pop_str)
+names(pal) <- c(H0_str, act_str)
 
 sampling_dist <- 
   tibble(
-    grp = factor(c(rep(H0_str, n), rep(pop_str, n)), levels = c(H0_str, pop_str)),
+    grp = factor(c(rep(H0_str, n), rep(act_str, n)), levels = c(H0_str, act_str)),
     cnt = rep(seq(1, n, 1), 2),
     prob = c(rep(H0, n), rep(pop, n)),
     prop = cnt / n,
-    dens = pmap_dbl(list(cnt, prob), \(cnt, prob) dbinom(cnt, n, prob))
+    dens = pmap_dbl(list(cnt, prob), \(x, prob) dbinom(x, size = n, prob))
   )
 
 sampling_dist |>
   ggplot() +
   geom_line(aes(x = prop, y = dens, color = grp, fill = grp)) +
-  geom_area(aes(x = prop, color = grp, fill = grp, 
+  geom_area(aes(x = prop, fill = grp, 
                 y = if_else(cnt >= crit_val & grp == H0_str, dens, NA_real_)), 
             alpha = .2) +
-  geom_area(aes(x = prop, color = grp, fill = grp, 
-                y = if_else(cnt <= crit_val & grp == pop_str, dens, NA_real_)), 
+  geom_area(aes(x = prop, fill = grp, 
+                y = if_else(cnt <= crit_val & grp == act_str, dens, NA_real_)), 
             alpha = .2) +
   annotate("text", x = .55, y = .005, label = "beta", parse = TRUE, size = 4.5, 
-           color = pal[pop_str]) +
+           color = pal[act_str]) +
   annotate("text", x = .58, y = .005, label = "alpha", parse = TRUE, size = 4.5, 
            color = pal[H0_str]) +
   geom_vline(xintercept = H0, color = pal[H0_str], linetype = 2, linewidth = 1) +
-  geom_vline(xintercept = pop, color = pal[pop_str], linetype = 2, linewidth = 1) +
+  geom_vline(xintercept = pop, color = pal[act_str], linetype = 2, linewidth = 1) +
   scale_fill_manual(values = pal) +
   scale_color_manual(values = pal) +
   scale_x_continuous(breaks = c(H0, pop, crit_prop), labels = comma_format(.01)) +
@@ -398,21 +398,21 @@ Here are the theoretical distributions.
 
 H0_str <- "H0: p = .50"
 H0 <- .50
-pop_str_lwr <- "Population: .40"
+act_str_lwr <- "Actual: pi = .40"
 pop_lwr <- .40
-pop_str_upr <- "Population: .60"
+act_str_upr <- "Actual: pi = .60"
 pop_upr <- .60
 pal <- c("gray30", "darkgoldenrod", "darkgoldenrod")
-names(pal) <- c(H0_str, pop_str_lwr, pop_str_upr)
+names(pal) <- c(H0_str, act_str_lwr, act_str_upr)
 
 sampling_dist <- 
   tibble(
-    grp = factor(c(rep(H0_str, n), rep(pop_str_lwr, n), rep(pop_str_upr, n)), 
-                 levels = c(H0_str, pop_str_lwr, pop_str_upr)),
+    grp = factor(c(rep(H0_str, n), rep(act_str_lwr, n), rep(act_str_upr, n)), 
+                 levels = c(H0_str, act_str_lwr, act_str_upr)),
     cnt = rep(seq(1, n, 1), 3),
     prob = c(rep(H0, n), rep(pop_lwr, n), rep(pop_upr, n)),
     prop = cnt / n,
-    dens = pmap_dbl(list(cnt, prob), \(cnt, prob) dbinom(cnt, n, prob))
+    dens = pmap_dbl(list(cnt, prob), \(x, prob) dbinom(x, size = n, prob))
   )
 
 sampling_dist |>
@@ -424,18 +424,18 @@ sampling_dist |>
   geom_area(data = sampling_dist |> filter(grp == H0_str & cnt >= crit_val_upr),
             aes(x = prop, y = dens, fill = grp),
             alpha = .2) +
-  geom_area(data = sampling_dist |> filter(grp == pop_str_lwr & cnt >= crit_val_lwr),
+  geom_area(data = sampling_dist |> filter(grp == act_str_lwr & cnt >= crit_val_lwr),
             aes(x = prop, y = dens, fill = grp),
             alpha = .2) +
-  geom_area(data = sampling_dist |> filter(grp == pop_str_upr & cnt <= crit_val_upr),
+  geom_area(data = sampling_dist |> filter(grp == act_str_upr & cnt <= crit_val_upr),
             aes(x = prop, y = dens, fill = grp),
             alpha = .2) +
   annotate("text", x = c(.45, .55), y = .005, label = "beta", parse = TRUE, size = 4.5, 
-           color = pal[pop_str_lwr]) +
+           color = pal[act_str_lwr]) +
   annotate("text", x = c(.42, .58), y = .0025, label = "alpha / 2", parse = TRUE, size = 3.0, 
            color = pal[H0_str]) +
   geom_vline(xintercept = H0, color = pal[H0_str], linetype = 2, linewidth = 1) +
-  geom_vline(xintercept = c(pop_lwr, pop_upr), color = pal[pop_str_lwr], 
+  geom_vline(xintercept = c(pop_lwr, pop_upr), color = pal[act_str_lwr], 
              linetype = 2, linewidth = 1) +
   scale_fill_manual(values = pal) +
   scale_color_manual(values = pal) +
@@ -455,7 +455,7 @@ sampling_dist |>
   )
 ```
 
-~20% of the area under *`r pop_str_lwr`* is to the right of `r comma(crit_prop_lwr, .01)` and ~20% of the area under *`r pop_str_upr`* is to the left of `r comma(crit_prop_upr, .01)`.
+~20% of the area under *`r act_str_lwr`* is to the right of `r comma(crit_prop_lwr, .01)` and ~20% of the area under *`r act_str_upr`* is to the left of `r comma(crit_prop_upr, .01)`.
 
 ```{r}
 #| collapse: true
@@ -498,6 +498,7 @@ pwr::pwr.2p2n.test(
 n <- ceiling(pwr$n)
 
 SE <- sqrt(.5 * (1 - .5) / n + .6 * (1 - .6) / n)
+
 (crit_val <- qnorm(p = .05, mean = 0, sd = SE, lower.tail = FALSE))
 ```
 
@@ -505,39 +506,50 @@ SE <- sqrt(.5 * (1 - .5) / n + .6 * (1 - .6) / n)
 #| echo: false
 #| warning: false
 
+H0_str <- "H0: d = 0"
+H0 <- 0
+act_str <- "Actual: D = .10"
+pop <- .10
+pal <- c("gray30", "darkgoldenrod")
+names(pal) <- c(H0_str, act_str)
+
 sampling_dist <- 
   tibble(
-    grp = factor(c(rep("d = 0", 1001), rep("d = .1", 1001))),
-    p = rep(seq(-.2, .3, .0005), 2),
-    d = c(rep(0, 1001), rep(.1, 1001)),
-    dens = pmap_dbl(list(p, d), \(p, d) dnorm(p, mean = d, sd = SE)),
+    grp = factor(c(rep(H0_str, 1001), rep(act_str, 1001)), levels = c(H0_str, act_str)),
+    prop_diff = rep(seq(-.2, .3, .0005), 2),
+    dist_mean = c(rep(H0, 1001), rep(pop, 1001)),
+    dens = pmap_dbl(list(prop_diff, dist_mean), \(x, M) dnorm(x, mean = M, sd = SE))
   )
 
 sampling_dist |>
   ggplot() +
-  geom_line(aes(x = p, y = dens, color = grp, fill = grp)) +
-  geom_area(aes(x = p, color = grp, fill = grp, 
-                y = if_else(p >= crit_val & grp == "d = 0", dens, NA_real_)), alpha = .2) +
-  geom_area(aes(x = p, color = grp, fill = grp, 
-                y = if_else(p <= crit_val & grp == "d = .1", dens, NA_real_)), alpha = .2) +
-  geom_text(aes(x = .03, y = .5, label = "beta"), parse = TRUE, size = 4.5, color = "darkgoldenrod4") +
-  geom_text(aes(x = .08, y = .5, label = "alpha"), parse = TRUE, size = 4.5, color = "gray40") +
-  geom_vline(xintercept = .0, color = "gray30", linetype = 2, linewidth = 1) +
-  geom_vline(xintercept = .1, color = "darkgoldenrod", linetype = 2, linewidth = 1) +
-  scale_fill_manual(values = c("d = 0" = "gray30", "d = .1" = "darkgoldenrod")) +
-  scale_color_manual(values = c("d = 0" = "gray30", "d = .1" = "darkgoldenrod")) +
-  scale_x_continuous(breaks = c(.0, .1, crit_val), labels = comma_format(.01)) +
+  geom_line(aes(x = prop_diff, y = dens, color = grp, fill = grp)) +
+  geom_area(aes(x = prop_diff, fill = grp, 
+                y = if_else(prop_diff >= crit_val & grp == H0_str, dens, NA_real_)), 
+            alpha = .2) +
+  geom_area(aes(x = prop_diff, fill = grp, 
+                y = if_else(prop_diff <= crit_val & grp == act_str, dens, NA_real_)), 
+            alpha = .2) +
+  annotate("text", x = .03, y = .5, label = "beta", parse = TRUE, size = 4.5, 
+           color = pal[act_str]) +
+  annotate("text", x = .08, y = .5, label = "alpha", parse = TRUE, size = 4.5, 
+           color = pal[H0_str]) +
+  geom_vline(xintercept = H0, color = pal[H0_str], linetype = 2, linewidth = 1) +
+  geom_vline(xintercept = pop, color = pal[act_str], linetype = 2, linewidth = 1) +
+  scale_fill_manual(values = pal) +
+  scale_color_manual(values = pal) +
+  scale_x_continuous(breaks = c(H0, pop, crit_val), labels = comma_format(.01)) +
   coord_cartesian(xlim = c(-.2, .3)) +
   guides(fill = "none") +
   labs(
-    x = "Difference", y = "density", color = NULL,
+    x = "Difference", y = "Density", color = NULL,
     title = str_wrap(glue(
       "Power Analysis for Two Proportions, Equal Sample Sizes, One-sided Test",
     ), 80),
     subtitle = str_wrap(glue(
       "Effect size h = .2 (10 pct pts), 80% power, Sample size n = {comma(n)} ",
-      "for each group. Differences >= {comma(crit_val, .01)} reject H0 at alpha = .05."
-    ), 100)
+      "for each group. Differences >= {comma(crit_val, .01)} reject {H0_str} at alpha = .05."
+    ), 95)
   )
 ```
 
@@ -564,54 +576,75 @@ The two-sided test requires a larger sample and the critical values are a little
 n <- ceiling(pwr$n)
 
 SE <- sqrt(.5 * (1 - .5) / n + .6 * (1 - .6) / n)
-(crit_val1 <- qnorm(p = .025, mean = 0, sd = SE, lower.tail = FALSE))
-(crit_val2 <- qnorm(p = .025, mean = 0, sd = SE, lower.tail = TRUE))
+
+(crit_val_lwr <- qnorm(p = .025, mean = 0, sd = SE, lower.tail = TRUE))
+
+(crit_val_upr <- qnorm(p = .025, mean = 0, sd = SE, lower.tail = FALSE))
 ```
 
 ```{r}
 #| echo: false
 #| warning: false
 
+H0_str <- "H0: d = 0"
+H0 <- 0
+act_str_lwr <- "Actual: D = -.1"
+pop_lwr <- -.10
+act_str_upr <- "Actual: D = .1"
+pop_upr <- +.10
+pal <- c("gray30", "darkgoldenrod", "darkgoldenrod")
+names(pal) <- c(H0_str, act_str_lwr, act_str_upr)
+
 sampling_dist <- 
   tibble(
-    grp = factor(c(rep("d = 0", 1001), rep("d = .1", 1001), rep("d = -.1", 1001))),
-    p = rep(seq(-.25, .25, .0005), 3),
-    d = c(rep(0, 1001), rep(.1, 1001), rep(-.1, 1001)),
-    dens = pmap_dbl(list(p, d), \(p, d) dnorm(p, mean = d, sd = SE)),
+    grp = factor(c(rep(act_str_lwr, 1001), rep(H0_str, 1001), rep(act_str_upr, 1001)),
+                 levels = c(act_str_lwr, H0_str, act_str_upr)),
+    prop_diff = rep(seq(-.25, .25, .0005), 3),
+    diff_mean = c(rep(pop_lwr, 1001), rep(H0, 1001), rep(pop_upr, 1001)),
+    dens = pmap_dbl(list(prop_diff, diff_mean), \(x, M) dnorm(x, mean = M, sd = SE)),
   )
 
 sampling_dist |>
   ggplot() +
-  geom_line(aes(x = p, y = dens, color = grp, fill = grp)) +
-  geom_area(aes(x = p, color = grp, fill = grp, 
-                y = if_else(p >= crit_val1 & grp == "d = 0", dens, NA_real_)), alpha = .2) +
-  geom_area(aes(x = p, color = grp, fill = grp, 
-                y = if_else(p <= crit_val2 & grp == "d = 0", dens, NA_real_)), alpha = .2) +
-  geom_area(aes(x = p, color = grp, fill = grp, 
-                y = if_else(p <= crit_val1 & grp == "d = .1", dens, NA_real_)), alpha = .2) +
-  geom_area(aes(x = p, color = grp, fill = grp, 
-                y = if_else(p >= crit_val2 & grp == "d = -.1", dens, NA_real_)), alpha = .2) +
-  geom_text(aes(x = .04, y = .5, label = "beta"), parse = TRUE, size = 4.5, color = "darkgoldenrod4") +
-  geom_text(aes(x = .08, y = .5, label = "alpha"), parse = TRUE, size = 4.5, color = "gray40") +
-  geom_text(aes(x = -.04, y = .5, label = "beta"), parse = TRUE, size = 4.5, color = "darkgoldenrod4") +
-  geom_text(aes(x = -.08, y = .5, label = "alpha"), parse = TRUE, size = 4.5, color = "gray40") +
-  geom_vline(xintercept = .0, color = "gray30", linetype = 2, linewidth = 1) +
-  geom_vline(xintercept = .1, color = "darkgoldenrod", linetype = 2, linewidth = 1) +
-  geom_vline(xintercept = -.1, color = "darkgoldenrod", linetype = 2, linewidth = 1) +
-  scale_fill_manual(values = c("d - 0" = "gray30", "d = .1" = "darkgoldenrod", "d = -.1" = "darkgoldenrod")) +
-  scale_color_manual(values = c("d - 0" = "gray30", "d = .1" = "darkgoldenrod", "d = -.1" = "darkgoldenrod")) +
-  scale_x_continuous(breaks = c(.0, .1, crit_val1, crit_val2), labels = comma_format(.01)) +
+  geom_line(aes(x = prop_diff, y = dens, color = grp)) +
+  geom_area(aes(x = prop_diff, fill = grp, 
+                y = if_else(prop_diff >= crit_val_upr & grp == H0_str, dens, NA_real_)), 
+            alpha = .2) +
+  geom_area(aes(x = prop_diff, fill = grp, 
+                y = if_else(prop_diff <= crit_val_lwr & grp == H0_str, dens, NA_real_)), 
+            alpha = .2) +
+  geom_area(aes(x = prop_diff, fill = grp, 
+                y = if_else(prop_diff <= crit_val_upr & grp == act_str_upr, dens, NA_real_)),
+            alpha = .2) +
+  geom_area(aes(x = prop_diff, fill = grp, 
+                y = if_else(prop_diff >= crit_val_lwr & grp == act_str_lwr, dens, NA_real_)), 
+            alpha = .2) +
+  annotate("text", x = .04, y = .5, label = "beta", parse = TRUE, size = 4.5, 
+           color = pal[act_str_lwr]) +
+  annotate("text", x = .08, y = .5, label = "alpha", parse = TRUE, size = 4.5, 
+           color = pal[H0_str]) +
+  annotate("text", x = -.04, y = .5, label = "beta", parse = TRUE, size = 4.5, 
+           color = pal[act_str_upr]) +
+  annotate("text", x = -.08, y = .5, label = "alpha", parse = TRUE, size = 4.5, 
+           color = pal[H0_str]) +
+  geom_vline(xintercept = H0, color = pal[H0_str], linetype = 2, linewidth = 1) +
+  geom_vline(xintercept = pop_lwr, color = pal[act_str_lwr], linetype = 2, linewidth = 1) +
+  geom_vline(xintercept = pop_upr, color = pal[act_str_upr], linetype = 2, linewidth = 1) +
+  scale_fill_manual(values = pal) +
+  scale_color_manual(values = pal) +
+  scale_x_continuous(breaks = c(H0, pop_lwr, pop_upr, crit_val_lwr, crit_val_upr), 
+                     labels = comma_format(.01)) +
   coord_cartesian(xlim = c(-.25, .25)) +
   guides(fill = "none") +
   labs(
-    x = "Difference", y = "density", color = NULL,
+    x = "Difference", y = "Density", color = NULL,
     title = str_wrap(glue(
       "Power Analysis for Two Proportions, Equal Sample Sizes, Two-sided Test",
     ), 80),
     subtitle = str_wrap(glue(
       "Effect size h = .2 (10 pct pts), 80% power, Sample size n = {comma(n)} ",
-      "for each group. Differences<= {comma(crit_val2, .01)} or ",
-      ">= {comma(crit_val1, .01)} reject H0 at alpha = .05."
+      "for each group. Differences<= {comma(crit_val_lwr, .01)} or ",
+      ">= {comma(crit_val_upr, .01)} reject H0 at alpha = .05."
     ), 100)
   )
 ```
@@ -652,29 +685,40 @@ You can see this in a plot of the theoretical distributions for samples of size 
 #| echo: false
 #| warning: false
 
+H0_str <- "H0: mean = 4"
+H0 <- 4
+act_str <- "Actual: mu = 4.5"
+pop <- 4.5
+pal <- c("gray30", "darkgoldenrod")
+names(pal) <- c(H0_str, act_str)
+
 sampling_dist <- 
   tibble(
-    grp = factor(c(rep("H0 = 4", 201), rep("Actual = 4.5", 201)), 
-                 levels = c("H0 = 4", "Actual = 4.5")),
+    grp = factor(c(rep(H0_str, 201), rep(act_str, 201)), 
+                 levels = c(H0_str, act_str)),
     rating = rep(seq(3, 5, .01), 2),
-    x = (rating - if_else(grp == "H0 = 4", 4, 4.5)) / se,
+    x = (rating - if_else(grp == H0_str, H0, pop)) / se,
     dens = map_dbl(x, \(x) dt(x, df = n - x))
   )
 
 sampling_dist |>
   ggplot() +
-  geom_line(aes(x = rating, y = dens, color = grp, fill = grp)) +
+  geom_line(aes(x = rating, y = dens, color = grp)) +
+  geom_area(aes(x = rating, fill = grp, 
+                y = if_else(rating >= crit_rating & grp == H0_str, dens, NA_real_)), 
+            alpha = .2) +
   geom_area(aes(x = rating, color = grp, fill = grp, 
-                y = if_else(rating >= crit_rating & grp == "H0 = 4", dens, NA_real_)), alpha = .2) +
-  geom_area(aes(x = rating, color = grp, fill = grp, 
-                y = if_else(rating <= crit_rating & grp == "Actual = 4.5", dens, NA_real_)), alpha = .2) +
-  geom_text(aes(x = 4.2, y = .03, label = "beta"), parse = TRUE, size = 4.5, color = "darkgoldenrod4") +
-  geom_text(aes(x = 4.4, y = .03, label = "alpha"), parse = TRUE, size = 4.5, color = "gray40") +
-  geom_vline(xintercept = 4.0, color = "gray30", linetype = 2, linewidth = 1) +
-  geom_vline(xintercept = 4.5, color = "darkgoldenrod", linetype = 2, linewidth = 1) +
-  scale_fill_manual(values = c("H0 = 4" = "gray30", "Actual = 4.5" = "darkgoldenrod")) +
-  scale_color_manual(values = c("H0 = 4" = "gray30", "Actual = 4.5" = "darkgoldenrod")) +
-  scale_x_continuous(breaks = c(3, 4, 4.5, 5, crit_rating), labels = comma_format(.1)) +
+                y = if_else(rating <= crit_rating & grp == act_str, dens, NA_real_)), 
+            alpha = .2) +
+  annotate("text", x = 4.2, y = .03, label = "beta", parse = TRUE, size = 4.5, 
+           color = pal[act_str]) +
+  annotate("text", x = 4.4, y = .03, label = "alpha", parse = TRUE, size = 4.5, 
+           color = pal[H0_str]) +
+  geom_vline(xintercept = H0, color = pal[H0_str], linetype = 2, linewidth = 1) +
+  geom_vline(xintercept = pop, color = pal[act_str], linetype = 2, linewidth = 1) +
+  scale_fill_manual(values = pal) +
+  scale_color_manual(values = pal) +
+  scale_x_continuous(breaks = c(3, pop, H0, 5, crit_rating), labels = comma_format(.1)) +
   coord_cartesian(xlim = c(3, 5)) +
   guides(fill = "none") +
   theme(axis.text.x = element_text(angle = 0, vjust = .5)) +
@@ -685,7 +729,7 @@ sampling_dist |>
     ), 80),
     subtitle = str_wrap(glue(
       "Effect size d = .5, 80% power, Sample size n = {comma(n)}. ",
-      "Average ratings > {comma(crit_rating, .1)} reject H0 at alpha = .05."
+      "Average ratings > {comma(crit_rating, .1)} reject {H0_str} at alpha = .05."
     ), 95)
   )
 ```
@@ -715,11 +759,11 @@ The sample size increased from `r ceiling(n)` to `r ceiling(pwr$n)`. If you repe
 n <- ceiling(pwr$n)
 se <- sd / sqrt(n)
 
-(crit_val1 <- qt(p = .05, df = n - 1, lower.tail = TRUE))
-(crit_val2 <- qt(p = .05, df = n - 1, lower.tail = FALSE))
+(crit_val_lwr <- qt(p = .05, df = n - 1, lower.tail = TRUE))
+(crit_val_upr <- qt(p = .05, df = n - 1, lower.tail = FALSE))
 
-(crit_rating1 <- crit_val1 * se + 4)
-(crit_rating2 <- crit_val2 * se + 4)
+(crit_rating_lwr <- crit_val_lwr * se + 4)
+(crit_rating_upr <- crit_val_upr * se + 4)
 ```
 
 You can see this in a plot of the theoretical distributions for samples of size `r n` from populations centered at 3.5, 4 and 4.5. ~20% of the mean 4.5 curve and mean 3.5 curve is to the left of the critical value.
@@ -728,37 +772,55 @@ You can see this in a plot of the theoretical distributions for samples of size 
 #| echo: false
 #| warning: false
 
+H0_str <- "H0: mean = 4"
+H0 <- 4
+act_str_lwr <- "Actual: mu = 3.5"
+act_lwr <- 3.5
+act_str_upr <- "Actual: mu = 4.5"
+act_upr <- 4.5
+pal <- c("darkgoldenrod", "gray30", "darkgoldenrod")
+names(pal) <- c(act_str_lwr, H0_str, act_str_upr)
+
 sampling_dist <- 
   tibble(
-    grp = factor(c(rep("H0 = 4", 201), rep("Actual = 3.5", 201), rep("Actual = 4.5", 201)), 
-                 levels = c("Actual = 3.5", "H0 = 4", "Actual = 4.5")),
+    grp = factor(c(rep(H0_str, 201), rep(act_str_lwr, 201), rep(act_str_upr, 201)), 
+                 levels = c(act_str_lwr, H0_str, act_str_upr)),
     rating = rep(seq(3, 5, .01), 3),
-    x = (rating - case_when(grp == "H0 = 4" ~ 4, grp == "Actual = 3.5" ~ 3.5, TRUE ~ 4.5)) / se,
+    x = (rating - case_when(grp == H0_str ~ H0,
+                            grp == act_str_lwr ~ act_lwr, 
+                            TRUE ~ act_upr)) / se,
     dens = map_dbl(x, \(x) dt(x, df = n - x))
   )
 
 sampling_dist |>
   ggplot() +
-  geom_line(aes(x = rating, y = dens, color = grp, fill = grp)) +
-  geom_area(aes(x = rating, color = grp, fill = grp, 
-                y = if_else(rating <= crit_rating1 & grp == "H0 = 4", dens, NA_real_)), alpha = .2) +
-  geom_area(aes(x = rating, color = grp, fill = grp, 
-                y = if_else(rating >= crit_rating1 & grp == "Actual = 3.5", dens, NA_real_)), alpha = .2) +
-  geom_area(aes(x = rating, color = grp, fill = grp, 
-                y = if_else(rating >= crit_rating2 & grp == "H0 = 4", dens, NA_real_)), alpha = .2) +
-  geom_area(aes(x = rating, color = grp, fill = grp, 
-                y = if_else(rating <= crit_rating2 & grp == "Actual = 4.5", dens, NA_real_)), alpha = .2) +
-  geom_text(aes(x = 4.2, y = .03, label = "beta"), parse = TRUE, size = 4.5, color = "darkgoldenrod4") +
-  geom_text(aes(x = 4.35, y = .03, label = "alpha"), parse = TRUE, size = 4.5, color = "gray40") +
-  geom_text(aes(x = 3.8, y = .03, label = "beta"), parse = TRUE, size = 4.5, color = "darkgoldenrod4") +
-  geom_text(aes(x = 3.65, y = .03, label = "alpha"), parse = TRUE, size = 4.5, color = "gray40") +
-  geom_vline(xintercept = 4.0, color = "gray30", linetype = 2, linewidth = 1) +
-  geom_vline(xintercept = 4.5, color = "darkgoldenrod", linetype = 2, linewidth = 1) +
-  scale_fill_manual(values = c("H0 = 4" = "gray30", "Actual = 3.5" = "darkgoldenrod", 
-                               "Actual = 4.5" = "darkgoldenrod")) +
-  scale_color_manual(values = c("H0 = 4" = "gray30", "Actual = 3.5" = "darkgoldenrod", 
-                                "Actual = 4.5" = "darkgoldenrod")) +
-  scale_x_continuous(breaks = c(3, 3.5, 4, 4.5, 5, crit_rating1, crit_rating2), labels = comma_format(.1)) +
+  geom_line(aes(x = rating, y = dens, color = grp)) +
+  geom_area(aes(x = rating, fill = grp, 
+                y = if_else(rating <= crit_rating_lwr & grp == H0_str, dens, NA_real_)), 
+            alpha = .2) +
+  geom_area(aes(x = rating, fill = grp, 
+                y = if_else(rating >= crit_rating_lwr & grp == act_str_lwr, dens, NA_real_)),
+            alpha = .2) +
+  geom_area(aes(x = rating, fill = grp, 
+                y = if_else(rating >= crit_rating_upr & grp == H0_str, dens, NA_real_)), 
+            alpha = .2) +
+  geom_area(aes(x = rating, fill = grp, 
+                y = if_else(rating <= crit_rating_upr & grp == act_str_upr, dens, NA_real_)),
+            alpha = .2) +
+  annotate("text", x = 3.8, y = .03, label = "beta", parse = TRUE, size = 4.5, 
+           color = pal[act_str_lwr]) +
+  annotate("text", x = 3.65, y = .03, label = "alpha", parse = TRUE, size = 4.5, 
+           color = pal[H0_str]) +
+  annotate("text", x = 4.2, y = .03, label = "beta", parse = TRUE, size = 4.5, 
+           color = pal[act_str_upr]) +
+  annotate("text", x = 4.35, y = .03, label = "alpha", parse = TRUE, size = 4.5, 
+           color = pal[H0_str]) +
+  geom_vline(xintercept = act_lwr, color = pal[act_str_lwr], linetype = 2, linewidth = 1) +
+  geom_vline(xintercept = H0, color = pal[H0], linetype = 2, linewidth = 1) +
+  geom_vline(xintercept = act_upr, color = pal[act_str_upr], linetype = 2, linewidth = 1) +
+  scale_fill_manual(values = pal) +
+  scale_color_manual(values = pal) +
+  scale_x_continuous(breaks = c(3, act_lwr, 4, 4.5, 5, crit_rating_lwr, crit_rating_upr), labels = comma_format(.1)) +
   coord_cartesian(xlim = c(3, 5)) +
   guides(fill = "none") +
   theme(axis.text.x = element_text(angle = 0, vjust = .5)) +
@@ -769,8 +831,8 @@ sampling_dist |>
     ), 80),
     subtitle = str_wrap(glue(
       "Effect size d = .5, 80% power, Sample size n = {comma(n)}. ",
-      "Average ratings between {comma(crit_rating1, .1)} and ",
-      "{comma(crit_rating2, .1)} reject H0 at alpha = .05."
+      "Average ratings between {comma(crit_rating_lwr, .1)} and ",
+      "{comma(crit_rating_upr, .1)} reject H0 at alpha = .05."
     ), 95)
   )
 ```
@@ -813,31 +875,40 @@ df <- n1 + n2 - 2
 #| echo: false
 #| warning: false
 
+H0_str <- "H0: d = 0"
+H0 <- 0
+act_str <- "Actual: D = 0.5"
+act <- 0.5
+pal <- c("gray30", "darkgoldenrod")
+names(pal) <- c(H0_str, act_str)
+
 sampling_dist <- 
   tibble(
-    grp = factor(c(rep("H0 = 0", 201), rep("Actual = 0.5", 201)), 
-                 levels = c("H0 = 0", "Actual = 0.5")),
+    grp = factor(c(rep(H0_str, 201), rep(act_str, 201)), 
+                 levels = c(H0_str, act_str)),
     rating_diff = rep(seq(-1, 1, .01), 2),
-    x = (rating_diff - if_else(grp == "H0 = 0", 0, 0.5)) / SE,
+    x = (rating_diff - if_else(grp == H0_str, H0, act)) / SE,
     dens = map_dbl(x, \(x) dt(x, df = df))
   )
 
 sampling_dist |>
   ggplot() +
-  geom_line(aes(x = rating_diff, y = dens, color = grp, fill = grp)) +
-  geom_area(aes(x = rating_diff, color = grp, fill = grp, 
-                y = if_else(rating_diff >= crit_diff & grp == "H0 = 0", dens, NA_real_)), 
+  geom_line(aes(x = rating_diff, y = dens, color = grp)) +
+  geom_area(aes(x = rating_diff, fill = grp, 
+                y = if_else(rating_diff >= crit_diff & grp == H0_str, dens, NA_real_)), 
             alpha = .2) +
-  geom_area(aes(x = rating_diff, color = grp, fill = grp, 
-                y = if_else(rating_diff <= crit_diff & grp == "Actual = 0.5", dens, NA_real_)),
+  geom_area(aes(x = rating_diff, fill = grp, 
+                y = if_else(rating_diff <= crit_diff & grp == act_str, dens, NA_real_)),
             alpha = .2) +
-  geom_text(aes(x = .25, y = .03, label = "beta"), parse = TRUE, size = 4.5, color = "darkgoldenrod4") +
-  geom_text(aes(x = .40, y = .03, label = "alpha"), parse = TRUE, size = 4.5, color = "gray40") +
-  geom_vline(xintercept = 0.0, color = "gray30", linetype = 2, linewidth = 1) +
-  geom_vline(xintercept = 0.5, color = "darkgoldenrod", linetype = 2, linewidth = 1) +
-  scale_fill_manual(values = c("H0 = 0" = "gray30", "Actual = 0.5" = "darkgoldenrod")) +
-  scale_color_manual(values = c("H0 = 0" = "gray30", "Actual = 0.5" = "darkgoldenrod")) +
-  scale_x_continuous(breaks = c(-1, -.5, 0, .5, 1, crit_diff), labels = comma_format(.1)) +
+  annotate("text", x = .25, y = .03, label = "beta", parse = TRUE, size = 4.5, 
+           color = pal[act_str]) +
+  annotate("text", x = .40, y = .03, label = "alpha", parse = TRUE, size = 4.5, 
+           color = pal[H0_str]) +
+  geom_vline(xintercept = H0, color = pal[H0_str], linetype = 2, linewidth = 1) +
+  geom_vline(xintercept = act, color = pal[act_str], linetype = 2, linewidth = 1) +
+  scale_fill_manual(values = pal) +
+  scale_color_manual(values = pal) +
+  scale_x_continuous(breaks = c(-1, -.5, H0, act, 1, crit_diff), labels = comma_format(.1)) +
   coord_cartesian(xlim = c(-1, 1)) +
   guides(fill = "none") +
   theme(axis.text.x = element_text(angle = 0, vjust = .5)) +
@@ -849,7 +920,7 @@ sampling_dist |>
     subtitle = str_wrap(glue(
       "Effect size d = .5, 80% power, Sample sizes n1 = {comma(n1)}, ",
       "n2 = {comma(n2)}. ",
-      "Diff in averages > {comma(crit_diff, .1)} reject H0 at alpha = .05."
+      "Diff in averages > {comma(crit_diff, .1)} reject {H0_str} at alpha = .05."
     ), 95)
   )
 ```
@@ -894,50 +965,56 @@ df <- n1 + n2 - 2
 #| echo: false
 #| warning: false
 
+H0_str <- "H0: d = 0"
+H0 <- 0
+act_str_lwr <- "Actual: D = -0.5"
+act_lwr <- -0.5
+act_str_upr <- "Actual: D = +0.5"
+act_upr <- 0.5
+pal <- c("darkgoldenrod", "gray30", "darkgoldenrod")
+names(pal) <- c(act_str_lwr, H0_str, act_str_upr)
+
 sampling_dist <- 
   tibble(
-    grp = factor(c(rep("Actual = -0.5", 201), rep("H0 = 0", 201), rep("Actual = +0.5", 201)), 
-                 levels = c("Actual = -0.5", "H0 = 0", "Actual = +0.5")),
+    grp = factor(c(rep(act_str_lwr, 201), rep(H0_str, 201), rep(act_str_upr, 201)), 
+                 levels = c(act_str_lwr, H0_str, act_str_upr)),
     rating_diff = rep(seq(-1, 1, .01), 3),
-    x = (rating_diff - case_when(grp == "H0 = 0" ~ 0, 
-                                 grp == "Actual = -0.5" ~ -0.5,
-                                 grp == "Actual = +0.5" ~ 0.5)) / SE,
+    x = (rating_diff - case_when(grp == H0_str ~ 0, 
+                                 grp == act_str_lwr ~ -0.5,
+                                 grp == act_str_upr ~ 0.5)) / SE,
     dens = map_dbl(x, \(x) dt(x, df = df))
   )
 
 sampling_dist |>
   ggplot() +
-  geom_line(aes(x = rating_diff, y = dens, color = grp, fill = grp)) +
-  geom_area(aes(x = rating_diff, color = grp, fill = grp, 
-                y = if_else(rating_diff <= crit_diff_l & grp == "H0 = 0", dens, NA_real_)), 
+  geom_line(aes(x = rating_diff, y = dens, color = grp)) +
+  geom_area(aes(x = rating_diff, fill = grp, 
+                y = if_else(rating_diff <= crit_diff_l & grp == H0_str, dens, NA_real_)), 
+            alpha = .2) +
+  geom_area(aes(x = rating_diff, fill = grp, 
+                y = if_else(rating_diff >= crit_diff_u & grp == H0_str, dens, NA_real_)), 
+            alpha = .2) +
+  geom_area(aes(x = rating_diff, fill = grp, 
+                y = if_else(rating_diff >= crit_diff_l & grp == act_str_lwr, dens, NA_real_)),
             alpha = .2) +
   geom_area(aes(x = rating_diff, color = grp, fill = grp, 
-                y = if_else(rating_diff >= crit_diff_u & grp == "H0 = 0", dens, NA_real_)), 
+                y = if_else(rating_diff <= crit_diff_u & grp == act_str_upr, dens, NA_real_)),
             alpha = .2) +
-  geom_area(aes(x = rating_diff, color = grp, fill = grp, 
-                y = if_else(rating_diff >= crit_diff_l & grp == "Actual = -0.5", dens, NA_real_)),
-            alpha = .2) +
-  geom_area(aes(x = rating_diff, color = grp, fill = grp, 
-                y = if_else(rating_diff <= crit_diff_u & grp == "Actual = +0.5", dens, NA_real_)),
-            alpha = .2) +
-  geom_text(aes(x = .25, y = .03, label = "beta"), 
-            parse = TRUE, size = 4.5, color = "darkgoldenrod4") +
-  geom_text(aes(x = .35, y = .03, label = "alpha"), 
-            parse = TRUE, size = 4.5, color = "gray40") +
-  geom_text(aes(x = -.25, y = .03, label = "beta"), 
-            parse = TRUE, size = 4.5, color = "darkgoldenrod4") +
-  geom_text(aes(x = -.35, y = .03, label = "alpha"), 
-            parse = TRUE, size = 4.5, color = "gray40") +
-  geom_vline(xintercept = 0.0, color = "gray30", linetype = 2, linewidth = 1) +
-  geom_vline(xintercept = -0.5, color = "darkgoldenrod", linetype = 2, linewidth = 1) +
-  geom_vline(xintercept = +0.5, color = "darkgoldenrod", linetype = 2, linewidth = 1) +
-  scale_fill_manual(values = c("H0 = 0" = "gray30", 
-                               "Actual = -0.5" = "darkgoldenrod", 
-                               "Actual = +0.5" = "darkgoldenrod")) +
-  scale_color_manual(values = c("H0 = 0" = "gray30", 
-                                "Actual = -0.5" = "darkgoldenrod",
-                                "Actual = +0.5" = "darkgoldenrod")) +
-  scale_x_continuous(breaks = c(-1, -.5, 0, .5, 1, crit_diff_l, crit_diff_u), labels = comma_format(.1)) +
+  annotate("text", x = .25, y = .03, label = "beta", parse = TRUE, size = 4.5, 
+           color = pal[act_str_lwr]) +
+  annotate("text", x = .35, y = .03, label = "alpha", parse = TRUE, size = 4.5, 
+           color = pal[H0_str]) +
+  annotate("text", x = -.25, y = .03, label = "beta", parse = TRUE, size = 4.5, 
+           color = pal[act_str_upr]) +
+  annotate("text", x = -.35, y = .03, label = "alpha", parse = TRUE, size = 4.5, 
+           color = pal[H0_str]) +
+  geom_vline(xintercept = act_lwr, color = pal[act_str_lwr], linetype = 2, linewidth = 1) +
+  geom_vline(xintercept = H0, color = pal[H0_str], linetype = 2, linewidth = 1) +
+  geom_vline(xintercept = act_upr, color = pal[act_str_upr], linetype = 2, linewidth = 1) +
+  scale_fill_manual(values = pal) +
+  scale_color_manual(values = pal) +
+  scale_x_continuous(breaks = c(-1, -.5, 0, .5, 1, crit_diff_l, crit_diff_u), 
+                     labels = comma_format(.1)) +
   coord_cartesian(xlim = c(-1, 1)) +
   guides(fill = "none") +
   theme(axis.text.x = element_text(angle = 0, vjust = .5)) +
