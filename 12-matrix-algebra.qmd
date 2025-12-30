@@ -279,16 +279,16 @@ dat %>%
   stat_ellipse(type = "norm") +
   geom_segment(aes(x = mu_X, y = 0, xend = mu_X, yend = mu_Y), linetype = 2) +
   geom_segment(aes(x = 0, y = mu_Y, xend = mu_X, yend = mu_Y), linetype = 2) +
-  annotate("text", x = 0, y = mu_Y*1.1, label = expression(paste(mu[Y])), parse = TRUE, hjust = 0) +
-  annotate("text", x = mu_X*1.05, y = 0, label = expression(paste(mu[X])), parse = TRUE, hjust = 0) +
+  # annotate("text", x = 0, y = mu_Y*1.1, label = expression(paste(mu[Y])), parse = TRUE, hjust = 0) +
+  # annotate("text", x = mu_X*1.05, y = 0, label = expression(paste(mu[X])), parse = TRUE, hjust = 0) +
   geom_segment(x = mu_X, y = mu_Y, xend = 8.5, yend = 16, 
                arrow = arrow(length = unit(0.03, "npc")), color = "goldenrod") +
   geom_segment(x = mu_X, y = mu_Y, xend = 22.5, yend = 24.5, 
                arrow = arrow(length = unit(0.03, "npc")), color = "goldenrod") +
-  annotate("text", x = 8, y = 14.5, label = expression(paste(lambda[Y])), 
-           parse = TRUE, hjust = 0, color = "darkgoldenrod") +
-  annotate("text", x = 20, y = 23.5, label = expression(paste(lambda[X])), 
-           parse = TRUE, hjust = 0, color = "darkgoldenrod") +
+  # annotate("text", x = 8, y = 14.5, label = expression(paste(lambda[Y])), 
+  #          parse = TRUE, hjust = 0, color = "darkgoldenrod") +
+  # annotate("text", x = 20, y = 23.5, label = expression(paste(lambda[X])), 
+  #          parse = TRUE, hjust = 0, color = "darkgoldenrod") +
   tune::coord_obs_pred()
 ```
 
