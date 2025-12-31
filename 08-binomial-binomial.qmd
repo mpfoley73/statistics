@@ -143,23 +143,7 @@ gtsummary::tbl_merge(
   gt::tab_options(heading.align = "left")
 ```
 
-### Conditions
-
-The *Z*-test applies with the CLT conditions hold.
-
-* the sample is independently drawn so the outcome of one observation does not influence another within the same group,
-* both samples are randomly drawn from their respective populations so the results can be generalized,
-* there are at least 5 successes (Normal) and failures (High) for each group $i$ so the normal approximation holds,
-* each group has a fixed number of trials or observations,
-* the population variances of the two groups are equal (typically true when sample sizes are large),
-* the sample sizes for both groups are >=30, and 
-* the probability of success for each group is not extreme, $0.2 < \pi_i < 0.8$.
-
-The conditions hold for the *Z*-test data set, but not for the Fisher data set.
-
-### Test
-
-#### Z-Test {-}
+### Z-Test {-}
 
 There is no R function that performs a two-sample *Z*-test. Let's do it manually.
 
@@ -181,7 +165,7 @@ se <- sqrt(p_pool * (1 - p_pool) * (1 / n_drug + 1 / n_lifestyle))
 
 > `r nrow(z_dat)` patients with a high cholesterol classification were randomly assigned to either a drug or lifestyle intervention, `r n_drug` in each intervention. The test of two proportions used was the two sample *Z*-test. At the conclusion of the drug intervention, `r sum(dat_drug$risk_level == "Normal")` patients (`r percent(p_drug, 1)`) had improved their cholesterol classification from high to normal compared to `r sum(dat_lifestyle$risk_level == "Normal")` patients (`r percent(p_lifestyle, 1)`) in the lifestyle intervention, a difference in proportions of `r comma(p_drug - p_lifestyle, .01)`, *p* = `r comma(p_value, .0001)`.
 
-#### Chi-Square Test of Homogeneity {-}
+### Chi-Square {-}
 
 The chi-square test achieves an identical result. The X-squared value is double the *Z* statistic and the *p* values are identical.
 
@@ -193,7 +177,7 @@ The chi-square test achieves an identical result. The X-squared value is double 
 
 > `r nrow(z_dat)` patients with a high cholesterol classification were randomly assigned to either a drug or lifestyle intervention, `r n_drug` in each intervention. The test of two proportions used was the chi-square test of homogeneity. At the conclusion of the drug intervention, `r sum(dat_drug$risk_level == "Normal")` patients (`r percent(p_drug, 1)`) had improved their cholesterol classification from high to normal compared to `r sum(dat_lifestyle$risk_level == "Normal")` patients (`r percent(p_lifestyle, 1)`) in the lifestyle intervention, a difference in proportions of `r comma(p_drug - p_lifestyle, .01)`, *p* = `r comma(chisq_test$p.value, .0001)`.
 
-#### Fisher's Exact Test {-}
+### Fisher's Exact {-}
 
 Use the Fisher exact test from the *janitor* package.
 

@@ -324,13 +324,9 @@ window.Quarto = {
   <li><a href="#sec-08-fet" id="toc-sec-08-fet" class="nav-link" data-scroll-target="#sec-08-fet"><span class="header-section-number">8.3</span> Fisher’s Exact Test</a></li>
   <li><a href="#case-study" id="toc-case-study" class="nav-link" data-scroll-target="#case-study"><span class="header-section-number">8.4</span> Case Study</a>
   <ul>
-  <li><a href="#conditions" id="toc-conditions" class="nav-link" data-scroll-target="#conditions"><span class="header-section-number">8.4.1</span> Conditions</a></li>
-  <li><a href="#test" id="toc-test" class="nav-link" data-scroll-target="#test"><span class="header-section-number">8.4.2</span> Test</a>
-  <ul class="collapse">
   <li><a href="#z-test" id="toc-z-test" class="nav-link" data-scroll-target="#z-test">Z-Test</a></li>
-  <li><a href="#chi-square-test-of-homogeneity" id="toc-chi-square-test-of-homogeneity" class="nav-link" data-scroll-target="#chi-square-test-of-homogeneity">Chi-Square Test of Homogeneity</a></li>
-  <li><a href="#fishers-exact-test" id="toc-fishers-exact-test" class="nav-link" data-scroll-target="#fishers-exact-test">Fisher’s Exact Test</a></li>
-  </ul></li>
+  <li><a href="#chi-square" id="toc-chi-square" class="nav-link" data-scroll-target="#chi-square">Chi-Square</a></li>
+  <li><a href="#fishers-exact" id="toc-fishers-exact" class="nav-link" data-scroll-target="#fishers-exact">Fisher’s Exact</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -484,23 +480,23 @@ Note
 <span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">tab_options</span>(<span class="at">heading.align =</span> <span class="st">"left"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="lgaxfjosna" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#lgaxfjosna table {
+<div id="dywyetgani" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#dywyetgani table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#lgaxfjosna thead, #lgaxfjosna tbody, #lgaxfjosna tfoot, #lgaxfjosna tr, #lgaxfjosna td, #lgaxfjosna th {
+#dywyetgani thead, #dywyetgani tbody, #dywyetgani tfoot, #dywyetgani tr, #dywyetgani td, #dywyetgani th {
   border-style: none;
 }
 
-#lgaxfjosna p {
+#dywyetgani p {
   margin: 0;
   padding: 0;
 }
 
-#lgaxfjosna .gt_table {
+#dywyetgani .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -526,12 +522,12 @@ Note
   border-left-color: #D3D3D3;
 }
 
-#lgaxfjosna .gt_caption {
+#dywyetgani .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#lgaxfjosna .gt_title {
+#dywyetgani .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -543,7 +539,7 @@ Note
   border-bottom-width: 0;
 }
 
-#lgaxfjosna .gt_subtitle {
+#dywyetgani .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -555,7 +551,7 @@ Note
   border-top-width: 0;
 }
 
-#lgaxfjosna .gt_heading {
+#dywyetgani .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -567,13 +563,13 @@ Note
   border-right-color: #D3D3D3;
 }
 
-#lgaxfjosna .gt_bottom_border {
+#dywyetgani .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#lgaxfjosna .gt_col_headings {
+#dywyetgani .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -588,7 +584,7 @@ Note
   border-right-color: #D3D3D3;
 }
 
-#lgaxfjosna .gt_col_heading {
+#dywyetgani .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -608,7 +604,7 @@ Note
   overflow-x: hidden;
 }
 
-#lgaxfjosna .gt_column_spanner_outer {
+#dywyetgani .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -620,15 +616,15 @@ Note
   padding-right: 4px;
 }
 
-#lgaxfjosna .gt_column_spanner_outer:first-child {
+#dywyetgani .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#lgaxfjosna .gt_column_spanner_outer:last-child {
+#dywyetgani .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#lgaxfjosna .gt_column_spanner {
+#dywyetgani .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -640,11 +636,11 @@ Note
   width: 100%;
 }
 
-#lgaxfjosna .gt_spanner_row {
+#dywyetgani .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#lgaxfjosna .gt_group_heading {
+#dywyetgani .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -670,7 +666,7 @@ Note
   text-align: left;
 }
 
-#lgaxfjosna .gt_empty_group_heading {
+#dywyetgani .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -685,15 +681,15 @@ Note
   vertical-align: middle;
 }
 
-#lgaxfjosna .gt_from_md > :first-child {
+#dywyetgani .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#lgaxfjosna .gt_from_md > :last-child {
+#dywyetgani .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#lgaxfjosna .gt_row {
+#dywyetgani .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -712,7 +708,7 @@ Note
   overflow-x: hidden;
 }
 
-#lgaxfjosna .gt_stub {
+#dywyetgani .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -725,7 +721,7 @@ Note
   padding-right: 5px;
 }
 
-#lgaxfjosna .gt_stub_row_group {
+#dywyetgani .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -739,15 +735,15 @@ Note
   vertical-align: top;
 }
 
-#lgaxfjosna .gt_row_group_first td {
+#dywyetgani .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#lgaxfjosna .gt_row_group_first th {
+#dywyetgani .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#lgaxfjosna .gt_summary_row {
+#dywyetgani .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -757,16 +753,16 @@ Note
   padding-right: 5px;
 }
 
-#lgaxfjosna .gt_first_summary_row {
+#dywyetgani .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#lgaxfjosna .gt_first_summary_row.thick {
+#dywyetgani .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#lgaxfjosna .gt_last_summary_row {
+#dywyetgani .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -776,7 +772,7 @@ Note
   border-bottom-color: #D3D3D3;
 }
 
-#lgaxfjosna .gt_grand_summary_row {
+#dywyetgani .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -786,7 +782,7 @@ Note
   padding-right: 5px;
 }
 
-#lgaxfjosna .gt_first_grand_summary_row {
+#dywyetgani .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -796,7 +792,7 @@ Note
   border-top-color: #D3D3D3;
 }
 
-#lgaxfjosna .gt_last_grand_summary_row_top {
+#dywyetgani .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -806,11 +802,11 @@ Note
   border-bottom-color: #D3D3D3;
 }
 
-#lgaxfjosna .gt_striped {
+#dywyetgani .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#lgaxfjosna .gt_table_body {
+#dywyetgani .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -819,7 +815,7 @@ Note
   border-bottom-color: #D3D3D3;
 }
 
-#lgaxfjosna .gt_footnotes {
+#dywyetgani .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -833,7 +829,7 @@ Note
   border-right-color: #D3D3D3;
 }
 
-#lgaxfjosna .gt_footnote {
+#dywyetgani .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -842,7 +838,7 @@ Note
   padding-right: 5px;
 }
 
-#lgaxfjosna .gt_sourcenotes {
+#dywyetgani .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -856,7 +852,7 @@ Note
   border-right-color: #D3D3D3;
 }
 
-#lgaxfjosna .gt_sourcenote {
+#dywyetgani .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -864,72 +860,72 @@ Note
   padding-right: 5px;
 }
 
-#lgaxfjosna .gt_left {
+#dywyetgani .gt_left {
   text-align: left;
 }
 
-#lgaxfjosna .gt_center {
+#dywyetgani .gt_center {
   text-align: center;
 }
 
-#lgaxfjosna .gt_right {
+#dywyetgani .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#lgaxfjosna .gt_font_normal {
+#dywyetgani .gt_font_normal {
   font-weight: normal;
 }
 
-#lgaxfjosna .gt_font_bold {
+#dywyetgani .gt_font_bold {
   font-weight: bold;
 }
 
-#lgaxfjosna .gt_font_italic {
+#dywyetgani .gt_font_italic {
   font-style: italic;
 }
 
-#lgaxfjosna .gt_super {
+#dywyetgani .gt_super {
   font-size: 65%;
 }
 
-#lgaxfjosna .gt_footnote_marks {
+#dywyetgani .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#lgaxfjosna .gt_asterisk {
+#dywyetgani .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#lgaxfjosna .gt_indent_1 {
+#dywyetgani .gt_indent_1 {
   text-indent: 5px;
 }
 
-#lgaxfjosna .gt_indent_2 {
+#dywyetgani .gt_indent_2 {
   text-indent: 10px;
 }
 
-#lgaxfjosna .gt_indent_3 {
+#dywyetgani .gt_indent_3 {
   text-indent: 15px;
 }
 
-#lgaxfjosna .gt_indent_4 {
+#dywyetgani .gt_indent_4 {
   text-indent: 20px;
 }
 
-#lgaxfjosna .gt_indent_5 {
+#dywyetgani .gt_indent_5 {
   text-indent: 25px;
 }
 
-#lgaxfjosna .katex-display {
+#dywyetgani .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#lgaxfjosna div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#dywyetgani div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1015,24 +1011,8 @@ Smaller Sample
 </div>
 </div>
 </div>
-<section id="conditions" class="level3" data-number="8.4.1">
-<h3 data-number="8.4.1" class="anchored" data-anchor-id="conditions"><span class="header-section-number">8.4.1</span> Conditions</h3>
-<p>The <em>Z</em>-test applies with the CLT conditions hold.</p>
-<ul>
-<li>the sample is independently drawn so the outcome of one observation does not influence another within the same group,</li>
-<li>both samples are randomly drawn from their respective populations so the results can be generalized,</li>
-<li>there are at least 5 successes (Normal) and failures (High) for each group <span class="math inline">\(i\)</span> so the normal approximation holds,</li>
-<li>each group has a fixed number of trials or observations,</li>
-<li>the population variances of the two groups are equal (typically true when sample sizes are large),</li>
-<li>the sample sizes for both groups are &gt;=30, and</li>
-<li>the probability of success for each group is not extreme, <span class="math inline">\(0.2 &lt; \pi_i &lt; 0.8\)</span>.</li>
-</ul>
-<p>The conditions hold for the <em>Z</em>-test data set, but not for the Fisher data set.</p>
-</section>
-<section id="test" class="level3" data-number="8.4.2">
-<h3 data-number="8.4.2" class="anchored" data-anchor-id="test"><span class="header-section-number">8.4.2</span> Test</h3>
-<section id="z-test" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="z-test">Z-Test</h4>
+<section id="z-test" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="z-test">Z-Test</h3>
 <p>There is no R function that performs a two-sample <em>Z</em>-test. Let’s do it manually.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dat_drug <span class="ot">&lt;-</span> z_dat <span class="sc">|&gt;</span> <span class="fu">filter</span>(intervention <span class="sc">==</span> <span class="st">"Drug"</span>)</span>
@@ -1055,8 +1035,8 @@ Smaller Sample
 <p>100 patients with a high cholesterol classification were randomly assigned to either a drug or lifestyle intervention, 50 in each intervention. The test of two proportions used was the two sample <em>Z</em>-test. At the conclusion of the drug intervention, 32 patients (64%) had improved their cholesterol classification from high to normal compared to 17 patients (34%) in the lifestyle intervention, a difference in proportions of 0.30, <em>p</em> = 0.0027.</p>
 </blockquote>
 </section>
-<section id="chi-square-test-of-homogeneity" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="chi-square-test-of-homogeneity">Chi-Square Test of Homogeneity</h4>
+<section id="chi-square" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="chi-square">Chi-Square</h3>
 <p>The chi-square test achieves an identical result. The X-squared value is double the <em>Z</em> statistic and the <em>p</em> values are identical.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>(chisq_test <span class="ot">&lt;-</span> z_dat <span class="sc">%&gt;%</span></span>
@@ -1074,8 +1054,8 @@ X-squared = 9.0036, df = 1, p-value = 0.002694</code></pre>
 <p>100 patients with a high cholesterol classification were randomly assigned to either a drug or lifestyle intervention, 50 in each intervention. The test of two proportions used was the chi-square test of homogeneity. At the conclusion of the drug intervention, 32 patients (64%) had improved their cholesterol classification from high to normal compared to 17 patients (34%) in the lifestyle intervention, a difference in proportions of 0.30, <em>p</em> = 0.0027.</p>
 </blockquote>
 </section>
-<section id="fishers-exact-test" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="fishers-exact-test">Fisher’s Exact Test</h4>
+<section id="fishers-exact" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="fishers-exact">Fisher’s Exact</h3>
 <p>Use the Fisher exact test from the <em>janitor</em> package.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>(fisher_test <span class="ot">&lt;-</span> fisher_dat <span class="sc">%&gt;%</span></span>
@@ -1102,7 +1082,6 @@ odds ratio
 
 <!-- -->
 
-</section>
 </section>
 </section>
 
@@ -1732,75 +1711,59 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb9-147"><a href="#cb9-147" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">tab_options</span>(<span class="at">heading.align =</span> <span class="st">"left"</span>)</span>
 <span id="cb9-148"><a href="#cb9-148" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb9-149"><a href="#cb9-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-150"><a href="#cb9-150" aria-hidden="true" tabindex="-1"></a><span class="fu">### Conditions</span></span>
+<span id="cb9-150"><a href="#cb9-150" aria-hidden="true" tabindex="-1"></a><span class="fu">### Z-Test {-}</span></span>
 <span id="cb9-151"><a href="#cb9-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-152"><a href="#cb9-152" aria-hidden="true" tabindex="-1"></a>The *Z*-test applies with the CLT conditions hold.</span>
+<span id="cb9-152"><a href="#cb9-152" aria-hidden="true" tabindex="-1"></a>There is no R function that performs a two-sample *Z*-test. Let's do it manually.</span>
 <span id="cb9-153"><a href="#cb9-153" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-154"><a href="#cb9-154" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>the sample is independently drawn so the outcome of one observation does not influence another within the same group,</span>
-<span id="cb9-155"><a href="#cb9-155" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>both samples are randomly drawn from their respective populations so the results can be generalized,</span>
-<span id="cb9-156"><a href="#cb9-156" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>there are at least 5 successes (Normal) and failures (High) for each group $i$ so the normal approximation holds,</span>
-<span id="cb9-157"><a href="#cb9-157" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>each group has a fixed number of trials or observations,</span>
-<span id="cb9-158"><a href="#cb9-158" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>the population variances of the two groups are equal (typically true when sample sizes are large),</span>
-<span id="cb9-159"><a href="#cb9-159" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>the sample sizes for both groups are &gt;=30, and </span>
-<span id="cb9-160"><a href="#cb9-160" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>the probability of success for each group is not extreme, $0.2 &lt; \pi_i &lt; 0.8$.</span>
-<span id="cb9-161"><a href="#cb9-161" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-162"><a href="#cb9-162" aria-hidden="true" tabindex="-1"></a>The conditions hold for the *Z*-test data set, but not for the Fisher data set.</span>
-<span id="cb9-163"><a href="#cb9-163" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-164"><a href="#cb9-164" aria-hidden="true" tabindex="-1"></a><span class="fu">### Test</span></span>
-<span id="cb9-165"><a href="#cb9-165" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-166"><a href="#cb9-166" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Z-Test {-}</span></span>
-<span id="cb9-167"><a href="#cb9-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-168"><a href="#cb9-168" aria-hidden="true" tabindex="-1"></a>There is no R function that performs a two-sample *Z*-test. Let's do it manually.</span>
+<span id="cb9-154"><a href="#cb9-154" aria-hidden="true" tabindex="-1"></a><span class="in">```{r collapse=TRUE}</span></span>
+<span id="cb9-155"><a href="#cb9-155" aria-hidden="true" tabindex="-1"></a><span class="in">dat_drug &lt;- z_dat |&gt; filter(intervention == "Drug")</span></span>
+<span id="cb9-156"><a href="#cb9-156" aria-hidden="true" tabindex="-1"></a><span class="in">dat_lifestyle &lt;- z_dat |&gt; filter(intervention == "Lifestyle")</span></span>
+<span id="cb9-157"><a href="#cb9-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-158"><a href="#cb9-158" aria-hidden="true" tabindex="-1"></a><span class="in">n_drug &lt;- nrow(dat_drug)</span></span>
+<span id="cb9-159"><a href="#cb9-159" aria-hidden="true" tabindex="-1"></a><span class="in">n_lifestyle &lt;- nrow(dat_lifestyle)</span></span>
+<span id="cb9-160"><a href="#cb9-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-161"><a href="#cb9-161" aria-hidden="true" tabindex="-1"></a><span class="in">p_drug &lt;- mean(dat_drug$risk_level == "Normal")</span></span>
+<span id="cb9-162"><a href="#cb9-162" aria-hidden="true" tabindex="-1"></a><span class="in">p_lifestyle &lt;- mean(dat_lifestyle$risk_level == "Normal")</span></span>
+<span id="cb9-163"><a href="#cb9-163" aria-hidden="true" tabindex="-1"></a><span class="in">p_pool &lt;- mean(z_dat$risk_level == "Normal")</span></span>
+<span id="cb9-164"><a href="#cb9-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-165"><a href="#cb9-165" aria-hidden="true" tabindex="-1"></a><span class="in">se &lt;- sqrt(p_pool * (1 - p_pool) * (1 / n_drug + 1 / n_lifestyle))</span></span>
+<span id="cb9-166"><a href="#cb9-166" aria-hidden="true" tabindex="-1"></a><span class="in">(z &lt;- (p_drug - p_lifestyle) / se)</span></span>
+<span id="cb9-167"><a href="#cb9-167" aria-hidden="true" tabindex="-1"></a><span class="in">(p_value &lt;- pnorm(z, lower.tail = FALSE) * 2) # mult by 2 for two-sided test.</span></span>
+<span id="cb9-168"><a href="#cb9-168" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb9-169"><a href="#cb9-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-170"><a href="#cb9-170" aria-hidden="true" tabindex="-1"></a><span class="in">```{r collapse=TRUE}</span></span>
-<span id="cb9-171"><a href="#cb9-171" aria-hidden="true" tabindex="-1"></a><span class="in">dat_drug &lt;- z_dat |&gt; filter(intervention == "Drug")</span></span>
-<span id="cb9-172"><a href="#cb9-172" aria-hidden="true" tabindex="-1"></a><span class="in">dat_lifestyle &lt;- z_dat |&gt; filter(intervention == "Lifestyle")</span></span>
+<span id="cb9-170"><a href="#cb9-170" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; </span><span class="in">`r nrow(z_dat)`</span><span class="at"> patients with a high cholesterol classification were randomly assigned to either a drug or lifestyle intervention, </span><span class="in">`r n_drug`</span><span class="at"> in each intervention. The test of two proportions used was the two sample *Z*-test. At the conclusion of the drug intervention, `r sum(dat_drug$risk_level == "Normal")` patients (`r percent(p_drug, 1)`) had improved their cholesterol classification from high to normal compared to `r sum(dat_lifestyle$risk_level == "Normal")` patients (`r percent(p_lifestyle, 1)`) in the lifestyle intervention, a difference in proportions of `r comma(p_drug - p_lifestyle, .01)`, *p* = </span><span class="in">`r comma(p_value, .0001)`</span><span class="at">.</span></span>
+<span id="cb9-171"><a href="#cb9-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-172"><a href="#cb9-172" aria-hidden="true" tabindex="-1"></a><span class="fu">### Chi-Square {-}</span></span>
 <span id="cb9-173"><a href="#cb9-173" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-174"><a href="#cb9-174" aria-hidden="true" tabindex="-1"></a><span class="in">n_drug &lt;- nrow(dat_drug)</span></span>
-<span id="cb9-175"><a href="#cb9-175" aria-hidden="true" tabindex="-1"></a><span class="in">n_lifestyle &lt;- nrow(dat_lifestyle)</span></span>
-<span id="cb9-176"><a href="#cb9-176" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-177"><a href="#cb9-177" aria-hidden="true" tabindex="-1"></a><span class="in">p_drug &lt;- mean(dat_drug$risk_level == "Normal")</span></span>
-<span id="cb9-178"><a href="#cb9-178" aria-hidden="true" tabindex="-1"></a><span class="in">p_lifestyle &lt;- mean(dat_lifestyle$risk_level == "Normal")</span></span>
-<span id="cb9-179"><a href="#cb9-179" aria-hidden="true" tabindex="-1"></a><span class="in">p_pool &lt;- mean(z_dat$risk_level == "Normal")</span></span>
-<span id="cb9-180"><a href="#cb9-180" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-181"><a href="#cb9-181" aria-hidden="true" tabindex="-1"></a><span class="in">se &lt;- sqrt(p_pool * (1 - p_pool) * (1 / n_drug + 1 / n_lifestyle))</span></span>
-<span id="cb9-182"><a href="#cb9-182" aria-hidden="true" tabindex="-1"></a><span class="in">(z &lt;- (p_drug - p_lifestyle) / se)</span></span>
-<span id="cb9-183"><a href="#cb9-183" aria-hidden="true" tabindex="-1"></a><span class="in">(p_value &lt;- pnorm(z, lower.tail = FALSE) * 2) # mult by 2 for two-sided test.</span></span>
-<span id="cb9-184"><a href="#cb9-184" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-174"><a href="#cb9-174" aria-hidden="true" tabindex="-1"></a>The chi-square test achieves an identical result. The X-squared value is double the *Z* statistic and the *p* values are identical.</span>
+<span id="cb9-175"><a href="#cb9-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-178"><a href="#cb9-178" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-179"><a href="#cb9-179" aria-hidden="true" tabindex="-1"></a>(chisq_test <span class="ot">&lt;-</span> z_dat <span class="sc">%&gt;%</span></span>
+<span id="cb9-180"><a href="#cb9-180" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabyl</span>(intervention, risk_level) <span class="sc">%&gt;%</span></span>
+<span id="cb9-181"><a href="#cb9-181" aria-hidden="true" tabindex="-1"></a>  <span class="fu">chisq.test</span>(<span class="at">correct =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb9-182"><a href="#cb9-182" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-183"><a href="#cb9-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-184"><a href="#cb9-184" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; </span><span class="in">`r nrow(z_dat)`</span><span class="at"> patients with a high cholesterol classification were randomly assigned to either a drug or lifestyle intervention, </span><span class="in">`r n_drug`</span><span class="at"> in each intervention. The test of two proportions used was the chi-square test of homogeneity. At the conclusion of the drug intervention, </span><span class="in">`r sum(dat_drug$risk_level == "Normal")`</span><span class="at"> patients (</span><span class="in">`r percent(p_drug, 1)`</span><span class="at">) had improved their cholesterol classification from high to normal compared to </span><span class="in">`r sum(dat_lifestyle$risk_level == "Normal")`</span><span class="at"> patients (</span><span class="in">`r percent(p_lifestyle, 1)`</span><span class="at">) in the lifestyle intervention, a difference in proportions of </span><span class="in">`r comma(p_drug - p_lifestyle, .01)`</span><span class="at">, *p* = </span><span class="in">`r comma(chisq_test$p.value, .0001)`</span><span class="at">.</span></span>
 <span id="cb9-185"><a href="#cb9-185" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-186"><a href="#cb9-186" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; </span><span class="in">`r nrow(z_dat)`</span><span class="at"> patients with a high cholesterol classification were randomly assigned to either a drug or lifestyle intervention, </span><span class="in">`r n_drug`</span><span class="at"> in each intervention. The test of two proportions used was the two sample *Z*-test. At the conclusion of the drug intervention, `r sum(dat_drug$risk_level == "Normal")` patients (`r percent(p_drug, 1)`) had improved their cholesterol classification from high to normal compared to `r sum(dat_lifestyle$risk_level == "Normal")` patients (`r percent(p_lifestyle, 1)`) in the lifestyle intervention, a difference in proportions of `r comma(p_drug - p_lifestyle, .01)`, *p* = </span><span class="in">`r comma(p_value, .0001)`</span><span class="at">.</span></span>
+<span id="cb9-186"><a href="#cb9-186" aria-hidden="true" tabindex="-1"></a><span class="fu">### Fisher's Exact {-}</span></span>
 <span id="cb9-187"><a href="#cb9-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-188"><a href="#cb9-188" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Chi-Square Test of Homogeneity {-}</span></span>
+<span id="cb9-188"><a href="#cb9-188" aria-hidden="true" tabindex="-1"></a>Use the Fisher exact test from the *janitor* package.</span>
 <span id="cb9-189"><a href="#cb9-189" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-190"><a href="#cb9-190" aria-hidden="true" tabindex="-1"></a>The chi-square test achieves an identical result. The X-squared value is double the *Z* statistic and the *p* values are identical.</span>
-<span id="cb9-191"><a href="#cb9-191" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-194"><a href="#cb9-194" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb9-195"><a href="#cb9-195" aria-hidden="true" tabindex="-1"></a>(chisq_test <span class="ot">&lt;-</span> z_dat <span class="sc">%&gt;%</span></span>
-<span id="cb9-196"><a href="#cb9-196" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabyl</span>(intervention, risk_level) <span class="sc">%&gt;%</span></span>
-<span id="cb9-197"><a href="#cb9-197" aria-hidden="true" tabindex="-1"></a>  <span class="fu">chisq.test</span>(<span class="at">correct =</span> <span class="cn">FALSE</span>))</span>
-<span id="cb9-198"><a href="#cb9-198" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-199"><a href="#cb9-199" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-200"><a href="#cb9-200" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; </span><span class="in">`r nrow(z_dat)`</span><span class="at"> patients with a high cholesterol classification were randomly assigned to either a drug or lifestyle intervention, </span><span class="in">`r n_drug`</span><span class="at"> in each intervention. The test of two proportions used was the chi-square test of homogeneity. At the conclusion of the drug intervention, </span><span class="in">`r sum(dat_drug$risk_level == "Normal")`</span><span class="at"> patients (</span><span class="in">`r percent(p_drug, 1)`</span><span class="at">) had improved their cholesterol classification from high to normal compared to </span><span class="in">`r sum(dat_lifestyle$risk_level == "Normal")`</span><span class="at"> patients (</span><span class="in">`r percent(p_lifestyle, 1)`</span><span class="at">) in the lifestyle intervention, a difference in proportions of </span><span class="in">`r comma(p_drug - p_lifestyle, .01)`</span><span class="at">, *p* = </span><span class="in">`r comma(chisq_test$p.value, .0001)`</span><span class="at">.</span></span>
+<span id="cb9-192"><a href="#cb9-192" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-193"><a href="#cb9-193" aria-hidden="true" tabindex="-1"></a>(fisher_test <span class="ot">&lt;-</span> fisher_dat <span class="sc">%&gt;%</span></span>
+<span id="cb9-194"><a href="#cb9-194" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabyl</span>(intervention, risk_level) <span class="sc">%&gt;%</span></span>
+<span id="cb9-195"><a href="#cb9-195" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fisher.test</span>())</span>
+<span id="cb9-196"><a href="#cb9-196" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-197"><a href="#cb9-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-198"><a href="#cb9-198" aria-hidden="true" tabindex="-1"></a><span class="in">```{r include=FALSE}</span></span>
+<span id="cb9-199"><a href="#cb9-199" aria-hidden="true" tabindex="-1"></a><span class="in">fisher_drug &lt;- fisher_dat |&gt; filter(intervention == "Drug")</span></span>
+<span id="cb9-200"><a href="#cb9-200" aria-hidden="true" tabindex="-1"></a><span class="in">fisher_lifestyle &lt;- fisher_dat |&gt; filter(intervention == "Lifestyle")</span></span>
 <span id="cb9-201"><a href="#cb9-201" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-202"><a href="#cb9-202" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Fisher's Exact Test {-}</span></span>
-<span id="cb9-203"><a href="#cb9-203" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-204"><a href="#cb9-204" aria-hidden="true" tabindex="-1"></a>Use the Fisher exact test from the *janitor* package.</span>
+<span id="cb9-202"><a href="#cb9-202" aria-hidden="true" tabindex="-1"></a><span class="in">p_fisher_drug &lt;- mean(fisher_drug$risk_level == "Normal")</span></span>
+<span id="cb9-203"><a href="#cb9-203" aria-hidden="true" tabindex="-1"></a><span class="in">p_fisher_lifestyle &lt;- mean(fisher_lifestyle$risk_level == "Normal")</span></span>
+<span id="cb9-204"><a href="#cb9-204" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb9-205"><a href="#cb9-205" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-208"><a href="#cb9-208" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb9-209"><a href="#cb9-209" aria-hidden="true" tabindex="-1"></a>(fisher_test <span class="ot">&lt;-</span> fisher_dat <span class="sc">%&gt;%</span></span>
-<span id="cb9-210"><a href="#cb9-210" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabyl</span>(intervention, risk_level) <span class="sc">%&gt;%</span></span>
-<span id="cb9-211"><a href="#cb9-211" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fisher.test</span>())</span>
-<span id="cb9-212"><a href="#cb9-212" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-213"><a href="#cb9-213" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-214"><a href="#cb9-214" aria-hidden="true" tabindex="-1"></a><span class="in">```{r include=FALSE}</span></span>
-<span id="cb9-215"><a href="#cb9-215" aria-hidden="true" tabindex="-1"></a><span class="in">fisher_drug &lt;- fisher_dat |&gt; filter(intervention == "Drug")</span></span>
-<span id="cb9-216"><a href="#cb9-216" aria-hidden="true" tabindex="-1"></a><span class="in">fisher_lifestyle &lt;- fisher_dat |&gt; filter(intervention == "Lifestyle")</span></span>
-<span id="cb9-217"><a href="#cb9-217" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-218"><a href="#cb9-218" aria-hidden="true" tabindex="-1"></a><span class="in">p_fisher_drug &lt;- mean(fisher_drug$risk_level == "Normal")</span></span>
-<span id="cb9-219"><a href="#cb9-219" aria-hidden="true" tabindex="-1"></a><span class="in">p_fisher_lifestyle &lt;- mean(fisher_lifestyle$risk_level == "Normal")</span></span>
-<span id="cb9-220"><a href="#cb9-220" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-221"><a href="#cb9-221" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-222"><a href="#cb9-222" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; </span><span class="in">`r nrow(fisher_dat)`</span><span class="at"> patients with a high cholesterol classification were randomly assigned to either a drug or lifestyle intervention, </span><span class="in">`r nrow(fisher_drug)`</span><span class="at"> in each intervention. At the conclusion of the drug intervention, </span><span class="in">`r sum(fisher_drug == "Normal")`</span><span class="at"> patients (</span><span class="in">`r percent(mean(fisher_drug$risk_level == "Normal"), 1)`</span><span class="at">) had improved their cholesterol classification from high to normal compared to </span><span class="in">`r sum(fisher_lifestyle$risk_level == "Normal")`</span><span class="at"> patients (</span><span class="in">`r percent(mean(fisher_lifestyle$risk_level == "Normal"), 1)`</span><span class="at">) in the lifestyle intervention. Due to small sample sizes, Fisher's exact test was run. There was a non-statistically significant difference in proportions of </span><span class="in">`r comma(p_fisher_drug - p_fisher_lifestyle, .01)`</span><span class="at">, *p* = </span><span class="in">`r number(fisher_test$p.value, .0001)`</span><span class="at">.</span></span>
+<span id="cb9-206"><a href="#cb9-206" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; </span><span class="in">`r nrow(fisher_dat)`</span><span class="at"> patients with a high cholesterol classification were randomly assigned to either a drug or lifestyle intervention, </span><span class="in">`r nrow(fisher_drug)`</span><span class="at"> in each intervention. At the conclusion of the drug intervention, </span><span class="in">`r sum(fisher_drug == "Normal")`</span><span class="at"> patients (</span><span class="in">`r percent(mean(fisher_drug$risk_level == "Normal"), 1)`</span><span class="at">) had improved their cholesterol classification from high to normal compared to </span><span class="in">`r sum(fisher_lifestyle$risk_level == "Normal")`</span><span class="at"> patients (</span><span class="in">`r percent(mean(fisher_lifestyle$risk_level == "Normal"), 1)`</span><span class="at">) in the lifestyle intervention. Due to small sample sizes, Fisher's exact test was run. There was a non-statistically significant difference in proportions of </span><span class="in">`r comma(p_fisher_drug - p_fisher_lifestyle, .01)`</span><span class="at">, *p* = </span><span class="in">`r number(fisher_test$p.value, .0001)`</span><span class="at">.</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
